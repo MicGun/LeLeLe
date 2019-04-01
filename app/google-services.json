@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "15960333965",
+    "firebase_url": "https://lelele-e5b50.firebaseio.com",
+    "project_id": "lelele-e5b50",
+    "storage_bucket": "lelele-e5b50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15960333965:android:d65ed380158fb69e",
+        "android_client_info": {
+          "package_name": "com.hugh.lelele"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15960333965-ku22m352d9lc58kof0n6vff5f47qit0j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hugh.lelele",
+            "certificate_hash": "17d39a407ffefbd65b5e2fd277fe172310329a1f"
+          }
+        },
+        {
+          "client_id": "15960333965-hsep1hatb5thvbhsn8r1t8850agc7969.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJhOvBeDNHBF-difvnwPplYEpwgAcaxmA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15960333965-hsep1hatb5thvbhsn8r1t8850agc7969.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

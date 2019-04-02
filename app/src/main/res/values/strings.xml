@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LeLeLe</string>
+
+    <!-- Facebook SDK -->
+    <string name="facebook_app_id">2385558301456908</string>
+    <string name="fb_login_protocol_scheme">fb2385558301456908</string>
 </resources>

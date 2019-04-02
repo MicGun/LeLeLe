@@ -19,6 +19,34 @@
         app:navigationIcon="@drawable/toolbar_menu"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
+        <TextView
+            android:id="@+id/text_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="14dp"
+            android:fontFamily="@font/noto_sans"
+            android:textColor="@color/black_3f3a3a"
+            android:letterSpacing="0.15"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            tools:text="LE" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/layout_main_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+    </LinearLayout>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigationView"
         android:layout_width="match_parent"

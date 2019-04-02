@@ -23,6 +23,8 @@ import android.widget.TextView;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
     private BottomNavigationView mBottomNavigation;
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
-
+        mPresenter = checkNotNull(presenter);
     }
 
     @Override

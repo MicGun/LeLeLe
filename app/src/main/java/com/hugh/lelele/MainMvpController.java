@@ -88,7 +88,7 @@ public class MainMvpController {
         HomeFragment homeFragment =
                 (HomeFragment) getFragmentManager().findFragmentByTag(HOME);
         if (homeFragment == null) {
-            // Home the fragment
+            // Create the fragment
             homeFragment = HomeFragment.newInstance();
         }
 

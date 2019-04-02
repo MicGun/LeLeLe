@@ -7,12 +7,12 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_catalog"
+        android:id="@+id/navigation_application"
         android:icon="@drawable/ic_nav_function_selector"
         android:title="" />
 
     <item
-        android:id="@+id/navigation_cart"
+        android:id="@+id/navigation_notify"
         android:icon="@drawable/ic_nav_notify_selector"
         android:title="" />
 

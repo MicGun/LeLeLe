@@ -8,4 +8,7 @@
 
     <dimen name="elevation_all">1dp</dimen>
 
+    <!-- Bottom Navigation -->
+    <dimen name="height_bottom_navigation_main">56dp</dimen>
+    <dimen name="size_bottom_nav_icon">36dp</dimen>
 </resources>

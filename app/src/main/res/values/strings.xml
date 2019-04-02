@@ -4,4 +4,10 @@
     <!-- Facebook SDK -->
     <string name="facebook_app_id">2385558301456908</string>
     <string name="fb_login_protocol_scheme">fb2385558301456908</string>
+
+    <!-- Facebook SDK -->
+    <string name="home">首頁</string>
+    <string name="application">應用</string>
+    <string name="notify">通知</string>
+    <string name="profile">個人</string>
 </resources>

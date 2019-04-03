@@ -32,7 +32,7 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mPresenter.loadElectricityData();
             }
         });
 
@@ -53,5 +53,10 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
     @Override
     public void showElectricityUi(HashMap<String, Electricity> electricityYearly) {
         mPresenter.openElectricity(electricityYearly);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

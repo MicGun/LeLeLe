@@ -24,6 +24,12 @@ public interface MainContract {
 
         void showDrawerUserUi();
 
+        void closeDrawerUi();
+
+        void hideBottomNavigationUi();
+
+        void showBottomNavigationUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -41,5 +47,7 @@ public interface MainContract {
         void openProfile();
 
         void onDrawerOpened();
+
+        void hideBottomNavigation();
     }
 }

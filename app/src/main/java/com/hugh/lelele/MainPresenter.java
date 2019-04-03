@@ -15,6 +15,7 @@ import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.LeLeLeRepository;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
+import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 
@@ -31,6 +32,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private HomePresenter mHomePresenter;
     private AppTenantPresenter mAppTenantPresenter;
     private AppLandlordPresenter mAppLandlordPresenter;
+    private ElectricityTenantPresenter mElectricityTenantPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leLeLeRepository cannot be null!");;
@@ -64,6 +66,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setAppLandlordPresenter(AppLandlordPresenter appLandlordPresenter) {
         mAppLandlordPresenter = checkNotNull(appLandlordPresenter);
+    }
+
+    void setElectricityTenantPresenter(ElectricityTenantPresenter electricityTenantPresenter) {
+        mElectricityTenantPresenter = checkNotNull(electricityTenantPresenter);
     }
 
     @Override
@@ -115,7 +121,18 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 //            mMainView.showDrawerUserUi();
 //        }
 
-        mMainView.showDrawerUserUi();
+        mMainView.closeDrawerUi();
+//        mMainView.showDrawerUserUi();
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+        mMainView.hideBottomNavigationUi();
+    }
+
+    @Override
+    public void showBottomNavigation() {
+        mMainView.showBottomNavigationUi();
     }
 
 

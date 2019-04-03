@@ -104,7 +104,7 @@ public class MainMvpController {
     void findOrCreateApplicationLandlordView() {
         AppLandlordFragment appLandlordFragment = findOrCreateAppLandlordFragment();
 
-        if (mAppTenantPresenter == null) {
+        if (mAppLandlordPresenter == null) {
             mAppLandlordPresenter = new AppLandlordPresenter(LeLeLeRepository.getInstance(
                     LeLeLeRemoteDataSource.getInstance()), appLandlordFragment);
             mMainPresenter.setAppLandlordPresenter(mAppLandlordPresenter);
@@ -133,7 +133,7 @@ public class MainMvpController {
         if (mElectricityTenantPresenter == null) {
             mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
                     LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
-            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
+            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
             electricityTenantFragment.setPresenter(mMainPresenter);
         }
     }
@@ -209,7 +209,7 @@ public class MainMvpController {
             electricityTenantFragment = ElectricityTenantFragment.newInstance();
         }
 
-        ActivityUtils.showOrAddFragmentByTag(
+        ActivityUtils.addFragmentByTag(
                 getFragmentManager(), electricityTenantFragment, ELECTRICITY_TENANT);
 
         return electricityTenantFragment;

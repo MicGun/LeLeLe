@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         setToolbar();
         setBottomNavigation();
+
         setDrawerLayout();
     }
 
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
      */
     private void setDrawerLayout() {
 
-        mDrawerLayout = findViewById(R.id.layout_main);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.layout_main);
         mDrawerLayout.setFitsSystemWindows(true);
         mDrawerLayout.setClipToPadding(false);
 
@@ -274,6 +275,21 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 //
 //        mDrawerUserName.setText(UserManager.getInstance().getUser().getName());
 //        mDrawerUserInfo.setText(UserManager.getInstance().getUserInfo());
+    }
+
+    @Override
+    public void closeDrawerUi() {
+        mDrawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void hideBottomNavigationUi() {
+        mBottomNavigation.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showBottomNavigationUi() {
+        mBottomNavigation.setVisibility(View.VISIBLE);
     }
 
     @Override

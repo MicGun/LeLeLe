@@ -22,4 +22,19 @@ public class ElectricityTenantPresenter implements ElectricityTenantContract.Pre
     public void start() {
 
     }
+
+    @Override
+    public void updateToolbar(String title) {
+
+    }
+
+    @Override
+    public void showBottomNavigation() {
+
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+
+    }
 }

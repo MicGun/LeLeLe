@@ -11,5 +11,11 @@ public interface ElectricityTenantContract {
 
     interface Presenter extends BasePresenter {
 
+        void updateToolbar(String title);
+
+        void showBottomNavigation();
+
+        void hideBottomNavigation();
+
     }
 }

@@ -9,8 +9,11 @@ import com.hugh.lelele.application_landlord.AppLandlordFragment;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantFragment;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.LeLeLeRemoteDataSource;
 import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.electricity_tenant.ElectricityTenantFragment;
+import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeFragment;
 import com.hugh.lelele.home.HomePresenter;
 import com.hugh.lelele.notify.NotifyFragment;
@@ -22,6 +25,7 @@ import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -33,13 +37,15 @@ public class MainMvpController {
     private HomePresenter mHomePresenter;
     private AppTenantPresenter mAppTenantPresenter;
     private AppLandlordPresenter mAppLandlordPresenter;
+    private ElectricityTenantPresenter mElectricityTenantPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE
+            HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
+            ELECTRICITY_LANDLORD
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
@@ -47,6 +53,8 @@ public class MainMvpController {
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
     static final String NOTIFY    = "NOTIFY";
     static final String PROFILE = "PROFILE";
+    static final String ELECTRICITY_TENANT = "ELECTRICITY_TENANT";
+    static final String ELECTRICITY_LANDLORD = "ELECTRICITY_LANDLORD";
 
     private MainMvpController(@NonNull FragmentActivity activity) {
         mActivity = activity;
@@ -104,6 +112,32 @@ public class MainMvpController {
         }
     }
 
+    /*
+     * Electricity View
+     * */
+
+    void findOrCreateElectricityLandlordView() {
+//        AppTenantFragment appTenantFragment = findOrCreateAppTenantFragment();
+
+//        if (mAppTenantPresenter == null) {
+//            mAppTenantPresenter = new AppTenantPresenter(LeLeLeRepository.getInstance(
+//                    LeLeLeRemoteDataSource.getInstance()), appTenantFragment);
+//            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
+//            appTenantFragment.setPresenter(mMainPresenter);
+//        }
+    }
+
+    void findOrCreateElectricityTenantView(HashMap<String, Electricity> electricityYearly) {
+        ElectricityTenantFragment electricityTenantFragment = findOrCreateElectricityTenantFragment();
+
+        if (mElectricityTenantPresenter == null) {
+            mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
+            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
+            electricityTenantFragment.setPresenter(mMainPresenter);
+        }
+    }
+
     /**
      * Home Fragment
      * @return HomeFragment
@@ -126,7 +160,7 @@ public class MainMvpController {
 
     /**
      * Application Tenant Fragment
-     * @return HomeFragment
+     * @return AppTenantFragment
      */
     private AppTenantFragment findOrCreateAppTenantFragment() {
 
@@ -144,8 +178,8 @@ public class MainMvpController {
     }
 
     /**
-     * Application Tenant Fragment
-     * @return HomeFragment
+     * Application Landlord Fragment
+     * @return AppLandlordFragment
      */
     private AppLandlordFragment findOrCreateAppLandlordFragment() {
 
@@ -160,6 +194,25 @@ public class MainMvpController {
                 getFragmentManager(), appLandlordFragment, APPLICATION_LANDLORD);
 
         return appLandlordFragment;
+    }
+
+    /**
+     * Electricity Tenant Fragment
+     * @return ElectricityTenantFragment
+     */
+    private ElectricityTenantFragment findOrCreateElectricityTenantFragment() {
+
+        ElectricityTenantFragment electricityTenantFragment =
+                (ElectricityTenantFragment) getFragmentManager().findFragmentByTag(ELECTRICITY_TENANT);
+        if (electricityTenantFragment == null) {
+            // Create the fragment
+            electricityTenantFragment = ElectricityTenantFragment.newInstance();
+        }
+
+        ActivityUtils.showOrAddFragmentByTag(
+                getFragmentManager(), electricityTenantFragment, ELECTRICITY_TENANT);
+
+        return electricityTenantFragment;
     }
 
     /**

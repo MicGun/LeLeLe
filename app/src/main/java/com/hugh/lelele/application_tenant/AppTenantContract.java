@@ -9,14 +9,21 @@ import android.view.ViewGroup;
 
 import com.hugh.lelele.BasePresenter;
 import com.hugh.lelele.BaseView;
+import com.hugh.lelele.data.Electricity;
+
+import java.util.HashMap;
 
 public interface AppTenantContract {
 
     interface View extends BaseView<Presenter> {
 
+        void showElectricityUi(HashMap<String, Electricity> electricityYearly);
     }
 
     interface Presenter extends BasePresenter {
 
+        void loadElectricityData();
+
+        void openElectricity(HashMap<String, Electricity> electricityYearly);
     }
 }

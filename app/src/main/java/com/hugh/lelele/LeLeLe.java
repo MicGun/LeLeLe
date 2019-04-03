@@ -12,7 +12,7 @@ public class LeLeLe extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
+        mContext = getAppContext();
     }
 
     public static Context getAppContext() {

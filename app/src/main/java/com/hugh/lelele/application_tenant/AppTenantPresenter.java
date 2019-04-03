@@ -1,8 +1,14 @@
 package com.hugh.lelele.application_tenant;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.LeLeLeRepository;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,6 +26,32 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
 
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void loadElectricityData() {
+        //給假資料
+        int scale = 7788;
+        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
+        for (int i = 0; i < 11; i++) {
+            Electricity electricity = new Electricity();
+            Random random = new Random();
+            int range = random.nextInt(100);
+            int consumption = range + 100;
+            scale += consumption;
+            electricity.setScale(String.valueOf(scale));
+            electricity.setPrice(String.valueOf(consumption*5));
+            electricity.setTotalConsumption(String.valueOf(consumption));
+            electricity.setTime("2019/" + i+1 + "/01");
+            electricityYearly.put(String.valueOf(i+1), electricity);
+        }
+        Log.v("electricityYearly", "" + electricityYearly);
+        mAppTenantView.showElectricityUi(electricityYearly);
+    }
+
+    @Override
+    public void openElectricity(HashMap<String, Electricity> electricityYearly) {
 
     }
 }

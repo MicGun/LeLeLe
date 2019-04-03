@@ -24,8 +24,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.images.ImageManager;
+import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
+import com.hugh.lelele.data.Electricity;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -61,6 +66,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         setToolbar();
         setBottomNavigation();
+        setDrawerLayout();
     }
 
     /**
@@ -162,32 +168,31 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
      */
     private void setDrawerLayout() {
 
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.layout_main);
-//        mDrawerLayout.setFitsSystemWindows(true);
-//        mDrawerLayout.setClipToPadding(false);
-//
-//        mActionBarDrawerToggle = new ActionBarDrawerToggle(
-//                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//
-//                mPresenter.onDrawerOpened();
-//            }
-//        };
-//        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
-//        mActionBarDrawerToggle.syncState();
-//
-//        NavigationView navigationView = findViewById(R.id.navigation_drawer);
-//        navigationView.setNavigationItemSelectedListener(this);
-//
-//        // nav view header
-//        mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);
-//        mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider());
-//        mDrawerUserImage.setOnClickListener(v -> mPresenter.onClickDrawerAvatar());
-//
-//        mDrawerUserName = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_name);
+        mDrawerLayout = findViewById(R.id.layout_main);
+        mDrawerLayout.setFitsSystemWindows(true);
+        mDrawerLayout.setClipToPadding(false);
+
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+                mPresenter.onDrawerOpened();
+            }
+        };
+        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
+        mActionBarDrawerToggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navigation_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // nav view header
+        mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);
+        mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider());
+
+        mDrawerUserName = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_name);
     }
 
     @Override
@@ -208,23 +213,22 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void setToolbarTitleUi(String title) {
 
-//        if (title.equals(getString(R.string.home)) || title.equals(getString(R.string.application))
-//                || title.equals(getString(R.string.notify)) || title.equals(getString(R.string.profile))) {
-//            mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            mToolbar.setNavigationIcon(R.drawable.toolbar_back);
-//            mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    MainActivity.this.onBackPressed();
-//                }
-//            });
-//        } else {
-//            mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//            mToolbar.setNavigationIcon(R.drawable.toolbar_menu);
-//            mActionBarDrawerToggle.setToolbarNavigationClickListener(null);
-//        }
+        if (title.equals(getString(R.string.application_electricity))) {
+            mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToolbar.setNavigationIcon(R.drawable.toolbar_back);
+            mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity.this.onBackPressed();
+                }
+            });
+        } else {
+            mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mToolbar.setNavigationIcon(R.drawable.toolbar_menu);
+            mActionBarDrawerToggle.setToolbarNavigationClickListener(null);
+        }
         mToolbarTitle.setVisibility(View.VISIBLE);
         mToolbarTitle.setText(title);
     }
@@ -251,6 +255,25 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void openProfileUi() {
 
+    }
+
+    @Override
+    public void openElectricityUi(HashMap<String, Electricity> electricityYearly) {
+        mPresenter.updateToolbar(getResources().getString(R.string.application_electricity));
+        if (mUserType == 0) {
+//            mMainMvpController.findOrCreateElectricityLandlordView(electricityYearly);
+        } else if (mUserType == 1) {
+            mMainMvpController.findOrCreateElectricityTenantView(electricityYearly);
+        }
+    }
+
+    @Override
+    public void showDrawerUserUi() {
+//        ImageManager.getInstance().setImageByUrl(mDrawerUserImage,
+//                UserManager.getInstance().getUser().getPicture());
+//
+//        mDrawerUserName.setText(UserManager.getInstance().getUser().getName());
+//        mDrawerUserInfo.setText(UserManager.getInstance().getUserInfo());
     }
 
     @Override

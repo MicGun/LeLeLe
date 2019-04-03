@@ -35,4 +35,10 @@
         <item name="android:background">@drawable/button_application_ripple</item>
     </style>
 
+    <style name="DrawerMenuItem">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
 </resources>

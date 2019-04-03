@@ -11,4 +11,11 @@
     <!-- Bottom Navigation -->
     <dimen name="height_bottom_navigation_main">56dp</dimen>
     <dimen name="size_bottom_nav_icon">36dp</dimen>
+
+    <!-- Nav view of Drawer -->
+    <dimen name="width_drawer">304dp</dimen>
+
+    <!-- Profile  -->
+    <dimen name="height_profile_header">92dp</dimen>
+    <dimen name="radius_profile_avatar">60dp</dimen>
 </resources>

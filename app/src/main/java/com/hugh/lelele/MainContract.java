@@ -1,5 +1,9 @@
 package com.hugh.lelele;
 
+import com.hugh.lelele.data.Electricity;
+
+import java.util.HashMap;
+
 public interface MainContract {
 
     interface View extends BaseView<Presenter> {
@@ -16,6 +20,10 @@ public interface MainContract {
 
         void openProfileUi();
 
+        void openElectricityUi(HashMap<String, Electricity> electricityYearly);
+
+        void showDrawerUserUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -31,5 +39,7 @@ public interface MainContract {
         void openNotify();
 
         void openProfile();
+
+        void onDrawerOpened();
     }
 }

@@ -6,18 +6,24 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
+import android.os.UserManager;
+
 import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
+
+import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
-        AppTenantContract.Presenter, AppLandlordContract.Presenter {
+        AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -78,5 +84,50 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void openProfile() {
 
+    }
+
+    @Override
+    public void onDrawerOpened() {
+//        if (!UserManager.getInstance().isLoggedIn()) {
+//
+//            mMainView.closeDrawerUi();
+//            showLoginDialog(LoginDialog.FROM_DRAWER);
+//
+//        } else if (!UserManager.getInstance().hasUserInfo()) {
+//
+//            UserManager.getInstance().getUserProfile(new UserManager.LoadCallback() {
+//                @Override
+//                public void onSuccess() {
+//
+//                    mMainView.showDrawerUserUi();
+//                }
+//
+//                @Override
+//                public void onFail(String errorMessage) {}
+//
+//                @Override
+//                public void onInvalidToken(String errorMessage) {
+//                    showLoginDialog(LoginDialog.FROM_DRAWER);
+//                }
+//            });
+//        } else {
+//
+//            mMainView.showDrawerUserUi();
+//        }
+
+        mMainView.showDrawerUserUi();
+    }
+
+
+    @Override
+    public void loadElectricityData() {
+        if (mAppTenantPresenter != null) {
+            mAppTenantPresenter.loadElectricityData();
+        }
+    }
+
+    @Override
+    public void openElectricity(HashMap<String, Electricity> electricityYearly) {
+        mMainView.openElectricityUi(electricityYearly);
     }
 }

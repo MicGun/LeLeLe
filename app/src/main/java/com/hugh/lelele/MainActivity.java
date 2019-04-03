@@ -9,6 +9,8 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,16 +20,25 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View {
+public class MainActivity extends AppCompatActivity implements MainContract.View,
+        NavigationView.OnNavigationItemSelectedListener {
+
+    private int mUserType = 0;
 
     private BottomNavigationView mBottomNavigation;
+    private DrawerLayout mDrawerLayout;
+    private ImageView mDrawerUserImage;
+    private TextView mDrawerUserName;
+    private ActionBarDrawerToggle mActionBarDrawerToggle;
     private View mBadge;
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
@@ -145,6 +156,39 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
     };
 
+    /**
+     * Set Drawer
+     */
+    private void setDrawerLayout() {
+
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.layout_main);
+//        mDrawerLayout.setFitsSystemWindows(true);
+//        mDrawerLayout.setClipToPadding(false);
+//
+//        mActionBarDrawerToggle = new ActionBarDrawerToggle(
+//                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+//
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                super.onDrawerOpened(drawerView);
+//
+//                mPresenter.onDrawerOpened();
+//            }
+//        };
+//        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
+//        mActionBarDrawerToggle.syncState();
+//
+//        NavigationView navigationView = findViewById(R.id.navigation_drawer);
+//        navigationView.setNavigationItemSelectedListener(this);
+//
+//        // nav view header
+//        mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);
+//        mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider());
+//        mDrawerUserImage.setOnClickListener(v -> mPresenter.onClickDrawerAvatar());
+//
+//        mDrawerUserName = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_name);
+    }
+
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -163,6 +207,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void setToolbarTitleUi(String title) {
 
+//        if (title.equals(getString(R.string.home)) || title.equals(getString(R.string.application))
+//                || title.equals(getString(R.string.notify)) || title.equals(getString(R.string.profile))) {
+//            mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            mToolbar.setNavigationIcon(R.drawable.toolbar_back);
+//            mActionBarDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    MainActivity.this.onBackPressed();
+//                }
+//            });
+//        } else {
+//            mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//            mToolbar.setNavigationIcon(R.drawable.toolbar_menu);
+//            mActionBarDrawerToggle.setToolbarNavigationClickListener(null);
+//        }
+        mToolbarTitle.setVisibility(View.VISIBLE);
+        mToolbarTitle.setText(title);
     }
 
     @Override
@@ -172,7 +235,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void openApplicationUi() {
-
+        if (mUserType == 0) {
+            mMainMvpController.findOrCreateApplicationLandlordView();
+        } else if (mUserType == 1) {
+            mMainMvpController.findOrCreateApplicationTenantView();
+        }
     }
 
     @Override
@@ -183,5 +250,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void openProfileUi() {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        String string = "";
+
+//        switch (item.getItemId()) {
+//
+//            case R.id.nav_preparing:
+//                string = getString(R.string.awaiting_payment);
+//                break;
+//            default:
+//        }
+//
+//        Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
+        return true;
     }
 }

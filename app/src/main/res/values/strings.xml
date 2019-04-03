@@ -5,9 +5,15 @@
     <string name="facebook_app_id">2385558301456908</string>
     <string name="fb_login_protocol_scheme">fb2385558301456908</string>
 
-    <!-- Facebook SDK -->
+    <!-- Navigation Toolbar Title -->
     <string name="home">首頁</string>
     <string name="application">應用</string>
     <string name="notify">通知</string>
     <string name="profile">個人</string>
+
+    <!-- Application Button -->
+    <string name="application_my_application">我的應用</string>
+    <string name="application_other_service">其他服務</string>
+    <string name="application_electricity">電費</string>
+    <string name="application_electricity_edit">編輯電費</string>
 </resources>

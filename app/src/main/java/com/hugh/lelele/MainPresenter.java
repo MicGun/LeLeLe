@@ -6,18 +6,25 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
+import com.hugh.lelele.application_landlord.AppLandlordContract;
+import com.hugh.lelele.application_landlord.AppLandlordPresenter;
+import com.hugh.lelele.application_tenant.AppTenantContract;
+import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.LeLeLeRepository;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter {
+public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
+        AppTenantContract.Presenter, AppLandlordContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
 
     private HomePresenter mHomePresenter;
+    private AppTenantPresenter mAppTenantPresenter;
+    private AppLandlordPresenter mAppLandlordPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leLeLeRepository cannot be null!");;
@@ -45,6 +52,14 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mHomePresenter = checkNotNull(homePresenter);
     }
 
+    void setAppTenantPresenter(AppTenantPresenter appTenantPresenter) {
+        mAppTenantPresenter = checkNotNull(appTenantPresenter);
+    }
+
+    void setAppLandlordPresenter(AppLandlordPresenter appLandlordPresenter) {
+        mAppLandlordPresenter = checkNotNull(appLandlordPresenter);
+    }
+
     @Override
     public void openHome() {
         mMainView.openHomeUi();
@@ -52,7 +67,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void openApplication() {
-
+        mMainView.openApplicationUi();
     }
 
     @Override

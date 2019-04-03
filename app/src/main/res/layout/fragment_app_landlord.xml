@@ -2,6 +2,33 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/text_profile_order_title"
+        style="@style/ApplicationTitle"
+        tools:text="@string/application_my_application"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/application_my_application"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_profile_awaiting_payment"
+        style="@style/ProfileOrderButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:drawableTop="@drawable/ic_electricity"
+        android:gravity="center"
+        android:text="@string/application_electricity_edit"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_profile_order_title" />
 
 </android.support.constraint.ConstraintLayout>

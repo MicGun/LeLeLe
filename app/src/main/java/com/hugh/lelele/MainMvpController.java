@@ -39,11 +39,12 @@ public class MainMvpController {
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
-            HOME, APPLICATION, NOTIFY, PROFILE
+            HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
-    static final String APPLICATION = "APPLICATION";
+    static final String APPLICATION_TENANT = "APPLICATION_TENANT";
+    static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
     static final String NOTIFY    = "NOTIFY";
     static final String PROFILE = "PROFILE";
 
@@ -64,7 +65,7 @@ public class MainMvpController {
     }
 
     /*
-    * HomeView
+    * Home View
     * */
     void findOrCreateHomeView() {
 
@@ -75,6 +76,31 @@ public class MainMvpController {
                     LeLeLeRemoteDataSource.getInstance()), homeFragment);
             mMainPresenter.setHomePresenter(mHomePresenter);
             homeFragment.setPresenter(mMainPresenter);
+        }
+    }
+
+    /*
+     * Application View
+     * */
+    void findOrCreateApplicationTenantView() {
+        AppTenantFragment appTenantFragment = findOrCreateAppTenantFragment();
+
+        if (mAppTenantPresenter == null) {
+            mAppTenantPresenter = new AppTenantPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), appTenantFragment);
+            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
+            appTenantFragment.setPresenter(mMainPresenter);
+        }
+    }
+
+    void findOrCreateApplicationLandlordView() {
+        AppLandlordFragment appLandlordFragment = findOrCreateAppLandlordFragment();
+
+        if (mAppTenantPresenter == null) {
+            mAppLandlordPresenter = new AppLandlordPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), appLandlordFragment);
+            mMainPresenter.setAppLandlordPresenter(mAppLandlordPresenter);
+            appLandlordFragment.setPresenter(mMainPresenter);
         }
     }
 
@@ -96,6 +122,44 @@ public class MainMvpController {
                 getFragmentManager(), homeFragment, HOME);
 
         return homeFragment;
+    }
+
+    /**
+     * Application Tenant Fragment
+     * @return HomeFragment
+     */
+    private AppTenantFragment findOrCreateAppTenantFragment() {
+
+        AppTenantFragment appTenantFragment =
+                (AppTenantFragment) getFragmentManager().findFragmentByTag(APPLICATION_TENANT);
+        if (appTenantFragment == null) {
+            // Create the fragment
+            appTenantFragment = AppTenantFragment.newInstance();
+        }
+
+        ActivityUtils.showOrAddFragmentByTag(
+                getFragmentManager(), appTenantFragment, APPLICATION_TENANT);
+
+        return appTenantFragment;
+    }
+
+    /**
+     * Application Tenant Fragment
+     * @return HomeFragment
+     */
+    private AppLandlordFragment findOrCreateAppLandlordFragment() {
+
+        AppLandlordFragment appLandlordFragment =
+                (AppLandlordFragment) getFragmentManager().findFragmentByTag(APPLICATION_LANDLORD);
+        if (appLandlordFragment == null) {
+            // Create the fragment
+            appLandlordFragment = AppLandlordFragment.newInstance();
+        }
+
+        ActivityUtils.showOrAddFragmentByTag(
+                getFragmentManager(), appLandlordFragment, APPLICATION_LANDLORD);
+
+        return appLandlordFragment;
     }
 
     /**

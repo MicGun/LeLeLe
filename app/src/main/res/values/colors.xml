@@ -6,6 +6,7 @@
     <color name="gray_999999">#999999</color>
     <color name="black_3f3a3a">#3f3a3a</color>
     <color name="colorBackground">#FFFFFF</color>
+    <color name="while_ffffff">#FFFFFF</color>
 
     <!-- Bottom Navigation -->
     <color name="bottom_navigation_item_normal">@color/gray_999999</color>
@@ -13,4 +14,7 @@
 
     <!-- Orange Series -->
     <color name="orange_8b572a">#8b572a</color>
+
+    <!-- ripple color -->
+    <color name="gray_aaaaaa">#AAAAAA</color>
 </resources>

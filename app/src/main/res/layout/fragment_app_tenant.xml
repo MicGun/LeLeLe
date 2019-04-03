@@ -19,15 +19,65 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_profile_awaiting_payment"
+        android:id="@+id/button_electricity_tenant"
         style="@style/ProfileOrderButton"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
         android:drawableTop="@drawable/ic_electricity"
         android:gravity="center"
         android:text="@string/application_electricity"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintEnd_toStartOf="@+id/button_message_tenant"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_profile_order_title" />
+
+    <Button
+        android:id="@+id/button_message_tenant"
+        style="@style/ProfileOrderButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableTop="@drawable/ic_message"
+        android:gravity="center"
+        android:text="@string/application_message"
+        app:layout_constraintBottom_toBottomOf="@+id/button_electricity_tenant"
+        app:layout_constraintEnd_toStartOf="@+id/button_contract_tenant"
+        app:layout_constraintStart_toEndOf="@+id/button_electricity_tenant"
+        app:layout_constraintTop_toTopOf="@+id/button_electricity_tenant" />
+
+    <Button
+        android:id="@+id/button_contract_tenant"
+        style="@style/ProfileOrderButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableTop="@drawable/ic_contract"
+        android:gravity="center"
+        android:text="@string/application_contract"
+        app:layout_constraintBottom_toBottomOf="@+id/button_electricity_tenant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_message_tenant"
+        app:layout_constraintTop_toTopOf="@+id/button_electricity_tenant" />
+
+    <Button
+        android:id="@+id/button_reservation_tenant"
+        style="@style/ProfileOrderButton"
+        android:layout_marginTop="24dp"
+        android:drawableTop="@drawable/ic_calendar"
+        android:gravity="center"
+        android:text="@string/application_reservation"
+        app:layout_constraintEnd_toEndOf="@+id/button_electricity_tenant"
+        app:layout_constraintStart_toStartOf="@+id/button_electricity_tenant"
+        app:layout_constraintTop_toBottomOf="@+id/button_electricity_tenant" />
+
+    <Button
+        android:id="@+id/button_garbage_truck_tenant"
+        style="@style/ProfileOrderButton"
+        android:drawableTop="@drawable/ic_truck"
+        android:gravity="center"
+        android:text="@string/application_garbage_truck"
+        app:layout_constraintBottom_toBottomOf="@+id/button_reservation_tenant"
+        app:layout_constraintEnd_toEndOf="@+id/button_message_tenant"
+        app:layout_constraintStart_toStartOf="@+id/button_message_tenant"
+        app:layout_constraintTop_toTopOf="@+id/button_reservation_tenant" />
 
 </android.support.constraint.ConstraintLayout>

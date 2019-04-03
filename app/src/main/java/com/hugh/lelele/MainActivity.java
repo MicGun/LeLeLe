@@ -29,10 +29,10 @@ import java.security.NoSuchAlgorithmException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View,
+public class MainActivity extends BaseActivivty implements MainContract.View,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private int mUserType = 0;
+    private int mUserType = 1;
 
     private BottomNavigationView mBottomNavigation;
     private DrawerLayout mDrawerLayout;
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
         mToolbarTitle = mToolbar.findViewById(R.id.text_toolbar_title);
+        mToolbarTitle.setText(MainActivity.this.getResources().getString(R.string.home));
     }
 
     /**

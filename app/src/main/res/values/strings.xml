@@ -15,5 +15,10 @@
     <string name="application_my_application">我的應用</string>
     <string name="application_other_service">其他服務</string>
     <string name="application_electricity">電費</string>
+    <string name="application_message">訊息</string>
+    <string name="application_contract">合約</string>
+    <string name="application_reservation">預約</string>
+    <string name="application_garbage_truck">垃圾車</string>
     <string name="application_electricity_edit">編輯電費</string>
+    <string name="application_tenants_list">房客清單</string>
 </resources>

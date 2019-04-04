@@ -11,8 +11,11 @@ import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantFragment;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeRemoteDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.electricity_landlord.ElectricityLandlordFragment;
+import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantFragment;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeFragment;
@@ -36,6 +39,7 @@ public class MainMvpController {
     private AppTenantPresenter mAppTenantPresenter;
     private AppLandlordPresenter mAppLandlordPresenter;
     private ElectricityTenantPresenter mElectricityTenantPresenter;
+    private ElectricityLandlordPresenter mElectricityLandlordPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -114,14 +118,14 @@ public class MainMvpController {
      * Electricity View
      * */
 
-    void findOrCreateElectricityLandlordView() {
-//        AppTenantFragment appTenantFragment = findOrCreateAppTenantFragment();
-
-//        if (mAppTenantPresenter == null) {
-//            mAppTenantPresenter = new AppTenantPresenter(LeLeLeRepository.getInstance(
-//                    LeLeLeRemoteDataSource.getInstance()), appTenantFragment);
-//            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
-//            appTenantFragment.setPresenter(mMainPresenter);
+    void findOrCreateElectricityLandlordView(ArrayList<Room> rooms) {
+//        ElectricityLandlordFragment electricityLandlordFragment = findOrCreateElectricityLandlordFragment();
+//
+//        if (mElectricityLandlordPresenter == null) {
+//            mElectricityLandlordPresenter = new ElectricityLandlordPresenter(LeLeLeRepository.getInstance(
+//                    LeLeLeRemoteDataSource.getInstance()), electricityLandlordFragment);
+//            mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
+//            electricityLandlordFragment.setPresenter(mMainPresenter);
 //        }
     }
 

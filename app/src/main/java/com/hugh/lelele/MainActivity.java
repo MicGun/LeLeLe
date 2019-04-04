@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.images.ImageManager;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Room;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -262,11 +263,13 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void openElectricityUi(ArrayList<Electricity> electricityYearly) {
         mPresenter.updateToolbar(getResources().getString(R.string.application_electricity));
-        if (mUserType == 0) {
-//            mMainMvpController.findOrCreateElectricityLandlordView(electricityYearly);
-        } else if (mUserType == 1) {
-            mMainMvpController.findOrCreateElectricityTenantView(electricityYearly);
-        }
+        mMainMvpController.findOrCreateElectricityTenantView(electricityYearly);
+    }
+
+    @Override
+    public void openElectricityEditorUi(ArrayList<Room> rooms) {
+        mPresenter.updateToolbar(getResources().getString(R.string.application_electricity));
+        mMainMvpController.findOrCreateElectricityLandlordView(rooms);
     }
 
     @Override

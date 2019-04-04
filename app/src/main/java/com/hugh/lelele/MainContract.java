@@ -1,6 +1,7 @@
 package com.hugh.lelele;
 
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Room;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ public interface MainContract {
         void openProfileUi();
 
         void openElectricityUi(ArrayList<Electricity> electricityYearly);
+
+        void openElectricityEditorUi(ArrayList<Room> rooms);
 
         void showDrawerUserUi();
 

@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Room;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -42,5 +45,10 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
     @Override
     public void setPresenter(AppLandlordContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void showElectricityEditorUi(ArrayList<Room> rooms) {
+
     }
 }

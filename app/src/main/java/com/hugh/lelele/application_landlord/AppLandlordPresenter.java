@@ -35,7 +35,18 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
         for (int i = 0; i < 5; i++) {
 
             Room room = new Room();
+            int n = i + 1;
+            room.setRoomName("30" + n);
 
+            rooms.add(room);
+            if (rooms.size() == 5) {
+
+            }
         }
+    }
+
+    @Override
+    public void openElectricityEditor(ArrayList<Room> rooms) {
+
     }
 }

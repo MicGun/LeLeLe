@@ -11,7 +11,9 @@ import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeContract;
@@ -31,6 +33,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private AppTenantPresenter mAppTenantPresenter;
     private AppLandlordPresenter mAppLandlordPresenter;
     private ElectricityTenantPresenter mElectricityTenantPresenter;
+    private ElectricityLandlordPresenter mElectricityLandlordPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leLeLeRepository cannot be null!");;
@@ -68,6 +71,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setElectricityTenantPresenter(ElectricityTenantPresenter electricityTenantPresenter) {
         mElectricityTenantPresenter = checkNotNull(electricityTenantPresenter);
+    }
+
+    void setElectricityLandlordPresenter(ElectricityLandlordPresenter electricityLandlordPresenter) {
+        mElectricityLandlordPresenter = checkNotNull(electricityLandlordPresenter);
     }
 
     @Override
@@ -158,5 +165,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         if (mAppLandlordPresenter != null) {
             mAppLandlordPresenter.loadRoomList();
         }
+    }
+
+    @Override
+    public void openElectricityEditor(ArrayList<Room> rooms) {
+
     }
 }

@@ -14,6 +14,18 @@ public class Landlord {
     private String mPicture;
     private ArrayList<Group> mGroups;
 
+    public Landlord() {
+        mName = "";
+        mEmail = "";
+        mId = "";
+        mAddress = "";
+        mAssessToken = "";
+        mPhoneNumber = "";
+        mIdCardNumber = "";
+        mPicture = "";
+        mGroups = new ArrayList<>();
+    }
+
     public String getName() {
         return mName;
     }

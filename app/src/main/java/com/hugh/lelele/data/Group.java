@@ -10,6 +10,14 @@ public class Group {
     private String mGroupTenantNumber;
     private ArrayList<Room> mRooms;
 
+    public Group() {
+        mGroupName = "";
+        mGroupAddress = "";
+        mGroupRoomNumber = "";
+        mGroupTenantNumber = "";
+        mRooms = new ArrayList<>();
+    }
+
     public String getGroupName() {
         return mGroupName;
     }

@@ -14,6 +14,20 @@ public class Tenant {
     private String mIdCardNumber;
     private String mAssessToken;
 
+    public Tenant() {
+        mEmail = "";
+        mName = "";
+        mAddress = "";
+        mPhoneNumber = "";
+        mGroup = "";
+        mId = "";
+        mLandlordEmail = "";
+        mPicture = "";
+        mRoomNumber = "";
+        mIdCardNumber = "";
+        mAssessToken = "";
+    }
+
     public String getEmail() {
         return mEmail;
     }

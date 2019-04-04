@@ -26,7 +26,12 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         View root = inflater.inflate(R.layout.fragment_app_landlord, container, false);
 
         mElectricityButton = root.findViewById(R.id.button_electricity_landlord);
-
+        mElectricityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadRoomList();
+            }
+        });
         return root;
     }
 

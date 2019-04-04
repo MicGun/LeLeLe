@@ -37,7 +37,7 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
         int scale = 7788;
 //        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
         ArrayList<Electricity> electricityYearly = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 12; i++) {
             Electricity electricity = new Electricity();
             Random random = new Random();
             int range = random.nextInt(100);

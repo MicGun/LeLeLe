@@ -2,8 +2,11 @@ package com.hugh.lelele.electricity_tenant;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 
 import java.util.ArrayList;
@@ -17,10 +20,23 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
         mPresenter = presenter;
     }
 
+    public class ElectricityTenantItemViewHolder extends RecyclerView.ViewHolder {
+
+        public ElectricityTenantItemViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return null;
+
+        View rootView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.item_electricity_fee_tenant, viewGroup, false);
+
+        ElectricityTenantItemViewHolder viewHolder = new ElectricityTenantItemViewHolder(rootView);
+
+        return viewHolder;
     }
 
     @Override
@@ -35,7 +51,7 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
 //        } else {
 //            return 0;
 //        }
-        return 0;
+        return 3;
     }
 
     public void updateData(ArrayList<Electricity> electricities) {

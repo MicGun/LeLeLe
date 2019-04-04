@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.hugh.lelele.R;
 
@@ -16,10 +17,15 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
 
     private AppLandlordContract.Presenter mPresenter;
 
+    private Button mElectricityButton;
+    private Button mMessageButton;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_app_landlord, container, false);
+
+        mElectricityButton = root.findViewById(R.id.button_electricity_landlord);
 
         return root;
     }

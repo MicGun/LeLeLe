@@ -6,21 +6,18 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
-import android.os.UserManager;
-
 import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
-import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -152,5 +149,14 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void openElectricity(ArrayList<Electricity> electricityYearly) {
         mMainView.openElectricityUi(electricityYearly);
+    }
+
+
+    //AppLandlord
+    @Override
+    public void loadRoomList() {
+        if (mAppLandlordPresenter != null) {
+            mAppLandlordPresenter.loadRoomList();
+        }
     }
 }

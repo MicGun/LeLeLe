@@ -11,5 +11,7 @@ public interface AppLandlordContract {
 
     interface Presenter extends BasePresenter {
 
+        void loadRoomList();
+
     }
 }

@@ -3,10 +3,9 @@ package com.hugh.lelele.electricity_tenant;
 import android.support.annotation.NonNull;
 
 import com.hugh.lelele.data.Electricity;
-import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

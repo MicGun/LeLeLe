@@ -2,7 +2,7 @@ package com.hugh.lelele.application_landlord;
 
 import android.support.annotation.NonNull;
 
-import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,6 +20,12 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
 
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void loadRoomList() {
+        //給假資料
 
     }
 }

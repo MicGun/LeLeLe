@@ -2,7 +2,7 @@ package com.hugh.lelele.home;
 
 import android.support.annotation.NonNull;
 
-import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

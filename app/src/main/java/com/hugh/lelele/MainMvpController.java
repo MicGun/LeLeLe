@@ -11,23 +11,19 @@ import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantFragment;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
-import com.hugh.lelele.data.LeLeLeRemoteDataSource;
-import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.data.source.LeLeLeRemoteDataSource;
+import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantFragment;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeFragment;
 import com.hugh.lelele.home.HomePresenter;
-import com.hugh.lelele.notify.NotifyFragment;
 import com.hugh.lelele.notify.NotifyPresenter;
-import com.hugh.lelele.profile_landlord.ProfileLandlordFragment;
 import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
-import com.hugh.lelele.profile_tenant.ProfileTenantFragment;
 import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

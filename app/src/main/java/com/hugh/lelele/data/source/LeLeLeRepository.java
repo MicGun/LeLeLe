@@ -1,4 +1,4 @@
-package com.hugh.lelele.data;
+package com.hugh.lelele.data.source;
 
 import android.support.annotation.NonNull;
 

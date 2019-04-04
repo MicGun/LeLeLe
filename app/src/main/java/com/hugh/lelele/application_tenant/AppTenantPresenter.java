@@ -4,12 +4,9 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.hugh.lelele.data.Electricity;
-import com.hugh.lelele.data.LeLeLeRepository;
+import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.NoSuchElementException;
 import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;

@@ -5,12 +5,14 @@ public class Electricity {
     private String mTime;
     private String mPrice;
     private String mScale;
+    private String mScaleLast;
     private String mTotalConsumption;
 
     public Electricity() {
         mTime = "";
         mPrice = "";
         mScale = "";
+        mScaleLast = "";
         mTotalConsumption = "";
     }
 
@@ -44,5 +46,13 @@ public class Electricity {
 
     public void setTotalConsumption(String totalConsumption) {
         mTotalConsumption = totalConsumption;
+    }
+
+    public String getScaleLast() {
+        return mScaleLast;
+    }
+
+    public void setScaleLast(String scaleLast) {
+        mScaleLast = scaleLast;
     }
 }

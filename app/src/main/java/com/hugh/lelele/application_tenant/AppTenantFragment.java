@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -51,7 +52,7 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
     }
 
     @Override
-    public void showElectricityUi(HashMap<String, Electricity> electricityYearly) {
+    public void showElectricityUi(ArrayList<Electricity> electricityYearly) {
         mPresenter.openElectricity(electricityYearly);
     }
 

@@ -2,6 +2,7 @@ package com.hugh.lelele;
 
 import com.hugh.lelele.data.Electricity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface MainContract {
@@ -20,7 +21,7 @@ public interface MainContract {
 
         void openProfileUi();
 
-        void openElectricityUi(HashMap<String, Electricity> electricityYearly);
+        void openElectricityUi(ArrayList<Electricity> electricityYearly);
 
         void showDrawerUserUi();
 

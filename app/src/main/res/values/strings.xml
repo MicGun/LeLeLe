@@ -25,4 +25,11 @@
     <string name="application_garbage_truck">垃圾車</string>
     <string name="application_electricity_edit">編輯電費</string>
     <string name="application_tenants_list">房客清單</string>
+
+    <!-- Electricity Fee -->
+    <string name="electricity_fee">金額</string>
+    <string name="month">月</string>
+    <string name="scale_last">上月度數</string>
+    <string name="scale_this">本月度數</string>
+    <string name="scale_total">總度數</string>
 </resources>

@@ -2,7 +2,11 @@ package com.hugh.lelele.electricity_tenant;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.LeLeLeRepository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,5 +40,10 @@ public class ElectricityTenantPresenter implements ElectricityTenantContract.Pre
     @Override
     public void hideBottomNavigation() {
 
+    }
+
+    @Override
+    public void setElectricityData(ArrayList<Electricity> electricityYearly) {
+        mElectricityTenantView.showElectricityUi(electricityYearly);
     }
 }

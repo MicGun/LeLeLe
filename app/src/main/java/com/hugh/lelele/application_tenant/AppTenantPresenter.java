@@ -6,8 +6,10 @@ import android.util.Log;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.LeLeLeRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -33,25 +35,30 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
     public void loadElectricityData() {
         //給假資料
         int scale = 7788;
-        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
+//        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
+        ArrayList<Electricity> electricityYearly = new ArrayList<>();
         for (int i = 0; i < 11; i++) {
             Electricity electricity = new Electricity();
             Random random = new Random();
             int range = random.nextInt(100);
             int consumption = range + 100;
+            electricity.setScaleLast(String.valueOf(scale));
             scale += consumption;
             electricity.setScale(String.valueOf(scale));
             electricity.setPrice(String.valueOf(consumption*5));
             electricity.setTotalConsumption(String.valueOf(consumption));
             electricity.setTime("2019/" + i+1 + "/01");
-            electricityYearly.put(String.valueOf(i+1), electricity);
+            electricityYearly.add(electricity);
+            if (electricityYearly.size() == 11) {
+                mAppTenantView.showElectricityUi(electricityYearly);
+            }
         }
         Log.v("electricityYearly", "" + electricityYearly);
-        mAppTenantView.showElectricityUi(electricityYearly);
+
     }
 
     @Override
-    public void openElectricity(HashMap<String, Electricity> electricityYearly) {
+    public void openElectricity(ArrayList<Electricity> electricityYearly) {
 
     }
 }

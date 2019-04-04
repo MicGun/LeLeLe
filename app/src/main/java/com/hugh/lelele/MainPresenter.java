@@ -19,6 +19,7 @@ import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -131,6 +132,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void setElectricityData(ArrayList<Electricity> electricityYearly) {
+        mElectricityTenantPresenter.setElectricityData(electricityYearly);
+    }
+
+    @Override
     public void showBottomNavigation() {
         mMainView.showBottomNavigationUi();
     }
@@ -144,7 +150,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
-    public void openElectricity(HashMap<String, Electricity> electricityYearly) {
+    public void openElectricity(ArrayList<Electricity> electricityYearly) {
         mMainView.openElectricityUi(electricityYearly);
     }
 }

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.hugh.lelele.application_landlord.AppLandlordFragment;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
@@ -25,6 +26,7 @@ import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -127,15 +129,20 @@ public class MainMvpController {
 //        }
     }
 
-    void findOrCreateElectricityTenantView(HashMap<String, Electricity> electricityYearly) {
+    void findOrCreateElectricityTenantView(ArrayList<Electricity> electricityYearly) {
         ElectricityTenantFragment electricityTenantFragment = findOrCreateElectricityTenantFragment();
 
+        Log.v("is null", "" + (mElectricityTenantPresenter == null));
         if (mElectricityTenantPresenter == null) {
             mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
                     LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
             mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
             electricityTenantFragment.setPresenter(mMainPresenter);
+        } else {
+            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
+            electricityTenantFragment.setPresenter(mMainPresenter);
         }
+        mElectricityTenantPresenter.setElectricityData(electricityYearly);
     }
 
     /**

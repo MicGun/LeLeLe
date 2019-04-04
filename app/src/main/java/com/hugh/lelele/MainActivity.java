@@ -30,6 +30,7 @@ import com.hugh.lelele.data.Electricity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -259,7 +260,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
-    public void openElectricityUi(HashMap<String, Electricity> electricityYearly) {
+    public void openElectricityUi(ArrayList<Electricity> electricityYearly) {
         mPresenter.updateToolbar(getResources().getString(R.string.application_electricity));
         if (mUserType == 0) {
 //            mMainMvpController.findOrCreateElectricityLandlordView(electricityYearly);

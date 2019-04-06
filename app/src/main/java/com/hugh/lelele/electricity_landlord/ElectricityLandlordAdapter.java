@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hugh.lelele.R;
@@ -30,7 +31,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         TextView roomNumber;
         TextView scaleLast;
         EditText scaleThis;
-        Button cleanButton;
+        ImageButton cleanButton;
 
         public ElectricityEditorLandlordItemViewHolder(@NonNull View itemView) {
             super(itemView);

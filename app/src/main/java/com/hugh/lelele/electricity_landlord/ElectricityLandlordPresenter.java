@@ -2,7 +2,10 @@ package com.hugh.lelele.electricity_landlord;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,5 +23,25 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+
+    }
+
+    @Override
+    public void showBottomNavigation() {
+
+    }
+
+    @Override
+    public void updateToolbar(String title) {
+
+    }
+
+    @Override
+    public void setRoomData(ArrayList<Room> rooms) {
+        mElectricityLandlordtView.showElectricityEditorUi(rooms);
     }
 }

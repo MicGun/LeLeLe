@@ -1,7 +1,10 @@
 package com.hugh.lelele.home;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -21,5 +24,20 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void start() {
 
+    }
+
+    @Override
+    public void loadLandlord(String email) {
+        mLeLeLeRepository.updateLandlordUser(email, new LeLeLeDataSource.LandlordUserCallback() {
+            @Override
+            public void onCompleted(Landlord landlord) {
+                Log.v("HomePresenter", "Landlord: " + landlord.getIdCardNumber());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

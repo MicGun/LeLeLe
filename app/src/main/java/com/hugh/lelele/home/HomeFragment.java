@@ -25,6 +25,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mPresenter.loadLandlord("n1553330708@yahoo.com.tw");
+
         return root;
     }
 

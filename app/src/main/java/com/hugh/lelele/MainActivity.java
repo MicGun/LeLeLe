@@ -39,7 +39,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainActivity extends BaseActivivty implements MainContract.View,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private int mUserType = 1;
+    private int mUserType = 0;
 
     private BottomNavigationView mBottomNavigation;
     private DrawerLayout mDrawerLayout;

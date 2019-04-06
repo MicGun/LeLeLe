@@ -49,6 +49,6 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
 
     @Override
     public void showElectricityEditorUi(ArrayList<Room> rooms) {
-
+        mPresenter.openElectricityEditor(rooms);
     }
 }

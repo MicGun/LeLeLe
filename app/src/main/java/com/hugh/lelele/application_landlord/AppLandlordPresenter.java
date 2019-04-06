@@ -40,7 +40,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
 
             rooms.add(room);
             if (rooms.size() == 5) {
-
+                mAppLandlordView.showElectricityEditorUi(rooms);
             }
         }
     }

@@ -119,14 +119,18 @@ public class MainMvpController {
      * */
 
     void findOrCreateElectricityLandlordView(ArrayList<Room> rooms) {
-//        ElectricityLandlordFragment electricityLandlordFragment = findOrCreateElectricityLandlordFragment();
-//
-//        if (mElectricityLandlordPresenter == null) {
-//            mElectricityLandlordPresenter = new ElectricityLandlordPresenter(LeLeLeRepository.getInstance(
-//                    LeLeLeRemoteDataSource.getInstance()), electricityLandlordFragment);
-//            mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
-//            electricityLandlordFragment.setPresenter(mMainPresenter);
-//        }
+        ElectricityLandlordFragment electricityLandlordFragment = findOrCreateElectricityLandlordFragment();
+
+        if (mElectricityLandlordPresenter == null) {
+            mElectricityLandlordPresenter = new ElectricityLandlordPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), electricityLandlordFragment);
+            mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
+            electricityLandlordFragment.setPresenter(mMainPresenter);
+        } else {
+            mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
+            electricityLandlordFragment.setPresenter(mMainPresenter);
+        }
+        mElectricityLandlordPresenter.setRoomData(rooms);
     }
 
     void findOrCreateElectricityTenantView(ArrayList<Electricity> electricityYearly) {
@@ -201,6 +205,26 @@ public class MainMvpController {
                 getFragmentManager(), appLandlordFragment, APPLICATION_LANDLORD);
 
         return appLandlordFragment;
+    }
+
+    /**
+     * Electricity Landlord Fragment
+     * @return ElectricityLandlordFragment
+     */
+    private ElectricityLandlordFragment findOrCreateElectricityLandlordFragment() {
+
+        ElectricityLandlordFragment electricityLandlordFragment =
+                (ElectricityLandlordFragment) getFragmentManager().findFragmentByTag(ELECTRICITY_LANDLORD);
+
+        if (electricityLandlordFragment == null) {
+            // Create the fragment
+            electricityLandlordFragment = ElectricityLandlordFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), electricityLandlordFragment, ELECTRICITY_LANDLORD);
+
+        return electricityLandlordFragment;
     }
 
     /**

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_electricity_editor_landlord"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/text_room_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/room_number"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/text_scale_last"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_scale_last"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/scale_last"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_room_number"
+        app:layout_constraintEnd_toStartOf="@+id/text_scale_this"
+        app:layout_constraintStart_toEndOf="@+id/text_room_number"
+        app:layout_constraintTop_toTopOf="@+id/text_room_number" />
+
+    <TextView
+        android:id="@+id/text_scale_this"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/scale_this"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_room_number"
+        app:layout_constraintEnd_toStartOf="@+id/text_clean_button"
+        app:layout_constraintStart_toEndOf="@+id/text_scale_last"
+        app:layout_constraintTop_toTopOf="@+id/text_room_number"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_clean_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/clean_button"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_room_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_scale_this"
+        app:layout_constraintTop_toTopOf="@+id/text_room_number"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black_3f3a3a"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_room_number" />
+
+</android.support.constraint.ConstraintLayout>

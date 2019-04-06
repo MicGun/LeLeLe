@@ -32,4 +32,6 @@
     <string name="scale_last">上月度數</string>
     <string name="scale_this">本月度數</string>
     <string name="scale_total">總度數</string>
+    <string name="room_number">房號</string>
+    <string name="clean_button">清除</string>
 </resources>

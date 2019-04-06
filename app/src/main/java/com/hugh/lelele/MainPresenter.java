@@ -13,6 +13,7 @@ import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.electricity_landlord.ElectricityLandlordContract;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
@@ -24,7 +25,8 @@ import java.util.ArrayList;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
-        AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter {
+        AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
+        ElectricityLandlordContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -137,7 +139,9 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void setElectricityData(ArrayList<Electricity> electricityYearly) {
-        mElectricityTenantPresenter.setElectricityData(electricityYearly);
+        if (mElectricityLandlordPresenter != null) {
+            mElectricityTenantPresenter.setElectricityData(electricityYearly);
+        }
     }
 
     @Override
@@ -169,6 +173,20 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void openElectricityEditor(ArrayList<Room> rooms) {
+        mMainView.openElectricityEditorUi(rooms);
+    }
 
+    @Override
+    public void setRoomData(ArrayList<Room> rooms) {
+        if (mElectricityLandlordPresenter != null) {
+            mElectricityLandlordPresenter.setRoomData(rooms);
+        }
+    }
+
+    @Override
+    public void loadLandlord(String email) {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadLandlord(email);
+        }
     }
 }

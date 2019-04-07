@@ -189,4 +189,18 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mHomePresenter.loadLandlord(email);
         }
     }
+
+    @Override
+    public void loadRoomList(String email, String groupName) {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadRoomList(email, groupName);
+        }
+    }
+
+    @Override
+    public void loadGroupList(String email) {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadGroupList(email);
+        }
+    }
 }

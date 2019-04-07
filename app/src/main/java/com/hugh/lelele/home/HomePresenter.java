@@ -3,9 +3,14 @@ package com.hugh.lelele.home;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -13,6 +18,8 @@ public class HomePresenter implements HomeContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private final HomeContract.View mHomeView;
+
+    private final static String TAG = LeLeLe.class.getSimpleName();
 
     public HomePresenter(@NonNull LeLeLeRepository leLeLeRepository,
                          @NonNull HomeContract.View homeView) {
@@ -32,6 +39,38 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onCompleted(Landlord landlord) {
                 Log.v("HomePresenter", "Landlord: " + landlord.getIdCardNumber());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadRoomList(String email, String groupName) {
+        mLeLeLeRepository.getRoomList(email, groupName, new LeLeLeDataSource.GetRoomListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Room> rooms) {
+                for (int i = 0; i < rooms.size(); i++) {
+                    Log.v("HomePresenter", "Room Name: " + rooms.get(i).getRoomName());
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadGroupList(String email) {
+        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Group> groups) {
+                Log.v(TAG, "Group Number: " + groups.size());
             }
 
             @Override

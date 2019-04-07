@@ -26,6 +26,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         mPresenter.loadLandlord("n1553330708@yahoo.com.tw");
+        mPresenter.loadRoomList("n1553330708@yahoo.com.tw", "新明路287號");
+        mPresenter.loadGroupList("n1553330708@yahoo.com.tw");
 
         return root;
     }

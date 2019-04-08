@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
 
 import java.util.ArrayList;
@@ -64,6 +65,12 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+        Room room = mRooms.get(i);
+//        Electricity electricity = room.getElectricities().get(2);
+
+        ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());
+//        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setText(electricity.getPrice());
 
     }
 

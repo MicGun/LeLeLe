@@ -6,6 +6,8 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
+import android.support.annotation.NonNull;
+
 import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
@@ -163,13 +165,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
 
-    //AppLandlord
-    @Override
-    public void loadRoomList() {
-        if (mAppLandlordPresenter != null) {
-            mAppLandlordPresenter.loadRoomList();
-        }
-    }
+//    //AppLandlord
+//    @Override
+//    public void loadRoomList() {
+//        if (mAppLandlordPresenter != null) {
+//            mAppLandlordPresenter.loadRoomList();
+//        }
+//    }
 
     @Override
     public void openElectricityEditor(ArrayList<Room> rooms) {
@@ -184,6 +186,21 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void showElectrcityData() {
+        if (mElectricityLandlordPresenter != null) {
+            mElectricityLandlordPresenter.showElectrcityData();
+        }
+    }
+
+    @Override
+    public void loadRoomElectricityData(@NonNull String email, @NonNull String groupName,
+                                        @NonNull String year, @NonNull String roomName) {
+        if (mElectricityLandlordPresenter != null) {
+            mElectricityLandlordPresenter.loadRoomElectricityData(email, groupName, year, roomName);
+        }
+    }
+
+    @Override
     public void loadLandlord(String email) {
         if (mHomePresenter != null) {
             mHomePresenter.loadLandlord(email);
@@ -192,9 +209,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void loadRoomList(String email, String groupName) {
-        if (mHomePresenter != null) {
-            mHomePresenter.loadRoomList(email, groupName);
+        if (mAppLandlordPresenter != null) {
+            mAppLandlordPresenter.loadRoomList(email, groupName);
         }
+
+//        if (mHomePresenter != null) {
+//            mHomePresenter.loadRoomList(email, groupName);
+//        }
     }
 
     @Override

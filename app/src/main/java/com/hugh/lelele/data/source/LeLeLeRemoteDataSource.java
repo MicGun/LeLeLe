@@ -1,5 +1,6 @@
 package com.hugh.lelele.data.source;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -12,20 +13,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.SimpleFormatter;
 
 public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     private final static String LANDLORDS = "landlords";
     private final static String GROUPS = "groups";
     private final static String ROOMS = "rooms";
+    private final static String ELECTRICITY_FEE = "electricity_fee";
 
-    private final static String TAG = LeLeLe.class.getSimpleName();
+    private final static String TAG = LeLeLeRemoteDataSource.class.getSimpleName();
 
     private static LeLeLeRemoteDataSource INSTANCE;
     private static FirebaseFirestore mFirebaseFirestore;
@@ -48,7 +56,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * 去拿房東資訊
      * */
     @Override
-    public void updateLandlordUser(@NonNull String email, @NonNull final LandlordUserCallback callback) {
+    public void updateLandlordUser(@NonNull final String email, @NonNull final LandlordUserCallback callback) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
                 .get()
@@ -58,11 +66,24 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
-                            if ((documentSnapshot != null)) {
+                            assert documentSnapshot != null;
+                            if (documentSnapshot.exists()) {
                                 Landlord landlord = LeLeLeParser.getLandlordData(documentSnapshot);
                                 callback.onCompleted(landlord);
                             } else {
-                                //ToDo Create a firestore landlord format here.
+                                //create and initialize a landlord
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("email", email);
+                                user.put("ID_card_number", "");
+                                user.put("address", "");
+                                user.put("assess_token", "");
+                                user.put("phone_number", "");
+                                user.put("id", "");
+                                user.put("name", "");
+                                user.put("picture", "");
+                                mFirebaseFirestore.collection(LANDLORDS)
+                                        .document(email)
+                                        .set(user);
                             }
                         } else {
                             callback.onError(String.valueOf(task.getException()));
@@ -77,7 +98,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     * 與group名稱
     * */
     @Override
-    public void getRoomList(@NonNull String email, @NonNull String groupName, @NonNull final GetRoomListCallback callback) {
+    public void getRoomList(@NonNull final String email, @NonNull final String groupName, @NonNull final GetRoomListCallback callback) {
         CollectionReference roomCollection  = mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
                 .collection(GROUPS)
@@ -93,6 +114,21 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         ArrayList<DocumentSnapshot> roomDocuments =
                                 (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
                         ArrayList<Room> rooms = LeLeLeParser.parseRoomList(roomDocuments);
+                        String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+                        for (final Room room:rooms) {
+                            getElectricityList(email, groupName, year, room.getRoomName(), new GetElectricityCallback() {
+                                @Override
+                                public void onCompleted(ArrayList<Electricity> electricities) {
+//                                    room.setElectricities(electricities);
+                                    Log.v(TAG, "electricities size" + electricities.size());
+                                }
+
+                                @Override
+                                public void onError(String errorMessage) {
+
+                                }
+                            });
+                        }
                         callback.onCompleted(rooms);
                     } else {
                         Log.v(TAG, "There's no room now.");
@@ -125,5 +161,78 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 }
             }
         });
+    }
+
+    /*
+    * 用來新增group到group清單
+    * 需要給group資訊與房東信箱來建立group
+    * 當groups集合不存在時，會自動建立
+    * document ID 會是 group name
+    * */
+    @Override
+    public void updateGroupList(@NonNull Group group, @NonNull String email, @NonNull final UpdateGroupListCallback callback) {
+
+        Map<String, Object> groupInfo = new HashMap<>();
+        groupInfo.put("address", group.getGroupAddress());
+        groupInfo.put("max_room_number", group.getGroupRoomNumber());
+        groupInfo.put("tenant_number", group.getGroupTenantNumber());
+
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(group.getGroupName())
+                .set(groupInfo);
+    }
+
+    @Override
+    public void getElectricityList(@NonNull String email, @NonNull String groupName,
+                                   @NonNull String year, @NonNull String roomName,
+                                   @NonNull final GetElectricityCallback callback) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(ELECTRICITY_FEE)
+                .document(year)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot electricityFeeYearly = task.getResult();
+                            assert electricityFeeYearly != null;
+                            if (electricityFeeYearly.exists()) {
+                                ArrayList<Electricity> electricities = new ArrayList<>();
+                                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =
+                                        new SimpleDateFormat("yyyy-MM-dd");
+                                String time = formatter.format(Calendar.getInstance().getTime());
+                                String month = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
+                                Map<String, Object> electricityFeeYearlyData = electricityFeeYearly.getData();
+                                for (int i = 0; i < 12; i ++) {
+                                    Map<String, String> electricityFee;
+                                    if (i < 9) {
+                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get("0" + String.valueOf(i+1));
+                                    } else {
+                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get(String.valueOf(i+1));
+                                    }
+                                    Electricity electricity = new Electricity();
+                                    if (electricityFee != null) {
+                                        electricity.setScaleLast(electricityFee.get("scale_last"));
+                                        electricity.setPrice(electricityFee.get("price"));
+                                        electricity.setScale(electricityFee.get("scale_this"));
+                                        electricity.setTime(electricityFee.get("time"));
+                                        electricity.setTotalConsumption(electricityFee.get("total_consumption"));
+                                    }
+                                    electricities.add(electricity);
+                                    Log.v(TAG, "" + electricity.getScaleLast());
+                                }
+                                callback.onCompleted(electricities);
+                                Log.v(TAG, "electricity size: " + electricities.size());
+                            }
+                        }
+                    }
+                });
     }
 }

@@ -1,7 +1,9 @@
 package com.hugh.lelele.data.source;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
@@ -64,6 +66,39 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
                 callback.onCompleted(groups);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void updateGroupList(@NonNull Group group, @NonNull String email, @NonNull final UpdateGroupListCallback callback) {
+        mLeLeLeRemoteDataSource.updateGroupList(group, email, new UpdateGroupListCallback() {
+            @Override
+            public void onCompleted(Group group) {
+                callback.onCompleted(group);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void getElectricityList(@NonNull String email, @NonNull String groupName,
+                                   @NonNull String year, @NonNull String roomName,
+                                   @NonNull final GetElectricityCallback callback) {
+        mLeLeLeRemoteDataSource.getElectricityList(email, groupName, year, roomName, new GetElectricityCallback() {
+            @Override
+            public void onCompleted(ArrayList<Electricity> electricities) {
+                callback.onCompleted(electricities);
+                Log.v("Repository", "electricity size: " + electricities.size());
             }
 
             @Override

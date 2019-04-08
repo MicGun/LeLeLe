@@ -32,7 +32,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadRoomList();
+                mPresenter.loadRoomList("n1553330708@yahoo.com.tw", "新明路287號");
             }
         });
         return root;

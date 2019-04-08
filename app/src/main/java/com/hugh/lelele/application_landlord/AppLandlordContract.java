@@ -15,7 +15,7 @@ public interface AppLandlordContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadRoomList();
+        void loadRoomList(String email, String groupName);
 
         void openElectricityEditor(ArrayList<Room> rooms);
 

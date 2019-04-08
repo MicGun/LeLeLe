@@ -120,16 +120,10 @@ public class MainMvpController {
 
     void findOrCreateElectricityLandlordView(ArrayList<Room> rooms) {
         ElectricityLandlordFragment electricityLandlordFragment = findOrCreateElectricityLandlordFragment();
-
-        if (mElectricityLandlordPresenter == null) {
-            mElectricityLandlordPresenter = new ElectricityLandlordPresenter(LeLeLeRepository.getInstance(
-                    LeLeLeRemoteDataSource.getInstance()), electricityLandlordFragment);
-            mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
-            electricityLandlordFragment.setPresenter(mMainPresenter);
-        } else {
-            mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
-            electricityLandlordFragment.setPresenter(mMainPresenter);
-        }
+        mElectricityLandlordPresenter = new ElectricityLandlordPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), electricityLandlordFragment);
+        mMainPresenter.setElectricityLandlordPresenter(mElectricityLandlordPresenter);
+        electricityLandlordFragment.setPresenter(mMainPresenter);
         mElectricityLandlordPresenter.setRoomData(rooms);
     }
 

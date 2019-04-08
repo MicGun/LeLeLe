@@ -1,8 +1,11 @@
 package com.hugh.lelele.electricity_landlord;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import java.util.ArrayList;
@@ -13,6 +16,7 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
     private final LeLeLeRepository mLeLeLeRepository;
     private final ElectricityLandlordContract.View mElectricityLandlordtView;
+    ArrayList<Room> mRooms;
 
     public ElectricityLandlordPresenter(@NonNull LeLeLeRepository leLeLeRepository,
                                       @NonNull ElectricityLandlordContract.View electricityLandlordView) {
@@ -42,6 +46,28 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
     @Override
     public void setRoomData(ArrayList<Room> rooms) {
-        mElectricityLandlordtView.showElectricityEditorUi(rooms);
+        mRooms = rooms;
+//        mElectricityLandlordtView.showElectricityEditorUi(rooms);
+    }
+
+    @Override
+    public void showElectrcityData() {
+        mElectricityLandlordtView.showElectricityEditorUi(mRooms);
+    }
+
+    @Override
+    public void loadRoomElectricityData(@NonNull String email, @NonNull String groupName,
+                                        @NonNull String year, @NonNull String roomName) {
+        mLeLeLeRepository.getElectricityList(email, groupName, year, roomName, new LeLeLeDataSource.GetElectricityCallback() {
+            @Override
+            public void onCompleted(ArrayList<Electricity> electricities) {
+                Log.v("電費", "" + electricities.size());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

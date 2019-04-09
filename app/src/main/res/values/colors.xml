@@ -17,4 +17,7 @@
 
     <!-- ripple color -->
     <color name="gray_aaaaaa">#AAAAAA</color>
+
+    <!-- red Series -->
+    <color name="red_ff0000">#FF0000</color>
 </resources>

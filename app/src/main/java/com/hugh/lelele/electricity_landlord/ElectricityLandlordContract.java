@@ -26,9 +26,7 @@ public interface ElectricityLandlordContract {
 
         void setRoomData(ArrayList<Room> rooms);
 
-        void showElectrcityData();
-
-        void loadRoomElectricityData(@NonNull String email, @NonNull String groupName,
-                                     @NonNull String year, @NonNull String roomName);
+        void uploadElectricity(String landlordEmail, String groupName,
+                               String roomName, String month, Electricity electricity);
     }
 }

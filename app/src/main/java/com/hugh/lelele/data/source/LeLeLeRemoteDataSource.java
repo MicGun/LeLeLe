@@ -33,6 +33,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private final static String ROOMS = "rooms";
     private final static String ELECTRICITY_FEE = "electricity_fee";
 
+    /*Electricity Data*/
+    private final static String PRICE = "price";
+    private final static String SCALE_LAST = "scale_last";
+    private final static String SCALE_THIS = "scale_this";
+    private final static String TIME = "time";
+    private final static String TOTAL_CONSUMPTION = "total_consumption";
+
     private final static String TAG = LeLeLeRemoteDataSource.class.getSimpleName();
 
     private static LeLeLeRemoteDataSource INSTANCE;
@@ -234,5 +241,29 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void uploadElectricityData(String landlordEmail, String groupName, String roomName, String month, Electricity electricity) {
+
+        Map<String, Object> electricityYearly = new HashMap<>();
+        Map<String, Object> electricityData = new HashMap<>();
+        electricityData.put(PRICE, electricity.getPrice());
+        electricityData.put(SCALE_LAST, electricity.getScaleLast());
+        electricityData.put(SCALE_THIS, electricity.getScale());
+        electricityData.put(TIME, electricity.getTime());
+        electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
+
+        electricityYearly.put(month, electricityData);
+
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(landlordEmail)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(ELECTRICITY_FEE)
+                .document(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)))
+                .update(electricityYearly);
     }
 }

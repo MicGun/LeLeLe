@@ -1,5 +1,7 @@
 package com.hugh.lelele.electricity_landlord;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -12,27 +14,36 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.login.LoginManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
     private ElectricityLandlordContract.Presenter mPresenter;
     private ArrayList<Room> mRooms;
+    private int mMonth;
+
+    //單位度數電費
+    private final int UNIT_PRICE = 5;
 
     public ElectricityLandlordAdapter(ElectricityLandlordContract.Presenter presenter) {
         mPresenter = presenter;
+        mMonth = Calendar.getInstance().get(Calendar.MONTH);
     }
 
     public class ElectricityEditorLandlordItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView roomNumber;
-        TextView scaleLast;
+        EditText scaleLast;
         EditText scaleThis;
         ImageButton cleanButton;
 
@@ -66,14 +77,92 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
 
-        Room room = mRooms.get(i);
+        final Room room = mRooms.get(i);
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
-//        Electricity electricity = room.getElectricities().get(2);
+        final Electricity electricityLast = room.getElectricities().get(mMonth - 1);
+        final Electricity electricityThis = room.getElectricities().get(mMonth);
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());
-//        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setText(electricity.getPrice());
+        if (!electricityLast.getScale().equals("")) {
+            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setText(electricityLast.getScale());
+            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setKeyListener(null);
+        } else {
+            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() != 0) {
+                        electricityLast.setScale(s.toString());
+                        electricityThis.setScaleLast(s.toString());
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+
+
+        ((ElectricityEditorLandlordItemViewHolder) viewHolder).cleanButton
+                .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis.setText("");
+            }
+        });
+
+        if (!electricityThis.getScale().equals("")) {
+            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis.setText(electricityThis.getScale());
+        }
+
+        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String electricityLastData = String.valueOf(((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.getText());
+
+                //如果edittext為空就不執行
+                if (s.length() != 0 && !electricityLastData.equals("")){ //避免下面判別式掛掉
+                    //如果本月度數低於上月度數，需紅字highlight
+                    if (Integer.valueOf(s.toString()) < Integer.valueOf(electricityLastData)) {
+
+                        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
+                                .setTextColor(LeLeLe.getAppContext().getColor(R.color.red_ff0000));
+
+                        //本月度數高於上月度數即可上傳firestore
+                    } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)){
+                        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
+                                .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));
+                        electricityThis.setScale(s.toString());
+                        int total_consumption = Integer.valueOf(s.toString()) - Integer.valueOf(electricityThis.getScaleLast());
+                        int price = total_consumption*UNIT_PRICE;
+                        electricityThis.setPrice(String.valueOf(price));
+                        electricityThis.setTotalConsumption(String.valueOf(total_consumption));
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
+                        mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
+                                "新明路287號", room.getRoomName(), String.valueOf(mMonth), electricityThis);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
     }
 

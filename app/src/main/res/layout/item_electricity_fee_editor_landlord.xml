@@ -22,12 +22,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/text_landlord_item_view_scale_last"
-        android:layout_width="wrap_content"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/noto_sans"
-        android:text="9527"
+        android:inputType="date"
+        android:textAlignment="center"
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_landlord_item_view_room_number"
@@ -39,9 +40,10 @@
         android:id="@+id/edir_text_landlord_item_view_scale_this"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans"
         android:inputType="date"
-        android:text="99999"
         android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_landlord_item_view_room_number"
         app:layout_constraintEnd_toStartOf="@+id/button_landlord_item_view_clean"
         app:layout_constraintStart_toEndOf="@+id/text_landlord_item_view_scale_last"

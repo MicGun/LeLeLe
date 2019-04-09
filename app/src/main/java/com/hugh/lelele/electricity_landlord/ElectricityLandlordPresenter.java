@@ -51,6 +51,7 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     @Override
     public void setRoomData(ArrayList<Room> rooms) {
 
+        //call RoomsElectricityRecursive to get electric fee for each room.
         new RoomsElectricityRecursive(rooms, "n1553330708@yahoo.com.tw",
                 "新明路287號", mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
             @Override
@@ -60,27 +61,10 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
                 Log.v(TAG, "RoomsElectricityRecursive Working");
             }
         });
-//        mElectricityLandlordtView.showElectricityEditorUi(rooms);
     }
 
     @Override
-    public void showElectrcityData() {
-        mElectricityLandlordtView.showElectricityEditorUi(mRooms);
-    }
-
-    @Override
-    public void loadRoomElectricityData(@NonNull String email, @NonNull String groupName,
-                                        @NonNull String year, @NonNull String roomName) {
-        mLeLeLeRepository.getElectricityList(email, groupName, year, roomName, new LeLeLeDataSource.GetElectricityCallback() {
-            @Override
-            public void onCompleted(ArrayList<Electricity> electricities) {
-                Log.v("電費", "" + electricities.size());
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
+    public void uploadElectricity(String landlordEmail, String groupName, String roomName, String month, Electricity electricity) {
+        mLeLeLeRepository.uploadElectricityData(landlordEmail, groupName, roomName, month, electricity);
     }
 }

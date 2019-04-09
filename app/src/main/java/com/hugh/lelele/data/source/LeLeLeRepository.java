@@ -107,4 +107,9 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             }
         });
     }
+
+    @Override
+    public void uploadElectricityData(String landlordEmail, String groupName, String roomName, String month, Electricity electricity) {
+        mLeLeLeRemoteDataSource.uploadElectricityData(landlordEmail, groupName, roomName, month, electricity);
+    }
 }

@@ -186,17 +186,9 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
-    public void showElectrcityData() {
+    public void uploadElectricity(String landlordEmail, String groupName, String roomName, String month, Electricity electricity) {
         if (mElectricityLandlordPresenter != null) {
-            mElectricityLandlordPresenter.showElectrcityData();
-        }
-    }
-
-    @Override
-    public void loadRoomElectricityData(@NonNull String email, @NonNull String groupName,
-                                        @NonNull String year, @NonNull String roomName) {
-        if (mElectricityLandlordPresenter != null) {
-            mElectricityLandlordPresenter.loadRoomElectricityData(email, groupName, year, roomName);
+            mElectricityLandlordPresenter.uploadElectricity(landlordEmail, groupName, roomName, month, electricity);
         }
     }
 

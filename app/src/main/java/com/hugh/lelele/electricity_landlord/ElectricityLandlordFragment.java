@@ -50,10 +50,6 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mPresenter.showElectrcityData();
-        mPresenter.loadRoomElectricityData("n1553330708@yahoo.com.tw",
-                "新明路287號", "2019", "297_3A");
     }
 
     @Override

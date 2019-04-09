@@ -7,6 +7,8 @@ import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.data.source.RoomsElectricityRecursive;
+import com.hugh.lelele.data.source.RoomsElectricityRecursiveCallback;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,8 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     private final LeLeLeRepository mLeLeLeRepository;
     private final ElectricityLandlordContract.View mElectricityLandlordtView;
     ArrayList<Room> mRooms;
+
+    private final String TAG = ElectricityLandlordPresenter.class.getSimpleName();
 
     public ElectricityLandlordPresenter(@NonNull LeLeLeRepository leLeLeRepository,
                                       @NonNull ElectricityLandlordContract.View electricityLandlordView) {
@@ -46,7 +50,16 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
     @Override
     public void setRoomData(ArrayList<Room> rooms) {
-        mRooms = rooms;
+
+        new RoomsElectricityRecursive(rooms, "n1553330708@yahoo.com.tw",
+                "新明路287號", mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
+            @Override
+            public void onCompleted(ArrayList<Room> roomArrayList) {
+                mRooms = roomArrayList;
+                mElectricityLandlordtView.showElectricityEditorUi(mRooms);
+                Log.v(TAG, "RoomsElectricityRecursive Working");
+            }
+        });
 //        mElectricityLandlordtView.showElectricityEditorUi(rooms);
     }
 

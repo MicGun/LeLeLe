@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.login.LoginManager;
 
 import java.util.ArrayList;
 
@@ -67,6 +69,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
         Room room = mRooms.get(i);
+        Log.v("adapter", "electricity size: " + room.getElectricities().size());
 //        Electricity electricity = room.getElectricities().get(2);
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());

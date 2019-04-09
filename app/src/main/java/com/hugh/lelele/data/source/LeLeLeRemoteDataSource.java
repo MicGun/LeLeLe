@@ -93,13 +93,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     /*
-    * 去拿房間清單
-    * 需要知道房東email
-    * 與group名稱
-    * */
+     * 去拿房間清單
+     * 需要知道房東email
+     * 與group名稱
+     * */
     @Override
     public void getRoomList(@NonNull final String email, @NonNull final String groupName, @NonNull final GetRoomListCallback callback) {
-        CollectionReference roomCollection  = mFirebaseFirestore.collection(LANDLORDS)
+        CollectionReference roomCollection = mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
                 .collection(GROUPS)
                 .document(groupName)
@@ -115,12 +115,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
                         ArrayList<Room> rooms = LeLeLeParser.parseRoomList(roomDocuments);
                         String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-                        for (final Room room:rooms) {
+                        for (final Room room : rooms) {
                             getElectricityList(email, groupName, year, room.getRoomName(), new GetElectricityCallback() {
                                 @Override
                                 public void onCompleted(ArrayList<Electricity> electricities) {
-//                                    room.setElectricities(electricities);
-                                    Log.v(TAG, "electricities size" + electricities.size());
+                                    room.setElectricities(electricities);
+                                    Log.v(TAG, "getRoomList electricities size" + electricities.size());
+                                    Log.v(TAG, "getRoomList electricities size" + room.getElectricities().size());
                                 }
 
                                 @Override
@@ -130,6 +131,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             });
                         }
                         callback.onCompleted(rooms);
+                        Log.v(TAG, "room callback: " + rooms.size());
                     } else {
                         Log.v(TAG, "There's no room now.");
                     }
@@ -143,7 +145,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupList(@NonNull String email, @NonNull final GetGroupListCallback callback) {
-        CollectionReference groupCollection  = mFirebaseFirestore.collection(LANDLORDS)
+        CollectionReference groupCollection = mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
                 .collection(GROUPS);
 
@@ -164,11 +166,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     /*
-    * 用來新增group到group清單
-    * 需要給group資訊與房東信箱來建立group
-    * 當groups集合不存在時，會自動建立
-    * document ID 會是 group name
-    * */
+     * 用來新增group到group清單
+     * 需要給group資訊與房東信箱來建立group
+     * 當groups集合不存在時，會自動建立
+     * document ID 會是 group name
+     * */
     @Override
     public void updateGroupList(@NonNull Group group, @NonNull String email, @NonNull final UpdateGroupListCallback callback) {
 
@@ -207,15 +209,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 ArrayList<Electricity> electricities = new ArrayList<>();
                                 @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =
                                         new SimpleDateFormat("yyyy-MM-dd");
-                                String time = formatter.format(Calendar.getInstance().getTime());
-                                String month = String.valueOf(Calendar.getInstance().get(Calendar.MONTH) + 1);
                                 Map<String, Object> electricityFeeYearlyData = electricityFeeYearly.getData();
-                                for (int i = 0; i < 12; i ++) {
+                                for (int i = 0; i < 12; i++) {
                                     Map<String, String> electricityFee;
                                     if (i < 9) {
-                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get("0" + String.valueOf(i+1));
+                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get("0" + String.valueOf(i + 1));
                                     } else {
-                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get(String.valueOf(i+1));
+                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get(String.valueOf(i + 1));
                                     }
                                     Electricity electricity = new Electricity();
                                     if (electricityFee != null) {

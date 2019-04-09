@@ -64,7 +64,13 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     }
 
     @Override
-    public void uploadElectricity(String landlordEmail, String groupName, String roomName, String month, Electricity electricity) {
-        mLeLeLeRepository.uploadElectricityData(landlordEmail, groupName, roomName, month, electricity);
+    public void uploadElectricity(String landlordEmail, String groupName, String roomName,
+                                  String year, String month, Electricity electricity) {
+        mLeLeLeRepository.uploadElectricityData(landlordEmail, groupName, roomName, year, month, electricity);
+    }
+
+    @Override
+    public void initialElectricityMonth(String landlordEmail, String groupName, String roomName, String year, String month) {
+        mLeLeLeRepository.initialElectricityMonthData(landlordEmail, groupName, roomName, year, month);
     }
 }

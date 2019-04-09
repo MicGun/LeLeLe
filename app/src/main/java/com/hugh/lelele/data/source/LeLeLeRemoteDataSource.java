@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -244,7 +245,10 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
-    public void uploadElectricityData(String landlordEmail, String groupName, String roomName, String month, Electricity electricity) {
+    public void uploadElectricityData(String landlordEmail, String groupName, String roomName,
+                                      String year, String month, Electricity electricity) {
+
+        initialElectricityMonthData(landlordEmail, groupName, roomName, year, month);
 
         Map<String, Object> electricityYearly = new HashMap<>();
         Map<String, Object> electricityData = new HashMap<>();
@@ -263,7 +267,48 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .collection(ROOMS)
                 .document(roomName)
                 .collection(ELECTRICITY_FEE)
-                .document(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)))
+                .document(String.valueOf(year))
                 .update(electricityYearly);
+    }
+
+    @Override
+    public void initialElectricityMonthData(final String landlordEmail, final String groupName, final String roomName, final String year, final String month) {
+        Task<DocumentSnapshot> docYear = mFirebaseFirestore.collection(LANDLORDS)
+                .document(landlordEmail)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(ELECTRICITY_FEE)
+                .document(String.valueOf(year))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Log.v(TAG, "initialElectricityMonthData: " + task.getResult().exists());
+                            if (!task.getResult().exists()) {
+                                Map<String, Object> electricityYearly = new HashMap<>();
+                                Map<String, Object> electricityData = new HashMap<>();
+                                Electricity electricity = new Electricity();
+                                electricityData.put(PRICE, electricity.getPrice());
+                                electricityData.put(SCALE_LAST, electricity.getScaleLast());
+                                electricityData.put(SCALE_THIS, electricity.getScale());
+                                electricityData.put(TIME, electricity.getTime());
+                                electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
+                                electricityYearly.put(month, electricityData);
+                                mFirebaseFirestore.collection(LANDLORDS)
+                                        .document(landlordEmail)
+                                        .collection(GROUPS)
+                                        .document(groupName)
+                                        .collection(ROOMS)
+                                        .document(roomName)
+                                        .collection(ELECTRICITY_FEE)
+                                        .document(String.valueOf(year))
+                                        .set(electricityYearly);
+                            }
+                        }
+                    }
+                });
     }
 }

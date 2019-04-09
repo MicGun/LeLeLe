@@ -31,13 +31,41 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
     private ElectricityLandlordContract.Presenter mPresenter;
     private ArrayList<Room> mRooms;
     private int mMonth;
+    private int mYear;
+    private String mMonthBeUpdated;
+    private String mYearBeUpdated;
+    private String mMonthBeUpdatedNext;
+    private String mYearBeUpdatedNext;
 
     //單位度數電費
     private final int UNIT_PRICE = 5;
 
     public ElectricityLandlordAdapter(ElectricityLandlordContract.Presenter presenter) {
         mPresenter = presenter;
-        mMonth = Calendar.getInstance().get(Calendar.MONTH);
+//        mMonth = Calendar.getInstance().get(Calendar.MONTH);
+        mMonth = 0;
+//        mYear = Calendar.getInstance().get(Calendar.YEAR);
+        mYear = 2020;
+
+        //to handle if wants to update Dec's electricity fee of last year
+        if (mMonth == 0) {
+            mYearBeUpdated = String.valueOf(mYear - 1);
+            mMonthBeUpdated = "12";
+        } else {
+            mYearBeUpdated = String.valueOf(mYear);
+            if (mMonth < 10) {
+                mMonthBeUpdated = "0" + String.valueOf(mMonth);
+            } else {
+                mMonthBeUpdated = String.valueOf(mMonth);
+            }
+        }
+
+        if (mMonth < 9) {
+            mMonthBeUpdatedNext = "0" + String.valueOf(mMonth + 1);
+        } else {
+            mMonthBeUpdatedNext = String.valueOf(mMonth + 1);
+        }
+
     }
 
     public class ElectricityEditorLandlordItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -81,12 +109,12 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
         final Room room = mRooms.get(i);
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
-        final Electricity electricityLast = room.getElectricities().get(mMonth - 1);
-        final Electricity electricityThis = room.getElectricities().get(mMonth);
+//        final Electricity electricityThis = room.getElectricities().get(mMonth - 1); //指標從0開始
+        final Electricity electricityThis = room.getElectricities().get(11); //指標從0開始
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());
-        if (!electricityLast.getScale().equals("")) {
-            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setText(electricityLast.getScale());
+        if (!electricityThis.getScaleLast().equals("")) {
+            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setText(electricityThis.getScaleLast());
             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.setKeyListener(null);
         } else {
             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.addTextChangedListener(new TextWatcher() {
@@ -98,7 +126,6 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.length() != 0) {
-                        electricityLast.setScale(s.toString());
                         electricityThis.setScaleLast(s.toString());
                     }
                 }
@@ -154,7 +181,15 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                         electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
                         mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
-                                "新明路287號", room.getRoomName(), String.valueOf(mMonth), electricityThis);
+                                "新明路287號", room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
+
+                        Electricity electricityNext = new Electricity();
+                        electricityNext.setScaleLast(s.toString());
+                        mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
+                                "新明路287號", room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext, electricityNext);
+
+//                        mPresenter.initialElectricityMonth("n1553330708@yahoo.com.tw",
+//                                "新明路287號", room.getRoomName(), "2018", "12");
                     }
                 }
             }

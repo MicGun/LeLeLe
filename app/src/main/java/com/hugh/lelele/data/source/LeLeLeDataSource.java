@@ -59,5 +59,8 @@ public interface LeLeLeDataSource {
     void getElectricityList(@NonNull String email, @NonNull String groupName, @NonNull String year,
                             @NonNull String roomName, @NonNull GetElectricityCallback callback);
 
-    void uploadElectricityData(String landlordEmail, String groupName, String roomName, String month, Electricity electricity);
+    void uploadElectricityData(String landlordEmail, String groupName, String roomName,
+                               String year, String month, Electricity electricity);
+
+    void initialElectricityMonthData(String landlordEmail, String groupName, String roomName, String year, String month);
 }

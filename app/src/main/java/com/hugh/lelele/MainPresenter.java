@@ -163,6 +163,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void setUserType(int selectedUserType) {
+        mMainView.setUserTypeForView(selectedUserType);
+    }
+
+    @Override
     public void setElectricityData(ArrayList<Electricity> electricityYearly) {
         if (mElectricityLandlordPresenter != null) {
             mElectricityTenantPresenter.setElectricityData(electricityYearly);

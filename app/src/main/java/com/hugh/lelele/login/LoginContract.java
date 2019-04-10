@@ -14,5 +14,9 @@ public interface LoginContract {
         void hideToolbarAndBottomNavigation();
 
         void showToolbarAndBottomNavigation();
+
+        void setUserType(int selectedUserType);
+
+        void openHome();
     }
 }

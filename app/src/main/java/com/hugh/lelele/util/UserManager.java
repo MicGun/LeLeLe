@@ -2,11 +2,16 @@ package com.hugh.lelele.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.hugh.lelele.Constants;
@@ -19,6 +24,9 @@ import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRemoteDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 
 public class UserManager {
@@ -53,10 +61,31 @@ public class UserManager {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
+                loadCallback.onSuccess();
                 Log.d(Constants.TAG, "FB Login Success");
                 Log.i(Constants.TAG, "loginResult.getAccessToken().getToken() = " + loginResult.getAccessToken().getToken());
                 Log.i(Constants.TAG, "loginResult.getAccessToken().getUserId() = " + loginResult.getAccessToken().getUserId());
                 Log.i(Constants.TAG, "loginResult.getAccessToken().getApplicationId() = " + loginResult.getAccessToken().getApplicationId());
+
+//                AccessToken accessToken =  loginResult.getAccessToken();
+//                GraphRequest request = GraphRequest.newGraphPathRequest(
+//                        accessToken,
+//                        "/" + loginResult.getAccessToken().getUserId() + "/picture",
+//                        new GraphRequest.Callback() {
+//                            @Override
+//                            public void onCompleted(GraphResponse response) {
+//                                Log.d(Constants.TAG, "FB Picture" + response.getJSONArray());
+//                                // Insert your code here
+//                            }
+//                        });
+//
+//                request.executeAsync();
+
+//                try {
+//                    Bitmap bitmap = getFacebookProfilePicture(loginResult.getAccessToken().getUserId());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
 //                loginStylish(loginResult.getAccessToken().getToken(), loadCallback);
             }
@@ -64,17 +93,30 @@ public class UserManager {
             @Override
             public void onCancel() {
 
-                Log.d(Constants.TAG, "FB Login Cancel");
+                Log.d("Cancel", "FB Login Cancel");
                 loadCallback.onFail("FB Login Cancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
 
-                Log.d(Constants.TAG, "FB Login Error");
+                Log.d("Error", "FB Login Error");
                 loadCallback.onFail("FB Login Error: " + exception.getMessage());
             }
         });
+        loginFacebook(context);
+    }
+
+    public static Bitmap getFacebookProfilePicture(String userId) throws IOException {
+        URL imageURL = null;
+        try {
+            imageURL = new URL("https://graph.facebook.com/" + userId + "/picture?type=large");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+
+        return bitmap;
     }
 
     /**
@@ -148,7 +190,11 @@ public class UserManager {
         return mUserDataDAO.getItems().size() != 0;
     }
 
-    interface LoadUserProfileCallback {
+    public CallbackManager getFbCallbackManager() {
+        return mFbCallbackManager;
+    }
+
+    public interface LoadUserProfileCallback {
 
         void onSuccess();
 

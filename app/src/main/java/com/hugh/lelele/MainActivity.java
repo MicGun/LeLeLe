@@ -1,6 +1,7 @@
 package com.hugh.lelele;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.common.images.ImageManager;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Electricity;
@@ -43,7 +45,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainActivity extends BaseActivivty implements MainContract.View,
         NavigationView.OnNavigationItemSelectedListener {
 
-    private int mUserType = 1;
+    private int mUserType;
 
     private BottomNavigationView mBottomNavigation;
     private DrawerLayout mDrawerLayout;
@@ -57,12 +59,33 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     private MainContract.Presenter mPresenter;
 
+    private final String TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         init();
+
+//        printHashKey(this);
     }
+/*
+    public void printHashKey(Context pContext) {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String hashKey = new String(Base64.encode(md.digest(), 0));
+                Log.i("Huge", "printHashKey() Hash Key: " + hashKey);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("Huge", "printHashKey()", e);
+        } catch (Exception e) {
+            Log.e("Huge", "printHashKey()", e);
+        }
+    }
+    */
 
     private void init() {
         setContentView(R.layout.activity_main);
@@ -81,6 +104,13 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         setBottomNavigation();
 
         setDrawerLayout();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        UserManager.getInstance().getFbCallbackManager().onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -254,9 +284,9 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void openApplicationUi() {
-        if (mUserType == 0) {
+        if (mUserType == R.string.landlord) {
             mMainMvpController.findOrCreateApplicationLandlordView();
-        } else if (mUserType == 1) {
+        } else if (mUserType == R.string.tenant) {
             mMainMvpController.findOrCreateApplicationTenantView();
         }
     }
@@ -320,6 +350,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void showToolbarUi() {
         mToolbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setUserTypeForView(int userTypeForView) {
+        mUserType = userTypeForView;
+        Log.v(TAG, "UserType: " + mUserType);
     }
 
     @Override

@@ -40,6 +40,8 @@ public interface MainContract {
 
         void showToolbarUi();
 
+        void setUserTypeForView(int userTypeForView);
+
     }
 
     interface Presenter extends BasePresenter {

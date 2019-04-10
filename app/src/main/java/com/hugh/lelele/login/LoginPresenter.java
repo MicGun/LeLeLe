@@ -32,4 +32,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void showToolbarAndBottomNavigation() {
 
     }
+
+    @Override
+    public void setUserType(int selectedUserType) {
+
+    }
+
+    @Override
+    public void openHome() {
+
+    }
 }

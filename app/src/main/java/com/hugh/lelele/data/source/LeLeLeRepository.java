@@ -7,6 +7,7 @@ import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
 
@@ -117,5 +118,35 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     @Override
     public void initialElectricityMonthData(String landlordEmail, String groupName, String roomName, String year, String month) {
         mLeLeLeRemoteDataSource.initialElectricityMonthData(landlordEmail, groupName, roomName, year, month);
+    }
+
+    @Override
+    public void getLandlordProfile(@NonNull String email, @NonNull final GetLandlordProfileCallback callback) {
+        mLeLeLeRemoteDataSource.getLandlordProfile(email, new GetLandlordProfileCallback() {
+            @Override
+            public void onCompleted(Landlord landlord) {
+                callback.onCompleted(landlord);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void getTenantProfile(@NonNull String email, @NonNull final GetTenantProfileCallback callback) {
+        mLeLeLeRemoteDataSource.getTenantProfile(email, new GetTenantProfileCallback() {
+            @Override
+            public void onCompleted(Tenant tenant) {
+                callback.onCompleted(tenant);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
     }
 }

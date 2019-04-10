@@ -6,6 +6,7 @@ import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,20 @@ public interface LeLeLeDataSource {
         void onError(String errorMessage);
     }
 
+    interface GetLandlordProfileCallback {
+
+        void onCompleted(Landlord landlord);
+
+        void onError(String errorMessage);
+    }
+
+    interface GetTenantProfileCallback {
+
+        void onCompleted(Tenant tenant);
+
+        void onError(String errorMessage);
+    }
+
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
 
     void getRoomList(@NonNull String email, @NonNull String groupName, @NonNull GetRoomListCallback callback);
@@ -63,4 +78,8 @@ public interface LeLeLeDataSource {
                                String year, String month, Electricity electricity);
 
     void initialElectricityMonthData(String landlordEmail, String groupName, String roomName, String year, String month);
+
+    void getLandlordProfile(@NonNull String email, @NonNull GetLandlordProfileCallback callback);
+
+    void getTenantProfile(@NonNull String email, @NonNull GetTenantProfileCallback callback);
 }

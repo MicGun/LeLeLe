@@ -18,6 +18,7 @@ import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.logging.SimpleFormatter;
 public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     private final static String LANDLORDS = "landlords";
+    private final static String TENANTS = "tenants";
     private final static String GROUPS = "groups";
     private final static String ROOMS = "rooms";
     private final static String ELECTRICITY_FEE = "electricity_fee";
@@ -73,10 +75,10 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            DocumentSnapshot documentSnapshot = task.getResult();
-                            assert documentSnapshot != null;
-                            if (documentSnapshot.exists()) {
-                                Landlord landlord = LeLeLeParser.getLandlordData(documentSnapshot);
+                            DocumentSnapshot landlordDoc = task.getResult();
+                            assert landlordDoc != null;
+                            if (landlordDoc.exists()) {
+                                Landlord landlord = LeLeLeParser.parseLandlordInfo(landlordDoc);
                                 callback.onCompleted(landlord);
                             } else {
                                 //create and initialize a landlord
@@ -271,7 +273,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void initialElectricityMonthData(final String landlordEmail, final String groupName, final String roomName, final String year, final String month) {
-        Task<DocumentSnapshot> docYear = mFirebaseFirestore.collection(LANDLORDS)
+        mFirebaseFirestore.collection(LANDLORDS)
                 .document(landlordEmail)
                 .collection(GROUPS)
                 .document(groupName)
@@ -305,6 +307,46 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                         .document(String.valueOf(year))
                                         .set(electricityYearly);
                             }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getLandlordProfile(@NonNull String email, @NonNull final GetLandlordProfileCallback callback) {
+        mFirebaseFirestore.collection(LANDLORDS).document(email).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot landlordDoc = task.getResult();
+                    if (landlordDoc.exists()) {
+                        Landlord landlord = LeLeLeParser.parseLandlordInfo(landlordDoc);
+                        callback.onCompleted(landlord);
+                    }
+                } else {
+                    //ToDo create a new user?
+                    callback.onError(String.valueOf(task.getException()));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getTenantProfile(@NonNull String email, @NonNull final GetTenantProfileCallback callback) {
+        mFirebaseFirestore.collection(TENANTS).document(email).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot tenantDoc = task.getResult();
+                            if (tenantDoc.exists()) {
+                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+                                callback.onCompleted(tenant);
+                            }
+                        } else {
+                            //ToDo create a new user?
+                            callback.onError(String.valueOf(task.getException()));
                         }
                     }
                 });

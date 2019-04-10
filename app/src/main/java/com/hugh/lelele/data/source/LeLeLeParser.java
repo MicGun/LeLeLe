@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
 
@@ -57,5 +58,40 @@ public class LeLeLeParser {
         }
 
         return groups;
+    }
+
+    public static Landlord parseLandlordInfo(DocumentSnapshot landlordDoc) {
+
+        Landlord landlord = new Landlord();
+
+        landlord.setName((String) landlordDoc.get("name"));
+        landlord.setAddress((String) landlordDoc.get("address"));
+        landlord.setIdCardNumber((String) landlordDoc.get("ID_card_number"));
+        landlord.setAssessToken((String) landlordDoc.get("assess_token"));
+        landlord.setEmail((String) landlordDoc.get("email"));
+        landlord.setId((String) landlordDoc.get("id"));
+        landlord.setPhoneNumber((String) landlordDoc.get("phone_number"));
+        landlord.setPicture((String) landlordDoc.get("picture"));
+
+        return landlord;
+    }
+
+    public static Tenant parseTenantInfo(DocumentSnapshot tenantDoc) {
+
+        Tenant tenant = new Tenant();
+
+        tenant.setName((String) tenantDoc.get("name"));
+        tenant.setPhoneNumber((String) tenantDoc.get("phone_number"));
+        tenant.setEmail((String) tenantDoc.get("email"));
+        tenant.setGroup((String) tenantDoc.get("group"));
+        tenant.setId((String) tenantDoc.get("id"));
+        tenant.setLandlordEmail((String) tenantDoc.get("landlord_email"));
+        tenant.setAddress((String) tenantDoc.get("address"));
+        tenant.setPicture((String) tenantDoc.get("picture"));
+        tenant.setRoomNumber((String) tenantDoc.get("room_number"));
+        tenant.setIdCardNumber((String) tenantDoc.get("ID_card_number"));
+        tenant.setAssessToken((String) tenantDoc.get("assess_token"));
+
+        return tenant;
     }
 }

@@ -7,8 +7,10 @@ import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
@@ -34,10 +36,12 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public void loadLandlord(String email) {
+    public void uploadLandlord(String email) {
         mLeLeLeRepository.updateLandlordUser(email, new LeLeLeDataSource.LandlordUserCallback() {
             @Override
             public void onCompleted(Landlord landlord) {
+                UserManager.getInstance().setLandlord(landlord);
+                Log.v("HomePresenter", "Landlord: " + UserManager.getInstance().getLandlord().getIdCardNumber());
                 Log.v("HomePresenter", "Landlord: " + landlord.getIdCardNumber());
             }
 
@@ -71,6 +75,23 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
                 Log.v(TAG, "Group Number: " + groups.size());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadTenant(String email) {
+        mLeLeLeRepository.getTenantProfile(email, new LeLeLeDataSource.GetTenantProfileCallback() {
+            @Override
+            public void onCompleted(Tenant tenant) {
+                UserManager.getInstance().setTenant(tenant);
+                Log.v("HomePresenter", "Tenant: " + UserManager.getInstance().getTenant().getIdCardNumber());
+                Log.v("HomePresenter", "Tenant: " + tenant.getIdCardNumber());
             }
 
             @Override

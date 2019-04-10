@@ -11,10 +11,12 @@ public interface HomeContract {
 
     interface Presenter extends BasePresenter {
 
-        void loadLandlord(String email);
+        void uploadLandlord(String email);
 
         void loadRoomList(String email, String groupName);
 
         void loadGroupList(String email);
+
+        void loadTenant(String email);
     }
 }

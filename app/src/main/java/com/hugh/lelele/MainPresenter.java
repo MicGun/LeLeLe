@@ -6,8 +6,6 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
-import android.support.annotation.NonNull;
-
 import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
@@ -200,9 +198,9 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
-    public void loadLandlord(String email) {
+    public void uploadLandlord(String email) {
         if (mHomePresenter != null) {
-            mHomePresenter.loadLandlord(email);
+            mHomePresenter.uploadLandlord(email);
         }
     }
 
@@ -221,6 +219,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void loadGroupList(String email) {
         if (mHomePresenter != null) {
             mHomePresenter.loadGroupList(email);
+        }
+    }
+
+    @Override
+    public void loadTenant(String email) {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadTenant(email);
         }
     }
 }

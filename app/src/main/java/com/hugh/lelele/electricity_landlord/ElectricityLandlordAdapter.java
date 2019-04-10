@@ -44,10 +44,10 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
     public ElectricityLandlordAdapter(ElectricityLandlordContract.Presenter presenter) {
         mPresenter = presenter;
-//        mMonth = Calendar.getInstance().get(Calendar.MONTH);
-        mMonth = 0;
-//        mYear = Calendar.getInstance().get(Calendar.YEAR);
-        mYear = 2020;
+        mMonth = Calendar.getInstance().get(Calendar.MONTH);
+//        mMonth = 0;
+        mYear = Calendar.getInstance().get(Calendar.YEAR);
+//        mYear = 2020;
 
         //to handle if wants to update Dec's electricity fee of last year
         if (mMonth == 0) {

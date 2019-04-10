@@ -9,8 +9,10 @@ import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.data.source.RoomsElectricityRecursive;
 import com.hugh.lelele.data.source.RoomsElectricityRecursiveCallback;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -53,8 +55,9 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
         //ToDo: replace the landlord info by user manager.
         //call RoomsElectricityRecursive to get electric fee for each room.
-        new RoomsElectricityRecursive(rooms, "n1553330708@yahoo.com.tw",
-                "新明路287號", "2020", mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
+        new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
+                "新明路287號", String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
             @Override
             public void onCompleted(ArrayList<Room> roomArrayList) {
                 mRooms = roomArrayList;

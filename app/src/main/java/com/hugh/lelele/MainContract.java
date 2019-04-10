@@ -34,6 +34,8 @@ public interface MainContract {
 
         void showBottomNavigationUi();
 
+        void openLoginUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -53,5 +55,7 @@ public interface MainContract {
         void onDrawerOpened();
 
         void hideBottomNavigation();
+
+        void openLogin();
     }
 }

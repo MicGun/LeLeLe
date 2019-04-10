@@ -28,6 +28,10 @@ import com.google.android.gms.common.images.ImageManager;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.loco_data.UserData;
+import com.hugh.lelele.data.loco_data.UserDataDAO;
+import com.hugh.lelele.data.loco_data.UserDatabase;
+import com.hugh.lelele.util.UserManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -63,8 +67,15 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     private void init() {
         setContentView(R.layout.activity_main);
 
+
+
         mMainMvpController = MainMvpController.create(this);
-        mPresenter.openHome();
+
+        if (UserManager.getInstance().isLoggedIn()) {
+            mPresenter.openHome();
+        } else {
+            mPresenter.openLogin();
+        }
 
         setToolbar();
         setBottomNavigation();
@@ -294,6 +305,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void showBottomNavigationUi() {
         mBottomNavigation.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void openLoginUi() {
+        mMainMvpController.findOrCreateLoginView();
     }
 
     @Override

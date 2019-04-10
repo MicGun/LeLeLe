@@ -19,14 +19,17 @@ import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
+import com.hugh.lelele.login.LoginContract;
+import com.hugh.lelele.login.LoginPresenter;
 
 import java.util.ArrayList;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
-        ElectricityLandlordContract.Presenter {
+        ElectricityLandlordContract.Presenter, LoginContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -36,6 +39,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private AppLandlordPresenter mAppLandlordPresenter;
     private ElectricityTenantPresenter mElectricityTenantPresenter;
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
+    private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leLeLeRepository cannot be null!");;
@@ -77,6 +81,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setElectricityLandlordPresenter(ElectricityLandlordPresenter electricityLandlordPresenter) {
         mElectricityLandlordPresenter = checkNotNull(electricityLandlordPresenter);
+    }
+
+    void setLoginPresenter(LoginPresenter loginPresenter) {
+        mLoginPresenter = checkNotNull(loginPresenter);
     }
 
     @Override
@@ -135,6 +143,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void hideBottomNavigation() {
         mMainView.hideBottomNavigationUi();
+    }
+
+    @Override
+    public void openLogin() {
+        mMainView.openLoginUi();
     }
 
     @Override

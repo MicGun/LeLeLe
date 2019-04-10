@@ -34,4 +34,7 @@
     <string name="scale_total">總度數</string>
     <string name="room_number">房號</string>
     <string name="clean_button">清除</string>
+
+    <!-- Login -->
+    <string name="facebookLoginText">Facebook Login</string>
 </resources>

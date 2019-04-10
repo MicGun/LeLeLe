@@ -20,6 +20,8 @@ import com.hugh.lelele.electricity_tenant.ElectricityTenantFragment;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
 import com.hugh.lelele.home.HomeFragment;
 import com.hugh.lelele.home.HomePresenter;
+import com.hugh.lelele.login.LoginFragment;
+import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
 import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
@@ -40,6 +42,7 @@ public class MainMvpController {
     private AppLandlordPresenter mAppLandlordPresenter;
     private ElectricityTenantPresenter mElectricityTenantPresenter;
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
+    private LoginPresenter mLoginPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -47,10 +50,11 @@ public class MainMvpController {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
-            ELECTRICITY_LANDLORD
+            ELECTRICITY_LANDLORD, LOGIN
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
+    static final String LOGIN    = "LOGIN";
     static final String APPLICATION_TENANT = "APPLICATION_TENANT";
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
     static final String NOTIFY    = "NOTIFY";
@@ -139,6 +143,18 @@ public class MainMvpController {
         mElectricityTenantPresenter.setElectricityData(electricityYearly);
     }
 
+    /*
+     * Login View
+     * */
+
+    void findOrCreateLoginView() {
+        LoginFragment loginFragment = findOrCreateLoginFragment();
+        mLoginPresenter = new LoginPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), loginFragment);
+        mMainPresenter.setLoginPresenter(mLoginPresenter);
+        loginFragment.setPresenter(mMainPresenter);
+    }
+
     /**
      * Home Fragment
      * @return HomeFragment
@@ -157,6 +173,26 @@ public class MainMvpController {
                 getFragmentManager(), homeFragment, HOME);
 
         return homeFragment;
+    }
+
+    /**
+     * Login Fragment
+     * @return HomeFragment
+     */
+    @NonNull
+    private LoginFragment findOrCreateLoginFragment() {
+
+        LoginFragment loginFragment =
+                (LoginFragment) getFragmentManager().findFragmentByTag(LOGIN);
+        if (loginFragment == null) {
+            // Create the fragment
+            loginFragment = LoginFragment.newInstance();
+        }
+
+        ActivityUtils.showOrAddFragmentByTag(
+                getFragmentManager(), loginFragment, LOGIN);
+
+        return loginFragment;
     }
 
     /**

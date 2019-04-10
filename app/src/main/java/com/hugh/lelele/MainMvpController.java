@@ -136,15 +136,6 @@ public class MainMvpController {
                 LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
         mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
         electricityTenantFragment.setPresenter(mMainPresenter);
-//        if (mElectricityTenantPresenter == null) {
-//            mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
-//                    LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
-//            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
-//            electricityTenantFragment.setPresenter(mMainPresenter);
-//        } else {
-//            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
-//            electricityTenantFragment.setPresenter(mMainPresenter);
-//        }
         mElectricityTenantPresenter.setElectricityData(electricityYearly);
     }
 

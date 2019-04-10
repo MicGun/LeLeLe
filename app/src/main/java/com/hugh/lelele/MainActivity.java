@@ -313,6 +313,16 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void hideToolbarUi() {
+        mToolbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showToolbarUi() {
+        mToolbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         String string = "";
 

@@ -36,6 +36,10 @@ public interface MainContract {
 
         void openLoginUi();
 
+        void hideToolbarUi();
+
+        void showToolbarUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -56,6 +60,12 @@ public interface MainContract {
 
         void hideBottomNavigation();
 
+        void showBottomNavigation();
+
         void openLogin();
+
+        void hideToolbarAndBottomNavigation();
+
+        void showToolbarAndBottomNavigation();
     }
 }

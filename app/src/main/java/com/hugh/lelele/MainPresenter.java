@@ -151,6 +151,18 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void hideToolbarAndBottomNavigation() {
+        mMainView.hideToolbarUi();
+        mMainView.hideBottomNavigationUi();
+    }
+
+    @Override
+    public void showToolbarAndBottomNavigation() {
+        mMainView.showToolbarUi();
+        mMainView.showBottomNavigationUi();
+    }
+
+    @Override
     public void setElectricityData(ArrayList<Electricity> electricityYearly) {
         if (mElectricityLandlordPresenter != null) {
             mElectricityTenantPresenter.setElectricityData(electricityYearly);

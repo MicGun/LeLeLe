@@ -37,4 +37,11 @@
 
     <!-- Login -->
     <string name="facebookLoginText">Facebook Login</string>
+
+    <!-- User Type Selector -->
+    <string-array name="user_type_array">
+        <item>請選擇登入類型</item>
+        <item>房東</item>
+        <item>房客</item>
+    </string-array>
 </resources>

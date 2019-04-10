@@ -22,4 +22,14 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void start() {
 
     }
+
+    @Override
+    public void hideToolbarAndBottomNavigation() {
+
+    }
+
+    @Override
+    public void showToolbarAndBottomNavigation() {
+
+    }
 }

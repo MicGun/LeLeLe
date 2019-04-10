@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                         Toast.LENGTH_LONG).show();
             } else {
                 String selectedUserType = parent.getItemAtPosition(pos).toString();
-                if (selectedUserType.equals(R.string.landlord)) {
+                if (selectedUserType.equals("房東")) {
                     mUserType = R.string.landlord;
                     mPresenter.setUserType(R.string.landlord);
                     Log.v(TAG, "UserType" + mUserType);

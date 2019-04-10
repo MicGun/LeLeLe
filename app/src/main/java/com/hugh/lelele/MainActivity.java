@@ -355,7 +355,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void setUserTypeForView(int userTypeForView) {
         mUserType = userTypeForView;
-        Log.v(TAG, "UserType: " + mUserType);
+        Log.v("Hugh", "UserType: " + mUserType);
     }
 
     @Override

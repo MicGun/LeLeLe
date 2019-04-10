@@ -12,30 +12,31 @@ public class RoomsElectricityRecursive {
     private ArrayList<Room> mRooms;
     private String mLandlordEmail;
     private String mGroupName;
-    public RoomsElectricityRecursiveCallback mCallback;
-    private int mCount;
+    private String mYear;
+    private RoomsElectricityRecursiveCallback mCallback;
 
     private final LeLeLeRepository mLeLeLeRepository;
 
     public RoomsElectricityRecursive(ArrayList<Room> rooms, String landlordEmail,
-                                     String groupName,
+                                     String groupName, String year,
                                      LeLeLeRepository leLeLeRepository,
                                      RoomsElectricityRecursiveCallback callback) {
         mRooms = rooms;
         mLandlordEmail = landlordEmail;
         mGroupName = groupName;
+        mYear = year;
         mCallback = callback;
         mLeLeLeRepository = leLeLeRepository;
-        mCount = 0;
-        downloadRoomElectricityList(mCount);
+        int count = 0;
+        downloadRoomElectricityList(count);
     }
 
-    void downloadRoomElectricityList(int i) {
+    private void downloadRoomElectricityList(int i) {
         final Room room = mRooms.get(i);
         i++;
         final int finalI = i;
         mLeLeLeRepository.getElectricityList(mLandlordEmail,
-                mGroupName, "2019",
+                mGroupName, mYear,
                 room.getRoomName(), new LeLeLeDataSource.GetElectricityCallback() {
                     @Override
                     public void onCompleted(ArrayList<Electricity> electricities) {

@@ -215,15 +215,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             assert electricityFeeYearly != null;
                             if (electricityFeeYearly.exists()) {
                                 ArrayList<Electricity> electricities = new ArrayList<>();
-                                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =
-                                        new SimpleDateFormat("yyyy-MM-dd");
                                 Map<String, Object> electricityFeeYearlyData = electricityFeeYearly.getData();
-                                for (int i = 0; i < 12; i++) {
+                                for (int i = 0; i < 13; i++) {
                                     Map<String, String> electricityFee;
                                     if (i < 9) {
-                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get("0" + String.valueOf(i + 1));
+                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get("0" + String.valueOf(i));
                                     } else {
-                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get(String.valueOf(i + 1));
+                                        electricityFee = (Map<String, String>) electricityFeeYearlyData.get(String.valueOf(i));
                                     }
                                     Electricity electricity = new Electricity();
                                     if (electricityFee != null) {

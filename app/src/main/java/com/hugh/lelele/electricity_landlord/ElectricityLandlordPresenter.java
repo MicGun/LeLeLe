@@ -51,9 +51,10 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     @Override
     public void setRoomData(ArrayList<Room> rooms) {
 
+        //ToDo: replace the landlord info by user manager.
         //call RoomsElectricityRecursive to get electric fee for each room.
         new RoomsElectricityRecursive(rooms, "n1553330708@yahoo.com.tw",
-                "新明路287號", mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
+                "新明路287號", "2020", mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
             @Override
             public void onCompleted(ArrayList<Room> roomArrayList) {
                 mRooms = roomArrayList;

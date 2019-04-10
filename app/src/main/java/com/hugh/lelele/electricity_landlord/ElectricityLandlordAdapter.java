@@ -37,6 +37,8 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
     private String mMonthBeUpdatedNext;
     private String mYearBeUpdatedNext;
 
+    private final String BASE_LINE_MONTH = "00";
+
     //單位度數電費
     private final int UNIT_PRICE = 5;
 
@@ -109,8 +111,13 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
         final Room room = mRooms.get(i);
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
-//        final Electricity electricityThis = room.getElectricities().get(mMonth - 1); //指標從0開始
-        final Electricity electricityThis = room.getElectricities().get(11); //指標從0開始
+        final Electricity electricityThis = room.getElectricities().get(mMonth); //指標從0開始，有多一個base line month，因此長度會變為13
+//        final Electricity electricityThis = room.getElectricities().get(11); //指標從0開始
+
+        if (mMonth == 0) {
+            mPresenter.initialElectricityMonth("n1553330708@yahoo.com.tw",
+                    "新明路287號", room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext);
+        }
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());
         if (!electricityThis.getScaleLast().equals("")) {
@@ -140,11 +147,11 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).cleanButton
                 .setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis.setText("");
-            }
-        });
+                    @Override
+                    public void onClick(View v) {
+                        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis.setText("");
+                    }
+                });
 
         if (!electricityThis.getScale().equals("")) {
             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis.setText(electricityThis.getScale());
@@ -162,7 +169,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                 String electricityLastData = String.valueOf(((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.getText());
 
                 //如果edittext為空就不執行
-                if (s.length() != 0 && !electricityLastData.equals("")){ //避免下面判別式掛掉
+                if (s.length() != 0 && !electricityLastData.equals("")) { //避免下面判別式掛掉
                     //如果本月度數低於上月度數，需紅字highlight
                     if (Integer.valueOf(s.toString()) < Integer.valueOf(electricityLastData)) {
 
@@ -170,18 +177,23 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                                 .setTextColor(LeLeLe.getAppContext().getColor(R.color.red_ff0000));
 
                         //本月度數高於上月度數即可上傳firestore
-                    } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)){
+                    } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)) {
                         ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
                                 .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));
                         electricityThis.setScale(s.toString());
                         int total_consumption = Integer.valueOf(s.toString()) - Integer.valueOf(electricityThis.getScaleLast());
-                        int price = total_consumption*UNIT_PRICE;
+                        int price = total_consumption * UNIT_PRICE;
                         electricityThis.setPrice(String.valueOf(price));
                         electricityThis.setTotalConsumption(String.valueOf(total_consumption));
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                         electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
                         mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
                                 "新明路287號", room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
+
+                        if (mMonth == 0) {
+                            mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
+                                    "新明路287號", room.getRoomName(), String.valueOf(mYear), BASE_LINE_MONTH, electricityThis);
+                        }
 
                         Electricity electricityNext = new Electricity();
                         electricityNext.setScaleLast(s.toString());

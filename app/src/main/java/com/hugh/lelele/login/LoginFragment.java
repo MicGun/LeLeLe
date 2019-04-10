@@ -26,6 +26,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private Spinner mUserTypeSelector;
     private Button mFacebookLoginButton;
     private int mUserType;
+    private final String LANDLORD = "房東";
 
     private final String TAG = LoginFragment.class.getSimpleName();
 
@@ -88,7 +89,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                         Toast.LENGTH_LONG).show();
             } else {
                 String selectedUserType = parent.getItemAtPosition(pos).toString();
-                if (selectedUserType.equals("房東")) {
+                if (selectedUserType.equals(LANDLORD)) {
                     mUserType = R.string.landlord;
                     mPresenter.setUserType(R.string.landlord);
                     Log.v(TAG, "UserType" + mUserType);

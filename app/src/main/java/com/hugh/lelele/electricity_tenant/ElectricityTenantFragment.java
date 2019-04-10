@@ -50,7 +50,7 @@ public class ElectricityTenantFragment extends Fragment implements ElectricityTe
         mBarChart.getDescription().setEnabled(false);
 
 //        setData(12);
-        setData(checkNotNull(mElectricities));
+        setData(mElectricities);
         mBarChart.setFitBars(true);
 
         return root;
@@ -88,10 +88,15 @@ public class ElectricityTenantFragment extends Fragment implements ElectricityTe
 
         ArrayList<BarEntry> yVals = new ArrayList<>();
 
-        for (int i = 0; i < electricities.size(); i++) {
+        for (int i = 1; i < electricities.size(); i++) {
             Electricity electricity = electricities.get(i);
-            int value = (int) Integer.valueOf(electricity.getPrice());
-            yVals.add(new BarEntry(i+1, value));
+            int value;
+            if (electricity.getPrice().equals("")) {
+                value = 0;
+            } else {
+                value = (int) Integer.valueOf(electricity.getPrice());
+            }
+            yVals.add(new BarEntry(i, value));
         }
 
         BarDataSet set = new BarDataSet(yVals, "電費");

@@ -131,15 +131,20 @@ public class MainMvpController {
         ElectricityTenantFragment electricityTenantFragment = findOrCreateElectricityTenantFragment();
 
         Log.v("is null", "" + (mElectricityTenantPresenter == null));
-        if (mElectricityTenantPresenter == null) {
-            mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
-                    LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
-            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
-            electricityTenantFragment.setPresenter(mMainPresenter);
-        } else {
-            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
-            electricityTenantFragment.setPresenter(mMainPresenter);
-        }
+
+        mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
+        mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
+        electricityTenantFragment.setPresenter(mMainPresenter);
+//        if (mElectricityTenantPresenter == null) {
+//            mElectricityTenantPresenter = new ElectricityTenantPresenter(LeLeLeRepository.getInstance(
+//                    LeLeLeRemoteDataSource.getInstance()), electricityTenantFragment);
+//            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
+//            electricityTenantFragment.setPresenter(mMainPresenter);
+//        } else {
+//            mMainPresenter.setElectricityTenantPresenter(mElectricityTenantPresenter);
+//            electricityTenantFragment.setPresenter(mMainPresenter);
+//        }
         mElectricityTenantPresenter.setElectricityData(electricityYearly);
     }
 

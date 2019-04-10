@@ -56,7 +56,7 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        Electricity electricity = mElectricities.get(i);
+        Electricity electricity = mElectricities.get(i+1);
 
         if ( i < 9) {
             ((ElectricityTenantItemViewHolder) viewHolder).month.setText("0" + String.valueOf(i+1));
@@ -73,7 +73,7 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         if (mElectricities != null) {
-            return mElectricities.size();
+            return mElectricities.size() - 1;
         } else {
             return 0;
         }

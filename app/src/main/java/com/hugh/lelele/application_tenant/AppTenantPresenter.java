@@ -4,9 +4,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Tenant;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -30,27 +34,42 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
 
     @Override
     public void loadElectricityData() {
-        //給假資料
-        int scale = 7788;
-//        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
-        ArrayList<Electricity> electricityYearly = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            Electricity electricity = new Electricity();
-            Random random = new Random();
-            int range = random.nextInt(100);
-            int consumption = range + 100;
-            electricity.setScaleLast(String.valueOf(scale));
-            scale += consumption;
-            electricity.setScale(String.valueOf(scale));
-            electricity.setPrice(String.valueOf(consumption*5));
-            electricity.setTotalConsumption(String.valueOf(consumption));
-            electricity.setTime("2019/" + i+1 + "/01");
-            electricityYearly.add(electricity);
-            if (electricityYearly.size() == 11) {
-                mAppTenantView.showElectricityUi(electricityYearly);
-            }
-        }
-        Log.v("electricityYearly", "" + electricityYearly);
+        Tenant tenant = UserManager.getInstance().getTenant();
+        mLeLeLeRepository.getElectricityList(tenant.getLandlordEmail(),
+                tenant.getGroup(), String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                tenant.getRoomNumber(), new LeLeLeDataSource.GetElectricityCallback() {
+                    @Override
+                    public void onCompleted(ArrayList<Electricity> electricities) {
+                        mAppTenantView.showElectricityUi(electricities);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+
+//        //給假資料
+//        int scale = 7788;
+////        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
+//        ArrayList<Electricity> electricityYearly = new ArrayList<>();
+//        for (int i = 0; i < 12; i++) {
+//            Electricity electricity = new Electricity();
+//            Random random = new Random();
+//            int range = random.nextInt(100);
+//            int consumption = range + 100;
+//            electricity.setScaleLast(String.valueOf(scale));
+//            scale += consumption;
+//            electricity.setScale(String.valueOf(scale));
+//            electricity.setPrice(String.valueOf(consumption*5));
+//            electricity.setTotalConsumption(String.valueOf(consumption));
+//            electricity.setTime("2019/" + i+1 + "/01");
+//            electricityYearly.add(electricity);
+//            if (electricityYearly.size() == 11) {
+//                mAppTenantView.showElectricityUi(electricityYearly);
+//            }
+//        }
+//        Log.v("electricityYearly", "" + electricityYearly);
 
     }
 

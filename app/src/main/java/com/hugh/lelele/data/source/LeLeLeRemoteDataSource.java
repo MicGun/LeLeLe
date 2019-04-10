@@ -220,7 +220,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 Map<String, Object> electricityFeeYearlyData = electricityFeeYearly.getData();
                                 for (int i = 0; i < 13; i++) {
                                     Map<String, String> electricityFee;
-                                    if (i < 9) {
+                                    if (i < 10) {
                                         electricityFee = (Map<String, String>) electricityFeeYearlyData.get("0" + String.valueOf(i));
                                     } else {
                                         electricityFee = (Map<String, String>) electricityFeeYearlyData.get(String.valueOf(i));

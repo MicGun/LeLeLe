@@ -3,14 +3,16 @@ package com.hugh.lelele.data.loco_data;
 import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "userData", primaryKeys = {"mEmail"})
+@Entity(tableName = "userData", primaryKeys = {"mId"})
 public class UserData {
 
     private String mAssessToken;
-    @NonNull
     private String mEmail;
+    @NonNull
     private String mId;
     private String mName;
+    private String mPictureUrl;
+    private int mUserType;
 
     public UserData() {
 
@@ -18,6 +20,7 @@ public class UserData {
         mAssessToken = "";
         mId = "";
         mName = "";
+        mPictureUrl = "";
     }
 
     public String getAssessToken() {
@@ -28,20 +31,20 @@ public class UserData {
         mAssessToken = assessToken;
     }
 
-    @NonNull
     public String getEmail() {
         return mEmail;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         mEmail = email;
     }
 
+    @NonNull
     public String getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         mId = id;
     }
 
@@ -51,5 +54,21 @@ public class UserData {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public String getPictureUrl() {
+        return mPictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        mPictureUrl = pictureUrl;
+    }
+
+    public int getUserType() {
+        return mUserType;
+    }
+
+    public void setUserType(int userType) {
+        mUserType = userType;
     }
 }

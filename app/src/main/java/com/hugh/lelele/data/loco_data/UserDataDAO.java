@@ -22,4 +22,7 @@ public interface UserDataDAO {
 
     @Query("SELECT * FROM userData")
     public List<UserData> getItems();
+
+    @Query("SELECT * FROM userData WHERE mId LIKE :id")
+    public UserData getUserById(String id);
 }

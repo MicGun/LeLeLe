@@ -8,6 +8,10 @@ import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
+import com.hugh.lelele.data.loco_data.UserData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -94,4 +98,23 @@ public class LeLeLeParser {
 
         return tenant;
     }
+
+    public static UserData parseUserData(JSONObject object, UserData userData) {
+
+        try {
+            String name = object.getString("name");
+            String email = object.getString("email");
+
+            userData.setName(name);
+            userData.setEmail(email);
+            Log.v("Hugh", "Email: " + object.getString("email"));
+            Log.v("Hugh", "Name: " + object.getString("name"));
+            Log.v("Hugh", "Id: " + object.getString("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return userData;
+    }
+
 }

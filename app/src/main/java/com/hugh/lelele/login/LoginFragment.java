@@ -92,10 +92,12 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 if (selectedUserType.equals(LANDLORD)) {
                     mUserType = R.string.landlord;
                     mPresenter.setUserType(R.string.landlord);
+                    UserManager.getInstance().setUserType(R.string.landlord);
                     Log.v(TAG, "UserType" + mUserType);
                 } else {
                     mUserType = R.string.tenant;
                     mPresenter.setUserType(R.string.tenant);
+                    UserManager.getInstance().setUserType(R.string.tenant);
                     Log.v(TAG, "UserType" + mUserType);
                 }
 

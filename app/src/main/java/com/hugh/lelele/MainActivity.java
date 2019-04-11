@@ -39,6 +39,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -90,11 +91,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     private void init() {
         setContentView(R.layout.activity_main);
 
-
-
         mMainMvpController = MainMvpController.create(this);
 
         if (UserManager.getInstance().isLoggedIn()) {
+            UserManager.getInstance().setupUserEnvironment();
+            mUserType = UserManager.getInstance().getUserData().getUserType();
             mPresenter.openHome();
         } else {
             mPresenter.openLogin();
@@ -193,6 +194,14 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
                     mPresenter.updateToolbar(MainActivity.this.getResources().getString(R.string.notify));
                     mPresenter.openNotify();
+                    UserDatabase userDatabase = android.arch.persistence.room.Room
+                            .databaseBuilder(LeLeLe.getAppContext(), UserDatabase.class, "userDataBase")
+                            .allowMainThreadQueries()
+                            .build();
+                    UserDataDAO userDataDAO = userDatabase.getUserDAO();
+                    List<UserData> userDataList = userDataDAO.getItems();
+                    UserData userData = userDataList.get(0);
+                    Toast.makeText(getApplicationContext(), userData.getEmail(), Toast.LENGTH_SHORT).show();
                     return true;
 
                 case R.id.navigation_profile:

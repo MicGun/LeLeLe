@@ -19,6 +19,7 @@ import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
+import com.hugh.lelele.util.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,11 +87,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 user.put("email", email);
                                 user.put("ID_card_number", "");
                                 user.put("address", "");
-                                user.put("assess_token", "");
+                                user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
                                 user.put("phone_number", "");
-                                user.put("id", "");
-                                user.put("name", "");
-                                user.put("picture", "");
+                                user.put("id", UserManager.getInstance().getUserData().getId());
+                                user.put("name", UserManager.getInstance().getUserData().getName());
+                                user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
                                 mFirebaseFirestore.collection(LANDLORDS)
                                         .document(email)
                                         .set(user);

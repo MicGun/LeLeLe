@@ -19,6 +19,8 @@ import com.hugh.lelele.electricity_landlord.ElectricityLandlordFragment;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantFragment;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
+import com.hugh.lelele.group_list.GroupListFragment;
+import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeFragment;
 import com.hugh.lelele.home.HomePresenter;
 import com.hugh.lelele.login.LoginFragment;
@@ -44,6 +46,7 @@ public class MainMvpController {
     private ElectricityTenantPresenter mElectricityTenantPresenter;
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
     private LoginPresenter mLoginPresenter;
+    private GroupListPresenter mGroupListPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -159,11 +162,11 @@ public class MainMvpController {
      * Login View
      * */
     void findOrCreateGroupListView(ArrayList<Group> groups) {
-        LoginFragment loginFragment = findOrCreateLoginFragment();
-        mLoginPresenter = new LoginPresenter(LeLeLeRepository.getInstance(
-                LeLeLeRemoteDataSource.getInstance()), loginFragment);
-        mMainPresenter.setLoginPresenter(mLoginPresenter);
-        loginFragment.setPresenter(mMainPresenter);
+        GroupListFragment groupListFragment = findOrCreateGroupListFragment();
+        mGroupListPresenter = new GroupListPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), groupListFragment);
+        mMainPresenter.setGroupListPresenter(mGroupListPresenter);
+        groupListFragment.setPresenter(mMainPresenter);
     }
 
     /**

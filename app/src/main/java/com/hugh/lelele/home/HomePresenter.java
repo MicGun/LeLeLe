@@ -71,17 +71,17 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadGroupList(String email) {
-        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
-            @Override
-            public void onCompleted(ArrayList<Group> groups) {
-                Log.v(TAG, "Group Number: " + groups.size());
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
+//        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
+//            @Override
+//            public void onCompleted(ArrayList<Group> groups) {
+//                Log.v(TAG, "Group Number: " + groups.size());
+//            }
+//
+//            @Override
+//            public void onError(String errorMessage) {
+//
+//            }
+//        });
     }
 
     @Override

@@ -29,6 +29,7 @@ import com.facebook.AccessToken;
 import com.google.android.gms.common.images.ImageManager;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.loco_data.UserData;
 import com.hugh.lelele.data.loco_data.UserDataDAO;
@@ -365,6 +366,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     public void setUserTypeForView(int userTypeForView) {
         mUserType = userTypeForView;
         Log.v("Hugh", "UserType: " + mUserType);
+    }
+
+    @Override
+    public void openGroupListUi(ArrayList<Group> groups) {
+        
     }
 
     @Override

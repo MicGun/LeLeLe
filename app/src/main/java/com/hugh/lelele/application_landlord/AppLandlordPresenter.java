@@ -3,6 +3,7 @@ package com.hugh.lelele.application_landlord;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
@@ -15,6 +16,8 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private final AppLandlordContract.View mAppLandlordView;
+
+    private final String TAG = AppLandlordPresenter.class.getSimpleName();
 
     public AppLandlordPresenter(@NonNull LeLeLeRepository leLeLeRepository,
                                 @NonNull AppLandlordContract.View appLandlordView) {
@@ -42,25 +45,30 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
 
             }
         });
-        //給假資料
-
-//        ArrayList<Room> rooms = new ArrayList<>();
-//
-//        for (int i = 0; i < 5; i++) {
-//
-//            Room room = new Room();
-//            int n = i + 1;
-//            room.setRoomName("30" + n);
-//
-//            rooms.add(room);
-//            if (rooms.size() == 5) {
-//                mAppLandlordView.showElectricityEditorUi(rooms);
-//            }
-//        }
     }
 
     @Override
     public void openElectricityEditor(ArrayList<Room> rooms) {
+
+    }
+
+    @Override
+    public void loadGroupListFromApp(String email) {
+        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Group> groups) {
+                Log.v(TAG, "Group Number: " + groups.size());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    @Override
+    public void openGroupList(ArrayList<Group> groups) {
 
     }
 }

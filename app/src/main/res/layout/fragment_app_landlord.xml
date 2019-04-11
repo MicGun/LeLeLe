@@ -71,6 +71,17 @@
         app:layout_constraintTop_toBottomOf="@+id/button_electricity_landlord" />
 
     <Button
+        android:id="@+id/button_group_list_landlord"
+        style="@style/ProfileOrderButton"
+        android:layout_marginTop="24dp"
+        android:drawableTop="@drawable/ic_groups"
+        android:gravity="center"
+        android:text="@string/application_groups_list"
+        app:layout_constraintEnd_toEndOf="@+id/button_electricity_landlord"
+        app:layout_constraintStart_toStartOf="@+id/button_electricity_landlord"
+        app:layout_constraintTop_toBottomOf="@+id/button_reservation_landlord" />
+
+    <Button
         android:id="@+id/button_garbage_truck_landlord"
         style="@style/ProfileOrderButton"
         android:drawableTop="@drawable/ic_truck"

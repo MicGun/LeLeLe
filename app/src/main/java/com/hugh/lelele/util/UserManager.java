@@ -201,11 +201,13 @@ public class UserManager {
 
         mUserData = mUserDataDAO.getItems().get(0);
 
+        int usertype = mUserData.getUserType();
+        Log.v(TAG, "UserType" + mUserData.getUserType());
         if (mUserData.getUserType() == R.string.landlord) {
             getLandlordProfile(mUserData.getEmail(), new LoadUserProfileCallback() {
                 @Override
                 public void onSuccess() {
-
+                    Log.v(TAG, "房東");
                 }
 
                 @Override
@@ -222,7 +224,7 @@ public class UserManager {
             getTenantProfile(mUserData.getEmail(), new LoadUserProfileCallback() {
                 @Override
                 public void onSuccess() {
-
+                    Log.v(TAG, "房客");
                 }
 
                 @Override

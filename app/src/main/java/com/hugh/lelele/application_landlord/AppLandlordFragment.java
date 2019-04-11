@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
@@ -21,18 +24,31 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
     private AppLandlordContract.Presenter mPresenter;
 
     private Button mElectricityButton;
+    private Button mGroupListButton;
     private Button mMessageButton;
+
+    private Landlord mLandlord;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_app_landlord, container, false);
 
+        mLandlord = UserManager.getInstance().getLandlord();
+
         mElectricityButton = root.findViewById(R.id.button_electricity_landlord);
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadRoomList("n1553330708@yahoo.com.tw", "新明路287號");
+                mPresenter.loadRoomList(mLandlord.getEmail(), "新明路287號");
+            }
+        });
+
+        mGroupListButton = root.findViewById(R.id.button_group_list_landlord);
+        mGroupListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadGroupListFromApp(mLandlord.getEmail());
             }
         });
         return root;
@@ -50,5 +66,10 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
     @Override
     public void showElectricityEditorUi(ArrayList<Room> rooms) {
         mPresenter.openElectricityEditor(rooms);
+    }
+
+    @Override
+    public void showGroupListUi(ArrayList<Group> groups) {
+        mPresenter.openGroupList(groups);
     }
 }

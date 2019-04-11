@@ -1,6 +1,7 @@
 package com.hugh.lelele;
 
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public interface MainContract {
         void showToolbarUi();
 
         void setUserTypeForView(int userTypeForView);
+
+        void openGroupListUi(ArrayList<Group> groups);
 
     }
 

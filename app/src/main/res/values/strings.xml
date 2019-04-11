@@ -25,6 +25,7 @@
     <string name="application_garbage_truck">垃圾車</string>
     <string name="application_electricity_edit">編輯電費</string>
     <string name="application_tenants_list">房客清單</string>
+    <string name="application_groups_list">群組清單</string>
 
     <!-- Electricity Fee -->
     <string name="electricity_fee">金額</string>

@@ -6,17 +6,22 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
+import android.util.Log;
+
 import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordContract;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
+import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 import com.hugh.lelele.login.LoginContract;
@@ -39,6 +44,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private AppLandlordPresenter mAppLandlordPresenter;
     private ElectricityTenantPresenter mElectricityTenantPresenter;
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
+    private GroupListPresenter mGroupListPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -207,6 +213,18 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void loadGroupListFromApp(String email) {
+        if (mAppLandlordPresenter != null) {
+            mAppLandlordPresenter.loadGroupListFromApp(email);
+        }
+    }
+
+    @Override
+    public void openGroupList(ArrayList<Group> groups) {
+        mMainView.openGroupListUi(groups);
+    }
+
+    @Override
     public void setRoomData(ArrayList<Room> rooms) {
         if (mElectricityLandlordPresenter != null) {
             mElectricityLandlordPresenter.setRoomData(rooms);
@@ -247,9 +265,21 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void loadGroupList(String email) {
-        if (mHomePresenter != null) {
-            mHomePresenter.loadGroupList(email);
-        }
+
+        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Group> groups) {
+                Log.v("MainPresenter", "Group Number: " + groups.size());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+//        if (mHomePresenter != null) {
+//            mHomePresenter.loadGroupList(email);
+//        }
     }
 
     @Override

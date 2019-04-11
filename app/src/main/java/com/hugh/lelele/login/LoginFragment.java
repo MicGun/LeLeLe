@@ -26,7 +26,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private Spinner mUserTypeSelector;
     private Button mFacebookLoginButton;
     private int mUserType;
-    private final String LANDLORD = "房東";
+    private final String LANDLORD = String.valueOf(R.string.landlord);
 
     private final String TAG = LoginFragment.class.getSimpleName();
 
@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     });
                 } else {
                     Toast.makeText(LeLeLe.getAppContext(),
-                            "Please select a type befor click.", Toast.LENGTH_SHORT).show();
+                            "Please select a type before click.", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -54,11 +54,12 @@ public class MainMvpController {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
-            ELECTRICITY_LANDLORD, LOGIN
+            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
     static final String LOGIN    = "LOGIN";
+    static final String GROUP_LIST    = "GROUP_LIST";
     static final String APPLICATION_TENANT = "APPLICATION_TENANT";
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
     static final String NOTIFY    = "NOTIFY";
@@ -207,6 +208,26 @@ public class MainMvpController {
                 getFragmentManager(), loginFragment, LOGIN);
 
         return loginFragment;
+    }
+
+    /**
+     * Group List Fragment
+     * @return HomeFragment
+     */
+    @NonNull
+    private GroupListFragment findOrCreateGroupListFragment() {
+
+        GroupListFragment groupListFragment =
+                (GroupListFragment) getFragmentManager().findFragmentByTag(GROUP_LIST);
+        if (groupListFragment == null) {
+            // Create the fragment
+            groupListFragment = GroupListFragment.newInstance();
+        }
+
+        ActivityUtils.showOrAddFragmentByTag(
+                getFragmentManager(), groupListFragment, GROUP_LIST);
+
+        return groupListFragment;
     }
 
     /**

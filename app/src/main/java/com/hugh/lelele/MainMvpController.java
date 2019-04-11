@@ -11,6 +11,7 @@ import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantFragment;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeRemoteDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
@@ -146,8 +147,18 @@ public class MainMvpController {
     /*
      * Login View
      * */
-
     void findOrCreateLoginView() {
+        LoginFragment loginFragment = findOrCreateLoginFragment();
+        mLoginPresenter = new LoginPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), loginFragment);
+        mMainPresenter.setLoginPresenter(mLoginPresenter);
+        loginFragment.setPresenter(mMainPresenter);
+    }
+
+    /*
+     * Login View
+     * */
+    void findOrCreateGroupListView(ArrayList<Group> groups) {
         LoginFragment loginFragment = findOrCreateLoginFragment();
         mLoginPresenter = new LoginPresenter(LeLeLeRepository.getInstance(
                 LeLeLeRemoteDataSource.getInstance()), loginFragment);

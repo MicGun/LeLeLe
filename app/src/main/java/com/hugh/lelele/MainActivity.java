@@ -370,7 +370,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void openGroupListUi(ArrayList<Group> groups) {
-        
+        mMainMvpController.findOrCreateGroupListView(groups);
     }
 
     @Override

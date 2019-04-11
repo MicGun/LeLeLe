@@ -21,6 +21,7 @@ import com.hugh.lelele.electricity_landlord.ElectricityLandlordContract;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
+import com.hugh.lelele.group_list.GroupListContract;
 import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
@@ -34,7 +35,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
-        ElectricityLandlordContract.Presenter, LoginContract.Presenter {
+        ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -91,6 +92,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setLoginPresenter(LoginPresenter loginPresenter) {
         mLoginPresenter = checkNotNull(loginPresenter);
+    }
+
+    void setGroupListPresenter(GroupListPresenter groupListPresenter) {
+        mGroupListPresenter = checkNotNull(groupListPresenter);
     }
 
     @Override

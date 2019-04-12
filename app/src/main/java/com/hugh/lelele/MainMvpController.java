@@ -19,6 +19,8 @@ import com.hugh.lelele.electricity_landlord.ElectricityLandlordFragment;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantFragment;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
+import com.hugh.lelele.group_detail.GroupDetailsFragment;
+import com.hugh.lelele.group_detail.GroupDetailsPresenter;
 import com.hugh.lelele.group_list.GroupListFragment;
 import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeFragment;
@@ -47,6 +49,7 @@ public class MainMvpController {
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
     private LoginPresenter mLoginPresenter;
     private GroupListPresenter mGroupListPresenter;
+    private GroupDetailsPresenter mGroupDetailsPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -54,12 +57,13 @@ public class MainMvpController {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
-            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST
+            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
     static final String LOGIN    = "LOGIN";
     static final String GROUP_LIST    = "GROUP_LIST";
+    static final String GROUP_DETAILS    = "GROUP_DETAILS";
     static final String APPLICATION_TENANT = "APPLICATION_TENANT";
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
     static final String NOTIFY    = "NOTIFY";
@@ -172,15 +176,15 @@ public class MainMvpController {
     }
 
     /*
-     * Group List View
+     * Group Details View
      * */
     void findOrCreateGroupDetailsView(Group group) {
-        GroupListFragment groupListFragment = findOrCreateGroupListFragment();
-        mGroupListPresenter = new GroupListPresenter(LeLeLeRepository.getInstance(
-                LeLeLeRemoteDataSource.getInstance()), groupListFragment);
+        GroupDetailsFragment groupDetailsFragment = findOrCreateGroupDetailsFragment();
+        mGroupDetailsPresenter = new GroupDetailsPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), groupDetailsFragment);
         mMainPresenter.setGroupListPresenter(mGroupListPresenter);
-        groupListFragment.setPresenter(mMainPresenter);
-        mGroupListPresenter.setGroupsData(groups);
+        groupDetailsFragment.setPresenter(mMainPresenter);
+//        mGroupDetailsPresenter.setGroupData(group);
     }
 
     /**
@@ -241,6 +245,26 @@ public class MainMvpController {
                 getFragmentManager(), groupListFragment, GROUP_LIST);
 
         return groupListFragment;
+    }
+
+    /**
+     * Group List Fragment
+     * @return HomeFragment
+     */
+    @NonNull
+    private GroupDetailsFragment findOrCreateGroupDetailsFragment() {
+
+        GroupDetailsFragment groupDetailsFragment =
+                (GroupDetailsFragment) getFragmentManager().findFragmentByTag(GROUP_DETAILS);
+        if (groupDetailsFragment == null) {
+            // Create the fragment
+            groupDetailsFragment = GroupDetailsFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), groupDetailsFragment, GROUP_DETAILS);
+
+        return groupDetailsFragment;
     }
 
     /**

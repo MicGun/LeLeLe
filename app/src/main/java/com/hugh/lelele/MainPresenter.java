@@ -21,6 +21,8 @@ import com.hugh.lelele.electricity_landlord.ElectricityLandlordContract;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantContract;
 import com.hugh.lelele.electricity_tenant.ElectricityTenantPresenter;
+import com.hugh.lelele.group_detail.GroupDetailsContract;
+import com.hugh.lelele.group_detail.GroupDetailsPresenter;
 import com.hugh.lelele.group_list.GroupListContract;
 import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeContract;
@@ -35,7 +37,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
-        ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter {
+        ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
+        GroupDetailsContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -46,6 +49,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private ElectricityTenantPresenter mElectricityTenantPresenter;
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
     private GroupListPresenter mGroupListPresenter;
+    private GroupDetailsPresenter mGroupDetailsPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -108,6 +112,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setGroupListPresenter(GroupListPresenter groupListPresenter) {
         mGroupListPresenter = checkNotNull(groupListPresenter);
+    }
+
+    void setGroupDetailsPresenter(GroupDetailsPresenter groupDetailsPresenter) {
+        mGroupDetailsPresenter = checkNotNull(groupDetailsPresenter);
     }
 
     @Override

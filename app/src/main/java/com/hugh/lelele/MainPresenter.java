@@ -70,6 +70,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mMainView.setToolbarTitleUi(title);
     }
 
+    @Override
+    public void setGroupsData(ArrayList<Group> groups) {
+        if (mGroupListPresenter != null) {
+            mGroupListPresenter.setGroupsData(groups);
+        }
+    }
+
     void setHomePresenter(HomePresenter homePresenter) {
         mHomePresenter = checkNotNull(homePresenter);
     }

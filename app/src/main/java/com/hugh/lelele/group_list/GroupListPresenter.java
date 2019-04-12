@@ -1,6 +1,9 @@
 package com.hugh.lelele.group_list;
 
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,5 +35,10 @@ public class GroupListPresenter implements GroupListContract.Presenter {
     @Override
     public void updateToolbar(String title) {
 
+    }
+
+    @Override
+    public void setGroupsData(ArrayList<Group> groups) {
+        mGroupListView.showGroupListUi(groups);
     }
 }

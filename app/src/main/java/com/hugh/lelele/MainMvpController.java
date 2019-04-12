@@ -160,7 +160,7 @@ public class MainMvpController {
     }
 
     /*
-     * Login View
+     * Group List View
      * */
     void findOrCreateGroupListView(ArrayList<Group> groups) {
         GroupListFragment groupListFragment = findOrCreateGroupListFragment();
@@ -168,6 +168,7 @@ public class MainMvpController {
                 LeLeLeRemoteDataSource.getInstance()), groupListFragment);
         mMainPresenter.setGroupListPresenter(mGroupListPresenter);
         groupListFragment.setPresenter(mMainPresenter);
+        mGroupListPresenter.setGroupsData(groups);
     }
 
     /**

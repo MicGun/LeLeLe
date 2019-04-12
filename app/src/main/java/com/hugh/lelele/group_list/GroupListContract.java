@@ -11,5 +11,11 @@ public interface GroupListContract {
     }
 
     interface Presenter extends BasePresenter {
+
+        void hideBottomNavigation();
+
+        void showBottomNavigation();
+
+        void updateToolbar(String title);
     }
 }

@@ -18,4 +18,19 @@ public class GroupListPresenter implements GroupListContract.Presenter {
     public void start() {
 
     }
+
+    @Override
+    public void hideBottomNavigation() {
+
+    }
+
+    @Override
+    public void showBottomNavigation() {
+
+    }
+
+    @Override
+    public void updateToolbar(String title) {
+
+    }
 }

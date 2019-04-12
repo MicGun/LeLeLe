@@ -25,6 +25,19 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mPresenter.hideBottomNavigation();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.showBottomNavigation();
+        mPresenter.updateToolbar(getResources().getString(R.string.application));
+    }
+
     public static GroupListFragment newInstance() {
         return new GroupListFragment();
     }

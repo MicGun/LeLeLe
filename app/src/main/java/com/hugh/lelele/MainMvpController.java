@@ -224,7 +224,7 @@ public class MainMvpController {
             groupListFragment = GroupListFragment.newInstance();
         }
 
-        ActivityUtils.showOrAddFragmentByTag(
+        ActivityUtils.addFragmentByTag(
                 getFragmentManager(), groupListFragment, GROUP_LIST);
 
         return groupListFragment;

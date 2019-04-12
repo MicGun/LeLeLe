@@ -16,6 +16,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class GroupListFragment extends Fragment implements GroupListContract.View {
 
     private GroupListContract.Presenter mPresenter;
+    private GroupListAdapter mGroupListAdapter;
 
     @Nullable
     @Override

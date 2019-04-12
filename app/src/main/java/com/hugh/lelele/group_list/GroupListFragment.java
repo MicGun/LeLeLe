@@ -3,6 +3,7 @@ package com.hugh.lelele.group_list;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
 
     private GroupListContract.Presenter mPresenter;
     private GroupListAdapter mAdapter;
+    private FloatingActionButton mFloatingAddGroupButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +40,15 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         RecyclerView recyclerView = root.findViewById(R.id.recycler_group_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
+
+        mFloatingAddGroupButton = root.findViewById(R.id.button_add_group);
+        mFloatingAddGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Group group = new Group();
+                mPresenter.openGroupDetails(group);
+            }
+        });
 
         return root;
     }

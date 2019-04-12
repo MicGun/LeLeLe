@@ -22,5 +22,7 @@ public interface GroupListContract {
         void updateToolbar(String title);
 
         void setGroupsData(ArrayList<Group> groups);
+
+        void openGroupDetails(Group group);
     }
 }

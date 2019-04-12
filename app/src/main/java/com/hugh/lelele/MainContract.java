@@ -45,6 +45,8 @@ public interface MainContract {
 
         void openGroupListUi(ArrayList<Group> groups);
 
+        void openGroupDetailsUi(Group group);
+
     }
 
     interface Presenter extends BasePresenter {

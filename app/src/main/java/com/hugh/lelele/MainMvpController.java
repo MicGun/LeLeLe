@@ -171,6 +171,18 @@ public class MainMvpController {
         mGroupListPresenter.setGroupsData(groups);
     }
 
+    /*
+     * Group List View
+     * */
+    void findOrCreateGroupDetailsView(Group group) {
+        GroupListFragment groupListFragment = findOrCreateGroupListFragment();
+        mGroupListPresenter = new GroupListPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), groupListFragment);
+        mMainPresenter.setGroupListPresenter(mGroupListPresenter);
+        groupListFragment.setPresenter(mMainPresenter);
+        mGroupListPresenter.setGroupsData(groups);
+    }
+
     /**
      * Home Fragment
      * @return HomeFragment

@@ -41,4 +41,9 @@ public class GroupListPresenter implements GroupListContract.Presenter {
     public void setGroupsData(ArrayList<Group> groups) {
         mGroupListView.showGroupListUi(groups);
     }
+
+    @Override
+    public void openGroupDetails(Group group) {
+
+    }
 }

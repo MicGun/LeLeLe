@@ -77,6 +77,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         }
     }
 
+    @Override
+    public void openGroupDetails(Group group) {
+        mMainView.openGroupDetailsUi(group);
+    }
+
     void setHomePresenter(HomePresenter homePresenter) {
         mHomePresenter = checkNotNull(homePresenter);
     }

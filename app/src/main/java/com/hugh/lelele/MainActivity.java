@@ -376,6 +376,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void openGroupDetailsUi(Group group) {
+        mMainMvpController.findOrCreateGroupDetailsView(group);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         String string = "";
 

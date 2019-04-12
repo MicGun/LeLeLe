@@ -34,7 +34,11 @@ public class GroupListAdapter extends RecyclerView.Adapter {
         public GroupListViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            groupAddress = itemView.findViewById(R.id.gr)
+            groupName = itemView.findViewById(R.id.item_text_view_group_name);
+            groupAddress = itemView.findViewById(R.id.item_text_view_group_address);
+            groupRoomAmount = itemView.findViewById(R.id.item_text_view_room_amount);
+            groupTenantNumber = itemView.findViewById(R.id.item_text_view_tenant_number);
+            editButton = itemView.findViewById(R.id.item_image_view_edit_group_button);
         }
     }
 
@@ -55,7 +59,16 @@ public class GroupListAdapter extends RecyclerView.Adapter {
 
         Group group = mGroups.get(i);
 
-        ((GroupListViewHolder) viewHolder)
+        ((GroupListViewHolder) viewHolder).groupName.setText(group.getGroupName());
+        ((GroupListViewHolder) viewHolder).groupAddress.setText(group.getGroupAddress());
+        ((GroupListViewHolder) viewHolder).groupRoomAmount.setText(group.getGroupRoomNumber());
+        ((GroupListViewHolder) viewHolder).groupTenantNumber.setText(group.getGroupTenantNumber());
+        ((GroupListViewHolder) viewHolder).editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //ToDo: open group editor
+            }
+        });
 
     }
 

@@ -7,6 +7,7 @@ import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,10 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
                 mAppLandlordView.showGroupListUi(groups);
+                if (groups != null) {
+                    //ToDo: to think about if the data is already been saving to landlord, should passing the data through dependency injection?
+                    UserManager.getInstance().getLandlord().setGroups(groups);
+                }
                 Log.v(TAG, "Group Number: " + groups.size());
             }
 

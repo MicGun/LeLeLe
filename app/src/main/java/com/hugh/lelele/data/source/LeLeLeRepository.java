@@ -1,6 +1,7 @@
 package com.hugh.lelele.data.source;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.util.Log;
 
 import com.hugh.lelele.data.Electricity;
@@ -18,6 +19,8 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     private static LeLeLeRepository INSTANCE = null;
 
     private LeLeLeDataSource mLeLeLeRemoteDataSource;
+
+    private final String TAG = LeLeLeRepository.class.getSimpleName();
 
     public LeLeLeRepository(@NonNull LeLeLeDataSource leLeLeRemoteDataSource) {
         mLeLeLeRemoteDataSource = checkNotNull(leLeLeRemoteDataSource);
@@ -37,6 +40,22 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             @Override
             public void onCompleted(Landlord landlord) {
                 callback.onCompleted(landlord);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void updateTenantUser(@NonNull String email, @NonNull final TenantUserCallback callback) {
+        mLeLeLeRemoteDataSource.updateTenantUser(email, new TenantUserCallback() {
+            @Override
+            public void onCompleted(Tenant tenant) {
+                callback.onCompleted(tenant);
+                Log.v(TAG, "Repository updateTenant");
             }
 
             @Override

@@ -179,7 +179,17 @@ public class UserManager {
     }
 
     private void loginAsATenant(String email) {
+        mLeLeLeRepository.updateTenantUser(email, new LeLeLeDataSource.TenantUserCallback() {
+            @Override
+            public void onCompleted(Tenant tenant) {
+                mTenant = tenant;
+            }
 
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 
 //    private void loginAsALandlord();
@@ -201,7 +211,7 @@ public class UserManager {
 
         mUserData = mUserDataDAO.getItems().get(0);
 
-        int usertype = mUserData.getUserType();
+        int userType = mUserData.getUserType();
         Log.v(TAG, "UserType" + mUserData.getUserType());
         if (mUserData.getUserType() == R.string.landlord) {
             getLandlordProfile(mUserData.getEmail(), new LoadUserProfileCallback() {

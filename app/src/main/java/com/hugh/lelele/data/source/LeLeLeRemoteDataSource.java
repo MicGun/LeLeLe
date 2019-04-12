@@ -64,7 +64,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     /*
-     * 去拿房東資訊
+     * 去拿房東資訊，若不存在則新創一個
      * */
     @Override
     public void updateLandlordUser(@NonNull final String email, @NonNull final LandlordUserCallback callback) {
@@ -95,6 +95,51 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 mFirebaseFirestore.collection(LANDLORDS)
                                         .document(email)
                                         .set(user);
+                            }
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
+                        }
+                    }
+                });
+    }
+
+    /*
+     * 去拿房客資訊，若不存在則新創一個
+     * */
+    @Override
+    public void updateTenantUser(@NonNull final String email, @NonNull final TenantUserCallback callback) {
+        mFirebaseFirestore.collection(TENANTS)
+                .document(email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot tenantDoc = task.getResult();
+                            assert tenantDoc != null;
+                            if (tenantDoc.exists()) {
+                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+                                callback.onCompleted(tenant);
+                                Log.v(TAG, "Tenant is already exist!");
+                            } else {
+                                //create and initialize a tenant
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("email", email);
+                                user.put("ID_card_number", "");
+                                user.put("address", "");
+                                user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
+                                user.put("phone_number", "");
+                                user.put("id", UserManager.getInstance().getUserData().getId());
+                                user.put("name", UserManager.getInstance().getUserData().getName());
+                                user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
+                                user.put("group", "");
+                                user.put("landlord_email", "");
+                                user.put("room_number", "");
+                                mFirebaseFirestore.collection(TENANTS)
+                                        .document(email)
+                                        .set(user);
+                                Log.v(TAG, "Create a new tenant: " + user.get("name"));
                             }
                         } else {
                             callback.onError(String.valueOf(task.getException()));
@@ -244,6 +289,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     }
                 });
     }
+
 
     @Override
     public void uploadElectricityData(String landlordEmail, String groupName, String roomName,

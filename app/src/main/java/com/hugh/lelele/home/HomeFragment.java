@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 //        mPresenter.uploadLandlord("n1553330708@yahoo.com.tw");
         mPresenter.loadRoomList("n1553330708@yahoo.com.tw", "新明路287號");
         mPresenter.loadGroupList("n1553330708@yahoo.com.tw");
-        mPresenter.loadTenant("n1553330708@yahoo.com.tw");
+//        mPresenter.loadTenant("n1553330708@yahoo.com.tw");
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH);

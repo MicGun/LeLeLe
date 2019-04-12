@@ -6,7 +6,7 @@ import com.hugh.lelele.home.HomeContract;
 
 public interface GroupListContract {
 
-    interface View extends BaseView<HomeContract.Presenter> {
+    interface View extends BaseView<GroupListContract.Presenter> {
 
     }
 

@@ -20,6 +20,14 @@ public interface LeLeLeDataSource {
 
     }
 
+    interface TenantUserCallback {
+
+        void onCompleted(Tenant tenant);
+
+        void onError(String errorMessage);
+
+    }
+
     interface GetRoomListCallback {
 
         void onCompleted(ArrayList<Room> rooms);
@@ -64,6 +72,8 @@ public interface LeLeLeDataSource {
     }
 
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
+
+    void updateTenantUser(@NonNull String email, @NonNull TenantUserCallback callback);
 
     void getRoomList(@NonNull String email, @NonNull String groupName, @NonNull GetRoomListCallback callback);
 

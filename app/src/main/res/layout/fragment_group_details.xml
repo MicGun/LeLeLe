@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view_group_info_grp_details" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edit_text_group_name_group_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="@+id/text_view_group_name_grp_details" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_text_group_address_group_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -156,7 +156,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_view_group_address_grp_details" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/edit_text_add_room_name_group_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

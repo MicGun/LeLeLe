@@ -56,7 +56,7 @@ public class GroupListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        Group group = mGroups.get(i);
+        final Group group = mGroups.get(i);
 
         ((GroupListViewHolder) viewHolder).groupName.setText(group.getGroupName());
         ((GroupListViewHolder) viewHolder).groupAddress.setText(group.getGroupAddress());
@@ -66,6 +66,7 @@ public class GroupListAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 //ToDo: open group editor
+                mPresenter.openGroupDetails(group);
             }
         });
 

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public interface GroupDetailsContract {
 
     interface View extends BaseView<GroupDetailsContract.Presenter> {
+
+        void showGroupDetailsUi(Group group);
     }
 
     interface Presenter extends BasePresenter {

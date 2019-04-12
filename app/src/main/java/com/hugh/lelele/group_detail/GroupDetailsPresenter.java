@@ -28,5 +28,6 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     @Override
     public void setGroupData(Group group) {
 
+        mGroupDetailsView.showGroupDetailsUi(group);
     }
 }

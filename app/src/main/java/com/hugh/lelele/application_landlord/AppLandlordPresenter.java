@@ -60,7 +60,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
             public void onCompleted(ArrayList<Group> groups) {
                 mAppLandlordView.showGroupListUi(groups);
                 if (groups != null) {
-                    //ToDo: to think about if the data is already been saving to landlord, should passing the data through dependency injection?
+                    //ToDo: to think about if the data is already been saving to landlord, should pass the data through dependency injection?
                     UserManager.getInstance().getLandlord().setGroups(groups);
                 }
                 Log.v(TAG, "Group Number: " + groups.size());

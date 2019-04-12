@@ -12,7 +12,6 @@ import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 public class GroupListAdapter extends RecyclerView.Adapter {
 
@@ -47,7 +46,7 @@ public class GroupListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         View rootView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_room_info, viewGroup, false);
+                .inflate(R.layout.item_group_info, viewGroup, false);
 
         GroupListViewHolder viewHolder = new GroupListViewHolder(rootView);
 

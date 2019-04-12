@@ -57,6 +57,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
         mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
+                mAppLandlordView.showGroupListUi(groups);
                 Log.v(TAG, "Group Number: " + groups.size());
             }
 

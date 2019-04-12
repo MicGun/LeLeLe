@@ -268,7 +268,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     public void setToolbarTitleUi(String title) {
 
         if (title.equals(getString(R.string.application_electricity)) ||
-                title.equals(getString(R.string.application_groups_list))) {
+                title.equals(getString(R.string.application_groups_list)) ||
+                title.equals(getString(R.string.group_edit))) {
             mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationIcon(R.drawable.toolbar_back);
@@ -377,6 +378,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void openGroupDetailsUi(Group group) {
+        mPresenter.updateToolbar(getResources().getString(R.string.group_edit));
         mMainMvpController.findOrCreateGroupDetailsView(group);
     }
 

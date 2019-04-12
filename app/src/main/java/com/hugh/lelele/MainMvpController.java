@@ -167,11 +167,15 @@ public class MainMvpController {
      * Group List View
      * */
     void findOrCreateGroupListView(ArrayList<Group> groups) {
+
         GroupListFragment groupListFragment = findOrCreateGroupListFragment();
+
         mGroupListPresenter = new GroupListPresenter(LeLeLeRepository.getInstance(
                 LeLeLeRemoteDataSource.getInstance()), groupListFragment);
+
         mMainPresenter.setGroupListPresenter(mGroupListPresenter);
         groupListFragment.setPresenter(mMainPresenter);
+
         mGroupListPresenter.setGroupsData(groups);
     }
 
@@ -182,9 +186,9 @@ public class MainMvpController {
         GroupDetailsFragment groupDetailsFragment = findOrCreateGroupDetailsFragment();
         mGroupDetailsPresenter = new GroupDetailsPresenter(LeLeLeRepository.getInstance(
                 LeLeLeRemoteDataSource.getInstance()), groupDetailsFragment);
-        mMainPresenter.setGroupListPresenter(mGroupListPresenter);
+        mMainPresenter.setGroupDetailsPresenter(mGroupDetailsPresenter);
         groupDetailsFragment.setPresenter(mMainPresenter);
-//        mGroupDetailsPresenter.setGroupData(group);
+        mGroupDetailsPresenter.setGroupData(group);
     }
 
     /**
@@ -248,7 +252,7 @@ public class MainMvpController {
     }
 
     /**
-     * Group List Fragment
+     * Group Details Fragment
      * @return HomeFragment
      */
     @NonNull

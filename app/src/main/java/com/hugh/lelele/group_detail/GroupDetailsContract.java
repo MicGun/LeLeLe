@@ -13,5 +13,9 @@ public interface GroupDetailsContract {
     }
 
     interface Presenter extends BasePresenter {
+
+        void updateToolbar(String title);
+
+        void setGroupData(Group group);
     }
 }

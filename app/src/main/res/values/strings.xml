@@ -55,4 +55,5 @@
     <string name="group_information">群組資訊</string>
     <string name="group_number_of_rooms">房間數量</string>
     <string name="add_room">新增房間</string>
+    <string name="group_edit">編輯群組</string>
 </resources>

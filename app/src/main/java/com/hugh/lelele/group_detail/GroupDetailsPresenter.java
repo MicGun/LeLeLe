@@ -1,5 +1,6 @@
 package com.hugh.lelele.group_detail;
 
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -16,6 +17,16 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
 
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void updateToolbar(String title) {
+
+    }
+
+    @Override
+    public void setGroupData(Group group) {
 
     }
 }

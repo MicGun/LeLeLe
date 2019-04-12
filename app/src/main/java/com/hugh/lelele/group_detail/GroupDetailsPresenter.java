@@ -1,7 +1,10 @@
 package com.hugh.lelele.group_detail;
 
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -29,5 +32,10 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     public void setGroupData(Group group) {
 
         mGroupDetailsView.showGroupDetailsUi(group);
+    }
+
+    @Override
+    public void updateRoomData(ArrayList<Room> rooms) {
+        mGroupDetailsView.updateRoomDataUi(rooms);
     }
 }

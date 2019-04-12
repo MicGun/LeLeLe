@@ -172,10 +172,16 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         mGroup = group;
         mRooms = mGroup.getRooms();
         if (mAdapter == null) {
-            mAdapter = new GroupDetailsAdapter();
+            mAdapter = new GroupDetailsAdapter(mPresenter);
             mAdapter.updateData(group.getRooms());
         } else {
             mAdapter.updateData(group.getRooms());
         }
+    }
+
+    @Override
+    public void updateRoomDataUi(ArrayList<Room> rooms) {
+        mRooms = rooms;
+        notifyRoomDataSetChanged();
     }
 }

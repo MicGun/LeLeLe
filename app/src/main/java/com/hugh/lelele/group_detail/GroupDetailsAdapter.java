@@ -5,21 +5,37 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 
+
 import java.util.ArrayList;
 
 public class GroupDetailsAdapter extends RecyclerView.Adapter {
 
+    GroupDetailsContract.Presenter mPresenter;
     private ArrayList<Room> mRooms;
+
+    public GroupDetailsAdapter(GroupDetailsContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
 
     public class GroupDetailsRoomItemViewHolder extends RecyclerView.ViewHolder {
 
+        TextView roomName;
+        TextView roomTenant;
+        ImageView deleteButton;
+
         public GroupDetailsRoomItemViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            roomName = itemView.findViewById(R.id.item_text_view_room_name);
+            roomTenant = itemView.findViewById(R.id.item_text_view_tenant_name);
+            deleteButton = itemView.findViewById(R.id.item_image_view_delete_button_room_info);
         }
     }
 
@@ -35,7 +51,23 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+        Room room = mRooms.get(i);
+
+        ((GroupDetailsRoomItemViewHolder) viewHolder).roomName.setText(room.getRoomName());
+
+        if (room.getTenant() != null) {
+            ((GroupDetailsRoomItemViewHolder) viewHolder).roomTenant.setText(room.getTenant().getName());
+        }
+
+        ((GroupDetailsRoomItemViewHolder) viewHolder).deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRooms.remove(i);
+                notifyDataSetChanged();
+                mPresenter.updateRoomData(mRooms);
+            }
+        });
 
     }
 

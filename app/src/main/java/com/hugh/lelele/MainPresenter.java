@@ -82,6 +82,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void updateRoomData(ArrayList<Room> rooms) {
+        if (mGroupDetailsPresenter != null) {
+            mGroupDetailsPresenter.updateRoomData(rooms);
+        }
+    }
+
+    @Override
     public void setGroupsData(ArrayList<Group> groups) {
         if (mGroupListPresenter != null) {
             mGroupListPresenter.setGroupsData(groups);

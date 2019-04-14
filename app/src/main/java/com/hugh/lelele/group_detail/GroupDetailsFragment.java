@@ -3,11 +3,13 @@ package com.hugh.lelele.group_detail;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +21,15 @@ import android.widget.Toast;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class GroupDetailsFragment extends Fragment implements GroupDetailsContract.View {
+
+    private static final String TAG = GroupDetailsFragment.class.getSimpleName();
 
     private GroupDetailsContract.Presenter mPresenter;
     private GroupDetailsAdapter mAdapter;
@@ -40,9 +45,22 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     private ImageView mAddRoomButton;
     private String mRoomName;
     private ArrayList<String> mRoomNames;
+    private FloatingActionButton mFloatingGroupDetailEditDoneButton;
 
     public GroupDetailsFragment() {
         mRoomNames = new ArrayList<>();
+        mRoomName = "";
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //如果是要編輯既有群組，需要去下載群組原有房間，而且房間名稱需不能被更改
+        if (!mGroup.getGroupName().equals("")) {
+            mPresenter.loadRoomListFromGroupDetails(UserManager.getInstance().getLandlord().getEmail(),
+                    mGroup.getGroupName());
+        }
     }
 
     @Nullable
@@ -60,6 +78,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         mNumberOfRooms = root.findViewById(R.id.text_view_number_of_rooms_group_details);
         mNumberOfTenants = root.findViewById(R.id.text_view_number_of_tenants_group_details);
         mAddRoomButton = root.findViewById(R.id.image_view_add_room_button);
+        mFloatingGroupDetailEditDoneButton = root.findViewById(R.id.button_group_edit_done_group_details);
 
         mEditGroupName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,17 +135,42 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
             @Override
             public void onClick(View v) {
                 mRoomNames = getRoomNames(); //to sync RoomName List and mRooms
-                if (!mRoomNames.contains(mRoomName)) {
-                    Room room = new Room();
-                    mRoomNames.add(mRoomName);
-                    room.setRoomName(mRoomName);
-                    mRooms.add(room);
-                    mEditGroupAddRoomName.setText("");
-                    notifyRoomDataSetChanged();
+                if (!mRoomName.equals("")) {
+                    if (!mRoomNames.contains(mRoomName)) {
+                        Room room = new Room();
+                        mRoomNames.add(mRoomName);
+                        room.setRoomName(mRoomName);
+                        mRooms.add(room);
+                        mEditGroupAddRoomName.setText("");
+                        notifyRoomDataSetChanged();
+                    } else {
+                        Toast.makeText(getContext(), "房間名稱請勿重複!", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getContext(), "房間名稱請勿重複!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "房間名稱不得為空!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mFloatingGroupDetailEditDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(getContext(), "Name is empty: " + (mEditGroupName.toString().equals("")), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Address is empty: " + (mEditGroupAddress.toString().equals("")), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "They are empty: " + ((mEditGroupName.toString().equals("") &&
+                        mEditGroupAddress.toString().equals(""))), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "They are not empty: " + ((!mEditGroupName.toString().equals("") &&
+                        !mEditGroupAddress.toString().equals(""))), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: ");
+                if (isCompleted()) {
+                    Toast.makeText(getContext(), "編輯完成!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "資訊不得為空!", Toast.LENGTH_SHORT).show();
                 }
 
+//                mGroup = getGroupFinalStatus();
+//                mPresenter.uploadGroup(mGroup);
             }
         });
 
@@ -135,12 +179,17 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         return root;
     }
 
+    private boolean isCompleted() {
+        return (!mEditGroupName.toString().equals("") &&
+                !mEditGroupAddress.toString().equals(""));
+    }
+
     private void init() {
 
         if (!mGroup.getGroupName().equals("")) {
 
             mEditGroupName.setText(mGroup.getGroupName());
-            mEditGroupName.setKeyListener(null);
+            mEditGroupName.setKeyListener(null); //不可更改已經存在群組的名稱
 
             mEditGroupAddress.setText(mGroup.getGroupAddress());
             mNumberOfRooms.setText(mGroup.getGroupRoomNumber());
@@ -148,10 +197,20 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         }
     }
 
+    private Group getGroupFinalStatus() {
+
+        mGroup.setRooms(mRooms);
+        mGroup.setGroupRoomNumber(String.valueOf(mRooms.size()));
+        mGroup.setGroupAddress(String.valueOf(mEditGroupAddress.getText()));
+        mGroup.setGroupName(String.valueOf(mEditGroupName.getText()));
+
+        return mGroup;
+    }
+
     private ArrayList<String> getRoomNames() {
         mRoomNames.clear();
 
-        for (Room room:mRooms) {
+        for (Room room : mRooms) {
             mRoomNames.add(room.getRoomName());
         }
         return mRoomNames;

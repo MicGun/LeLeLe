@@ -6,6 +6,8 @@ package com.hugh.lelele;
 * 讓其作為所有fragment的presenter。
 * */
 
+import android.app.Activity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import com.hugh.lelele.application_landlord.AppLandlordContract;
@@ -85,6 +87,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void updateRoomData(ArrayList<Room> rooms) {
         if (mGroupDetailsPresenter != null) {
             mGroupDetailsPresenter.updateRoomData(rooms);
+        }
+    }
+
+    @Override
+    public void loadRoomListFromGroupDetails(String email, String groupName) {
+        if (mGroupDetailsPresenter != null) {
+            mGroupDetailsPresenter.loadRoomListFromGroupDetails(email,groupName);
         }
     }
 

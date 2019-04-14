@@ -171,6 +171,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
                         ArrayList<Room> rooms = LeLeLeParser.parseRoomList(roomDocuments);
                         String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+
+                        //ToDo: check is this necessary?
                         for (final Room room : rooms) {
                             getElectricityList(email, groupName, year, room.getRoomName(), new GetElectricityCallback() {
                                 @Override

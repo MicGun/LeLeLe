@@ -1,10 +1,15 @@
 package com.hugh.lelele.group_detail;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.data.source.RoomsElectricityRecursive;
+import com.hugh.lelele.data.source.RoomsElectricityRecursiveCallback;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -37,5 +42,28 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     @Override
     public void updateRoomData(ArrayList<Room> rooms) {
         mGroupDetailsView.updateRoomDataUi(rooms);
+    }
+
+    @Override
+    public void loadRoomListFromGroupDetails(final String email, final String groupName) {
+        mLeLeLeRepository.getRoomList(email, groupName, new LeLeLeDataSource.GetRoomListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Room> rooms) {
+
+                new RoomsElectricityRecursive(rooms, email, groupName,
+                        String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                        mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
+                    @Override
+                    public void onCompleted(ArrayList<Room> roomArrayList) {
+                        mGroupDetailsView.updateRoomDataUi(roomArrayList);
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

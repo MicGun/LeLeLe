@@ -62,6 +62,11 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
             ((GroupDetailsRoomItemViewHolder) viewHolder).roomTenant.setText(room.getTenant().getName());
         }
 
+        if (room.getElectricities().size() != 0) {
+            ((GroupDetailsRoomItemViewHolder) viewHolder).deleteButton.setVisibility(View.INVISIBLE);
+        } else {
+            ((GroupDetailsRoomItemViewHolder) viewHolder).deleteButton.setVisibility(View.VISIBLE);
+        }
         ((GroupDetailsRoomItemViewHolder) viewHolder).deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,6 +2,7 @@ package com.hugh.lelele.group_detail;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
 
     GroupDetailsContract.Presenter mPresenter;
     private ArrayList<Room> mRooms;
+    public static final String TAG = GroupDetailsAdapter.class.getSimpleName();
 
     public GroupDetailsAdapter(GroupDetailsContract.Presenter presenter) {
         mPresenter = presenter;
@@ -64,8 +66,10 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 mRooms.remove(i);
-                notifyDataSetChanged();
+//                notifyDataSetChanged();
                 mPresenter.updateRoomData(mRooms);
+                Log.v(TAG, "remove room: " + mRooms.size());
+
             }
         });
 
@@ -74,6 +78,7 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         if (mRooms != null) {
+            Log.v(TAG, "getItemCount: " + mRooms.size());
             return mRooms.size();
         } else {
             return 0;
@@ -82,6 +87,7 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
 
     public void updateData(ArrayList<Room> rooms) {
         mRooms = rooms;
+        Log.v(TAG, "updateData: " + mRooms.size());
         notifyDataSetChanged();
     }
 }

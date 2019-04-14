@@ -115,7 +115,13 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         mAddRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mRoomNames = getRoomNames(); //to sync RoomName List and mRooms
                 if (!mRoomNames.contains(mRoomName)) {
+                    Room room = new Room();
+                    mRoomNames.add(mRoomName);
+                    room.setRoomName(mRoomName);
+                    mRooms.add(room);
+                    mEditGroupAddRoomName.setText("");
                     notifyRoomDataSetChanged();
                 } else {
                     Toast.makeText(getContext(), "房間名稱請勿重複!", Toast.LENGTH_SHORT).show();
@@ -142,14 +148,20 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         }
     }
 
+    private ArrayList<String> getRoomNames() {
+        mRoomNames.clear();
+
+        for (Room room:mRooms) {
+            mRoomNames.add(room.getRoomName());
+        }
+        return mRoomNames;
+    }
+
     private void notifyRoomDataSetChanged() {
-        Room room = new Room();
-        mRoomNames.add(mRoomName);
-        room.setRoomName(mRoomName);
-        mRooms.add(room);
+
         mNumberOfRooms.setText(String.valueOf(mRooms.size()));
         mAdapter.updateData(mRooms);
-        mEditGroupAddRoomName.setText("");
+
     }
 
     public static GroupDetailsFragment newInstance() {

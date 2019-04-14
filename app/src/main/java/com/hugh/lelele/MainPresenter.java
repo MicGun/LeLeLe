@@ -98,6 +98,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void uploadGroup(Group group) {
+        if (mGroupDetailsPresenter != null) {
+            mGroupDetailsPresenter.uploadGroup(group);
+        }
+    }
+
+    @Override
     public void setGroupsData(ArrayList<Group> groups) {
         if (mGroupListPresenter != null) {
             mGroupListPresenter.setGroupsData(groups);
@@ -214,6 +221,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void showToolbarAndBottomNavigation() {
         mMainView.showToolbarUi();
         mMainView.showBottomNavigationUi();
+    }
+
+    @Override
+    public void showLastFragment() {
+        mMainView.showLastFragmentUi();
     }
 
     @Override

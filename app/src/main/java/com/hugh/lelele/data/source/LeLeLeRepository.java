@@ -168,4 +168,9 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             }
         });
     }
+
+    @Override
+    public void updateRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName) {
+        mLeLeLeRemoteDataSource.updateRoom(room, email, groupName);
+    }
 }

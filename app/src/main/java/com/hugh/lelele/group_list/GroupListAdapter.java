@@ -60,8 +60,20 @@ public class GroupListAdapter extends RecyclerView.Adapter {
 
         ((GroupListViewHolder) viewHolder).groupName.setText(group.getGroupName());
         ((GroupListViewHolder) viewHolder).groupAddress.setText(group.getGroupAddress());
-        ((GroupListViewHolder) viewHolder).groupRoomAmount.setText(group.getGroupRoomNumber());
-        ((GroupListViewHolder) viewHolder).groupTenantNumber.setText(group.getGroupTenantNumber());
+
+        if (!group.getGroupRoomNumber().equals("")) {
+            ((GroupListViewHolder) viewHolder).groupRoomAmount.setText(group.getGroupRoomNumber());
+        } else {
+            ((GroupListViewHolder) viewHolder).groupRoomAmount.setText("0");
+        }
+
+        if (!group.getGroupTenantNumber().equals("")) {
+            ((GroupListViewHolder) viewHolder).groupTenantNumber.setText(group.getGroupTenantNumber());
+        } else {
+            ((GroupListViewHolder) viewHolder).groupTenantNumber.setText("0");
+        }
+
+
         ((GroupListViewHolder) viewHolder).editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

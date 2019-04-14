@@ -47,6 +47,8 @@ public interface MainContract {
 
         void openGroupDetailsUi(Group group);
 
+        void showLastFragmentUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -74,5 +76,7 @@ public interface MainContract {
         void hideToolbarAndBottomNavigation();
 
         void showToolbarAndBottomNavigation();
+
+        void showLastFragment();
     }
 }

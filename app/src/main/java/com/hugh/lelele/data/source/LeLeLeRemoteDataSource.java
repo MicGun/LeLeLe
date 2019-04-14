@@ -230,18 +230,46 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * document ID 會是 group name
      * */
     @Override
-    public void updateGroupList(@NonNull Group group, @NonNull String email, @NonNull final UpdateGroupListCallback callback) {
+    public void updateGroupList(@NonNull final Group group, @NonNull final String email, @NonNull final UpdateGroupListCallback callback) {
 
-        Map<String, Object> groupInfo = new HashMap<>();
+        final Map<String, Object> groupInfo = new HashMap<>();
         groupInfo.put("address", group.getGroupAddress());
-        groupInfo.put("max_room_number", group.getGroupRoomNumber());
-        groupInfo.put("tenant_number", group.getGroupTenantNumber());
+        groupInfo.put("max_room_numbers", group.getGroupRoomNumber());
+        groupInfo.put("tenant_numbers", group.getGroupTenantNumber());
 
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
                 .collection(GROUPS)
                 .document(group.getGroupName())
-                .set(groupInfo);
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            if (documentSnapshot.exists()) {
+                                mFirebaseFirestore.collection(LANDLORDS)
+                                        .document(email)
+                                        .collection(GROUPS)
+                                        .document(group.getGroupName())
+                                        .update(groupInfo);
+                            } else {
+                                mFirebaseFirestore.collection(LANDLORDS)
+                                        .document(email)
+                                        .collection(GROUPS)
+                                        .document(group.getGroupName())
+                                        .set(groupInfo);
+                            }
+                        }
+                    }
+                });
+
+        if (group.getRooms().size() != 0) {
+
+            for (Room room:group.getRooms()) {
+                updateRoom(room, email, group.getGroupName());
+            }
+        }
     }
 
     @Override
@@ -262,9 +290,10 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot electricityFeeYearly = task.getResult();
+                            ArrayList<Electricity> electricities = new ArrayList<>();
                             assert electricityFeeYearly != null;
                             if (electricityFeeYearly.exists()) {
-                                ArrayList<Electricity> electricities = new ArrayList<>();
+
                                 Map<String, Object> electricityFeeYearlyData = electricityFeeYearly.getData();
                                 for (int i = 0; i < 13; i++) {
                                     Map<String, String> electricityFee;
@@ -286,6 +315,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 }
                                 callback.onCompleted(electricities);
                                 Log.v(TAG, "electricity size: " + electricities.size());
+                            } else {
+                                callback.onCompleted(electricities); //不存在還是要回傳空的
                             }
                         }
                     }
@@ -399,5 +430,17 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void updateRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(room.getRoomName())
+                .set(room.getTenant());
+
     }
 }

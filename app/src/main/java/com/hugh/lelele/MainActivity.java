@@ -383,6 +383,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void showLastFragmentUi() {
+        MainActivity.this.onBackPressed();
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         String string = "";
 

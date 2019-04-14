@@ -7,6 +7,7 @@ import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.data.source.RoomsElectricityRecursive;
 import com.hugh.lelele.data.source.RoomsElectricityRecursiveCallback;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,5 +66,26 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
 
             }
         });
+    }
+
+    @Override
+    public void uploadGroup(Group group) {
+        mLeLeLeRepository.updateGroupList(group, UserManager.getInstance().getLandlord().getEmail(),
+                new LeLeLeDataSource.UpdateGroupListCallback() {
+                    @Override
+                    public void onCompleted(Group group) {
+
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void showLastFragment() {
+
     }
 }

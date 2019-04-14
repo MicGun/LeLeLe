@@ -26,5 +26,9 @@ public interface GroupDetailsContract {
         void updateRoomData(ArrayList<Room> rooms);
 
         void loadRoomListFromGroupDetails(String email, String groupName);
+
+        void uploadGroup(Group group);
+
+        void showLastFragment();
     }
 }

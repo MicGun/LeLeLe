@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.MainActivity;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
@@ -162,7 +164,8 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
                 }
 
                 mGroup = getGroupFinalStatus();
-//                mPresenter.uploadGroup(mGroup);
+                mPresenter.uploadGroup(mGroup);
+                mPresenter.showLastFragment();
             }
         });
 

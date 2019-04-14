@@ -155,21 +155,13 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         mFloatingGroupDetailEditDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(getContext(), "Name is empty: " + (mEditGroupName.toString().equals("")), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), "Address is empty: " + (mEditGroupAddress.toString().equals("")), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), "They are empty: " + ((mEditGroupName.toString().equals("") &&
-                        mEditGroupAddress.toString().equals(""))), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getContext(), "They are not empty: " + ((!mEditGroupName.toString().equals("") &&
-                        !mEditGroupAddress.toString().equals(""))), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onClick: ");
                 if (isCompleted()) {
                     Toast.makeText(getContext(), "編輯完成!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "資訊不得為空!", Toast.LENGTH_SHORT).show();
                 }
 
-//                mGroup = getGroupFinalStatus();
+                mGroup = getGroupFinalStatus();
 //                mPresenter.uploadGroup(mGroup);
             }
         });
@@ -180,8 +172,8 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     }
 
     private boolean isCompleted() {
-        return (!mEditGroupName.toString().equals("") &&
-                !mEditGroupAddress.toString().equals(""));
+        return (!mEditGroupName.getText().toString().equals("") &&
+                !mEditGroupAddress.getText().toString().equals(""));
     }
 
     private void init() {

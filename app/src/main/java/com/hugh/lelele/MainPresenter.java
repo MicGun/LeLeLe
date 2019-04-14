@@ -112,6 +112,17 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void loadGroupList(String email) {
+
+        if (mGroupListPresenter != null) {
+            mGroupListPresenter.loadGroupList(email);
+        }
+//        if (mHomePresenter != null) {
+//            mHomePresenter.loadGroupList(email);
+//        }
+    }
+
+    @Override
     public void openGroupDetails(Group group) {
         mMainView.openGroupDetailsUi(group);
     }
@@ -229,6 +240,20 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void deleteRoom(Room room) {
+        if (mGroupDetailsPresenter != null) {
+            mGroupDetailsPresenter.deleteRoom(room);
+        }
+    }
+
+    @Override
+    public void deleteRemoteRoom(Room room, String groupName, String email) {
+        if (mGroupDetailsPresenter != null) {
+            mGroupDetailsPresenter.deleteRemoteRoom(room, groupName, email);
+        }
+    }
+
+    @Override
     public void setUserType(int selectedUserType) {
         mMainView.setUserTypeForView(selectedUserType);
     }
@@ -323,24 +348,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 //        }
     }
 
-    @Override
-    public void loadGroupList(String email) {
 
-        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
-            @Override
-            public void onCompleted(ArrayList<Group> groups) {
-                Log.v("MainPresenter", "Group Number: " + groups.size());
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
-//        if (mHomePresenter != null) {
-//            mHomePresenter.loadGroupList(email);
-//        }
-    }
 
     @Override
     public void loadTenant(String email) {

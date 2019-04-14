@@ -15,6 +15,8 @@ public interface GroupDetailsContract {
         void showGroupDetailsUi(Group group);
 
         void updateRoomDataUi(ArrayList<Room> rooms);
+
+        void deleteRoomData(Room room);
     }
 
     interface Presenter extends BasePresenter {
@@ -30,5 +32,9 @@ public interface GroupDetailsContract {
         void uploadGroup(Group group);
 
         void showLastFragment();
+
+        void deleteRoom(Room room);
+
+        void deleteRemoteRoom(Room room, String groupName, String email);
     }
 }

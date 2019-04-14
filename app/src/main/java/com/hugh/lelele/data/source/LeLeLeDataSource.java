@@ -94,4 +94,6 @@ public interface LeLeLeDataSource {
     void getTenantProfile(@NonNull String email, @NonNull GetTenantProfileCallback callback);
 
     void updateRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName);
+
+    void deleteRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName);
 }

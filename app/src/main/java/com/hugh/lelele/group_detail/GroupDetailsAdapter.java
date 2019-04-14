@@ -54,7 +54,7 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        Room room = mRooms.get(i);
+        final Room room = mRooms.get(i);
 
         ((GroupDetailsRoomItemViewHolder) viewHolder).roomName.setText(room.getRoomName());
 
@@ -70,6 +70,7 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
         ((GroupDetailsRoomItemViewHolder) viewHolder).deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPresenter.deleteRoom(room);
                 mRooms.remove(i);
 //                notifyDataSetChanged();
                 mPresenter.updateRoomData(mRooms);

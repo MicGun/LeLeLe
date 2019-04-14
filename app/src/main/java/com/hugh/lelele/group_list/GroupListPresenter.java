@@ -1,6 +1,9 @@
 package com.hugh.lelele.group_list;
 
+import android.util.Log;
+
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import java.util.ArrayList;
@@ -45,5 +48,21 @@ public class GroupListPresenter implements GroupListContract.Presenter {
     @Override
     public void openGroupDetails(Group group) {
 
+    }
+
+    @Override
+    public void loadGroupList(String email) {
+        mLeLeLeRepository.getGroupList(email, new LeLeLeDataSource.GetGroupListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Group> groups) {
+                mGroupListView.showGroupListUi(groups);
+                Log.v("MainPresenter", "Group Number: " + groups.size());
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

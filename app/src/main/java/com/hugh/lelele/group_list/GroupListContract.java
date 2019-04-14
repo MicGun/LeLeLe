@@ -24,5 +24,7 @@ public interface GroupListContract {
         void setGroupsData(ArrayList<Group> groups);
 
         void openGroupDetails(Group group);
+
+        void loadGroupList(String email);
     }
 }

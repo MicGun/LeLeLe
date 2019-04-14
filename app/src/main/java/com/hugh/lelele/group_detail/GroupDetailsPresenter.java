@@ -88,4 +88,14 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     public void showLastFragment() {
 
     }
+
+    @Override
+    public void deleteRoom(Room room) {
+        mGroupDetailsView.deleteRoomData(room);
+    }
+
+    @Override
+    public void deleteRemoteRoom(Room room, String groupName, String email) {
+        mLeLeLeRepository.deleteRoom(room, email, groupName);
+    }
 }

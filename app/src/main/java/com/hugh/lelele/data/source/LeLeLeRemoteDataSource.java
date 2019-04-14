@@ -443,4 +443,33 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .set(room.getTenant());
 
     }
+
+    @Override
+    public void deleteRoom(@NonNull final Room room, @NonNull final String email, @NonNull final String groupName) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(room.getRoomName())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        Log.v(TAG, "task" + task.isSuccessful());
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot roomDoc = task.getResult();
+                            Log.v(TAG, "roomDoc" + roomDoc.exists());
+                            Log.v(TAG, "roomDoc" + roomDoc.getId());
+                            mFirebaseFirestore.collection(LANDLORDS)
+                                    .document(email)
+                                    .collection(GROUPS)
+                                    .document(groupName)
+                                    .collection(ROOMS)
+                                    .document(room.getRoomName())
+                                    .delete();
+                        }
+                    }
+                });
+    }
 }

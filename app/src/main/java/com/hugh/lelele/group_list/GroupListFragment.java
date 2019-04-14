@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,15 @@ import android.view.ViewGroup;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.home.HomeContract;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class GroupListFragment extends Fragment implements GroupListContract.View {
+
+    private final String TAG = GroupListFragment.class.getSimpleName();
 
     private GroupListContract.Presenter mPresenter;
     private GroupListAdapter mAdapter;
@@ -29,7 +33,15 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
 //        mAdapter = new GroupListAdapter(mPresenter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
+        Log.d(TAG, "onResume: ");
     }
 
     @Nullable
@@ -40,6 +52,8 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         RecyclerView recyclerView = root.findViewById(R.id.recycler_group_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
+
+//        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
 
         mFloatingAddGroupButton = root.findViewById(R.id.button_add_group);
         mFloatingAddGroupButton.setOnClickListener(new View.OnClickListener() {

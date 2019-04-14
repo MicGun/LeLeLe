@@ -187,8 +187,17 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
             mEditGroupName.setKeyListener(null); //不可更改已經存在群組的名稱
 
             mEditGroupAddress.setText(mGroup.getGroupAddress());
-            mNumberOfRooms.setText(mGroup.getGroupRoomNumber());
-            mNumberOfTenants.setText(mGroup.getGroupTenantNumber());
+            if (!mGroup.getGroupRoomNumber().equals("")) {
+                mNumberOfRooms.setText(mGroup.getGroupRoomNumber());
+            } else {
+                mNumberOfRooms.setText("0");
+            }
+
+            if (!mGroup.getGroupTenantNumber().equals("")) {
+                mNumberOfTenants.setText(mGroup.getGroupTenantNumber());
+            } else {
+                mNumberOfTenants.setText("0");
+            }
         }
     }
 
@@ -249,5 +258,11 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     public void updateRoomDataUi(ArrayList<Room> rooms) {
         mRooms = rooms;
         notifyRoomDataSetChanged();
+    }
+
+    @Override
+    public void deleteRoomData(Room room) {
+        mPresenter.deleteRemoteRoom(room, mGroup.getGroupName(),
+                UserManager.getInstance().getLandlord().getEmail());
     }
 }

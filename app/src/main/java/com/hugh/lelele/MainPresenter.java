@@ -31,6 +31,7 @@ import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
@@ -181,34 +182,17 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void onDrawerOpened() {
-//        if (!UserManager.getInstance().isLoggedIn()) {
-//
-//            mMainView.closeDrawerUi();
-//            showLoginDialog(LoginDialog.FROM_DRAWER);
-//
-//        } else if (!UserManager.getInstance().hasUserInfo()) {
-//
-//            UserManager.getInstance().getUserProfile(new UserManager.LoadCallback() {
-//                @Override
-//                public void onSuccess() {
-//
-//                    mMainView.showDrawerUserUi();
-//                }
-//
-//                @Override
-//                public void onFail(String errorMessage) {}
-//
-//                @Override
-//                public void onInvalidToken(String errorMessage) {
-//                    showLoginDialog(LoginDialog.FROM_DRAWER);
-//                }
-//            });
-//        } else {
-//
-//            mMainView.showDrawerUserUi();
-//        }
+        if (!UserManager.getInstance().isLoggedIn()) {
 
-        mMainView.closeDrawerUi();
+            mMainView.closeDrawerUi();
+//            showLoginDialog(LoginDialog.FROM_DRAWER);
+
+        } else {
+
+            mMainView.showDrawerUserUi();
+        }
+
+//        mMainView.closeDrawerUi();
 //        mMainView.showDrawerUserUi();
     }
 

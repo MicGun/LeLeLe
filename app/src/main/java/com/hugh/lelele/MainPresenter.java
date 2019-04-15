@@ -207,6 +207,22 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void loadGroupListDrawerMenu() {
+        mLeLeLeRepository.getGroupList(UserManager.getInstance().getUserData().getEmail(), new LeLeLeDataSource.GetGroupListCallback() {
+            @Override
+            public void onCompleted(ArrayList<Group> groups) {
+                UserManager.getInstance().getLandlord().setGroups(groups);
+                mMainView.showGroupListDrawerUi();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    @Override
     public void hideToolbarAndBottomNavigation() {
         mMainView.hideToolbarUi();
         mMainView.hideBottomNavigationUi();

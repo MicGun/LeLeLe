@@ -17,8 +17,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,6 +54,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     private BottomNavigationView mBottomNavigation;
     private DrawerLayout mDrawerLayout;
+    private SubMenu mGroupMenu;
     private ImageView mDrawerUserImage;
     private TextView mDrawerUserName;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
@@ -104,8 +108,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         setToolbar();
         setBottomNavigation();
-
         setDrawerLayout();
+
+        if (mUserType == R.string.landlord) {
+            Log.v(TAG, getResources().getString(R.string.landlord));
+
+        }
     }
 
     @Override
@@ -241,12 +249,28 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         NavigationView navigationView = findViewById(R.id.navigation_drawer);
         navigationView.setNavigationItemSelectedListener(this);
+        Menu drawerMenu = navigationView.getMenu();
+
+        if (mUserType == R.string.landlord) {
+            mGroupMenu = drawerMenu.addSubMenu("Groups");
+            mPresenter.loadGroupListDrawerMenu();
+        }
 
         // nav view header
         mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);
         mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider());
 
         mDrawerUserName = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_name);
+    }
+
+    @Override
+    public void showGroupListDrawerUi() {
+
+        ArrayList<Group> groups = UserManager.getInstance().getLandlord().getGroups();
+
+        for (Group group:groups) {
+            mGroupMenu.add(group.getGroupName());
+        }
     }
 
     @Override
@@ -391,15 +415,15 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         String string = "";
 
-//        switch (item.getItemId()) {
-//
-//            case R.id.nav_preparing:
-//                string = getString(R.string.awaiting_payment);
-//                break;
-//            default:
-//        }
-//
-//        Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
+        switch (menuItem.getItemId()) {
+
+            case R.id.nav_preparing:
+                string = getString(R.string.application_message);
+                break;
+            default:
+        }
+
+        Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
         return true;
     }
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="我的訂單">
+    <item android:title="我的應用">
         <menu>
             <item
                 android:id="@+id/nav_preparing"

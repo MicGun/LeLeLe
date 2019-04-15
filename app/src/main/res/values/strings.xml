@@ -3,6 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="_coming_soon">%s COMING SOON!</string>
 
     <!-- Facebook SDK -->
     <string name="facebook_app_id">2385558301456908</string>

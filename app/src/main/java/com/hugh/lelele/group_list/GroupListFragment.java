@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
@@ -28,6 +29,7 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     private GroupListContract.Presenter mPresenter;
     private GroupListAdapter mAdapter;
     private FloatingActionButton mFloatingAddGroupButton;
+    private TextView mNotifyTextView;
     private ArrayList<Group> mGroups;
 
     @Override
@@ -53,7 +55,9 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
 
-//        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
+        mNotifyTextView = root.findViewById(R.id.text_view_notify_group_list);
+
+        checkNotifyTextViewStatus();
 
         mFloatingAddGroupButton = root.findViewById(R.id.button_add_group);
         mFloatingAddGroupButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +69,18 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         });
 
         return root;
+    }
+
+    private void checkNotifyTextViewStatus() {
+
+        if (mNotifyTextView != null) {
+            if (mGroups.size() == 0) {
+                mNotifyTextView.setVisibility(View.VISIBLE);
+            } else {
+                mNotifyTextView.setVisibility(View.GONE);
+            }
+        }
+
     }
 
     @Override
@@ -92,6 +108,7 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     @Override
     public void showGroupListUi(ArrayList<Group> groups) {
         mGroups = groups;
+        checkNotifyTextViewStatus();
         if (mAdapter == null) {
             mAdapter = new GroupListAdapter(mPresenter);
             mAdapter.updateData(groups);

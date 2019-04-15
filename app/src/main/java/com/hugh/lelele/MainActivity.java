@@ -251,6 +251,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         navigationView.setNavigationItemSelectedListener(this);
         Menu drawerMenu = navigationView.getMenu();
 
+        //if user type is landlord, to download group list and show on navigation menu
         if (mUserType == R.string.landlord) {
             mGroupMenu = drawerMenu.addSubMenu("Groups");
             mPresenter.loadGroupListDrawerMenu();
@@ -422,6 +423,13 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 break;
             default:
         }
+
+        int clickGroup = menuItem.getItemId();
+
+        if (clickGroup == mGroupMenu.getItem().getItemId()) {
+            Log.v(TAG, "getSubMenu: " + menuItem.getTitle());
+        }
+        Log.v(TAG, "clickGroup: " + clickGroup);
 
         Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
         return true;

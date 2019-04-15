@@ -13,6 +13,7 @@ public class UserData {
     private String mName;
     private String mPictureUrl;
     private int mUserType;
+    private int mGroupNow;
 
     public UserData() {
 
@@ -70,5 +71,13 @@ public class UserData {
 
     public void setUserType(int userType) {
         mUserType = userType;
+    }
+
+    public int getGroupNow() {
+        return mGroupNow;
+    }
+
+    public void setGroupNow(int groupNow) {
+        mGroupNow = groupNow;
     }
 }

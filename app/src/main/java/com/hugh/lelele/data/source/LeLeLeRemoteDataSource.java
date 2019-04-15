@@ -217,6 +217,9 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
                         ArrayList<Group> groups = LeLeLeParser.parseGroupList(groupDocuments);
                         callback.onCompleted(groups);
+                    } else {
+                        ArrayList<Group> groups = new ArrayList<>(); //給空的，避免子集合還沒建立，導致fragment掛掉
+                        callback.onCompleted(groups);
                     }
                 }
             }

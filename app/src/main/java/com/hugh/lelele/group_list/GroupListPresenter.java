@@ -65,4 +65,9 @@ public class GroupListPresenter implements GroupListContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void notifyGroupListChanged() {
+        mGroupListView.reLoadGroupList();
+    }
 }

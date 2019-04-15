@@ -254,6 +254,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void notifyGroupListChanged() {
+        if (mGroupListPresenter != null) {
+            mGroupListPresenter.notifyGroupListChanged();
+        }
+    }
+
+    @Override
     public void setUserType(int selectedUserType) {
         mMainView.setUserTypeForView(selectedUserType);
     }

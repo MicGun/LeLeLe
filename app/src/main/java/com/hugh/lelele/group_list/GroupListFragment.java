@@ -28,6 +28,7 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     private GroupListContract.Presenter mPresenter;
     private GroupListAdapter mAdapter;
     private FloatingActionButton mFloatingAddGroupButton;
+    private ArrayList<Group> mGroups;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +41,6 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
         Log.d(TAG, "onResume: ");
     }
 
@@ -91,11 +91,17 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
 
     @Override
     public void showGroupListUi(ArrayList<Group> groups) {
+        mGroups = groups;
         if (mAdapter == null) {
             mAdapter = new GroupListAdapter(mPresenter);
             mAdapter.updateData(groups);
         } else {
             mAdapter.updateData(groups);
         }
+    }
+
+    @Override
+    public void reLoadGroupList() {
+        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
     }
 }

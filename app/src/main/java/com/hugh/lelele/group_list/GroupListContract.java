@@ -10,7 +10,10 @@ import java.util.ArrayList;
 public interface GroupListContract {
 
     interface View extends BaseView<GroupListContract.Presenter> {
+
         void showGroupListUi(ArrayList<Group> groups);
+
+        void reLoadGroupList();
     }
 
     interface Presenter extends BasePresenter {
@@ -26,5 +29,7 @@ public interface GroupListContract {
         void openGroupDetails(Group group);
 
         void loadGroupList(String email);
+
+        void notifyGroupListChanged();
     }
 }

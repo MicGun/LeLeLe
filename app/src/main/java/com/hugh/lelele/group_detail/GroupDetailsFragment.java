@@ -235,6 +235,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     public void onDestroy() {
         super.onDestroy();
         mPresenter.updateToolbar(getResources().getString(R.string.application_groups_list));
+        mPresenter.notifyGroupListChanged();
     }
 
     @Override

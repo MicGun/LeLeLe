@@ -98,4 +98,9 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     public void deleteRemoteRoom(Room room, String groupName, String email) {
         mLeLeLeRepository.deleteRoom(room, email, groupName);
     }
+
+    @Override
+    public void notifyGroupListChanged() {
+
+    }
 }

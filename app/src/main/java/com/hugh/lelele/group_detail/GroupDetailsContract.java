@@ -36,5 +36,7 @@ public interface GroupDetailsContract {
         void deleteRoom(Room room);
 
         void deleteRemoteRoom(Room room, String groupName, String email);
+
+        void notifyGroupListChanged();
     }
 }

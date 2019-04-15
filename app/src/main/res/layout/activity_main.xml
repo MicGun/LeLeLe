@@ -83,7 +83,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/menu_drawer"
-        app:theme="@style/DrawerMenuItem">
+        app:theme="@style/NavigationViewStyle" >
 
     </android.support.design.widget.NavigationView>
 

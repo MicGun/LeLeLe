@@ -427,7 +427,9 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         int clickGroup = menuItem.getItemId();
 
         if (clickGroup == mGroupMenu.getItem().getItemId()) {
-            Log.v(TAG, "getSubMenu: " + menuItem.getTitle());
+            String groupNow = (String) menuItem.getTitle();
+            mGroupMenu.getItem().setChecked(true);
+            UserManager.getInstance().getUserData().setGroupNow(groupNow);
         }
         Log.v(TAG, "clickGroup: " + clickGroup);
 

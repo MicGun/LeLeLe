@@ -12,8 +12,8 @@ public class UserData {
     private String mId;
     private String mName;
     private String mPictureUrl;
+    private String mGroupNow;
     private int mUserType;
-    private int mGroupNow;
 
     public UserData() {
 
@@ -22,6 +22,7 @@ public class UserData {
         mId = "";
         mName = "";
         mPictureUrl = "";
+        mGroupNow = "";
     }
 
     public String getAssessToken() {
@@ -73,11 +74,11 @@ public class UserData {
         mUserType = userType;
     }
 
-    public int getGroupNow() {
+    public String getGroupNow() {
         return mGroupNow;
     }
 
-    public void setGroupNow(int groupNow) {
+    public void setGroupNow(String groupNow) {
         mGroupNow = groupNow;
     }
 }

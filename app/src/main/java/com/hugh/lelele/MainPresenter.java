@@ -208,6 +208,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void loadGroupListDrawerMenu() {
+        Log.v("Hugh", "User Email: " + UserManager.getInstance().getUserData().getEmail());
         mLeLeLeRepository.getGroupList(UserManager.getInstance().getUserData().getEmail(), new LeLeLeDataSource.GetGroupListCallback() {
             @Override
             public void onCompleted(ArrayList<Group> groups) {

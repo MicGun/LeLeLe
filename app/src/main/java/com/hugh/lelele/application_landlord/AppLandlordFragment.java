@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
@@ -37,10 +38,15 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         mLandlord = UserManager.getInstance().getLandlord();
 
         mElectricityButton = root.findViewById(R.id.button_electricity_landlord);
+
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadRoomList(mLandlord.getEmail(), "新明路287號");
+                if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                    mPresenter.loadRoomList(mLandlord.getEmail(), UserManager.getInstance().getUserData().getGroupNow());
+                } else {
+                    Toast.makeText(getContext(), "選擇群組後，才可進行編輯。", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

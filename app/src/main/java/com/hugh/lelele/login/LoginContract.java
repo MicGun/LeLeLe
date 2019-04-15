@@ -18,5 +18,7 @@ public interface LoginContract {
         void setUserType(int selectedUserType);
 
         void openHome();
+
+        void loadGroupListDrawerMenu();
     }
 }

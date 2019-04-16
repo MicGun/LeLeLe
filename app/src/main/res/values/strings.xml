@@ -67,5 +67,9 @@
     <string name="group_edit">編輯群組</string>
     <string name="group_list_empty">目前尚無群組清單，請點擊新增鈕開始新增。</string>
 
+    <!-- Room List -->
+    <string name="tenant_name">房客: </string>
+    <string name="tenant_empty">目前尚無房客</string>
+    <string name="tenant_inviting">房客邀請中</string>
 
 </resources>

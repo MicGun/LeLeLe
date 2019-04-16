@@ -36,6 +36,7 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
 
         mPresenter.hideBottomNavigation();
         mPresenter.loadGroupData();
+        mAdapter = new RoomListAdapter(mPresenter);
     }
 
     @Nullable
@@ -89,7 +90,13 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
     @Override
     public void showGroupData(Group group) {
         mGroup = group;
-        mAdapter.updateData(group);
         updateRoomListUi();
+
+        if (mAdapter == null) {
+            mAdapter = new RoomListAdapter(mPresenter);
+            mAdapter.updateData(group);
+        } else{
+            mAdapter.updateData(group);
+        }
     }
 }

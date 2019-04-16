@@ -64,6 +64,18 @@ public class LeLeLeParser {
         return groups;
     }
 
+    public static Group parseGroup(DocumentSnapshot groupDoc) {
+
+        Group group = new Group();
+        group.setGroupName(groupDoc.getId());
+        group.setGroupAddress(String.valueOf(groupDoc.get("address")));
+        group.setGroupRoomNumber(String.valueOf(groupDoc.get("max_room_numbers")));
+        group.setGroupTenantNumber(String.valueOf(groupDoc.get("tenant_numbers")));
+
+        return group;
+
+    }
+
     public static Landlord parseLandlordInfo(DocumentSnapshot landlordDoc) {
 
         Landlord landlord = new Landlord();

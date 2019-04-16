@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Group;
@@ -25,11 +26,16 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
     private Group mGroup;
     private ArrayList<Room> mRooms;
 
+    private TextView mGroupName;
+    private TextView mNumberOfRooms;
+    private TextView mNumberOfTenants;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mPresenter.hideBottomNavigation();
+        mPresenter.loadGroupData();
     }
 
     @Nullable
@@ -41,7 +47,27 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
 
+        mGroupName = root.findViewById(R.id.text_group_name_room_list);
+        mNumberOfRooms = root.findViewById(R.id.text_view_number_of_rooms_room_list);
+        mNumberOfTenants = root.findViewById(R.id.text_view_number_of_tenants_room_list);
+
         return root;
+    }
+
+    private void updateRoomListUi() {
+        mGroupName.setText(mGroup.getGroupName());
+        if (!mGroup.getGroupRoomNumber().equals("")) {
+            mNumberOfRooms.setText(mGroup.getGroupRoomNumber());
+        } else {
+            mNumberOfRooms.setText("0");
+        }
+
+        if (!mGroup.getGroupTenantNumber().equals("")) {
+            mNumberOfTenants.setText(mGroup.getGroupTenantNumber());
+        } else {
+            mNumberOfTenants.setText("0");
+        }
+
     }
 
     public static RoomListFragment newInstance() {
@@ -58,5 +84,11 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
     @Override
     public void setPresenter(RoomListContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void showGroupData(Group group) {
+        mGroup = group;
+        updateRoomListUi();
     }
 }

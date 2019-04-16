@@ -1,6 +1,9 @@
 package com.hugh.lelele.room_list;
 
+import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -33,5 +36,21 @@ public class RoomListPresenter implements RoomListContract.Presenter {
     @Override
     public void updateToolbar(String title) {
 
+    }
+
+    @Override
+    public void loadGroupData() {
+        mLeLeLeRepository.getGroupData(UserManager.getInstance().getLandlord().getEmail(),
+                UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.GetGroupDataCallback() {
+                    @Override
+                    public void onCompleted(Group group) {
+                        mRoomListView.showGroupData(group);
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
     }
 }

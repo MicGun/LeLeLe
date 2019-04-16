@@ -81,6 +81,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void loadGroupData() {
+        if (mRoomListPresenter != null) {
+            mRoomListPresenter.loadGroupData();
+        }
+    }
+
+    @Override
     public void setGroupData(Group group) {
         if (mGroupDetailsPresenter != null) {
             mGroupDetailsPresenter.setGroupData(group);

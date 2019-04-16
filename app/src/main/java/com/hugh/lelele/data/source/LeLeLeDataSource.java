@@ -71,6 +71,13 @@ public interface LeLeLeDataSource {
         void onError(String errorMessage);
     }
 
+    interface GetGroupDataCallback {
+
+        void onCompleted(Group group);
+
+        void onError(String errorMessage);
+    }
+
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
 
     void updateTenantUser(@NonNull String email, @NonNull TenantUserCallback callback);
@@ -96,4 +103,6 @@ public interface LeLeLeDataSource {
     void updateRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName);
 
     void deleteRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName);
+
+    void getGroupData(@NonNull String email, @NonNull String groupName, @NonNull GetGroupDataCallback callback);
 }

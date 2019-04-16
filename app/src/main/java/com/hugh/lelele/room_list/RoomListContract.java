@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public interface RoomListContract {
 
     interface View extends BaseView<RoomListContract.Presenter> {
+
+        void showGroupData(Group group);
     }
 
     interface Presenter extends BasePresenter {
@@ -18,5 +20,7 @@ public interface RoomListContract {
         void showBottomNavigation();
 
         void updateToolbar(String title);
+
+        void loadGroupData();
     }
 }

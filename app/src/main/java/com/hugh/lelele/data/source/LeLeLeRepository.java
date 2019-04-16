@@ -178,4 +178,19 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     public void deleteRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName) {
         mLeLeLeRemoteDataSource.deleteRoom(room, email, groupName);
     }
+
+    @Override
+    public void getGroupData(@NonNull String email, @NonNull String groupName, @NonNull final GetGroupDataCallback callback) {
+        mLeLeLeRemoteDataSource.getGroupData(email, groupName, new GetGroupDataCallback() {
+            @Override
+            public void onCompleted(Group group) {
+                callback.onCompleted(group);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
 }

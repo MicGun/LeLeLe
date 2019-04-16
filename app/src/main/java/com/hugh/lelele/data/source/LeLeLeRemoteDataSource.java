@@ -481,4 +481,37 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     }
                 });
     }
+
+    @Override
+    public void getGroupData(@NonNull final String email, @NonNull final String groupName, @NonNull final GetGroupDataCallback callback) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot groupDoc = task.getResult();
+                            assert groupDoc != null;
+                            if (groupDoc.exists()) {
+                                final Group group = LeLeLeParser.parseGroup(groupDoc);
+                                getRoomList(email, groupName, new GetRoomListCallback() {
+                                    @Override
+                                    public void onCompleted(ArrayList<Room> rooms) {
+                                        group.setRooms(rooms);
+                                        callback.onCompleted(group);
+                                    }
+
+                                    @Override
+                                    public void onError(String errorMessage) {
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+    }
 }

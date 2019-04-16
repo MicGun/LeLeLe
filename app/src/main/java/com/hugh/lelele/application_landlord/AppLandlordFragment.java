@@ -26,6 +26,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
 
     private Button mElectricityButton;
     private Button mGroupListButton;
+    private Button mRoomListButton;
     private Button mMessageButton;
 
     private Landlord mLandlord;
@@ -57,6 +58,20 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
                 mPresenter.loadGroupListFromApp(mLandlord.getEmail());
             }
         });
+
+        mRoomListButton = root.findViewById(R.id.button_room_list_landlord);
+        mRoomListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                    mPresenter.openRoomList();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.select_group_before_edit), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         return root;
     }
 

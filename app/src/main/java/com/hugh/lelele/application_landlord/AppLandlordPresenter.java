@@ -77,4 +77,9 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
     public void openGroupList(ArrayList<Group> groups) {
 
     }
+
+    @Override
+    public void openRoomList() {
+
+    }
 }

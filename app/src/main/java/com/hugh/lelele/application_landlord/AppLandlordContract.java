@@ -26,5 +26,7 @@ public interface AppLandlordContract {
 
         void openGroupList(ArrayList<Group> groups);
 
+        void openRoomList();
+
     }
 }

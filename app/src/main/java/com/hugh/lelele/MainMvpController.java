@@ -30,6 +30,8 @@ import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
 import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
+import com.hugh.lelele.room_list.RoomListFragment;
+import com.hugh.lelele.room_list.RoomListPresenter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -49,6 +51,7 @@ public class MainMvpController {
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
     private LoginPresenter mLoginPresenter;
     private GroupListPresenter mGroupListPresenter;
+    private RoomListPresenter mRoomListPresenter;
     private GroupDetailsPresenter mGroupDetailsPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
@@ -57,12 +60,13 @@ public class MainMvpController {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
-            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS
+            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
     static final String LOGIN    = "LOGIN";
     static final String GROUP_LIST    = "GROUP_LIST";
+    static final String ROOM_LIST    = "ROOM_LIST";
     static final String GROUP_DETAILS    = "GROUP_DETAILS";
     static final String APPLICATION_TENANT = "APPLICATION_TENANT";
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
@@ -180,6 +184,20 @@ public class MainMvpController {
     }
 
     /*
+     * Room List View
+     * */
+    void findOrCreateRoomListView() {
+
+        RoomListFragment roomListFragment = findOrCreateRoomListFragment();
+
+        mRoomListPresenter = new RoomListPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), roomListFragment);
+
+        mMainPresenter.setRoomListPresenter(mRoomListPresenter);
+        roomListFragment.setPresenter(mMainPresenter);
+    }
+
+    /*
      * Group Details View
      * */
     void findOrCreateGroupDetailsView(Group group) {
@@ -249,6 +267,26 @@ public class MainMvpController {
                 getFragmentManager(), groupListFragment, GROUP_LIST);
 
         return groupListFragment;
+    }
+
+    /**
+     * Room List Fragment
+     * @return HomeFragment
+     */
+    @NonNull
+    private RoomListFragment findOrCreateRoomListFragment() {
+
+        RoomListFragment roomListFragment =
+                (RoomListFragment) getFragmentManager().findFragmentByTag(ROOM_LIST);
+        if (roomListFragment == null) {
+            // Create the fragment
+            roomListFragment = RoomListFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), roomListFragment, ROOM_LIST);
+
+        return roomListFragment;
     }
 
     /**

@@ -285,6 +285,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void openRoomListUi() {
+        mPresenter.updateToolbar(getResources().getString(R.string.application_room_list));
+        mMainMvpController.findOrCreateRoomListView();
+    }
+
+    @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
@@ -304,7 +310,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         if (title.equals(getString(R.string.application_electricity)) ||
                 title.equals(getString(R.string.application_groups_list)) ||
-                title.equals(getString(R.string.group_edit))) {
+                title.equals(getString(R.string.group_edit)) ||
+                title.equals(getString(R.string.application_room_list))) {
             mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationIcon(R.drawable.toolbar_back);

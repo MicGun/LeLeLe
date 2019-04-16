@@ -31,6 +31,8 @@ import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
 import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.room_list.RoomListContract;
+import com.hugh.lelele.room_list.RoomListPresenter;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
-        GroupDetailsContract.Presenter {
+        GroupDetailsContract.Presenter, RoomListContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -53,6 +55,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private ElectricityLandlordPresenter mElectricityLandlordPresenter;
     private GroupListPresenter mGroupListPresenter;
     private GroupDetailsPresenter mGroupDetailsPresenter;
+    private RoomListPresenter mRoomListPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -158,6 +161,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setGroupDetailsPresenter(GroupDetailsPresenter groupDetailsPresenter) {
         mGroupDetailsPresenter = checkNotNull(groupDetailsPresenter);
+    }
+
+    void setRoomListPresenter(RoomListPresenter roomListPresenter) {
+        mRoomListPresenter = checkNotNull(roomListPresenter);
     }
 
     @Override
@@ -315,6 +322,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void openGroupList(ArrayList<Group> groups) {
         mMainView.openGroupListUi(groups);
+    }
+
+    @Override
+    public void openRoomList() {
+        mMainView.openRoomListUi();
     }
 
     @Override

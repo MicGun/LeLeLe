@@ -93,11 +93,11 @@
         app:layout_constraintTop_toTopOf="@+id/button_reservation_landlord" />
 
     <Button
-        android:id="@+id/button_tenants_list_landlord"
+        android:id="@+id/button_room_list_landlord"
         style="@style/ProfileOrderButton"
         android:drawableTop="@drawable/ic_tenants"
         android:gravity="center"
-        android:text="@string/application_tenants_list"
+        android:text="@string/application_room_list"
         app:layout_constraintBottom_toBottomOf="@+id/button_reservation_landlord"
         app:layout_constraintEnd_toEndOf="@+id/button_contract_landlord"
         app:layout_constraintStart_toStartOf="@+id/button_contract_landlord"

@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hugh.lelele.R;
-import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 
 
@@ -35,7 +34,7 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
         public GroupDetailsRoomItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            roomName = itemView.findViewById(R.id.item_text_view_room_name);
+            roomName = itemView.findViewById(R.id.item_text_view_room_list_room_name);
             roomTenant = itemView.findViewById(R.id.item_text_view_tenant_name);
             deleteButton = itemView.findViewById(R.id.item_image_view_delete_button_room_info);
         }

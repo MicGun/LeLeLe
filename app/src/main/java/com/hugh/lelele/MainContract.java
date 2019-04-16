@@ -51,6 +51,8 @@ public interface MainContract {
 
         void showGroupListDrawerUi();
 
+        void openRoomListUi();
+
     }
 
     interface Presenter extends BasePresenter {

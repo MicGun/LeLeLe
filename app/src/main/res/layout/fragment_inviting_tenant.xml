@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
+        android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -14,12 +15,60 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_board"
         android:fontFamily="@font/noto_sans"
-        android:textColor="@color/black_3f3a3a"
         android:hint="@string/enter_tenant_email"
         android:padding="@dimen/edit_text_padding"
+        android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_view_search_tenant_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/editText"
+        app:srcCompat="@drawable/ic_action_search" />
+
+    <ImageView
+        android:id="@+id/image_profile_avatar"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/ic_nav_profile"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <Button
+        android:id="@+id/button_inviting"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/Inviting"
+        android:textSize="14sp"
+        android:background="@drawable/button_board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_tenant_name_inviting" />
+
+    <TextView
+        android:id="@+id/text_view_tenant_name_inviting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/tenant"
+        android:textSize="16sp"
+        android:textColor="@color/black_3f3a3a"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_profile_avatar" />
 
 </android.support.constraint.ConstraintLayout>

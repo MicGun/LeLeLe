@@ -71,5 +71,6 @@
     <string name="tenant_name">房客: </string>
     <string name="tenant_empty">目前尚無房客</string>
     <string name="tenant_inviting">房客邀請中</string>
+    <string name="enter_tenant_email">請輸入房客信箱搜尋</string>
 
 </resources>

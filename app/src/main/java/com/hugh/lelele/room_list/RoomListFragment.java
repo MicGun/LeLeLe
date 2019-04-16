@@ -89,6 +89,7 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
     @Override
     public void showGroupData(Group group) {
         mGroup = group;
+        mAdapter.updateData(group);
         updateRoomListUi();
     }
 }

@@ -13,6 +13,8 @@ public class Tenant {
     private String mRoomNumber;
     private String mIdCardNumber;
     private String mAssessToken;
+    private boolean mIsBinding;
+    private boolean mIsInviting;
 
     public Tenant() {
         mEmail = "";
@@ -26,6 +28,8 @@ public class Tenant {
         mRoomNumber = "";
         mIdCardNumber = "";
         mAssessToken = "";
+        mIsBinding = false;
+        mIsInviting = false;
     }
 
     public String getEmail() {
@@ -114,5 +118,21 @@ public class Tenant {
 
     public void setAssessToken(String assessToken) {
         mAssessToken = assessToken;
+    }
+
+    public boolean isBinding() {
+        return mIsBinding;
+    }
+
+    public void setBinding(boolean binding) {
+        mIsBinding = binding;
+    }
+
+    public boolean isInviting() {
+        return mIsInviting;
+    }
+
+    public void setInviting(boolean inviting) {
+        mIsInviting = inviting;
     }
 }

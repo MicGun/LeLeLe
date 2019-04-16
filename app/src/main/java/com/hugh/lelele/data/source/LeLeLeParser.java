@@ -40,7 +40,9 @@ public class LeLeLeParser {
 
         for (DocumentSnapshot roomDocument:roomDocuments) {
             Room room = new Room();
+            Tenant tenant = roomDocument.toObject(Tenant.class);
             room.setRoomName(roomDocument.getId());
+            room.setTenant(tenant);
             rooms.add(room);
             //ToDo to think about that the data structure of tenants
         }

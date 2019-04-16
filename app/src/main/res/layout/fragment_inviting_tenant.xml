@@ -34,7 +34,7 @@
         app:srcCompat="@drawable/ic_action_search" />
 
     <ImageView
-        android:id="@+id/image_profile_avatar"
+        android:id="@+id/image_tenant_picture_inviting"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginTop="32dp"
@@ -69,6 +69,6 @@
         android:textColor="@color/black_3f3a3a"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_profile_avatar" />
+        app:layout_constraintTop_toBottomOf="@+id/image_tenant_picture_inviting" />
 
 </android.support.constraint.ConstraintLayout>

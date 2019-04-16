@@ -55,6 +55,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     private BottomNavigationView mBottomNavigation;
     private DrawerLayout mDrawerLayout;
     private SubMenu mGroupMenu;
+    private Menu mDrawerMenu;
     private ImageView mDrawerUserImage;
     private TextView mDrawerUserName;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
@@ -249,11 +250,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         NavigationView navigationView = findViewById(R.id.navigation_drawer);
         navigationView.setNavigationItemSelectedListener(this);
-        Menu drawerMenu = navigationView.getMenu();
+        mDrawerMenu = navigationView.getMenu();
 
         //if user type is landlord, to download group list and show on navigation menu
         if (mUserType == R.string.landlord) {
-            mGroupMenu = drawerMenu.addSubMenu("Groups");
+//            mGroupMenu = drawerMenu.addSubMenu("Groups");
             mPresenter.loadGroupListDrawerMenu();
         }
 
@@ -268,7 +269,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     public void showGroupListDrawerUi() {
 
         ArrayList<Group> groups = UserManager.getInstance().getLandlord().getGroups();
-
+        mGroupMenu = mDrawerMenu.addSubMenu(getResources().getString(R.string.application_groups_list));
         for (Group group:groups) {
             mGroupMenu.add(group.getGroupName());
         }

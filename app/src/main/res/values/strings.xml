@@ -58,4 +58,6 @@
     <string name="add_room">新增房間</string>
     <string name="group_edit">編輯群組</string>
     <string name="group_list_empty">目前尚無群組清單，請點擊新增鈕開始新增。</string>
+
+
 </resources>

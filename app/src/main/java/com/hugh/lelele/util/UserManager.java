@@ -70,7 +70,7 @@ public class UserManager {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                loadCallback.onSuccess();
+
                 mUserData.setAssessToken(loginResult.getAccessToken().getToken());
                 mUserData.setId(loginResult.getAccessToken().getUserId());
                 String pictureUrl = "https://graph.facebook.com/" + loginResult.getAccessToken().getUserId() + "/picture?type=large";
@@ -87,6 +87,7 @@ public class UserManager {
                             public void onCompleted(JSONObject object, GraphResponse response) {
 
                                 loginLeLeLe(object);
+                                loadCallback.onSuccess();
 
                             }
                         });
@@ -95,6 +96,7 @@ public class UserManager {
                 parameters.putString("fields", "id,name,email,gender,birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
+//                loadCallback.onSuccess();
 
 //                AccessToken accessToken =  loginResult.getAccessToken();
 //                GraphRequest request = GraphRequest.newGraphPathRequest(
@@ -108,7 +110,7 @@ public class UserManager {
 //                            }
 //                        });
 
-                request.executeAsync();
+//                request.executeAsync();
 
 //                try {
 //                    Bitmap bitmap = getFacebookProfilePicture(loginResult.getAccessToken().getUserId());

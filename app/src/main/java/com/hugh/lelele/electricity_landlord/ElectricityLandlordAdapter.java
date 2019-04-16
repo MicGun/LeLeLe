@@ -21,6 +21,7 @@ import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.login.LoginManager;
+import com.hugh.lelele.util.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,9 +115,11 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         final Electricity electricityThis = room.getElectricities().get(mMonth); //指標從0開始，有多一個base line month，因此長度會變為13
 //        final Electricity electricityThis = room.getElectricities().get(11); //指標從0開始
 
+        //要初始化每年的一月，建立新的Electricity Collection
         if (mMonth == 0) {
-            mPresenter.initialElectricityMonth("n1553330708@yahoo.com.tw",
-                    "新明路287號", room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext);
+            mPresenter.initialElectricityMonth(UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(),
+                    room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext);
         }
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());
@@ -187,21 +190,22 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                         electricityThis.setTotalConsumption(String.valueOf(total_consumption));
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                         electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
-                        mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
-                                "新明路287號", room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
+                        mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                                UserManager.getInstance().getUserData().getGroupNow(),
+                                room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
 
                         if (mMonth == 0) {
-                            mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
-                                    "新明路287號", room.getRoomName(), String.valueOf(mYear), BASE_LINE_MONTH, electricityThis);
+                            mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                                    UserManager.getInstance().getUserData().getGroupNow(),
+                                    room.getRoomName(), String.valueOf(mYear), BASE_LINE_MONTH, electricityThis);
                         }
 
+                        //自動更新下月電費的初始值
                         Electricity electricityNext = new Electricity();
                         electricityNext.setScaleLast(s.toString());
-                        mPresenter.uploadElectricity("n1553330708@yahoo.com.tw",
-                                "新明路287號", room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext, electricityNext);
-
-//                        mPresenter.initialElectricityMonth("n1553330708@yahoo.com.tw",
-//                                "新明路287號", room.getRoomName(), "2018", "12");
+                        mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                                UserManager.getInstance().getUserData().getGroupNow(),
+                                room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext, electricityNext);
                     }
                 }
             }

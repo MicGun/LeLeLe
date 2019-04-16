@@ -276,8 +276,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
-    public void getElectricityList(@NonNull String email, @NonNull String groupName,
-                                   @NonNull String year, @NonNull String roomName,
+    public void getElectricityList(@NonNull final String email, @NonNull final String groupName,
+                                   @NonNull final String year, @NonNull final String roomName,
                                    @NonNull final GetElectricityCallback callback) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
@@ -319,6 +319,12 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 callback.onCompleted(electricities);
                                 Log.v(TAG, "electricity size: " + electricities.size());
                             } else {
+                                //一旦沒有此集合，需要初始化
+                                initialElectricityMonthData(email, groupName, roomName, year, "00");
+                                for (int i = 0; i < 13; i++) {
+                                    Electricity electricity = new Electricity();
+                                    electricities.add(electricity);
+                                }
                                 callback.onCompleted(electricities); //不存在還是要回傳空的
                             }
                         }

@@ -55,7 +55,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                             mPresenter.openHome();
                             mPresenter.showToolbarAndBottomNavigation();
                             Log.v(TAG, "UserManager is Null: " + (UserManager.getInstance().getUserData() == null));
-//                            mPresenter.loadGroupListDrawerMenu();
+                            Log.v(TAG, "User Name: " + (UserManager.getInstance().getUserData().getName()));
+                            if (mUserType == R.string.landlord) {
+                                mPresenter.loadGroupListDrawerMenu();
+                            }
                         }
 
                         @Override

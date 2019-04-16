@@ -56,7 +56,8 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
         //ToDo: replace the landlord info by user manager.
         //call RoomsElectricityRecursive to get electric fee for each room.
         new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
-                "新明路287號", String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                UserManager.getInstance().getUserData().getGroupNow(),
+                String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
                 mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
             @Override
             public void onCompleted(ArrayList<Room> roomArrayList) {

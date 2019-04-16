@@ -103,4 +103,9 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     public void notifyGroupListChanged() {
 
     }
+
+    @Override
+    public void loadGroupListDrawerMenu() {
+
+    }
 }

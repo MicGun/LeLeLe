@@ -269,10 +269,19 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     public void showGroupListDrawerUi() {
 
         ArrayList<Group> groups = UserManager.getInstance().getLandlord().getGroups();
-        mGroupMenu = mDrawerMenu.addSubMenu(getResources().getString(R.string.application_groups_list));
-        for (Group group:groups) {
-            mGroupMenu.add(group.getGroupName());
+        if (mGroupMenu == null) {
+            mGroupMenu = mDrawerMenu.addSubMenu(getResources().getString(R.string.application_groups_list));
         }
+
+        if (groups.size() != 0) {
+            mGroupMenu.clear();
+            for (Group group:groups) {
+                mGroupMenu.add(group.getGroupName());
+            }
+        } else {
+            mDrawerMenu.add(getResources().getString(R.string.ask_to_create_a_group));
+        }
+
     }
 
     @Override
@@ -420,22 +429,27 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         switch (menuItem.getItemId()) {
 
             case R.id.nav_preparing:
-                string = getString(R.string.application_message);
+                string = getString(R.string.preparing);
+                Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
                 break;
             default:
         }
 
         int clickGroup = menuItem.getItemId();
 
-        if (clickGroup == mGroupMenu.getItem().getItemId()) {
-            String groupNow = (String) menuItem.getTitle();
-            mGroupMenu.getItem().setChecked(true);
-            UserManager.getInstance().getUserData().setGroupNow(groupNow);
-            mDrawerLayout.closeDrawers();
+        if (!menuItem.getTitle().toString().equals(getString(R.string.ask_to_create_a_group))) {
+            if (clickGroup == mGroupMenu.getItem().getItemId()) {
+                String groupNow = (String) menuItem.getTitle();
+                mGroupMenu.getItem().setChecked(true);
+                UserManager.getInstance().getUserData().setGroupNow(groupNow);
+                mDrawerLayout.closeDrawers();
+                Toast.makeText(this, getString(R.string.switch_group_to_, groupNow), Toast.LENGTH_SHORT).show();
+            }
+            Log.v(TAG, "clickGroup: " + clickGroup);
+        } else if (menuItem.getTitle().toString().equals(getString(R.string.ask_to_create_a_group))) {
+            Toast.makeText(this, getString(R.string.ask_to_go_to_group_list), Toast.LENGTH_SHORT).show();
         }
-        Log.v(TAG, "clickGroup: " + clickGroup);
 
-        Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
         return true;
     }
 }

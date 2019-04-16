@@ -45,7 +45,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
                 if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
                     mPresenter.loadRoomList(mLandlord.getEmail(), UserManager.getInstance().getUserData().getGroupNow());
                 } else {
-                    Toast.makeText(getContext(), "選擇群組後，才可進行編輯。", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.select_group_before_edit), Toast.LENGTH_SHORT).show();
                 }
             }
         });

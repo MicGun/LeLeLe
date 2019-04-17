@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_text_tenant_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -28,9 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_text_tenant_email"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_tenant_email"
+        app:layout_constraintTop_toTopOf="@+id/edit_text_tenant_email"
         app:srcCompat="@drawable/ic_action_search" />
 
     <ImageView
@@ -43,7 +43,7 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_tenant_email" />
 
     <Button
         android:id="@+id/button_inviting"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/noto_sans"
-        android:text="@string/Inviting"
+        android:text="@string/inviting"
         android:textSize="14sp"
         android:background="@drawable/button_board"
         app:layout_constraintEnd_toEndOf="parent"

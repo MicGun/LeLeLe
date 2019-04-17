@@ -56,7 +56,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        Room room = mGroup.getRooms().get(i);
+        final Room room = mGroup.getRooms().get(i);
 
         ((RoomListViewHolder) viewHolder).roomName.setText(room.getRoomName());
         if (!room.getTenant().getName().equals("")) {
@@ -69,6 +69,12 @@ public class RoomListAdapter extends RecyclerView.Adapter {
                     .setText(LeLeLe.getAppContext().getResources().getString(R.string.tenant_empty));
         }
 
+        ((RoomListViewHolder) viewHolder).addTenantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.openInvitationSending(room);
+            }
+        });
 
         if (room.getTenant().isBinding()) {
             //有房客，只剩下刪除鍵

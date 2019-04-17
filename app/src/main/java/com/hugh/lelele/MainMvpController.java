@@ -25,6 +25,8 @@ import com.hugh.lelele.group_list.GroupListFragment;
 import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeFragment;
 import com.hugh.lelele.home.HomePresenter;
+import com.hugh.lelele.invitation_sending.InvitationSendingFragment;
+import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginFragment;
 import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.notify.NotifyPresenter;
@@ -53,6 +55,7 @@ public class MainMvpController {
     private GroupListPresenter mGroupListPresenter;
     private RoomListPresenter mRoomListPresenter;
     private GroupDetailsPresenter mGroupDetailsPresenter;
+    private InvitationSendingPresenter mInvitationSendingPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -60,13 +63,14 @@ public class MainMvpController {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
-            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST
+            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST, INVITATION_SENDING
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
     static final String LOGIN    = "LOGIN";
     static final String GROUP_LIST    = "GROUP_LIST";
     static final String ROOM_LIST    = "ROOM_LIST";
+    static final String INVITATION_SENDING    = "INVITATION_SENDING";
     static final String GROUP_DETAILS    = "GROUP_DETAILS";
     static final String APPLICATION_TENANT = "APPLICATION_TENANT";
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
@@ -198,6 +202,21 @@ public class MainMvpController {
     }
 
     /*
+     * Invitation Sending View
+     * */
+    void findOrCreateInvitationSendingView( Room room) {
+
+        InvitationSendingFragment invitationSendingFragment = findOrCreateInvitationSendingFragment();
+
+        mInvitationSendingPresenter = new InvitationSendingPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), invitationSendingFragment);
+
+        mMainPresenter.setInvitationSendingPresenter(mInvitationSendingPresenter);
+        invitationSendingFragment.setPresenter(mMainPresenter);
+        mInvitationSendingPresenter.setRoomData(room);
+    }
+
+    /*
      * Group Details View
      * */
     void findOrCreateGroupDetailsView(Group group) {
@@ -287,6 +306,26 @@ public class MainMvpController {
                 getFragmentManager(), roomListFragment, ROOM_LIST);
 
         return roomListFragment;
+    }
+
+    /**
+     * Invitation Sending Fragment
+     * @return HomeFragment
+     */
+    @NonNull
+    private InvitationSendingFragment findOrCreateInvitationSendingFragment() {
+
+        InvitationSendingFragment invitationSendingFragment =
+                (InvitationSendingFragment) getFragmentManager().findFragmentByTag(INVITATION_SENDING);
+        if (invitationSendingFragment == null) {
+            // Create the fragment
+            invitationSendingFragment = InvitationSendingFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), invitationSendingFragment, INVITATION_SENDING);
+
+        return invitationSendingFragment;
     }
 
     /**

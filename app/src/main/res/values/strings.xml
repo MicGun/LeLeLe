@@ -74,6 +74,7 @@
     <string name="enter_tenant_email">請輸入房客信箱搜尋</string>
 
     <!-- Inviting -->
-    <string name="Inviting">發送邀請</string>
+    <string name="inviting">發送邀請</string>
+    <string name="invitation_sending">邀請房客</string>
 
 </resources>

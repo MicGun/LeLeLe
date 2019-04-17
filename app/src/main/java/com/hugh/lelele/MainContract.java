@@ -53,6 +53,8 @@ public interface MainContract {
 
         void openRoomListUi();
 
+        void openInvitationSendingUi(Room room);
+
     }
 
     interface Presenter extends BasePresenter {

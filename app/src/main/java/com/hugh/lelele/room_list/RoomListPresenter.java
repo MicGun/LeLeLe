@@ -1,6 +1,7 @@
 package com.hugh.lelele.room_list;
 
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.util.UserManager;
@@ -52,5 +53,10 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
                     }
                 });
+    }
+
+    @Override
+    public void openInvitationSending(Room room) {
+
     }
 }

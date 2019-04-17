@@ -29,6 +29,8 @@ import com.hugh.lelele.group_list.GroupListContract;
 import com.hugh.lelele.group_list.GroupListPresenter;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.home.HomePresenter;
+import com.hugh.lelele.invitation_sending.InvitationSendingContract;
+import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.room_list.RoomListContract;
@@ -43,7 +45,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
-        GroupDetailsContract.Presenter, RoomListContract.Presenter {
+        GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -56,6 +58,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private GroupListPresenter mGroupListPresenter;
     private GroupDetailsPresenter mGroupDetailsPresenter;
     private RoomListPresenter mRoomListPresenter;
+    private InvitationSendingPresenter mInvitationSendingPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -85,6 +88,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         if (mRoomListPresenter != null) {
             mRoomListPresenter.loadGroupData();
         }
+    }
+
+    @Override
+    public void openInvitationSending(Room room) {
+        mMainView.openInvitationSendingUi(room);
     }
 
     @Override
@@ -172,6 +180,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setRoomListPresenter(RoomListPresenter roomListPresenter) {
         mRoomListPresenter = checkNotNull(roomListPresenter);
+    }
+
+    void setInvitationSendingPresenter(InvitationSendingPresenter invitationSendingPresenter) {
+        mInvitationSendingPresenter = checkNotNull(invitationSendingPresenter);
     }
 
     @Override
@@ -381,6 +393,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void loadTenant(String email) {
         if (mHomePresenter != null) {
             mHomePresenter.loadTenant(email);
+        }
+    }
+
+    @Override
+    public void setRoomData(Room room) {
+        if (mInvitationSendingPresenter != null) {
+            mInvitationSendingPresenter.setRoomData(room);
         }
     }
 }

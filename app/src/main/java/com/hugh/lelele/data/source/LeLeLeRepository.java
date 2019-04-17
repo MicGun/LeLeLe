@@ -65,6 +65,10 @@ public class LeLeLeRepository implements LeLeLeDataSource {
         });
     }
 
+//    @Override
+//    public void getTenantUser(@NonNull String email, @NonNull TenantUserCallback callback) {
+//    }
+
     @Override
     public void getRoomList(@NonNull String email, @NonNull String groupName, @NonNull final GetRoomListCallback callback) {
         mLeLeLeRemoteDataSource.getRoomList(email, groupName, new GetRoomListCallback() {
@@ -192,5 +196,10 @@ public class LeLeLeRepository implements LeLeLeDataSource {
                 callback.onError(errorMessage);
             }
         });
+    }
+
+    @Override
+    public void uploadTenant(@NonNull Tenant tenant) {
+        mLeLeLeRemoteDataSource.uploadTenant(tenant);
     }
 }

@@ -34,6 +34,7 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
     private ImageView mTenantPicture;
     private TextView mTenantName;
     private Button mSendInvitationButton;
+    private String mSearchEmail;
 
     public InvitationSendingFragment() {
         mRoom = new Room();
@@ -54,7 +55,7 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                mSearchEmail = s.toString();
             }
 
             @Override
@@ -67,16 +68,23 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mPresenter.loadTenant(mSearchEmail);
             }
         });
 
         mTenantPicture = root.findViewById(R.id.image_tenant_picture_inviting);
-        mTenantPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
+//        mTenantPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
 
         mTenantName = root.findViewById(R.id.text_view_tenant_name_inviting);
 
         mSendInvitationButton = root.findViewById(R.id.button_inviting);
+        mSendInvitationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTenant.setInviting(true);
+                mPresenter.updateTenant(mTenant);
+            }
+        });
 
         setupTenantInfoView();
 
@@ -87,13 +95,22 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
     public void setupTenantInfoView() {
 
         if (mTenant.getName().equals("")) {
+            //還沒有對象時，不顯示
             mTenantPicture.setVisibility(View.GONE);
             mTenantName.setVisibility(View.GONE);
             mSendInvitationButton.setVisibility(View.GONE);
+        } else if (mTenant.isBinding() || mTenant.isInviting()) {
+            //有對象，但對方已經被綁定，或是正被邀請，無法邀請
+            mTenantPicture.setVisibility(View.VISIBLE);
+            mTenantName.setVisibility(View.VISIBLE);
+            mSendInvitationButton.setVisibility(View.GONE);
+            showTenantUi();
         } else {
+            //有對象，可以被邀請
             mTenantPicture.setVisibility(View.VISIBLE);
             mTenantName.setVisibility(View.VISIBLE);
             mSendInvitationButton.setVisibility(View.VISIBLE);
+            showTenantUi();
         }
     }
 
@@ -102,6 +119,12 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
         ImageManager.getInstance().setImageByUrl(mTenantPicture,
                 mTenant.getPicture());
         mTenantName.setText(mTenant.getName());
+    }
+
+    @Override
+    public void setTenant(Tenant tenant) {
+        mTenant = tenant;
+        setupTenantInfoView();
     }
 
     public static InvitationSendingFragment newInstance() {

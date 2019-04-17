@@ -124,22 +124,29 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 Log.v(TAG, "Tenant is already exist!");
                             } else {
                                 //create and initialize a tenant
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("email", email);
-                                user.put("ID_card_number", "");
-                                user.put("address", "");
-                                user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
-                                user.put("phone_number", "");
-                                user.put("id", UserManager.getInstance().getUserData().getId());
-                                user.put("name", UserManager.getInstance().getUserData().getName());
-                                user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
-                                user.put("group", "");
-                                user.put("landlord_email", "");
-                                user.put("room_number", "");
+//                                Map<String, Object> user = new HashMap<>();
+//                                user.put("email", email);
+//                                user.put("ID_card_number", "");
+//                                user.put("address", "");
+//                                user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
+//                                user.put("phone_number", "");
+//                                user.put("id", UserManager.getInstance().getUserData().getId());
+//                                user.put("name", UserManager.getInstance().getUserData().getName());
+//                                user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
+//                                user.put("group", "");
+//                                user.put("landlord_email", "");
+//                                user.put("room_number", "");
+//                                user.put("inviting", false);
+//                                user.put("biding", false);
+                                Tenant tenant = new Tenant();
+                                tenant.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
+                                tenant.setId(UserManager.getInstance().getUserData().getId());
+                                tenant.setName(UserManager.getInstance().getUserData().getName());
+                                tenant.setPicture(UserManager.getInstance().getUserData().getPictureUrl());
                                 mFirebaseFirestore.collection(TENANTS)
                                         .document(email)
-                                        .set(user);
-                                Log.v(TAG, "Create a new tenant: " + user.get("name"));
+                                        .set(tenant);
+                                Log.v(TAG, "Create a new tenant: " + tenant.getName());
                             }
                         } else {
                             callback.onError(String.valueOf(task.getException()));
@@ -147,6 +154,32 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     }
                 });
     }
+
+//    @Override
+//    public void getTenantUser(@NonNull final String email, @NonNull final TenantUserCallback callback) {
+//        mFirebaseFirestore.collection(TENANTS)
+//                .document(email)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot tenantDoc = task.getResult();
+//                            assert tenantDoc != null;
+//                            if (tenantDoc.exists()) {
+//                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+//                                callback.onCompleted(tenant);
+//                                Log.v(TAG, "Tenant is already exist!");
+//                            } else {
+//                                callback.onCompleted(new Tenant());
+//                            }
+//                        } else {
+//                            callback.onError(String.valueOf(task.getException()));
+//                        }
+//                    }
+//                });
+//    }
 
     /*
      * 去拿房間清單
@@ -429,9 +462,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot tenantDoc = task.getResult();
+                            assert tenantDoc != null;
                             if (tenantDoc.exists()) {
-                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+//                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+                                Tenant tenant = tenantDoc.toObject(Tenant.class);
                                 callback.onCompleted(tenant);
+                            } else {
+                                callback.onCompleted(new Tenant());
                             }
                         } else {
                             //ToDo create a new user?
@@ -513,5 +550,12 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void uploadTenant(@NonNull Tenant tenant) {
+        mFirebaseFirestore.collection(TENANTS)
+                .document(tenant.getEmail())
+                .set(tenant);
     }
 }

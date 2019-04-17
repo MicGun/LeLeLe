@@ -36,7 +36,7 @@
     <ImageView
         android:id="@+id/image_tenant_picture_inviting"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_nav_profile"
         android:scaleType="centerCrop"

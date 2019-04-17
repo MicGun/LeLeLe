@@ -1,6 +1,8 @@
 package com.hugh.lelele.invitation_sending;
 
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -24,5 +26,24 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
     @Override
     public void setRoomData(Room room) {
         mInvitationSendingView.setRoomView(room);
+    }
+
+    @Override
+    public void loadTenant(String email) {
+        mLeLeLeRepository.getTenantProfile(email, new LeLeLeDataSource.GetTenantProfileCallback() {
+            @Override
+            public void onCompleted(Tenant tenant) {
+                mInvitationSendingView.setTenant(tenant);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+            }
+        });
+    }
+
+    @Override
+    public void updateTenant(Tenant tenant) {
+        mLeLeLeRepository.uploadTenant(tenant);
     }
 }

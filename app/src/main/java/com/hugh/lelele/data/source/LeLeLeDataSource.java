@@ -105,4 +105,6 @@ public interface LeLeLeDataSource {
     void deleteRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName);
 
     void getGroupData(@NonNull String email, @NonNull String groupName, @NonNull GetGroupDataCallback callback);
+
+    void uploadTenant(@NonNull Tenant tenant);
 }

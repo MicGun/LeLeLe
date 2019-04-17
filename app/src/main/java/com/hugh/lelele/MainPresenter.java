@@ -17,6 +17,7 @@ import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordContract;
@@ -391,8 +392,15 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void loadTenant(String email) {
-        if (mHomePresenter != null) {
-            mHomePresenter.loadTenant(email);
+        if (mInvitationSendingPresenter != null) {
+            mInvitationSendingPresenter.loadTenant(email);
+        }
+    }
+
+    @Override
+    public void updateTenant(Tenant tenant) {
+        if (mInvitationSendingPresenter != null) {
+            mInvitationSendingPresenter.updateTenant(tenant);
         }
     }
 

@@ -83,6 +83,7 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
             public void onClick(View v) {
                 mTenant.setInviting(true);
                 mPresenter.updateTenant(mTenant);
+                setupTenantInfoView();
             }
         });
 

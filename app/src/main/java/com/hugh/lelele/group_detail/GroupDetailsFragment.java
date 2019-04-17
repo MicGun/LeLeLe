@@ -142,6 +142,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
                         Room room = new Room();
                         mRoomNames.add(mRoomName);
                         room.setRoomName(mRoomName);
+                        room.getTenant().setRoomNumber(mRoomName);
                         mRooms.add(room);
                         mEditGroupAddRoomName.setText("");
                         notifyRoomDataSetChanged();

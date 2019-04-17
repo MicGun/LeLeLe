@@ -27,5 +27,7 @@ public interface InvitationSendingContract {
         void loadTenant(String email);
 
         void updateTenant(Tenant tenant);
+
+        void updateRoom(Room room);
     }
 }

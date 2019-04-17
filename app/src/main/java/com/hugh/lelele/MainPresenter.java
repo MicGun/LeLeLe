@@ -405,6 +405,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void updateRoom(Room room) {
+        if (mInvitationSendingPresenter != null) {
+            mInvitationSendingPresenter.updateRoom(room);
+        }
+    }
+
+    @Override
     public void setRoomData(Room room) {
         if (mInvitationSendingPresenter != null) {
             mInvitationSendingPresenter.setRoomData(room);

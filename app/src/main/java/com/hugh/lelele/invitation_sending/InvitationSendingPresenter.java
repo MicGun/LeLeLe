@@ -4,6 +4,7 @@ import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -45,5 +46,11 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
     @Override
     public void updateTenant(Tenant tenant) {
         mLeLeLeRepository.uploadTenant(tenant);
+    }
+
+    @Override
+    public void updateRoom(Room room) {
+        mLeLeLeRepository.updateRoom(room, UserManager.getInstance().getLandlord().getEmail(),
+                UserManager.getInstance().getUserData().getGroupNow());
     }
 }

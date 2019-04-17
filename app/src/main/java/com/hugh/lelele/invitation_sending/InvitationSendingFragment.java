@@ -82,7 +82,12 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
             @Override
             public void onClick(View v) {
                 mTenant.setInviting(true);
+                mTenant.setLandlordEmail(UserManager.getInstance().getLandlord().getEmail());
+                mTenant.setRoomNumber(mRoom.getRoomName());
+                mTenant.setGroup(UserManager.getInstance().getUserData().getGroupNow());
                 mPresenter.updateTenant(mTenant);
+                mRoom.setTenant(mTenant);
+                mPresenter.updateRoom(mRoom);
                 setupTenantInfoView();
             }
         });

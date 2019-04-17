@@ -143,6 +143,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 tenant.setId(UserManager.getInstance().getUserData().getId());
                                 tenant.setName(UserManager.getInstance().getUserData().getName());
                                 tenant.setPicture(UserManager.getInstance().getUserData().getPictureUrl());
+                                tenant.setEmail(UserManager.getInstance().getUserData().getEmail());
                                 mFirebaseFirestore.collection(TENANTS)
                                         .document(email)
                                         .set(tenant);

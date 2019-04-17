@@ -1,5 +1,7 @@
 package com.hugh.lelele.room_list;
 
+import android.view.View;
+
 import com.hugh.lelele.BasePresenter;
 import com.hugh.lelele.BaseView;
 import com.hugh.lelele.data.Group;
@@ -25,5 +27,7 @@ public interface RoomListContract {
         void loadGroupData();
 
         void openInvitationSending(Room room);
+
+        void openInvitationActionDialog(android.view.View view);
     }
 }

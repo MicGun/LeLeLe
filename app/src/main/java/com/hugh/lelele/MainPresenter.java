@@ -9,6 +9,7 @@ package com.hugh.lelele;
 import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
 
 import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
@@ -36,6 +37,8 @@ import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.room_list.RoomListContract;
 import com.hugh.lelele.room_list.RoomListPresenter;
+import com.hugh.lelele.room_list.invitation_dialog.InvitationActionContract;
+import com.hugh.lelele.room_list.invitation_dialog.InvitationActionPresenter;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
@@ -46,7 +49,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainPresenter implements MainContract.Presenter, HomeContract.Presenter,
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
-        GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter {
+        GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter,
+        InvitationActionContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -60,6 +64,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private GroupDetailsPresenter mGroupDetailsPresenter;
     private RoomListPresenter mRoomListPresenter;
     private InvitationSendingPresenter mInvitationSendingPresenter;
+    private InvitationActionPresenter mInvitationActionPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -94,6 +99,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void openInvitationSending(Room room) {
         mMainView.openInvitationSendingUi(room);
+    }
+
+    @Override
+    public void openInvitationActionDialog(View view) {
+        mMainView.showInvitationActionDialog(view);
     }
 
     @Override
@@ -185,6 +195,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setInvitationSendingPresenter(InvitationSendingPresenter invitationSendingPresenter) {
         mInvitationSendingPresenter = checkNotNull(invitationSendingPresenter);
+    }
+
+    void mInvitationActionPresenter(InvitationActionPresenter invitationActionPresenter) {
+        mInvitationActionPresenter = checkNotNull(invitationActionPresenter);
     }
 
     @Override

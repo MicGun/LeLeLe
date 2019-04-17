@@ -1,5 +1,7 @@
 package com.hugh.lelele.room_list;
 
+import android.view.View;
+
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -57,6 +59,11 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
     @Override
     public void openInvitationSending(Room room) {
+
+    }
+
+    @Override
+    public void openInvitationActionDialog(View view) {
 
     }
 }

@@ -1,5 +1,7 @@
 package com.hugh.lelele;
 
+import android.view.View;
+
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
@@ -54,6 +56,8 @@ public interface MainContract {
         void openRoomListUi();
 
         void openInvitationSendingUi(Room room);
+
+        void showInvitationActionDialog(android.view.View view);
 
     }
 

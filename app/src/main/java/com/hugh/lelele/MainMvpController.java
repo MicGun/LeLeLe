@@ -5,6 +5,7 @@ import android.support.annotation.StringDef;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.View;
 
 import com.hugh.lelele.application_landlord.AppLandlordFragment;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
@@ -34,6 +35,8 @@ import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
 import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 import com.hugh.lelele.room_list.RoomListFragment;
 import com.hugh.lelele.room_list.RoomListPresenter;
+import com.hugh.lelele.room_list.invitation_dialog.InvitationActionDialog;
+import com.hugh.lelele.room_list.invitation_dialog.InvitationActionPresenter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -56,6 +59,7 @@ public class MainMvpController {
     private RoomListPresenter mRoomListPresenter;
     private GroupDetailsPresenter mGroupDetailsPresenter;
     private InvitationSendingPresenter mInvitationSendingPresenter;
+    private InvitationActionPresenter mInvitationActionPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -78,6 +82,7 @@ public class MainMvpController {
     static final String PROFILE = "PROFILE";
     static final String ELECTRICITY_TENANT = "ELECTRICITY_TENANT";
     static final String ELECTRICITY_LANDLORD = "ELECTRICITY_LANDLORD";
+    static final String INVITATION_ACTION = "INVITATION_ACTION";
 
     private MainMvpController(@NonNull FragmentActivity activity) {
         mActivity = activity;
@@ -226,6 +231,25 @@ public class MainMvpController {
         mMainPresenter.setGroupDetailsPresenter(mGroupDetailsPresenter);
         groupDetailsFragment.setPresenter(mMainPresenter);
         mGroupDetailsPresenter.setGroupData(group);
+    }
+
+    /*
+     * Group Details View
+     * */
+    void findOrCreateInvitationActionDialog(View view) {
+
+        InvitationActionDialog dialog =
+                (InvitationActionDialog) getFragmentManager().findFragmentByTag(INVITATION_ACTION);
+
+        if (dialog == null) {
+
+            dialog = new InvitationActionDialog();
+            mInvitationActionPresenter = new InvitationActionPresenter(dialog, view);
+            mMainPresenter.mInvitationActionPresenter(mInvitationActionPresenter);
+            dialog.setPresenter(mMainPresenter);
+            dialog.show(getFragmentManager(), INVITATION_ACTION);
+
+        }
     }
 
     /**

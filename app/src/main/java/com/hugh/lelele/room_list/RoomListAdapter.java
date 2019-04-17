@@ -28,7 +28,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
         TextView tenantName;
         ImageView addTenantButton;
         ImageView deleteTenantButton;
-        ImageView invitingTenantButton;
+        ImageView cancleInvitingButton;
 
         public RoomListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,7 +37,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
             tenantName = itemView.findViewById(R.id.item_text_view_room_list_tenant_name);
             addTenantButton = itemView.findViewById(R.id.item_image_view_room_list_add_tenant);
             deleteTenantButton = itemView.findViewById(R.id.item_image_view_room_list_delete_tenant);
-            invitingTenantButton = itemView.findViewById(R.id.item_image_view_room_list_inviting_tenant);
+            cancleInvitingButton = itemView.findViewById(R.id.item_image_view_room_list_inviting_tenant);
         }
     }
 
@@ -59,7 +59,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
         final Room room = mGroup.getRooms().get(i);
 
         ((RoomListViewHolder) viewHolder).roomName.setText(room.getRoomName());
-        if (!room.getTenant().getName().equals("")) {
+        if (!room.getTenant().getName().equals("") && !room.getTenant().isInviting()) {
             ((RoomListViewHolder) viewHolder).tenantName.setText(room.getTenant().getName());
         } else if (room.getTenant().isInviting()){
             ((RoomListViewHolder) viewHolder).tenantName
@@ -76,20 +76,27 @@ public class RoomListAdapter extends RecyclerView.Adapter {
             }
         });
 
+        ((RoomListViewHolder) viewHolder).cancleInvitingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.openInvitationActionDialog(v);
+            }
+        });
+
         if (room.getTenant().isBinding()) {
             //有房客，只剩下刪除鍵
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.INVISIBLE);
             ((RoomListViewHolder) viewHolder).deleteTenantButton.setVisibility(View.VISIBLE);
-            ((RoomListViewHolder) viewHolder).invitingTenantButton.setVisibility(View.INVISIBLE);
+            ((RoomListViewHolder) viewHolder).cancleInvitingButton.setVisibility(View.INVISIBLE);
         } else if (room.getTenant().isInviting()) {
             //邀請中，剩下解除邀請的按鈕
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.INVISIBLE);
             ((RoomListViewHolder) viewHolder).deleteTenantButton.setVisibility(View.INVISIBLE);
-            ((RoomListViewHolder) viewHolder).invitingTenantButton.setVisibility(View.VISIBLE);
+            ((RoomListViewHolder) viewHolder).cancleInvitingButton.setVisibility(View.VISIBLE);
         } else {
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.VISIBLE);
             ((RoomListViewHolder) viewHolder).deleteTenantButton.setVisibility(View.INVISIBLE);
-            ((RoomListViewHolder) viewHolder).invitingTenantButton.setVisibility(View.INVISIBLE);
+            ((RoomListViewHolder) viewHolder).cancleInvitingButton.setVisibility(View.INVISIBLE);
         }
 
     }

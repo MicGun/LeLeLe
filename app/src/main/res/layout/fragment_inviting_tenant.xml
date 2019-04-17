@@ -19,6 +19,7 @@
         android:padding="@dimen/edit_text_padding"
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +37,7 @@
     <ImageView
         android:id="@+id/image_tenant_picture_inviting"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_nav_profile"
         android:scaleType="centerCrop"

@@ -55,7 +55,7 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mSearchEmail = s.toString();
+                mSearchEmail = s.toString().trim();
             }
 
             @Override

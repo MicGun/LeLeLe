@@ -236,7 +236,7 @@ public class MainMvpController {
     /*
      * Group Details View
      * */
-    void findOrCreateInvitationActionDialog(View view) {
+    void findOrCreateInvitationActionDialog(View view, Room room) {
 
         InvitationActionDialog dialog =
                 (InvitationActionDialog) getFragmentManager().findFragmentByTag(INVITATION_ACTION);
@@ -244,7 +244,7 @@ public class MainMvpController {
         if (dialog == null) {
 
             dialog = new InvitationActionDialog();
-            mInvitationActionPresenter = new InvitationActionPresenter(dialog, view);
+            mInvitationActionPresenter = new InvitationActionPresenter(dialog, view, room);
             mMainPresenter.mInvitationActionPresenter(mInvitationActionPresenter);
             dialog.setPresenter(mMainPresenter);
             dialog.show(getFragmentManager(), INVITATION_ACTION);

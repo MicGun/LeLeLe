@@ -79,7 +79,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
         ((RoomListViewHolder) viewHolder).cancleInvitingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.openInvitationActionDialog(v);
+                mPresenter.openInvitationActionDialog(v, room);
             }
         });
 

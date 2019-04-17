@@ -28,6 +28,8 @@ public interface RoomListContract {
 
         void openInvitationSending(Room room);
 
-        void openInvitationActionDialog(android.view.View view);
+        void openInvitationActionDialog(android.view.View view, Room room);
+
+        void cancelInvitingAction(Room room);
     }
 }

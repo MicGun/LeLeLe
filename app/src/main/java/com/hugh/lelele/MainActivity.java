@@ -297,8 +297,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
-    public void showInvitationActionDialog(View view) {
-        mMainMvpController.findOrCreateInvitationActionDialog(view);
+    public void showInvitationActionDialog(View view, Room room) {
+        mMainMvpController.findOrCreateInvitationActionDialog(view, room);
     }
 
     @Override

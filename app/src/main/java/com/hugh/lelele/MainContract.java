@@ -57,7 +57,7 @@ public interface MainContract {
 
         void openInvitationSendingUi(Room room);
 
-        void showInvitationActionDialog(android.view.View view);
+        void showInvitationActionDialog(android.view.View view, Room room);
 
     }
 

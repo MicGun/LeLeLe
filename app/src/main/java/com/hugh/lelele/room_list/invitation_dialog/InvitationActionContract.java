@@ -11,11 +11,13 @@ public interface InvitationActionContract {
 
     interface View extends BaseView<InvitationActionContract.Presenter> {
 
-        void setViewType(android.view.View viewType);
+        void setViewType(android.view.View viewType, Room room);
     }
 
     interface Presenter extends BasePresenter {
 
         void getViewType();
+
+        void cancelInvitingAction(Room room);
     }
 }

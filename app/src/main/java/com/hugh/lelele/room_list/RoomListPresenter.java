@@ -63,7 +63,12 @@ public class RoomListPresenter implements RoomListContract.Presenter {
     }
 
     @Override
-    public void openInvitationActionDialog(View view) {
+    public void openInvitationActionDialog(View view, Room room) {
 
+    }
+
+    @Override
+    public void cancelInvitingAction(Room room) {
+        //ToDo: clear invitation history
     }
 }

@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Room;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -18,6 +19,7 @@ public class InvitationActionDialog extends DialogFragment implements Invitation
     private InvitationActionContract.Presenter mPresenter;
     private View mView;
     private String mMessage;
+    private Room mRoom;
 
     @NonNull
     @Override
@@ -29,23 +31,26 @@ public class InvitationActionDialog extends DialogFragment implements Invitation
 
         if (mView.getId() == R.id.item_image_view_room_list_inviting_tenant) {
             mMessage = getString(R.string.cancel_action_content);
+
+            builder.setMessage(mMessage)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.cancelInvitingAction(mRoom);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
         } else if (mView.getId() == R.id.item_image_view_room_list_delete_tenant) {
             mMessage = getString(R.string.remove_action_content);
         }
 
-        builder.setMessage(mMessage)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
 
         return builder.create();
     }
@@ -56,7 +61,8 @@ public class InvitationActionDialog extends DialogFragment implements Invitation
     }
 
     @Override
-    public void setViewType(View viewType) {
+    public void setViewType(View viewType, Room room) {
         mView = checkNotNull(viewType);
+        mRoom = checkNotNull(room);
     }
 }

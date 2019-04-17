@@ -102,8 +102,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
-    public void openInvitationActionDialog(View view) {
-        mMainView.showInvitationActionDialog(view);
+    public void openInvitationActionDialog(View view, Room room) {
+        mMainView.showInvitationActionDialog(view, room);
     }
 
     @Override
@@ -436,6 +436,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void getViewType() {
         if (mInvitationActionPresenter != null) {
             mInvitationActionPresenter.getViewType();
+        }
+    }
+
+    @Override
+    public void cancelInvitingAction(Room room) {
+        if (mRoomListPresenter != null) {
+            mRoomListPresenter.cancelInvitingAction(room);
         }
     }
 }

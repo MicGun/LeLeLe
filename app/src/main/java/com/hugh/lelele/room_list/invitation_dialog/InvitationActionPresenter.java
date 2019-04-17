@@ -22,4 +22,9 @@ public class InvitationActionPresenter implements InvitationActionContract.Prese
     public void start() {
 
     }
+
+    @Override
+    public void getViewType() {
+        mInvitationActionDialog.setViewType(mView);
+    }
 }

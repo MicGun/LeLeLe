@@ -431,4 +431,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mInvitationSendingPresenter.setRoomData(room);
         }
     }
+
+    @Override
+    public void getViewType() {
+        if (mInvitationActionPresenter != null) {
+            mInvitationActionPresenter.getViewType();
+        }
+    }
 }

@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.loadArticles();
+        mHomeAdapter = new HomeAdapter(mPresenter);
     }
 
     @Nullable
@@ -63,6 +64,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void setArticleList(ArrayList<Article> articleList) {
         mArticles = articleList;
-        mHomeAdapter.updateArticles(articleList);
+        if (mHomeAdapter == null) {
+            mHomeAdapter = new  HomeAdapter(mPresenter);
+            mHomeAdapter.updateArticles(articleList);
+        } else {
+            mHomeAdapter.updateArticles(articleList);
+        }
     }
 }

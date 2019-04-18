@@ -44,7 +44,6 @@ public class LeLeLeParser {
             room.setRoomName(roomDocument.getId());
             room.setTenant(tenant);
             rooms.add(room);
-            //ToDo to think about that the data structure of tenants
         }
 
         return rooms;

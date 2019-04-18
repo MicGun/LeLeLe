@@ -31,5 +31,7 @@ public interface RoomListContract {
         void openInvitationActionDialog(android.view.View view, Room room);
 
         void cancelInvitingAction(Room room);
+
+        void removeTenantAction(Room room);
     }
 }

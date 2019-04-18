@@ -83,6 +83,13 @@ public class RoomListAdapter extends RecyclerView.Adapter {
             }
         });
 
+        ((RoomListViewHolder) viewHolder).deleteTenantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.openInvitationActionDialog(v, room);
+            }
+        });
+
         if (room.getTenant().isBinding()) {
             //有房客，只剩下刪除鍵
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.INVISIBLE);

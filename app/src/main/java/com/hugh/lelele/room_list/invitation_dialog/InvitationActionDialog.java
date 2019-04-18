@@ -47,7 +47,21 @@ public class InvitationActionDialog extends DialogFragment implements Invitation
                     });
 
         } else if (mView.getId() == R.id.item_image_view_room_list_delete_tenant) {
-            mMessage = getString(R.string.remove_action_content);
+            mMessage = getString(R.string.remove_action_content, mRoom.getTenant().getName());
+
+            builder.setMessage(mMessage)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.removeTenantAction(mRoom);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
         }
 
 

@@ -19,5 +19,7 @@ public interface InvitationActionContract {
         void getViewType();
 
         void cancelInvitingAction(Room room);
+
+        void removeTenantAction(Room room);
     }
 }

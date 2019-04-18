@@ -35,4 +35,9 @@ public class InvitationActionPresenter implements InvitationActionContract.Prese
     public void cancelInvitingAction(Room room) {
 
     }
+
+    @Override
+    public void removeTenantAction(Room room) {
+
+    }
 }

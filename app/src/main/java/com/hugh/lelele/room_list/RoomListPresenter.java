@@ -79,6 +79,13 @@ public class RoomListPresenter implements RoomListContract.Presenter {
         loadGroupData();
     }
 
+    @Override
+    public void removeTenantAction(Room room) {
+        resetRoom(room);
+        resetTenant(room.getTenant());
+        loadGroupData();
+    }
+
     private void resetRoom(Room room) {
         Room emptyRoom = new Room();
         emptyRoom.setRoomName(room.getRoomName());

@@ -62,6 +62,14 @@ public class HomePresenter implements HomeContract.Presenter {
         resetRoom();
     }
 
+    @Override
+    public void agreeInvitation(Article article) {
+        mLeLeLeRepository.deleteUserArticle(article,
+                UserManager.getInstance().getUserData().getEmail());
+        loadArticles();
+        bindingWithTenant();
+    }
+
     private void resetRoom() {
         Room emptyRoom = new Room();
         emptyRoom.setRoomName(UserManager.getInstance().getTenant().getRoomNumber());
@@ -79,6 +87,23 @@ public class HomePresenter implements HomeContract.Presenter {
         tenant.setInviting(false);
         mLeLeLeRepository.uploadTenant(tenant);
         UserManager.getInstance().setTenant(tenant);
+    }
+
+    private void bindingWithTenant() {
+        Tenant tenant = UserManager.getInstance().getTenant();
+        tenant.setInviting(false);
+        tenant.setBinding(true);
+        mLeLeLeRepository.uploadTenant(tenant);
+        UserManager.getInstance().setTenant(tenant);
+        bindingWithRoom(tenant);
+    }
+
+    private void bindingWithRoom(Tenant tenant) {
+        Room boundRoom = new Room();
+        boundRoom.setTenant(tenant);
+        boundRoom.setRoomName(tenant.getRoomNumber());
+        mLeLeLeRepository.updateRoom(boundRoom, UserManager.getInstance().getTenant().getLandlordEmail(),
+                UserManager.getInstance().getTenant().getGroup());
     }
 
 //

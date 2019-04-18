@@ -474,4 +474,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mHomePresenter.cancelInvitation(article);
         }
     }
+
+    @Override
+    public void agreeInvitation(Article article) {
+        if (mHomePresenter != null) {
+            mHomePresenter.agreeInvitation(article);
+        }
+    }
 }

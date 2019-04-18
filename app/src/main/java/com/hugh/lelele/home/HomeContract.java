@@ -20,6 +20,8 @@ public interface HomeContract {
 
         void cancelInvitation(Article article);
 
+        void agreeInvitation(Article article);
+
 //        void uploadLandlord(String email);
     }
 }

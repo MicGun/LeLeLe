@@ -86,6 +86,13 @@ public class HomeAdapter extends RecyclerView.Adapter {
                 mPresenter.cancelInvitation(article);
             }
         });
+
+        viewHolder.getAgreeButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.agreeInvitation(article);
+            }
+        });
     }
 
     public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {

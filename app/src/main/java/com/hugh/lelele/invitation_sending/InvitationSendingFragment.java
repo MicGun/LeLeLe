@@ -143,6 +143,13 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mPresenter.updateRoomListStatus();
+    }
+
+    @Override
     public void setRoomView(Room room) {
         mRoom = room;
     }

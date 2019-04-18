@@ -53,4 +53,9 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
         mLeLeLeRepository.updateRoom(room, UserManager.getInstance().getLandlord().getEmail(),
                 UserManager.getInstance().getUserData().getGroupNow());
     }
+
+    @Override
+    public void updateRoomListStatus() {
+
+    }
 }

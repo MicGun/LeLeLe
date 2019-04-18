@@ -77,7 +77,6 @@ public class RoomListPresenter implements RoomListContract.Presenter {
         resetRoom(room);
         resetTenant(room.getTenant());
         loadGroupData();
-        Log.v(TAG, "cancelInvitingAction: ");
     }
 
     private void resetRoom(Room room) {

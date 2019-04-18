@@ -87,4 +87,5 @@
 
     <!-- Home -->
     <string name="no_article">目前尚無任何文章!</string>
+    <string name="mock_time">yyyy-mm-dd</string>
 </resources>

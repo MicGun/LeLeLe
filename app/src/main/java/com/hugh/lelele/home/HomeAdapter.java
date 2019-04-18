@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.hugh.lelele.Constants;
 import com.hugh.lelele.R;
+import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Article;
+import com.hugh.lelele.util.ImageManager;
 
 import java.util.ArrayList;
 
@@ -25,25 +27,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     public HomeAdapter(HomeContract.Presenter presenter) {
         mPresenter = presenter;
-    }
-
-    public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView authorPicture;
-        TextView title;
-        TextView content;
-        ImageView cancelButton;
-        ImageView agreeButton;
-
-        public HomeInvitationViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            authorPicture = itemView.findViewById(R.id.item_image_author_picture);
-            title = itemView.findViewById(R.id.item_text_view_invitation_title);
-            content = itemView.findViewById(R.id.item_text_view_invitation_content);
-            cancelButton = itemView.findViewById(R.id.item_text_view_invitation_content);
-            agreeButton = itemView.findViewById(R.id.item_text_view_invitation_content);
-        }
     }
 
     @Override
@@ -79,6 +62,69 @@ public class HomeAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+        if (viewHolder instanceof HomeInvitationViewHolder) {
+
+            bindHomeInvitationViewHolder((HomeInvitationViewHolder) viewHolder, mArticles.get(i));
+        }
+    }
+
+
+
+    private void bindHomeInvitationViewHolder(HomeInvitationViewHolder viewHolder, Article article) {
+
+        ImageManager.getInstance().setImageByUrl(viewHolder.getAuthorPicture(), article.getAuthorPicture());
+
+        viewHolder.getTitle().setText(article.getTitle());
+
+        viewHolder.getContent().setText(article.getContent());
+
+        viewHolder.getTime().setText(article.getTime());
+    }
+
+    public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mAuthorPicture;
+        private TextView mTitle;
+        private TextView mContent;
+        private ImageView mCancelButton;
+        private ImageView mAgreeButton;
+        private TextView mTime;
+
+        public HomeInvitationViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mAuthorPicture = itemView.findViewById(R.id.item_image_author_picture);
+            mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
+            mTitle = itemView.findViewById(R.id.item_text_view_invitation_title);
+            mContent = itemView.findViewById(R.id.item_text_view_invitation_content);
+            mCancelButton = itemView.findViewById(R.id.item_image_view_cancel_button_invitation);
+            mAgreeButton = itemView.findViewById(R.id.item_image_view_agree_button_invitation);
+            mTime = itemView.findViewById(R.id.item_text_view_time_invitation);
+        }
+
+        public ImageView getAuthorPicture() {
+            return mAuthorPicture;
+        }
+
+        public TextView getTitle() {
+            return mTitle;
+        }
+
+        public TextView getContent() {
+            return mContent;
+        }
+
+        public ImageView getCancelButton() {
+            return mCancelButton;
+        }
+
+        public ImageView getAgreeButton() {
+            return mAgreeButton;
+        }
+
+        public TextView getTime() {
+            return mTime;
+        }
     }
 
     @Override

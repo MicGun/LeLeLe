@@ -24,9 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:fontFamily="@font/noto_sans"
+        android:fontFamily="@font/noto_sans_bold"
         android:letterSpacing="0.2"
-        android:text="TextView"
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/item_image_author_picture"
@@ -41,34 +40,46 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/noto_sans"
-        android:text="TextView"
-        android:textColor="@color/gray_aaaaaa"
+        android:textColor="@color/black_3f3a3a"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/item_image_view_"
+        app:layout_constraintBottom_toTopOf="@+id/item_image_view_cancel_button_invitation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/item_text_view_invitation_title"
-        app:layout_constraintTop_toBottomOf="@+id/item_text_view_invitation_title" />
+        app:layout_constraintTop_toBottomOf="@+id/item_text_view_invitation_title"
+        tools:text="@string/inviting_notification" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/item_image_view_agree_button_invitation"
         style="@style/InvitationButton"
         android:layout_marginEnd="24dp"
         android:tint="@color/green_3cb371"
-        app:layout_constraintBottom_toBottomOf="@+id/item_image_view_"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image_view_cancel_button_invitation"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_image_view_"
-        app:layout_constraintTop_toTopOf="@+id/item_image_view_"
+        app:layout_constraintStart_toEndOf="@+id/item_image_view_cancel_button_invitation"
+        app:layout_constraintTop_toTopOf="@+id/item_image_view_cancel_button_invitation"
         app:srcCompat="@drawable/ic_action_agree" />
 
     <ImageView
-        android:id="@+id/item_image_view_"
+        android:id="@+id/item_image_view_cancel_button_invitation"
         style="@style/InvitationButton"
         android:layout_marginStart="24dp"
         android:tint="@color/red_ff0000"
         app:layout_constraintBottom_toBottomOf="@+id/item_image_author_picture"
-        app:layout_constraintEnd_toStartOf="@+id/imageView7"
+        app:layout_constraintEnd_toStartOf="@+id/item_image_view_agree_button_invitation"
         app:layout_constraintStart_toEndOf="@+id/item_image_author_picture"
         app:srcCompat="@drawable/ic_action_disagree" />
+
+    <TextView
+        android:id="@+id/item_text_view_time_invitation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/noto_sans"
+        android:textColor="@color/gray_aaaaaa"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_text_view_invitation_title"
+        tools:text="@string/mock_time" />
 
 </android.support.constraint.ConstraintLayout>

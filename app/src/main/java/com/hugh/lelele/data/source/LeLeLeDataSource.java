@@ -2,6 +2,7 @@ package com.hugh.lelele.data.source;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
@@ -107,4 +108,10 @@ public interface LeLeLeDataSource {
     void getGroupData(@NonNull String email, @NonNull String groupName, @NonNull GetGroupDataCallback callback);
 
     void uploadTenant(@NonNull Tenant tenant);
+
+    void sendLandlordArticle(@NonNull Article article, @NonNull String email);
+
+    void sendTenantArticle(@NonNull Article article, @NonNull String email);
+
+    void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName);
 }

@@ -20,4 +20,7 @@
 
     <!-- red Series -->
     <color name="red_ff0000">#FF0000</color>
+
+    <!-- green Series -->
+    <color name="green_3cb371">	#3CB371</color>
 </resources>

@@ -147,9 +147,6 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         if (mGroupListPresenter != null) {
             mGroupListPresenter.loadGroupList(email);
         }
-//        if (mHomePresenter != null) {
-//            mHomePresenter.loadGroupList(email);
-//        }
     }
 
     @Override
@@ -384,22 +381,18 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         }
     }
 
-    @Override
-    public void uploadLandlord(String email) {
-        if (mHomePresenter != null) {
-            mHomePresenter.uploadLandlord(email);
-        }
-    }
+//    @Override
+//    public void uploadLandlord(String email) {
+//        if (mHomePresenter != null) {
+//            mHomePresenter.uploadLandlord(email);
+//        }
+//    }
 
     @Override
     public void loadRoomList(String email, String groupName) {
         if (mAppLandlordPresenter != null) {
             mAppLandlordPresenter.loadRoomList(email, groupName);
         }
-
-//        if (mHomePresenter != null) {
-//            mHomePresenter.loadRoomList(email, groupName);
-//        }
     }
 
 
@@ -429,6 +422,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void updateRoomListStatus() {
         if (mRoomListPresenter != null) {
             mRoomListPresenter.loadGroupData();
+        }
+    }
+
+    @Override
+    public void sendInvitationToTenant(Room room) {
+        if (mInvitationSendingPresenter != null) {
+            mInvitationSendingPresenter.sendInvitationToTenant(room);
         }
     }
 

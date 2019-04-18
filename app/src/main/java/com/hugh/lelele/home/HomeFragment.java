@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,16 +34,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        mPresenter.uploadLandlord("n1553330708@yahoo.com.tw");
-        mPresenter.loadRoomList("n1553330708@yahoo.com.tw", "新明路287號");
-        mPresenter.loadGroupList("n1553330708@yahoo.com.tw");
-//        mPresenter.loadTenant("n1553330708@yahoo.com.tw");
-
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
-        Date time = Calendar.getInstance().getTime();
-        Log.v(TAG, "Year Now: " + year + "/" + month);
-        Log.v(TAG, "Time Now: " + time);
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_home_articles);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mHomeAdapter);
 
         return root;
     }

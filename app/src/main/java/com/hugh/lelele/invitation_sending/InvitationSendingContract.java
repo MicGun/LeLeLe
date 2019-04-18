@@ -31,5 +31,7 @@ public interface InvitationSendingContract {
         void updateRoom(Room room);
 
         void updateRoomListStatus();
+
+        void sendInvitationToTenant(Room room);
     }
 }

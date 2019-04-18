@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
 
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
@@ -64,10 +65,6 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             }
         });
     }
-
-//    @Override
-//    public void getTenantUser(@NonNull String email, @NonNull TenantUserCallback callback) {
-//    }
 
     @Override
     public void getRoomList(@NonNull String email, @NonNull String groupName, @NonNull final GetRoomListCallback callback) {
@@ -201,5 +198,20 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     @Override
     public void uploadTenant(@NonNull Tenant tenant) {
         mLeLeLeRemoteDataSource.uploadTenant(tenant);
+    }
+
+    @Override
+    public void sendLandlordArticle(@NonNull Article article, @NonNull String email) {
+        mLeLeLeRemoteDataSource.sendLandlordArticle(article, email);
+    }
+
+    @Override
+    public void sendTenantArticle(@NonNull Article article, @NonNull String email) {
+        mLeLeLeRemoteDataSource.sendTenantArticle(article, email);
+    }
+
+    @Override
+    public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName) {
+        mLeLeLeRemoteDataSource.sendGroupArticle(article, landlordEmail, groupName);
     }
 }

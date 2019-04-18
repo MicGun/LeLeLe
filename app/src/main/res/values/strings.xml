@@ -80,6 +80,8 @@
     <!-- Inviting Action -->
     <string name="cancel_action_content">確定要取消對%s的邀請?</string>
     <string name="remove_action_content">確定要移除%s?</string>
+    <string name="invitation_content">房東%s邀請您進入%s群組%s號房。</string>
+    <string name="inviting_notification">邀請通知</string>
     <string name="yes">確定</string>
     <string name="no">取消</string>
 

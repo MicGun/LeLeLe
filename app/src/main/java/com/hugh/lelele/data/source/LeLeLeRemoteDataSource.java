@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
@@ -36,6 +37,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private final static String GROUPS = "groups";
     private final static String ROOMS = "rooms";
     private final static String ELECTRICITY_FEE = "electricity_fee";
+    private final static String ARTICLES = "articles";
 
     /*Electricity Data*/
     private final static String PRICE = "price";
@@ -155,32 +157,6 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     }
                 });
     }
-
-//    @Override
-//    public void getTenantUser(@NonNull final String email, @NonNull final TenantUserCallback callback) {
-//        mFirebaseFirestore.collection(TENANTS)
-//                .document(email)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot tenantDoc = task.getResult();
-//                            assert tenantDoc != null;
-//                            if (tenantDoc.exists()) {
-//                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
-//                                callback.onCompleted(tenant);
-//                                Log.v(TAG, "Tenant is already exist!");
-//                            } else {
-//                                callback.onCompleted(new Tenant());
-//                            }
-//                        } else {
-//                            callback.onError(String.valueOf(task.getException()));
-//                        }
-//                    }
-//                });
-//    }
 
     /*
      * 去拿房間清單
@@ -558,5 +534,32 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         mFirebaseFirestore.collection(TENANTS)
                 .document(tenant.getEmail())
                 .set(tenant);
+    }
+
+    @Override
+    public void sendLandlordArticle(@NonNull Article article, @NonNull String email) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(ARTICLES)
+                .document()
+                .set(article);
+    }
+
+    @Override
+    public void sendTenantArticle(@NonNull Article article, @NonNull String email) {
+        mFirebaseFirestore.collection(TENANTS)
+                .document(email)
+                .collection(ARTICLES)
+                .document()
+                .set(article);
+    }
+
+    @Override
+    public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document()
+                .collection(ARTICLES)
+                .document()
+                .set(article);
     }
 }

@@ -10,6 +10,10 @@ public class Constants {
 
     public static final String EMPTY = "";
 
+    //Article Type
+    public static final String ELECTRICITY = "ELECTRICITY";
+    public static final String INVITATION = "INVITATION";
+
     // User Manager
     public static final String USER_DATA = "user_data";
     public static final String USER_TOKEN = "user_token";

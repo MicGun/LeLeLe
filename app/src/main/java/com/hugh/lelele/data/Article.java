@@ -2,6 +2,7 @@ package com.hugh.lelele.data;
 
 public class Article {
 
+    private String mArticleId;
     private String mTitle;
     private String mContent;
     private String mType;
@@ -12,6 +13,7 @@ public class Article {
 
     public Article() {
 
+        mArticleId = "";
         mTitle = "";
         mContent = "";
         mType = "";
@@ -19,6 +21,14 @@ public class Article {
         mAuthor = "";
         mAuthorEmail = "";
         mAuthorPicture = "";
+    }
+
+    public String getArticleId() {
+        return mArticleId;
+    }
+
+    public void setArticleId(String articleId) {
+        mArticleId = articleId;
     }
 
     public String getTitle() {

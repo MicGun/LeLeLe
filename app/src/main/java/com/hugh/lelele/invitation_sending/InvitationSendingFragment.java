@@ -88,6 +88,7 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
                 mPresenter.updateTenant(mTenant);
                 mRoom.setTenant(mTenant);
                 mPresenter.updateRoom(mRoom);
+                mPresenter.sendInvitationToTenant(mRoom);
                 setupTenantInfoView();
             }
         });

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/image_author_picture"
+        android:id="@+id/item_image_author_picture"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_marginStart="24dp"
@@ -29,8 +29,8 @@
         android:text="TextView"
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/image_author_picture"
-        app:layout_constraintTop_toTopOf="@+id/image_author_picture"
+        app:layout_constraintStart_toEndOf="@+id/item_image_author_picture"
+        app:layout_constraintTop_toTopOf="@+id/item_image_author_picture"
         tools:text="@string/inviting_notification" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:text="TextView"
         android:textColor="@color/gray_aaaaaa"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView8"
+        app:layout_constraintBottom_toTopOf="@+id/item_image_view_"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/item_text_view_invitation_title"
         app:layout_constraintTop_toBottomOf="@+id/item_text_view_invitation_title" />
@@ -54,21 +54,21 @@
         style="@style/InvitationButton"
         android:layout_marginEnd="24dp"
         android:tint="@color/green_3cb371"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image_view_"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:layout_constraintStart_toEndOf="@+id/item_image_view_"
+        app:layout_constraintTop_toTopOf="@+id/item_image_view_"
         app:srcCompat="@drawable/ic_action_agree" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/item_image_view_"
         style="@style/InvitationButton"
         android:layout_marginStart="24dp"
         android:tint="@color/red_ff0000"
-        app:layout_constraintBottom_toBottomOf="@+id/image_author_picture"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image_author_picture"
         app:layout_constraintEnd_toStartOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/image_author_picture"
+        app:layout_constraintStart_toEndOf="@+id/item_image_author_picture"
         app:srcCompat="@drawable/ic_action_disagree" />
 
 </android.support.constraint.ConstraintLayout>

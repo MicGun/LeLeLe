@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
@@ -26,6 +27,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     private HomeContract.Presenter mPresenter;
     private HomeAdapter mHomeAdapter;
     private ArrayList<Article> mArticles;
+
+    private TextView mNoArticleText;
 
     private final String TAG = LeLeLe.class.getSimpleName();
 
@@ -49,7 +52,20 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mHomeAdapter);
 
+        mNoArticleText = root.findViewById(R.id.text_view_no_article_home);
+
+        setNoArticleTextStatus();
+
         return root;
+    }
+
+    private void setNoArticleTextStatus() {
+
+        if (mArticles == null || mArticles.size() == 0) {
+            mNoArticleText.setVisibility(View.VISIBLE);
+        } else {
+            mNoArticleText.setVisibility(View.GONE);
+        }
     }
 
     public static HomeFragment newInstance() {
@@ -64,6 +80,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void setArticleList(ArrayList<Article> articleList) {
         mArticles = articleList;
+        setNoArticleTextStatus();
         if (mHomeAdapter == null) {
             mHomeAdapter = new  HomeAdapter(mPresenter);
             mHomeAdapter.updateArticles(articleList);

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.hugh.lelele.Constants;
 import com.hugh.lelele.R;
@@ -28,10 +29,20 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView mAuthorPicture;
+        ImageView authorPicture;
+        TextView title;
+        TextView content;
+        ImageView cancelButton;
+        ImageView agreeButton;
 
         public HomeInvitationViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            authorPicture = itemView.findViewById(R.id.item_image_author_picture);
+            title = itemView.findViewById(R.id.item_text_view_invitation_title);
+            content = itemView.findViewById(R.id.item_text_view_invitation_content);
+            cancelButton = itemView.findViewById(R.id.item_text_view_invitation_content);
+            agreeButton = itemView.findViewById(R.id.item_text_view_invitation_content);
         }
     }
 

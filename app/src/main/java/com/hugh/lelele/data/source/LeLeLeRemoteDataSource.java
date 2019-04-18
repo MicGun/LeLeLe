@@ -1,19 +1,15 @@
 package com.hugh.lelele.data.source;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
@@ -22,13 +18,10 @@ import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.util.UserManager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.SimpleFormatter;
 
 public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
@@ -561,5 +554,37 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .collection(ARTICLES)
                 .document()
                 .set(article);
+    }
+
+    @Override
+    public void getUserArticles(@NonNull String email, @NonNull final GetUserArticlesCallback callback) {
+        String userType = "";
+        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+            userType = LANDLORDS;
+        } else {
+            userType = TENANTS;
+        }
+        mFirebaseFirestore.collection(userType)
+                .document(email)
+                .collection(ARTICLES)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot articleCollection = task.getResult();
+                            if (articleCollection != null) {
+                                ArrayList<DocumentSnapshot> articleDocuments =
+                                        (ArrayList<DocumentSnapshot>) articleCollection.getDocuments();
+
+                                ArrayList<Article> articles = LeLeLeParser.parseArticleList(articleDocuments);
+
+                                callback.onCompleted(articles);
+                            }
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
+                        }
+                    }
+                });
     }
 }

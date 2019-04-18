@@ -459,4 +459,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mRoomListPresenter.removeTenantAction(room);
         }
     }
+
+    @Override
+    public void loadArticles() {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadArticles();
+        }
+    }
 }

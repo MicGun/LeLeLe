@@ -1,7 +1,6 @@
 package com.hugh.lelele.data.source;
 
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
 import android.util.Log;
 
 import com.hugh.lelele.data.Article;
@@ -213,5 +212,20 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     @Override
     public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName) {
         mLeLeLeRemoteDataSource.sendGroupArticle(article, landlordEmail, groupName);
+    }
+
+    @Override
+    public void getUserArticles(@NonNull String email, @NonNull final GetUserArticlesCallback callback) {
+        mLeLeLeRemoteDataSource.getUserArticles(email, new GetUserArticlesCallback() {
+            @Override
+            public void onCompleted(ArrayList<Article> articles) {
+                callback.onCompleted(articles);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
     }
 }

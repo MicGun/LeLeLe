@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Article;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,10 +25,18 @@ public class HomeFragment extends Fragment implements HomeContract.View {
 
     private HomeContract.Presenter mPresenter;
     private HomeAdapter mHomeAdapter;
+    private ArrayList<Article> mArticles;
 
     private final String TAG = LeLeLe.class.getSimpleName();
 
     public HomeFragment() {
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter.loadArticles();
     }
 
     @Nullable
@@ -48,5 +58,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void setPresenter(HomeContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void setArticleList(ArrayList<Article> articleList) {
+        mArticles = articleList;
+        mHomeAdapter.updateArticles(articleList);
     }
 }

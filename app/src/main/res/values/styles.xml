@@ -35,6 +35,7 @@
         <item name="android:background">@drawable/button_application_ripple</item>
     </style>
 
+    <!-- Invitation Image Button -->
     <style name="InvitationButton">
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">36dp</item>

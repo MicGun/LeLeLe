@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
@@ -130,4 +131,17 @@ public class LeLeLeParser {
         return userData;
     }
 
+    public static ArrayList<Article> parseArticleList(ArrayList<DocumentSnapshot> articleDocuments) {
+
+        ArrayList<Article> articles = new ArrayList<>();
+
+        for (DocumentSnapshot articleDocument:articleDocuments) {
+            Article article = articleDocument.toObject(Article.class);
+            assert article != null;
+            article.setArticleId(articleDocument.getId());
+            articles.add(article);
+        }
+
+        return articles;
+    }
 }

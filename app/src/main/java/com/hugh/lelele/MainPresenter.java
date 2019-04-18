@@ -15,6 +15,7 @@ import com.hugh.lelele.application_landlord.AppLandlordContract;
 import com.hugh.lelele.application_landlord.AppLandlordPresenter;
 import com.hugh.lelele.application_tenant.AppTenantContract;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
@@ -464,6 +465,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void loadArticles() {
         if (mHomePresenter != null) {
             mHomePresenter.loadArticles();
+        }
+    }
+
+    @Override
+    public void cancelInvitation(Article article) {
+        if (mHomePresenter != null) {
+            mHomePresenter.cancelInvitation(article);
         }
     }
 }

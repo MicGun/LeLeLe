@@ -70,7 +70,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
 
 
-    private void bindHomeInvitationViewHolder(HomeInvitationViewHolder viewHolder, Article article) {
+    private void bindHomeInvitationViewHolder(HomeInvitationViewHolder viewHolder, final Article article) {
 
         ImageManager.getInstance().setImageByUrl(viewHolder.getAuthorPicture(), article.getAuthorPicture());
 
@@ -79,6 +79,13 @@ public class HomeAdapter extends RecyclerView.Adapter {
         viewHolder.getContent().setText(article.getContent());
 
         viewHolder.getTime().setText(article.getTime());
+
+        viewHolder.getCancelButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.cancelInvitation(article);
+            }
+        });
     }
 
     public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {
@@ -97,9 +104,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
             mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
             mTitle = itemView.findViewById(R.id.item_text_view_invitation_title);
             mContent = itemView.findViewById(R.id.item_text_view_invitation_content);
+            mTime = itemView.findViewById(R.id.item_text_view_time_invitation);
             mCancelButton = itemView.findViewById(R.id.item_image_view_cancel_button_invitation);
             mAgreeButton = itemView.findViewById(R.id.item_image_view_agree_button_invitation);
-            mTime = itemView.findViewById(R.id.item_text_view_time_invitation);
         }
 
         public ImageView getAuthorPicture() {

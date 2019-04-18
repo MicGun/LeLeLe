@@ -18,6 +18,8 @@ public interface HomeContract {
 
         void loadArticles();
 
+        void cancelInvitation(Article article);
+
 //        void uploadLandlord(String email);
     }
 }

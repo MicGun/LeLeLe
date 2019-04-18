@@ -12,6 +12,7 @@ import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
@@ -52,6 +53,34 @@ public class HomePresenter implements HomeContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void cancelInvitation(Article article) {
+        mLeLeLeRepository.deleteUserArticle(article,
+                UserManager.getInstance().getUserData().getEmail());
+        loadArticles();
+        resetRoom();
+    }
+
+    private void resetRoom() {
+        Room emptyRoom = new Room();
+        emptyRoom.setRoomName(UserManager.getInstance().getTenant().getRoomNumber());
+        emptyRoom.getTenant().setRoomNumber(UserManager.getInstance().getTenant().getRoomNumber());
+        mLeLeLeRepository.updateRoom(emptyRoom, UserManager.getInstance().getTenant().getLandlordEmail(),
+                UserManager.getInstance().getTenant().getGroup());
+        resetTenant(UserManager.getInstance().getTenant());
+    }
+
+    private void resetTenant(Tenant tenant) {
+        tenant.setRoomNumber(Constants.EMPTY);
+        tenant.setLandlordEmail(Constants.EMPTY);
+        tenant.setGroup(Constants.EMPTY);
+        tenant.setBinding(false);
+        tenant.setInviting(false);
+        mLeLeLeRepository.uploadTenant(tenant);
+        UserManager.getInstance().setTenant(tenant);
+    }
+
 //
 //    @Override
 //    public void uploadLandlord(String email) {

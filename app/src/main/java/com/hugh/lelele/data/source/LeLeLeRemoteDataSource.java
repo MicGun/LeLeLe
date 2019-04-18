@@ -587,4 +587,19 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     }
                 });
     }
+
+    @Override
+    public void deleteUserArticle(@NonNull Article article, @NonNull String email) {
+        String userType = "";
+        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+            userType = LANDLORDS;
+        } else {
+            userType = TENANTS;
+        }
+        mFirebaseFirestore.collection(userType)
+                .document(email)
+                .collection(ARTICLES)
+                .document(article.getArticleId())
+                .delete();
+    }
 }

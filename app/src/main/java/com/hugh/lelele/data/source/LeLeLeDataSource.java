@@ -123,4 +123,6 @@ public interface LeLeLeDataSource {
     void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName);
 
     void getUserArticles(@NonNull String email, @NonNull GetUserArticlesCallback callback);
+
+    void deleteUserArticle(@NonNull Article article, @NonNull String email);
 }

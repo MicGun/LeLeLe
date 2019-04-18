@@ -30,7 +30,7 @@ public class InvitationActionDialog extends DialogFragment implements Invitation
         mPresenter.getViewType();
 
         if (mView.getId() == R.id.item_image_view_room_list_inviting_tenant) {
-            mMessage = getString(R.string.cancel_action_content);
+            mMessage = getString(R.string.cancel_action_content, mRoom.getTenant().getName());
 
             builder.setMessage(mMessage)
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {

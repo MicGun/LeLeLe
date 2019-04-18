@@ -1,16 +1,21 @@
 package com.hugh.lelele.room_list;
 
+import android.util.Log;
 import android.view.View;
 
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class RoomListPresenter implements RoomListContract.Presenter {
+
+    private static final String TAG = "RoomListPresenter";
 
     private final LeLeLeRepository mLeLeLeRepository;
     private RoomListContract.View mRoomListView;
@@ -69,6 +74,26 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
     @Override
     public void cancelInvitingAction(Room room) {
-        //ToDo: clear invitation history
+        resetRoom(room);
+        resetTenant(room.getTenant());
+        loadGroupData();
+        Log.v(TAG, "cancelInvitingAction: ");
+    }
+
+    private void resetRoom(Room room) {
+        Room emptyRoom = new Room();
+        emptyRoom.setRoomName(room.getRoomName());
+        emptyRoom.getTenant().setRoomNumber(room.getRoomName());
+        mLeLeLeRepository.updateRoom(emptyRoom, UserManager.getInstance().getLandlord().getEmail(),
+                UserManager.getInstance().getUserData().getGroupNow());
+    }
+
+    private void resetTenant(Tenant tenant) {
+        tenant.setRoomNumber(Constants.EMPTY);
+        tenant.setLandlordEmail(Constants.EMPTY);
+        tenant.setGroup(Constants.EMPTY);
+        tenant.setBinding(false);
+        tenant.setInviting(false);
+        mLeLeLeRepository.uploadTenant(tenant);
     }
 }

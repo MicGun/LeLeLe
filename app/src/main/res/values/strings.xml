@@ -78,8 +78,8 @@
     <string name="invitation_sending">邀請房客</string>
 
     <!-- Inviting Action -->
-    <string name="cancel_action_content">確定要取消對此房客的邀請?</string>
-    <string name="remove_action_content">確定要移除此房客?</string>
+    <string name="cancel_action_content">確定要取消對%s的邀請?</string>
+    <string name="remove_action_content">確定要移除%s?</string>
     <string name="yes">確定</string>
     <string name="no">取消</string>
 

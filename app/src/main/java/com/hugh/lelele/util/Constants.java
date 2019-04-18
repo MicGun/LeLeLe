@@ -8,6 +8,8 @@ public class Constants {
     // Log
     public static final String TAG = "Hugh-LeLeLe";
 
+    public static final String EMPTY = "";
+
     // User Manager
     public static final String USER_DATA = "user_data";
     public static final String USER_TOKEN = "user_token";

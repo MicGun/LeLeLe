@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Room;
 
@@ -57,8 +58,11 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
 
         ((GroupDetailsRoomItemViewHolder) viewHolder).roomName.setText(room.getRoomName());
 
-        if (room.getTenant() != null) {
+        if (!room.getTenant().getName().equals("")) {
             ((GroupDetailsRoomItemViewHolder) viewHolder).roomTenant.setText(room.getTenant().getName());
+        } else {
+            ((GroupDetailsRoomItemViewHolder) viewHolder).roomTenant
+                    .setText(LeLeLe.getAppContext().getResources().getString(R.string.tenant_empty));
         }
 
         if (room.getElectricities().size() != 0) {

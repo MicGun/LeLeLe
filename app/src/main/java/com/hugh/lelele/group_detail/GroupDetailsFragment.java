@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.MainActivity;
 import com.hugh.lelele.R;
+import com.hugh.lelele.component.GridSpacingItemDecoration;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.util.UserManager;
@@ -73,6 +74,8 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         RecyclerView recyclerView = root.findViewById(R.id.recycler_group_details_room_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
+                getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
 
         mEditGroupName = root.findViewById(R.id.edit_text_group_name_group_detail);
         mEditGroupAddress = root.findViewById(R.id.edit_text_group_address_group_detail);

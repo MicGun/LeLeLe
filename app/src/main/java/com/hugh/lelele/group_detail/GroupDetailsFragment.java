@@ -160,13 +160,13 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
             public void onClick(View v) {
                 if (isCompleted()) {
                     Toast.makeText(getContext(), "編輯完成!", Toast.LENGTH_SHORT).show();
+                    mGroup = getGroupFinalStatus();
+                    mPresenter.uploadGroup(mGroup);
+                    mPresenter.showLastFragment();
                 } else {
                     Toast.makeText(getContext(), "資訊不得為空!", Toast.LENGTH_SHORT).show();
                 }
 
-                mGroup = getGroupFinalStatus();
-                mPresenter.uploadGroup(mGroup);
-                mPresenter.showLastFragment();
             }
         });
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="182dp"
-    android:background="@color/black_3f3a3a"
+    android:background="@color/tool_bar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView

@@ -22,5 +22,25 @@
     <color name="red_ff0000">#FF0000</color>
 
     <!-- green Series -->
-    <color name="green_3cb371">	#3CB371</color>
+    <color name="green_3cb371">#3CB371</color>
+    <color name="green_b6cc66">#B6CC66</color>
+    <color name="green_6eafa6">#61AFA6</color>
+
+    <!-- brawn Series -->
+    <color name="brown_735845">#735845</color>
+    <color name="brown_cdc5b1">#CDC5B1</color>
+    <color name="brown_b06f63">#B06F63</color>
+    <color name="brown_500708">#500708</color>
+
+    <!-- yellow Series -->
+    <color name="yellow_f7c75f">#F7C75F</color>
+    <color name="yellow_f4b925">#F4B925</color>
+    <color name="yellow_cca438">#CCA438</color>
+
+    <!-- UI Style -->
+    <color name="background">@color/brown_cdc5b1</color>
+    <color name="text_color">@color/brown_735845</color>
+    <color name="outline">@color/brown_500708</color>
+    <color name="facebook_button">@color/green_6eafa6</color>
+    <color name="tool_bar">@color/yellow_f7c75f</color>
 </resources>

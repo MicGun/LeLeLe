@@ -13,4 +13,8 @@
             <solid android:color="@color/while_ffffff" />
         </shape>
     </item>
+
+    <stroke
+        android:color="@color/gray_999999"
+        android:width="1dp"/>
 </ripple>

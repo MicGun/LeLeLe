@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hugh.lelele">
 
 
@@ -12,7 +13,7 @@
         android:roundIcon="@drawable/ic_logo_icon_c"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".LeLeLe">
+        android:name=".LeLeLe"  >
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +41,8 @@
             <data android:scheme="@string/fb_login_protocol_scheme" />
         </intent-filter>
         </activity>
+
+
 
     </application>
 

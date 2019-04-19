@@ -1,5 +1,6 @@
 package com.hugh.lelele.group_list;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
+import com.hugh.lelele.component.GridSpacingItemDecoration;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.home.HomeContract;
 import com.hugh.lelele.util.UserManager;
@@ -54,6 +57,8 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         RecyclerView recyclerView = root.findViewById(R.id.recycler_group_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
+                getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
 
         mNotifyTextView = root.findViewById(R.id.text_view_notify_group_list);
 
@@ -121,4 +126,6 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     public void reLoadGroupList() {
         mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
     }
+
+
 }

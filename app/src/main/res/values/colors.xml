@@ -7,6 +7,8 @@
     <color name="black_3f3a3a">#3f3a3a</color>
     <color name="colorBackground">#FFFFFF</color>
     <color name="while_ffffff">#FFFFFF</color>
+    <color name="while_ffffff_20_transparent">#33FFFFFF</color>
+    <color name="while_ffffff_30_transparent">#4DFFFFFF</color>
 
     <!-- Bottom Navigation -->
     <color name="bottom_navigation_item_normal">@color/gray_999999</color>
@@ -31,11 +33,13 @@
     <color name="brown_cdc5b1">#CDC5B1</color>
     <color name="brown_b06f63">#B06F63</color>
     <color name="brown_500708">#500708</color>
+    <color name="brown_be531e">#BE531E</color>
 
     <!-- yellow Series -->
     <color name="yellow_f7c75f">#F7C75F</color>
     <color name="yellow_f4b925">#F4B925</color>
     <color name="yellow_cca438">#CCA438</color>
+    <color name="yellow_cca438_transparent">#1ACCA438</color>
 
     <!-- UI Style -->
     <color name="background">@color/brown_cdc5b1</color>

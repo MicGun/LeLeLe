@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/while_ffffff">
+    android:background="@color/background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_group_list"
@@ -25,7 +25,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:tint="@color/while_ffffff"
-        android:backgroundTint="@color/gray_999999"
+        android:backgroundTint="@color/brown_b06f63"
         android:src="@drawable/ic_action_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

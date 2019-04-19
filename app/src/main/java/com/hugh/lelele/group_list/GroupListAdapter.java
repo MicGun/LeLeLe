@@ -38,6 +38,13 @@ public class GroupListAdapter extends RecyclerView.Adapter {
             groupRoomAmount = itemView.findViewById(R.id.item_text_view_room_amount);
             groupTenantNumber = itemView.findViewById(R.id.item_text_view_tenant_number);
             editButton = itemView.findViewById(R.id.item_image_view_edit_group_button);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.openGroupDetails(mGroups.get(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -81,6 +88,7 @@ public class GroupListAdapter extends RecyclerView.Adapter {
                 mPresenter.openGroupDetails(group);
             }
         });
+
 
     }
 

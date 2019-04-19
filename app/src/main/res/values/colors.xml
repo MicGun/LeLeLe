@@ -9,6 +9,8 @@
     <color name="while_ffffff">#FFFFFF</color>
     <color name="while_ffffff_20_transparent">#33FFFFFF</color>
     <color name="while_ffffff_30_transparent">#4DFFFFFF</color>
+    <color name="while_ffffff_40_transparent">#66FFFFFF</color>
+    <color name="while_ffffff_50_transparent">#80FFFFFF</color>
 
     <!-- Bottom Navigation -->
     <color name="bottom_navigation_item_normal">@color/gray_999999</color>
@@ -39,6 +41,8 @@
     <color name="yellow_f7c75f">#F7C75F</color>
     <color name="yellow_f4b925">#F4B925</color>
     <color name="yellow_cca438">#CCA438</color>
+    <color name="yellow_dfce96">#DFCE96</color>
+    <color name="yellow_fffob8">#FFF0B8</color>
     <color name="yellow_cca438_transparent">#1ACCA438</color>
 
     <!-- UI Style -->

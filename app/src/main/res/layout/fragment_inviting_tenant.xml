@@ -50,13 +50,13 @@
 
     <Button
         android:id="@+id/button_inviting"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/invitation_send_button_board"
         android:fontFamily="@font/noto_sans"
         android:text="@string/inviting"
         android:textSize="14sp"
-        android:background="@drawable/button_board"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_tenant_name_inviting" />

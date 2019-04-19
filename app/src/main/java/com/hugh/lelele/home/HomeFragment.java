@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
+import com.hugh.lelele.component.GridSpacingItemDecoration;
 import com.hugh.lelele.data.Article;
 
 import java.util.ArrayList;
@@ -51,6 +52,8 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         RecyclerView recyclerView = root.findViewById(R.id.recycler_home_articles);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mHomeAdapter);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
+                getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
 
         mNoArticleText = root.findViewById(R.id.text_view_no_article_home);
 

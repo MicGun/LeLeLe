@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.component.GridSpacingItemDecoration;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 
@@ -47,6 +48,8 @@ public class RoomListFragment extends Fragment implements RoomListContract.View 
         RecyclerView recyclerView = root.findViewById(R.id.recycler_room_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
+                getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
 
         mGroupName = root.findViewById(R.id.text_group_name_room_list);
         mNumberOfRooms = root.findViewById(R.id.text_view_number_of_rooms_room_list);

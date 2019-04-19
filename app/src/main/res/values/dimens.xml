@@ -26,4 +26,7 @@
     <dimen name="login_radio_button_spacing">50dp</dimen>
 
     <dimen name="space_detail_circle">16dp</dimen>
+
+    <!-- button radius  -->
+    <dimen name="button_radius">30dp</dimen>
 </resources>

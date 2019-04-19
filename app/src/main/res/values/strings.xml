@@ -88,4 +88,7 @@
     <!-- Home -->
     <string name="no_article">目前尚無任何文章!</string>
     <string name="mock_time">yyyy-mm-dd</string>
+
+    <!-- Electricity -->
+    <string name="not_bind_yet">您尚未屬於任何群組，故還無法使用此功能。</string>
 </resources>

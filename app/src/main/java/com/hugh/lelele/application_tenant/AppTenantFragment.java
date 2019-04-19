@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +35,13 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadElectricityData();
+
+                if (UserManager.getInstance().getTenant().isBinding()) {
+                    mPresenter.loadElectricityData();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

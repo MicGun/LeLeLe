@@ -10,7 +10,7 @@
         android:id="@android:id/background" >
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
             <corners android:radius="12dp" />
-            <solid android:color="@color/while_ffffff_30_transparent" />
+            <solid android:color="@color/while_ffffff_40_transparent" />
         </shape>
     </item>
 </ripple>

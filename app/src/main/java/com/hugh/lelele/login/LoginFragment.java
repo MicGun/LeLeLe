@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +30,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private Button mFacebookLoginButton;
     private int mUserType;
     private final String LANDLORD = "房東";
+    private RadioButton mLandlordRadioButton;
+    private RadioButton mTenantRadioButton;
+    private RadioGroup mLoginUserTypeButtonGroup;
 
     private final String TAG = LoginFragment.class.getSimpleName();
 
@@ -35,13 +41,66 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mUserTypeSelector = root.findViewById(R.id.spinner_user_type_selector);
-        mUserTypeSelector.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+//        mUserTypeSelector = root.findViewById(R.id.spinner_user_type_selector);
+//        mUserTypeSelector.setOnItemSelectedListener(new CustomOnItemSelectedListener());
         mFacebookLoginButton = root.findViewById(R.id.button_facebook_login);
         mFacebookLoginButton.setOnClickListener(new CustomOnClickListener());
 
+        mLoginUserTypeButtonGroup = root.findViewById(R.id.radios_group_login_user_type);
+        mLoginUserTypeButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.d(TAG, "onCheckedChanged: " + checkedId);
+
+                RadioButton userType = group.findViewById(checkedId);
+
+                if (userType.getTag().toString().equals(LANDLORD)) {
+                    mUserType = R.string.landlord;
+                    mPresenter.setUserType(R.string.landlord);
+                    UserManager.getInstance().setUserType(R.string.landlord);
+                    Log.v(TAG, "UserType" + mUserType);
+                } else {
+                    mUserType = R.string.tenant;
+                    mPresenter.setUserType(R.string.tenant);
+                    UserManager.getInstance().setUserType(R.string.tenant);
+                    Log.v(TAG, "UserType" + mUserType);
+                }
+
+                Toast.makeText(group.getContext(),
+                        "You have selected : " + userType.getTag().toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
         return root;
     }
+
+//    @Override
+//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//        Log.v(TAG, "onCheckedChanged: " + buttonView.getTag().toString());
+//        Log.v(TAG, "mLandlordRadioButton is checked: " + mLandlordRadioButton.isChecked());
+//        Log.v(TAG, "mTenantRadioButton is checked: " + mTenantRadioButton.isChecked());
+//
+//        if (!mLandlordRadioButton.isChecked() && !mLandlordRadioButton.isChecked()) {
+//            if (mLandlordRadioButton.isChecked()) {
+//                mUserType = R.string.landlord;
+//                mPresenter.setUserType(R.string.landlord);
+//                UserManager.getInstance().setUserType(R.string.landlord);
+//                Log.v(TAG, "UserType" + mUserType);
+//            } else {
+//                mUserType = R.string.tenant;
+//                mPresenter.setUserType(R.string.tenant);
+//                UserManager.getInstance().setUserType(R.string.tenant);
+//                Log.v(TAG, "UserType" + mUserType);
+//            }
+//        }
+//
+//        Toast.makeText(buttonView.getContext(),
+//                "You have selected : " + buttonView.getTag().toString(),
+//                Toast.LENGTH_LONG).show();
+//
+//    }
 
     public class CustomOnClickListener implements View.OnClickListener {
 
@@ -80,43 +139,43 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         }
     }
 
-    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
-
-        String firstItem = String.valueOf(mUserTypeSelector.getSelectedItem());
-
-        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-            if (firstItem.equals(String.valueOf(mUserTypeSelector.getSelectedItem()))) {
-                mUserType = -1;
-                Log.v(TAG, "UserType" + mUserType);
-                Toast.makeText(parent.getContext(),
-                        "You have to select a user type!",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                String selectedUserType = parent.getItemAtPosition(pos).toString();
-                if (selectedUserType.equals(LANDLORD)) {
-                    mUserType = R.string.landlord;
-                    mPresenter.setUserType(R.string.landlord);
-                    UserManager.getInstance().setUserType(R.string.landlord);
-                    Log.v(TAG, "UserType" + mUserType);
-                } else {
-                    mUserType = R.string.tenant;
-                    mPresenter.setUserType(R.string.tenant);
-                    UserManager.getInstance().setUserType(R.string.tenant);
-                    Log.v(TAG, "UserType" + mUserType);
-                }
-
-                Toast.makeText(parent.getContext(),
-                        "You have selected : " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> arg) {
-
-        }
-    }
+//    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+//
+//        String firstItem = String.valueOf(mUserTypeSelector.getSelectedItem());
+//
+//        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//
+//            if (firstItem.equals(String.valueOf(mUserTypeSelector.getSelectedItem()))) {
+//                mUserType = -1;
+//                Log.v(TAG, "UserType" + mUserType);
+//                Toast.makeText(parent.getContext(),
+//                        "You have to select a user type!",
+//                        Toast.LENGTH_LONG).show();
+//            } else {
+//                String selectedUserType = parent.getItemAtPosition(pos).toString();
+//                if (selectedUserType.equals(LANDLORD)) {
+//                    mUserType = R.string.landlord;
+//                    mPresenter.setUserType(R.string.landlord);
+//                    UserManager.getInstance().setUserType(R.string.landlord);
+//                    Log.v(TAG, "UserType" + mUserType);
+//                } else {
+//                    mUserType = R.string.tenant;
+//                    mPresenter.setUserType(R.string.tenant);
+//                    UserManager.getInstance().setUserType(R.string.tenant);
+//                    Log.v(TAG, "UserType" + mUserType);
+//                }
+//
+//                Toast.makeText(parent.getContext(),
+//                        "You have selected : " + parent.getItemAtPosition(pos).toString(),
+//                        Toast.LENGTH_LONG).show();
+//            }
+//        }
+//
+//        @Override
+//        public void onNothingSelected(AdapterView<?> arg) {
+//
+//        }
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

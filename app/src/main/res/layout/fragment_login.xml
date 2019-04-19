@@ -6,22 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spinner_user_type_selector"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:entries="@array/user_type_array"
-        android:fontFamily="@font/noto_sans"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/button_facebook_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageLogo"
-        app:layout_constraintVertical_chainStyle="packed" />
+    <!--<Spinner-->
+        <!--android:id="@+id/spinner_user_type_selector"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:entries="@array/user_type_array"-->
+        <!--android:fontFamily="@font/noto_sans"-->
+        <!--android:gravity="center"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/button_facebook_login"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/imageLogo"-->
+        <!--app:layout_constraintVertical_chainStyle="packed" />-->
 
     <Button
         android:id="@+id/button_facebook_login"
@@ -43,18 +43,61 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_user_type_selector" />
+        app:layout_constraintTop_toBottomOf="@+id/radios_group_login_user_type" />
 
     <ImageView
         android:id="@+id/imageLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner_user_type_selector"
+        app:layout_constraintBottom_toTopOf="@+id/radios_group_login_user_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/web_hi_res_512" />
+        app:srcCompat="@drawable/LeLeLe_Logo_with_text" />
+
+    <RadioGroup
+        android:id="@+id/radios_group_login_user_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/button_facebook_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageLogo">
+
+        <RadioButton
+            android:id="@+id/button_login_user_type_landlord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/noto_sans"
+            android:gravity="center"
+            android:letterSpacing="0.15"
+            android:tag="@string/landlord"
+            android:text="@string/landlord"
+            android:textColor="@color/black_3f3a3a"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/button_login_user_type_tenant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/login_radio_button_spacing"
+            android:layout_weight="1"
+            android:fontFamily="@font/noto_sans"
+            android:gravity="center"
+            android:letterSpacing="0.15"
+            android:tag="@string/tenant"
+            android:text="@string/tenant"
+            android:textColor="@color/black_3f3a3a"
+            android:textSize="16sp" />
+
+    </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>

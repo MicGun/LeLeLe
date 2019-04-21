@@ -281,7 +281,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread"
-            app:srcCompat="@drawable/ic_truck" />
+            app:srcCompat="@drawable/ic_action_garbage_truck" />
 
         <TextView
             android:id="@+id/text_view_garbage_truck_app"

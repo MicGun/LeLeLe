@@ -29,6 +29,7 @@
     <color name="green_3cb371">#3CB371</color>
     <color name="green_b6cc66">#B6CC66</color>
     <color name="green_6eafa6">#61AFA6</color>
+    <color name="green_455728">#455728</color>
 
     <!-- brawn Series -->
     <color name="brown_735845">#735845</color>
@@ -36,6 +37,9 @@
     <color name="brown_b06f63">#B06F63</color>
     <color name="brown_500708">#500708</color>
     <color name="brown_be531e">#BE531E</color>
+
+    <!-- blue Series -->
+    <color name="blue_255683">#255683</color>
 
     <!-- yellow Series -->
     <color name="yellow_f7c75f">#F7C75F</color>

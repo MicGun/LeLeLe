@@ -17,7 +17,6 @@
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/text_tenant_item_view_scale_last"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,8 +30,8 @@
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_tenant_item_view_month"
-        app:layout_constraintEnd_toStartOf="@+id/text_tenant_item_view_scale_this"
-        app:layout_constraintStart_toEndOf="@+id/text_tenant_item_view_month"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/text_tenant_item_view_month"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -45,8 +44,8 @@
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_tenant_item_view_month"
-        app:layout_constraintEnd_toStartOf="@+id/text_tenant_item_view_scale_total"
-        app:layout_constraintStart_toEndOf="@+id/text_tenant_item_view_scale_last"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/text_tenant_item_view_month"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -59,8 +58,8 @@
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_tenant_item_view_month"
-        app:layout_constraintEnd_toStartOf="@+id/text_tenant_item_view_price"
-        app:layout_constraintStart_toEndOf="@+id/text_tenant_item_view_scale_this"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
         app:layout_constraintTop_toTopOf="@+id/text_tenant_item_view_month"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -75,7 +74,6 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_tenant_item_view_month"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_tenant_item_view_scale_total"
         app:layout_constraintTop_toTopOf="@+id/text_tenant_item_view_month"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -89,4 +87,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.27" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.73" />
 </android.support.constraint.ConstraintLayout>

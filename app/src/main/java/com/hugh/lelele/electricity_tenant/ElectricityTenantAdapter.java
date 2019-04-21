@@ -11,6 +11,7 @@ import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ElectricityTenantAdapter extends RecyclerView.Adapter {
 
@@ -73,7 +74,9 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         if (mElectricities != null) {
-            return mElectricities.size() - 1;
+//            return mElectricities.size() - 1;
+            //ToDo: Make it flexible
+            return Calendar.getInstance().get(Calendar.MONTH);
         } else {
             return 0;
         }

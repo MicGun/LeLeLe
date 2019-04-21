@@ -453,6 +453,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                     @Override
                     public void onSuccess() {
                         mPresenter.openLogin();
+                        mPresenter.hideToolbarAndBottomNavigation();
                         mDrawerLayout.closeDrawers();
                     }
                 });

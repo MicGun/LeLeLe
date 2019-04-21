@@ -174,6 +174,7 @@ public class MainMvpController {
                 LeLeLeRemoteDataSource.getInstance()), loginFragment);
         mMainPresenter.setLoginPresenter(mLoginPresenter);
         loginFragment.setPresenter(mMainPresenter);
+        mLoginPresenter.hideToolbarAndBottomNavigation();
     }
 
     /*

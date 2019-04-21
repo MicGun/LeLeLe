@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,11 +24,12 @@ import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class HomeFragment extends Fragment implements HomeContract.View {
+public class HomeFragment extends Fragment implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private HomeContract.Presenter mPresenter;
     private HomeAdapter mHomeAdapter;
     private ArrayList<Article> mArticles;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private TextView mNoArticleText;
 
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter.loadArticles();
+//        mSwipeRefreshLayout.setRefreshing(true);
         mHomeAdapter = new HomeAdapter(mPresenter);
     }
 
@@ -54,6 +57,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         recyclerView.setAdapter(mHomeAdapter);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
                 getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
+
+        mSwipeRefreshLayout = root.findViewById(R.id.swipe_container_home);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mNoArticleText = root.findViewById(R.id.text_view_no_article_home);
 
@@ -83,6 +89,7 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public void setArticleList(ArrayList<Article> articleList) {
         mArticles = articleList;
+        mSwipeRefreshLayout.setRefreshing(false);
         setNoArticleTextStatus();
         if (mHomeAdapter == null) {
             mHomeAdapter = new  HomeAdapter(mPresenter);
@@ -90,5 +97,11 @@ public class HomeFragment extends Fragment implements HomeContract.View {
         } else {
             mHomeAdapter.updateArticles(articleList);
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.loadArticles();
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 }

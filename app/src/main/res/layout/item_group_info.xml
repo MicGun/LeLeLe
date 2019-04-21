@@ -23,15 +23,18 @@
         android:id="@+id/item_text_view_group_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/noto_sans"
-        android:text="台北市內湖區新明路287號2樓"
         android:textColor="@color/gray_999999"
         android:textSize="14sp"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/item_text_view_group_name"
-        app:layout_constraintTop_toBottomOf="@+id/item_text_view_group_name" />
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/item_text_view_group_name"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="台北市內湖區新明路287號2樓"/>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -86,7 +89,7 @@
         android:text="7"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toStartOf="@+id/item_image_view_edit_group_button"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.2" />
 
@@ -100,14 +103,26 @@
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:srcCompat="@drawable/ic_action_user" />
 
-    <ImageView
-        android:id="@+id/item_image_view_edit_group_button"
+    <!--<ImageView-->
+        <!--android:id="@+id/item_image_view_edit_group_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="24dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:srcCompat="@drawable/ic_edit" />-->
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_edit" />
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/noto_sans"
+        android:textColor="@color/gray_999999"
+        android:text="@string/group_address_"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/item_text_view_group_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_text_view_group_name" />
 
 </android.support.constraint.ConstraintLayout>

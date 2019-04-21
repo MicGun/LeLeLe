@@ -75,7 +75,7 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         if (mElectricities != null) {
 //            return mElectricities.size() - 1;
-            //ToDo: Make it flexible
+            //ToDo: Make it flexible, how about when there is no data or cross year issue?
             return Calendar.getInstance().get(Calendar.MONTH);
         } else {
             return 0;

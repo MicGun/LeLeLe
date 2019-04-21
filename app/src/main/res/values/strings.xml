@@ -61,6 +61,7 @@
     <!-- Group Function -->
     <string name="group_name">群組名稱</string>
     <string name="group_address">群組地址</string>
+    <string name="group_address_">群組地址:</string>
     <string name="group_information">群組資訊</string>
     <string name="group_number_of_rooms">房間數量</string>
     <string name="add_room">新增房間</string>

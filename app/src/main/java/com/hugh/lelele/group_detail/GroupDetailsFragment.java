@@ -49,10 +49,12 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     private String mRoomName;
     private ArrayList<String> mRoomNames;
     private FloatingActionButton mFloatingGroupDetailEditDoneButton;
+    private boolean mIsNewGroup;
 
     public GroupDetailsFragment() {
         mRoomNames = new ArrayList<>();
         mRoomName = "";
+        mIsNewGroup = true;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
 
         //如果是要編輯既有群組，需要去下載群組原有房間，而且房間名稱需不能被更改
         if (!mGroup.getGroupName().equals("")) {
+            mIsNewGroup = false;
             mPresenter.loadRoomListFromGroupDetails(UserManager.getInstance().getLandlord().getEmail(),
                     mGroup.getGroupName());
         }
@@ -268,7 +271,10 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
 
     @Override
     public void deleteRoomData(Room room) {
-        mPresenter.deleteRemoteRoom(room, mGroup.getGroupName(),
-                UserManager.getInstance().getLandlord().getEmail());
+        //如果不是原有群組，代表firestore上沒有資料，因此不須刪除firestore上的房間，反之則需要刪除
+        if (!mIsNewGroup) {
+            mPresenter.deleteRemoteRoom(room, mGroup.getGroupName(),
+                    UserManager.getInstance().getLandlord().getEmail());
+        }
     }
 }

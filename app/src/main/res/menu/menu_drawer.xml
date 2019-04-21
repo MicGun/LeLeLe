@@ -6,9 +6,9 @@
     <item android:title="我的應用">
         <menu>
             <item
-                android:id="@+id/nav_preparing"
-                android:icon="@drawable/ic_message"
-                android:title="準備中" />
+                android:id="@+id/nav_loging_out"
+                android:icon="@drawable/ic_action_logout"
+                android:title="@string/logout" />
             <!--<item-->
                 <!--android:id="@+id/nav_awaiting_shipment"-->
                 <!--android:icon="@drawable/ic_awaiting_shipment"-->

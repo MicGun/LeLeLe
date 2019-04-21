@@ -447,9 +447,16 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         switch (menuItem.getItemId()) {
 
-            case R.id.nav_preparing:
-                string = getString(R.string.preparing);
-                Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
+            case R.id.nav_loging_out:
+//                string = getString(R.string.logout);
+                UserManager.getInstance().logout(new UserManager.LogoutCallback() {
+                    @Override
+                    public void onSuccess() {
+                        mPresenter.openLogin();
+                        mDrawerLayout.closeDrawers();
+                    }
+                });
+//                Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
                 break;
             default:
         }

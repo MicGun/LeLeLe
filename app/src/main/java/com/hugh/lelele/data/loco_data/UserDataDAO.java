@@ -25,4 +25,7 @@ public interface UserDataDAO {
 
     @Query("SELECT * FROM userData WHERE mId LIKE :id")
     public UserData getUserById(String id);
+
+    @Query("DELETE FROM userData")
+    public void nukeTable();
 }

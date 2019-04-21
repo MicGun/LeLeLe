@@ -41,8 +41,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
-//        mUserTypeSelector = root.findViewById(R.id.spinner_user_type_selector);
-//        mUserTypeSelector.setOnItemSelectedListener(new CustomOnItemSelectedListener());
         mFacebookLoginButton = root.findViewById(R.id.button_facebook_login);
         mFacebookLoginButton.setOnClickListener(new CustomOnClickListener());
 
@@ -74,33 +72,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
         return root;
     }
-
-//    @Override
-//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//        Log.v(TAG, "onCheckedChanged: " + buttonView.getTag().toString());
-//        Log.v(TAG, "mLandlordRadioButton is checked: " + mLandlordRadioButton.isChecked());
-//        Log.v(TAG, "mTenantRadioButton is checked: " + mTenantRadioButton.isChecked());
-//
-//        if (!mLandlordRadioButton.isChecked() && !mLandlordRadioButton.isChecked()) {
-//            if (mLandlordRadioButton.isChecked()) {
-//                mUserType = R.string.landlord;
-//                mPresenter.setUserType(R.string.landlord);
-//                UserManager.getInstance().setUserType(R.string.landlord);
-//                Log.v(TAG, "UserType" + mUserType);
-//            } else {
-//                mUserType = R.string.tenant;
-//                mPresenter.setUserType(R.string.tenant);
-//                UserManager.getInstance().setUserType(R.string.tenant);
-//                Log.v(TAG, "UserType" + mUserType);
-//            }
-//        }
-//
-//        Toast.makeText(buttonView.getContext(),
-//                "You have selected : " + buttonView.getTag().toString(),
-//                Toast.LENGTH_LONG).show();
-//
-//    }
 
     public class CustomOnClickListener implements View.OnClickListener {
 

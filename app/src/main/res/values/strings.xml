@@ -45,8 +45,9 @@
     <string name="room_number">房號</string>
     <string name="clean_button">清除</string>
 
-    <!-- Login -->
+    <!-- Login and Logout -->
     <string name="facebookLoginText">Facebook Login</string>
+    <string name="logout">登出</string>
 
     <!-- User Type Selector -->
     <string name="landlord">房東</string>

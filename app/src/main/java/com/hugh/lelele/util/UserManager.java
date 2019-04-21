@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -292,6 +293,24 @@ public class UserManager {
         });
     }
 
+    private void clearUserData() {
+        mUserDataDAO.nukeTable();
+        mUserData = new UserData();
+    }
+
+    public void logout(@NonNull LogoutCallback callback) {
+        if (mUserType == R.string.landlord) {
+            mLandlord = null;
+        } else {
+            mTenant = null;
+        }
+
+        mUserDataDAO.nukeTable();
+        mUserData = new UserData();
+
+        callback.onSuccess();
+    }
+
     public Landlord getLandlord() {
         return mLandlord;
     }
@@ -339,5 +358,10 @@ public class UserManager {
         void onFail(String errorMessage);
 
         void onInvalidToken(String errorMessage);
+    }
+
+    public interface LogoutCallback {
+
+        void onSuccess();
     }
 }

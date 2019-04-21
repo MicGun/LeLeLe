@@ -22,63 +22,235 @@
     <Button
         android:id="@+id/button_electricity_tenant"
         style="@style/ProfileOrderButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:drawableTop="@drawable/ic_electricity"
         android:gravity="center"
-        android:text="@string/application_electricity"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/button_message_tenant"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_profile_order_title" />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_reservation_tenant"
+        app:layout_constraintEnd_toStartOf="@+id/button_message_tenant"
+        app:layout_constraintStart_toStartOf="@+id/button_electricity_tenant"
+        app:layout_constraintTop_toTopOf="@+id/button_electricity_tenant">
+
+        <ImageView
+            android:id="@+id/image_view_electricity_editor_icon"
+            style="@style/ApplicationIconDimension"
+            android:tint="@color/brown_500708"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_electricity_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:srcCompat="@drawable/ic_electricity" />
+
+        <TextView
+            android:id="@+id/text_view_electricity_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/application_electricity"
+            android:textColor="@color/brown_500708"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_electricity_editor_icon" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <Button
         android:id="@+id/button_message_tenant"
         style="@style/ProfileOrderButton"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:drawableTop="@drawable/ic_message"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/application_message"
         app:layout_constraintBottom_toBottomOf="@+id/button_electricity_tenant"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/button_contract_tenant"
         app:layout_constraintStart_toEndOf="@+id/button_electricity_tenant"
         app:layout_constraintTop_toTopOf="@+id/button_electricity_tenant" />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_message_tenant"
+        app:layout_constraintEnd_toStartOf="@+id/button_contract_tenant"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toTopOf="@+id/button_message_tenant">
+
+        <ImageView
+            android:id="@+id/image_view_message_icon"
+            style="@style/ApplicationIconDimension"
+            android:tint="@color/brown_500708"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_message_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:srcCompat="@drawable/ic_message" />
+
+        <TextView
+            android:id="@+id/text_view_message_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/application_message"
+            android:textColor="@color/brown_500708"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_message_icon" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <Button
         android:id="@+id/button_contract_tenant"
         style="@style/ProfileOrderButton"
-        android:layout_marginStart="16dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
-        android:drawableTop="@drawable/ic_contract"
         android:gravity="center"
-        android:text="@string/application_contract"
         app:layout_constraintBottom_toBottomOf="@+id/button_electricity_tenant"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_message_tenant"
         app:layout_constraintTop_toTopOf="@+id/button_electricity_tenant" />
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_contract_tenant"
+        app:layout_constraintEnd_toEndOf="@+id/button_contract_tenant"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toTopOf="@+id/button_contract_tenant">
+
+        <ImageView
+            android:id="@+id/image_view_contract_icon"
+            style="@style/ApplicationIconDimension"
+            android:tint="@color/brown_500708"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_contract_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:srcCompat="@drawable/ic_action_contract" />
+
+        <TextView
+            android:id="@+id/text_view_contract_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/application_contract"
+            android:textColor="@color/brown_500708"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_contract_icon" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <Button
         android:id="@+id/button_reservation_tenant"
         style="@style/ProfileOrderButton"
-        android:layout_marginTop="24dp"
-        android:drawableTop="@drawable/ic_calendar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/application_reservation"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/button_electricity_tenant"
         app:layout_constraintStart_toStartOf="@+id/button_electricity_tenant"
         app:layout_constraintTop_toBottomOf="@+id/button_electricity_tenant" />
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_reservation_tenant"
+        app:layout_constraintEnd_toEndOf="@+id/button_reservation_tenant"
+        app:layout_constraintStart_toStartOf="@+id/button_reservation_tenant"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <ImageView
+            android:id="@+id/image_view_reservation_icon"
+            style="@style/ApplicationIconDimension"
+            android:tint="@color/brown_500708"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_reservation_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <TextView
+            android:id="@+id/text_view_reservation_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/application_reservation"
+            android:textColor="@color/brown_500708"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_reservation_icon" />
+
+    </android.support.constraint.ConstraintLayout>
+
     <Button
         android:id="@+id/button_garbage_truck_tenant"
         style="@style/ProfileOrderButton"
-        android:drawableTop="@drawable/ic_truck"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/application_garbage_truck"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintBottom_toBottomOf="@+id/button_reservation_tenant"
         app:layout_constraintEnd_toEndOf="@+id/button_message_tenant"
         app:layout_constraintStart_toStartOf="@+id/button_message_tenant"
         app:layout_constraintTop_toTopOf="@+id/button_reservation_tenant" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_garbage_truck_tenant"
+        app:layout_constraintEnd_toEndOf="@+id/button_garbage_truck_tenant"
+        app:layout_constraintStart_toEndOf="@+id/button_reservation_tenant"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <ImageView
+            android:id="@+id/image_view_garbage_truck_icon"
+            style="@style/ApplicationIconDimension"
+            android:tint="@color/brown_500708"
+            app:layout_constraintBottom_toTopOf="@+id/text_view_garbage_truck_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:srcCompat="@drawable/ic_truck" />
+
+        <TextView
+            android:id="@+id/text_view_garbage_truck_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/application_garbage_truck"
+            android:textColor="@color/brown_500708"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_garbage_truck_icon" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

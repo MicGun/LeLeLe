@@ -17,6 +17,7 @@ import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.component.GridSpacingItemDecoration;
 import com.hugh.lelele.data.Article;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,5 +104,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
     public void onRefresh() {
         mPresenter.loadArticles();
         mSwipeRefreshLayout.setRefreshing(true);
+        //需重新去firestore同步使用者資料，否則會有不同步的狀況
+        UserManager.getInstance().setupUserEnvironment();
     }
 }

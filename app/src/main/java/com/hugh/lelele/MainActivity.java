@@ -464,7 +464,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         int clickGroup = menuItem.getItemId();
 
-        if (!menuItem.getTitle().toString().equals(getString(R.string.ask_to_create_a_group))) {
+        if (!menuItem.getTitle().toString().equals(getString(R.string.ask_to_create_a_group)) &&
+                UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
             if (clickGroup == mGroupMenu.getItem().getItemId()) {
                 String groupNow = (String) menuItem.getTitle();
                 mGroupMenu.getItem().setChecked(true);

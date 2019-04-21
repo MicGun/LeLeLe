@@ -1,8 +1,10 @@
 package com.hugh.lelele.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,8 +22,6 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
     private HomeAdapter mHomeAdapter;
     private ArrayList<Article> mArticles;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private FloatingActionButton mFloatingPostingButton;
 
     private TextView mNoArticleText;
 
@@ -64,6 +65,10 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
 
         mNoArticleText = root.findViewById(R.id.text_view_no_article_home);
 
+        mFloatingPostingButton = root.findViewById(R.id.button_article_posting);
+
+        Log.e(TAG, "isTenant: " + (UserManager.getInstance().getUserData().getUserType() == R.string.tenant));
+        setPostingButtonUi();
         setNoArticleTextStatus();
 
         return root;
@@ -75,6 +80,18 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
             mNoArticleText.setVisibility(View.VISIBLE);
         } else {
             mNoArticleText.setVisibility(View.GONE);
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void setPostingButtonUi() {
+        if (mFloatingPostingButton != null) {
+            if (UserManager.getInstance().getUserData().getUserType() == R.string.tenant) {
+                mFloatingPostingButton.setVisibility(View.GONE);
+            } else {
+                mFloatingPostingButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 

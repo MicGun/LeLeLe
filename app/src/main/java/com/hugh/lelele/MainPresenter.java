@@ -481,4 +481,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mHomePresenter.agreeInvitation(article);
         }
     }
+
+    @Override
+    public void setPostingButton() {
+        if (mHomePresenter != null) {
+            mHomePresenter.setPostingButton();
+        }
+    }
 }

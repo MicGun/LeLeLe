@@ -12,6 +12,8 @@ public interface HomeContract {
 
         void setArticleList(ArrayList<Article> articleList);
 
+        void setPostingButtonUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -21,6 +23,8 @@ public interface HomeContract {
         void cancelInvitation(Article article);
 
         void agreeInvitation(Article article);
+
+        void setPostingButton();
 
 //        void uploadLandlord(String email);
     }

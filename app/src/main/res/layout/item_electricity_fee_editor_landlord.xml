@@ -9,17 +9,13 @@
         android:id="@+id/text_landlord_item_view_room_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
         android:fontFamily="@font/noto_sans"
         android:text="301"
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/text_landlord_item_view_scale_last"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintStart_toStartOf="@+id/guideline11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -32,8 +28,8 @@
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_landlord_item_view_room_number"
-        app:layout_constraintEnd_toStartOf="@+id/edir_text_landlord_item_view_scale_this"
-        app:layout_constraintStart_toEndOf="@+id/text_landlord_item_view_room_number"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
         app:layout_constraintTop_toTopOf="@+id/text_landlord_item_view_room_number" />
 
     <EditText
@@ -45,8 +41,8 @@
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_landlord_item_view_room_number"
-        app:layout_constraintEnd_toStartOf="@+id/button_landlord_item_view_clean"
-        app:layout_constraintStart_toEndOf="@+id/text_landlord_item_view_scale_last"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
         app:layout_constraintTop_toTopOf="@+id/text_landlord_item_view_room_number" />
 
     <View
@@ -63,13 +59,40 @@
     <ImageButton
         android:id="@+id/button_landlord_item_view_clean"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="25dp"
         android:background="@drawable/button_board_transparent"
         android:padding="@dimen/edit_text_padding"
         app:layout_constraintBottom_toBottomOf="@+id/text_landlord_item_view_room_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edir_text_landlord_item_view_scale_this"
+        app:layout_constraintEnd_toStartOf="@+id/guideline14"
+        app:layout_constraintStart_toStartOf="@+id/guideline14"
         app:layout_constraintTop_toTopOf="@+id/text_landlord_item_view_room_number"
         app:srcCompat="@drawable/ic_action_eraser" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".11" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".37" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".63" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".89" />
 </android.support.constraint.ConstraintLayout>

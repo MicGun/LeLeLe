@@ -90,12 +90,15 @@
     <!-- Home -->
     <string name="no_article">目前尚無任何文章!</string>
     <string name="mock_time">yyyy-mm-dd</string>
+    <string name="select_group_to_release_article">請選擇要發表文章的群組!</string>
 
     <!-- Electricity -->
     <string name="not_bind_yet">您尚未屬於任何群組，故還無法使用此功能。</string>
 
     <!-- Post View -->
     <string name="new_post">創建貼文</string>
-    <string name="say_something">在想些甚麼呢?</string>
+    <string name="say_something">想說些甚麼呢?</string>
+    <string name="post_title">文章標題</string>
     <string name="author_name">作者</string>
+    <string name="content_empty">文章標題與內容不得為空!!</string>
 </resources>

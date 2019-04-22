@@ -550,7 +550,9 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     @Override
     public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName) {
         mFirebaseFirestore.collection(LANDLORDS)
-                .document()
+                .document(landlordEmail)
+                .collection(GROUPS)
+                .document(groupName)
                 .collection(ARTICLES)
                 .document()
                 .set(article);
@@ -589,14 +591,15 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
-    public void deleteUserArticle(@NonNull Article article, @NonNull String email) {
-        String userType = "";
-        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
-            userType = LANDLORDS;
+    public void deleteUserArticle(@NonNull Article article, @NonNull String email, @NonNull int userType) {
+
+        String user = "";
+        if (userType == R.string.landlord) {
+            user = LANDLORDS;
         } else {
-            userType = TENANTS;
+            user = TENANTS;
         }
-        mFirebaseFirestore.collection(userType)
+        mFirebaseFirestore.collection(user)
                 .document(email)
                 .collection(ARTICLES)
                 .document(article.getArticleId())

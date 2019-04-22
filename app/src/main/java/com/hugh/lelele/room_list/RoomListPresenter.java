@@ -1,8 +1,11 @@
 package com.hugh.lelele.room_list;
 
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 
+import com.hugh.lelele.R;
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
@@ -10,6 +13,8 @@ import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.UserManager;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -104,7 +109,25 @@ public class RoomListPresenter implements RoomListContract.Presenter {
         mLeLeLeRepository.uploadTenant(tenant);
     }
 
-    private void deleteInvitationFromTenantArticles(Tenant tenant) {
+    private void deleteInvitationFromTenantArticles(final Tenant tenant) {
+        mLeLeLeRepository.queryUserArticleByAuthorAndType(tenant.getEmail(),
+                UserManager.getInstance().getLandlord().getName(),
+                Constants.INVITATION, R.string.tenant, new LeLeLeDataSource.QueryArticleByAuthorAndTypeCallback() {
+                    @Override
+                    public void onCompleted(ArrayList<Article> articles) {
 
+                        for (Article article:articles) {
+                            mLeLeLeRepository.deleteUserArticle(article,
+                                    tenant.getEmail(), R.string.tenant);
+                        }
+
+                        Log.d(TAG, "Articles Size: " + articles.size());
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
     }
 }

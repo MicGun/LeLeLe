@@ -13,6 +13,7 @@ public class Constants {
     //Article Type
     public static final String ELECTRICITY = "ELECTRICITY";
     public static final String INVITATION = "INVITATION";
+    public static final String GENERAL = "GENERAL";
 
     // User Manager
     public static final String USER_DATA = "user_data";

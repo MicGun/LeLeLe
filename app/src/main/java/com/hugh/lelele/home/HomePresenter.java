@@ -57,7 +57,8 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void cancelInvitation(Article article) {
         mLeLeLeRepository.deleteUserArticle(article,
-                UserManager.getInstance().getUserData().getEmail());
+                UserManager.getInstance().getUserData().getEmail(),
+                UserManager.getInstance().getUserData().getUserType());
         loadArticles();
         resetRoom();
     }
@@ -65,7 +66,8 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void agreeInvitation(Article article) {
         mLeLeLeRepository.deleteUserArticle(article,
-                UserManager.getInstance().getUserData().getEmail());
+                UserManager.getInstance().getUserData().getEmail(),
+                UserManager.getInstance().getUserData().getUserType());
         loadArticles();
         bindingWithTenant();
     }

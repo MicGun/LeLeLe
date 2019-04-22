@@ -2,7 +2,9 @@ package com.hugh.lelele.post;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -30,5 +32,11 @@ public class PostPresenter implements PostContract.Presenter {
     @Override
     public void showBottomNavigation() {
 
+    }
+
+    @Override
+    public void releaseGroupArticle(Article article) {
+        mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getLandlord().getEmail(),
+                UserManager.getInstance().getUserData().getGroupNow());
     }
 }

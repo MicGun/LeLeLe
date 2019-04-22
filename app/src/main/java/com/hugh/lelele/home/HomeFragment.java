@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
@@ -69,7 +70,11 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         mFloatingPostingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.openPosting();
+                if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                    mPresenter.openPosting();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.select_group_to_release_article), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

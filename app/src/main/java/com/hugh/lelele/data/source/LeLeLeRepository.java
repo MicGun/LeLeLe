@@ -230,8 +230,8 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     }
 
     @Override
-    public void deleteUserArticle(@NonNull Article article, @NonNull String email) {
-        mLeLeLeRemoteDataSource.deleteUserArticle(article, email);
+    public void deleteUserArticle(@NonNull Article article, @NonNull String email, @NonNull int userType) {
+        mLeLeLeRemoteDataSource.deleteUserArticle(article, email, userType);
     }
 
     @Override

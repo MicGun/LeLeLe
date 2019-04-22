@@ -131,7 +131,7 @@ public interface LeLeLeDataSource {
 
     void getUserArticles(@NonNull String email, @NonNull GetUserArticlesCallback callback);
 
-    void deleteUserArticle(@NonNull Article article, @NonNull String email);
+    void deleteUserArticle(@NonNull Article article, @NonNull String email, @NonNull int userType);
 
     void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
                                          @NonNull String articleType, @NonNull int userType,

@@ -2,6 +2,7 @@ package com.hugh.lelele.post;
 
 import com.hugh.lelele.BasePresenter;
 import com.hugh.lelele.BaseView;
+import com.hugh.lelele.data.Article;
 
 public interface PostContract {
 
@@ -14,5 +15,7 @@ public interface PostContract {
         void hideBottomNavigation();
 
         void showBottomNavigation();
+
+        void releaseGroupArticle(Article article);
     }
 }

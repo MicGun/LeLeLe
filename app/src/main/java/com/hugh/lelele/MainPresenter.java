@@ -329,6 +329,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mMainView.showBottomNavigationUi();
     }
 
+    @Override
+    public void releaseGroupArticle(Article article) {
+        if (mPostPresenter != null) {
+            mPostPresenter.releaseGroupArticle(article);
+        }
+    }
+
 
     @Override
     public void loadElectricityData() {

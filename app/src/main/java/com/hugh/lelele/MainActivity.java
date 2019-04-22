@@ -309,6 +309,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void openPostingUi() {
+        mPresenter.updateToolbar(getResources().getString(R.string.new_post));
+        mMainMvpController.findOrCreatePostView();
+    }
+
+    @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
@@ -330,7 +336,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 title.equals(getString(R.string.application_groups_list)) ||
                 title.equals(getString(R.string.group_edit)) ||
                 title.equals(getString(R.string.application_room_list)) ||
-                title.equals(getString(R.string.invitation_sending))) {
+                title.equals(getString(R.string.invitation_sending)) ||
+                title.equals(getString(R.string.new_post))) {
             mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationIcon(R.drawable.toolbar_back);

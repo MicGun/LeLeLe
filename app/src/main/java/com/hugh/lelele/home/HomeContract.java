@@ -26,6 +26,8 @@ public interface HomeContract {
 
         void setPostingButton();
 
+        void openPosting();
+
 //        void uploadLandlord(String email);
     }
 }

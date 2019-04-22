@@ -31,6 +31,8 @@ import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginFragment;
 import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.notify.NotifyPresenter;
+import com.hugh.lelele.post.PostFragment;
+import com.hugh.lelele.post.PostPresenter;
 import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
 import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 import com.hugh.lelele.room_list.RoomListFragment;
@@ -60,6 +62,7 @@ public class MainMvpController {
     private GroupDetailsPresenter mGroupDetailsPresenter;
     private InvitationSendingPresenter mInvitationSendingPresenter;
     private InvitationActionPresenter mInvitationActionPresenter;
+    private PostPresenter mPostPresenter;
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
@@ -67,7 +70,8 @@ public class MainMvpController {
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
-            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST, INVITATION_SENDING
+            ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST, INVITATION_SENDING,
+            POST
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
@@ -83,6 +87,7 @@ public class MainMvpController {
     static final String ELECTRICITY_TENANT = "ELECTRICITY_TENANT";
     static final String ELECTRICITY_LANDLORD = "ELECTRICITY_LANDLORD";
     static final String INVITATION_ACTION = "INVITATION_ACTION";
+    static final String POST = "POST";
 
     private MainMvpController(@NonNull FragmentActivity activity) {
         mActivity = activity;
@@ -237,7 +242,7 @@ public class MainMvpController {
     }
 
     /*
-     * Group Details View
+     * Invitation Action View
      * */
     void findOrCreateInvitationActionDialog(View view, Room room) {
 
@@ -253,6 +258,19 @@ public class MainMvpController {
             dialog.show(getFragmentManager(), INVITATION_ACTION);
 
         }
+    }
+
+    /*
+     * Post View
+     * */
+    void findOrCreatePostView() {
+
+        PostFragment postFragment = findOrCreatePostFragment();
+
+        mPostPresenter = new PostPresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), postFragment);
+        mMainPresenter.setPostPresenter(mPostPresenter);
+        postFragment.setPresenter(mMainPresenter);
     }
 
     /**
@@ -373,6 +391,26 @@ public class MainMvpController {
                 getFragmentManager(), groupDetailsFragment, GROUP_DETAILS);
 
         return groupDetailsFragment;
+    }
+
+    /**
+     * Post Fragment
+     * @return PostFragment
+     */
+    @NonNull
+    private PostFragment findOrCreatePostFragment() {
+
+        PostFragment postFragment =
+                (PostFragment) getFragmentManager().findFragmentByTag(POST);
+        if (postFragment == null) {
+            // Create the fragment
+            postFragment = PostFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), postFragment, POST);
+
+        return postFragment;
     }
 
     /**

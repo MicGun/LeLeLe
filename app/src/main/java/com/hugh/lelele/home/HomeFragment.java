@@ -66,6 +66,12 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         mNoArticleText = root.findViewById(R.id.text_view_no_article_home);
 
         mFloatingPostingButton = root.findViewById(R.id.button_article_posting);
+        mFloatingPostingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.openPosting();
+            }
+        });
 
         Log.e(TAG, "isTenant: " + (UserManager.getInstance().getUserData().getUserType() == R.string.tenant));
         setPostingButtonUi();

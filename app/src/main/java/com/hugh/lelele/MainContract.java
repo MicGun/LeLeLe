@@ -61,6 +61,8 @@ public interface MainContract {
 
         void resetDrawerUi();
 
+        void openPostingUi();
+
     }
 
     interface Presenter extends BasePresenter {

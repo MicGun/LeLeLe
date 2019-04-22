@@ -36,6 +36,8 @@ import com.hugh.lelele.invitation_sending.InvitationSendingContract;
 import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.post.PostContract;
+import com.hugh.lelele.post.PostPresenter;
 import com.hugh.lelele.room_list.RoomListContract;
 import com.hugh.lelele.room_list.RoomListPresenter;
 import com.hugh.lelele.room_list.invitation_dialog.InvitationActionContract;
@@ -51,7 +53,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
         GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter,
-        InvitationActionContract.Presenter {
+        InvitationActionContract.Presenter, PostContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -66,6 +68,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private RoomListPresenter mRoomListPresenter;
     private InvitationSendingPresenter mInvitationSendingPresenter;
     private InvitationActionPresenter mInvitationActionPresenter;
+    private PostPresenter mPostPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -185,6 +188,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setGroupDetailsPresenter(GroupDetailsPresenter groupDetailsPresenter) {
         mGroupDetailsPresenter = checkNotNull(groupDetailsPresenter);
+    }
+
+    void setPostPresenter(PostPresenter postPresenter) {
+        mPostPresenter = postPresenter;
     }
 
     void setRoomListPresenter(RoomListPresenter roomListPresenter) {
@@ -492,5 +499,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         if (mHomePresenter != null) {
             mHomePresenter.setPostingButton();
         }
+    }
+
+    @Override
+    public void openPosting() {
+        mMainView.openPostingUi();
     }
 }

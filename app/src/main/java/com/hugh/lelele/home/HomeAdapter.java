@@ -107,7 +107,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public HomeInvitationViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mAuthorPicture = itemView.findViewById(R.id.item_image_author_picture);
+            mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
             mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
             mTitle = itemView.findViewById(R.id.item_text_view_invitation_title);
             mContent = itemView.findViewById(R.id.item_text_view_invitation_content);

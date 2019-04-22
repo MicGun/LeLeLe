@@ -75,6 +75,11 @@ public class HomePresenter implements HomeContract.Presenter {
         mHomeView.setPostingButtonUi();
     }
 
+    @Override
+    public void openPosting() {
+
+    }
+
     private void resetRoom() {
         Room emptyRoom = new Room();
         emptyRoom.setRoomName(UserManager.getInstance().getTenant().getRoomNumber());

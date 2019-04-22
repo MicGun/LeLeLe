@@ -93,4 +93,9 @@
 
     <!-- Electricity -->
     <string name="not_bind_yet">您尚未屬於任何群組，故還無法使用此功能。</string>
+
+    <!-- Post View -->
+    <string name="new_post">創建貼文</string>
+    <string name="say_something">在想些甚麼呢?</string>
+    <string name="author_name">作者</string>
 </resources>

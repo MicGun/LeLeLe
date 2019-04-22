@@ -1,0 +1,34 @@
+package com.hugh.lelele.post;
+
+import android.support.annotation.NonNull;
+
+import com.hugh.lelele.data.source.LeLeLeRepository;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public class PostPresenter implements PostContract.Presenter {
+
+    private LeLeLeRepository mLeLeLeRepository;
+    private PostContract.View mPostView;
+
+    public PostPresenter(@NonNull LeLeLeRepository leLeLeRepository,
+                         @NonNull  PostContract.View postView) {
+        mLeLeLeRepository = checkNotNull(leLeLeRepository, "leleleRepository cannot be null!");
+        mPostView = checkNotNull(postView, "postView cannot be null!");;
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+
+    }
+
+    @Override
+    public void showBottomNavigation() {
+
+    }
+}

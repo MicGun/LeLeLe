@@ -7,7 +7,7 @@
     style="@style/RecyclerViewHolder">
 
     <ImageView
-        android:id="@+id/item_image_author_picture"
+        android:id="@+id/image_author_picture_posting"
         android:layout_width="0dp"
         android:layout_height="120dp"
         android:layout_marginStart="24dp"
@@ -29,8 +29,8 @@
         android:letterSpacing="0.2"
         android:textColor="@color/black_3f3a3a"
         android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/item_image_author_picture"
-        app:layout_constraintTop_toTopOf="@+id/item_image_author_picture"
+        app:layout_constraintStart_toEndOf="@+id/image_author_picture_posting"
+        app:layout_constraintTop_toTopOf="@+id/image_author_picture_posting"
         tools:text="@string/inviting_notification" />
 
     <TextView
@@ -66,9 +66,9 @@
         style="@style/InvitationButton"
         android:layout_marginStart="24dp"
         android:tint="@color/red_ff0000"
-        app:layout_constraintBottom_toBottomOf="@+id/item_image_author_picture"
+        app:layout_constraintBottom_toBottomOf="@+id/image_author_picture_posting"
         app:layout_constraintEnd_toStartOf="@+id/item_image_view_agree_button_invitation"
-        app:layout_constraintStart_toEndOf="@+id/item_image_author_picture"
+        app:layout_constraintStart_toEndOf="@+id/image_author_picture_posting"
         app:srcCompat="@drawable/ic_action_disagree" />
 
     <TextView

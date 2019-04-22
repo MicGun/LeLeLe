@@ -95,11 +95,16 @@ public class RoomListPresenter implements RoomListContract.Presenter {
     }
 
     private void resetTenant(Tenant tenant) {
+        deleteInvitationFromTenantArticles(tenant);
         tenant.setRoomNumber(Constants.EMPTY);
         tenant.setLandlordEmail(Constants.EMPTY);
         tenant.setGroup(Constants.EMPTY);
         tenant.setBinding(false);
         tenant.setInviting(false);
         mLeLeLeRepository.uploadTenant(tenant);
+    }
+
+    private void deleteInvitationFromTenantArticles(Tenant tenant) {
+
     }
 }

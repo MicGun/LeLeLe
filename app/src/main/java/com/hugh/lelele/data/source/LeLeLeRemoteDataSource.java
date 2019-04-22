@@ -602,4 +602,42 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .document(article.getArticleId())
                 .delete();
     }
+
+    @Override
+    public void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
+                                                @NonNull String articleType, @NonNull int userType,
+                                                @NonNull final QueryArticleByAuthorAndTypeCallback callback) {
+
+        CollectionReference articleCollection;
+        if (userType == R.string.landlord) {
+            articleCollection = mFirebaseFirestore.collection(LANDLORDS)
+                    .document(email)
+                    .collection(ARTICLES);
+        } else {
+            articleCollection = mFirebaseFirestore.collection(TENANTS)
+                    .document(email)
+                    .collection(ARTICLES);
+        }
+
+        articleCollection.whereEqualTo("author", authorName)
+                .whereEqualTo("type", articleType).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot articleCollection = task.getResult();
+                    if (articleCollection != null) {
+                        ArrayList<DocumentSnapshot> articleDocuments =
+                                (ArrayList<DocumentSnapshot>) articleCollection.getDocuments();
+
+                        ArrayList<Article> articles = LeLeLeParser.parseArticleList(articleDocuments);
+
+                        callback.onCompleted(articles);
+                    }
+                } else {
+                    callback.onError(String.valueOf(task.getException()));
+                }
+            }
+        });
+
+    }
 }

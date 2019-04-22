@@ -233,4 +233,21 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     public void deleteUserArticle(@NonNull Article article, @NonNull String email) {
         mLeLeLeRemoteDataSource.deleteUserArticle(article, email);
     }
+
+    @Override
+    public void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
+                                                @NonNull String articleType,  @NonNull int userType,
+                                                @NonNull final QueryArticleByAuthorAndTypeCallback callback) {
+        mLeLeLeRemoteDataSource.queryUserArticleByAuthorAndType(email, authorName, articleType, userType, new QueryArticleByAuthorAndTypeCallback() {
+            @Override
+            public void onCompleted(ArrayList<Article> articles) {
+                callback.onCompleted(articles);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
 }

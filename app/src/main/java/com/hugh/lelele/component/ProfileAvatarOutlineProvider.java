@@ -10,12 +10,19 @@ import com.hugh.lelele.R;
 
 /**
  * Created by Wayne Chen on Feb. 2019.
+ * Modified by Hugh Wang on April. 2019.
  */
 public class ProfileAvatarOutlineProvider extends ViewOutlineProvider {
+
+    private int mRadius;
+
+    public ProfileAvatarOutlineProvider(int radius) {
+        mRadius = radius;
+    }
+
     @Override
     public void getOutline(View view, Outline outline) {
         view.setClipToOutline(true);
-        int radius = LeLeLe.getAppContext().getResources().getDimensionPixelSize(R.dimen.radius_profile_avatar);
-        outline.setOval(0, 0, radius, radius);
+        outline.setOval(0, 0, mRadius, mRadius);
     }
 }

@@ -260,7 +260,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         // nav view header
         mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);
-        mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider());
+        mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider(getResources().
+                getDimensionPixelSize(R.dimen.radius_profile_avatar)));
 
         mDrawerUserName = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_name);
     }

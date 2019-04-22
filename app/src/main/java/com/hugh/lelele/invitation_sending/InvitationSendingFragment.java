@@ -73,7 +73,8 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
         });
 
         mTenantPicture = root.findViewById(R.id.image_tenant_picture_inviting);
-        mTenantPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
+        mTenantPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(getResources().
+                getDimensionPixelSize(R.dimen.radius_profile_avatar)));
 
         mTenantName = root.findViewById(R.id.text_view_tenant_name_inviting);
 

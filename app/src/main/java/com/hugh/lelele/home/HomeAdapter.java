@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hugh.lelele.Constants;
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Article;
@@ -108,7 +109,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
             super(itemView);
 
             mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
-            mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider());
+            mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
+                    getResources().getDimensionPixelSize(R.dimen.radius_profile_avatar)));
             mTitle = itemView.findViewById(R.id.item_text_view_invitation_title);
             mContent = itemView.findViewById(R.id.item_text_view_invitation_content);
             mTime = itemView.findViewById(R.id.item_text_view_time_invitation);

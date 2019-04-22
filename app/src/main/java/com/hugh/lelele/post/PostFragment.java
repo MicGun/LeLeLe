@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
+import com.hugh.lelele.util.ImageManager;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -28,9 +31,23 @@ public class PostFragment extends Fragment implements PostContract.View {
         mPresenter.hideBottomNavigation();
 
         mAuthorPicture = root.findViewById(R.id.image_author_picture_posting);
+        mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(getResources().
+                getDimensionPixelOffset(R.dimen.radius_author_avatar)));
+
         mAuthorName = root.findViewById(R.id.text_view_author_name_posting);
 
+        setAuthorInfo();
+
         return root;
+    }
+
+    private void setAuthorInfo() {
+
+        ImageManager.getInstance().setImageByUrl(mAuthorPicture,
+                UserManager.getInstance().getUserData().getPictureUrl());
+
+        mAuthorName.setText(UserManager.getInstance().getUserData().getName());
+
     }
 
     public static PostFragment newInstance() {

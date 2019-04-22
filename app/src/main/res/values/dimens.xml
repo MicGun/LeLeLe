@@ -19,6 +19,9 @@
     <dimen name="height_profile_header">92dp</dimen>
     <dimen name="radius_profile_avatar">120dp</dimen>
 
+    <!-- Post  -->
+    <dimen name="radius_author_avatar">60dp</dimen>
+
     <!-- Profile  -->
     <dimen name="edit_text_padding">8dp</dimen>
 

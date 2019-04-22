@@ -21,5 +21,7 @@ public interface PostContract {
         void releaseGroupArticle(Article article);
 
         void showLastFragment();
+
+        void updateToolbar(String title);
     }
 }

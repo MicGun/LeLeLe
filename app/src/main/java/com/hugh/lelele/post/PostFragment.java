@@ -147,6 +147,7 @@ public class PostFragment extends Fragment implements PostContract.View {
         super.onDestroy();
 
         mPresenter.showBottomNavigation();
+        mPresenter.updateToolbar(getString(R.string.home));
     }
 
     @Override

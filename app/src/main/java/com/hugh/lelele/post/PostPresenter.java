@@ -55,4 +55,9 @@ public class PostPresenter implements PostContract.Presenter {
     public void showLastFragment() {
 
     }
+
+    @Override
+    public void updateToolbar(String title) {
+
+    }
 }

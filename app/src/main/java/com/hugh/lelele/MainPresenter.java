@@ -280,6 +280,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void resetDrawer() {
+        mMainView.resetDrawerUi();
+    }
+
+    @Override
     public void deleteRoom(Room room) {
         if (mGroupDetailsPresenter != null) {
             mGroupDetailsPresenter.deleteRoom(room);

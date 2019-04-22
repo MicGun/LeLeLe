@@ -114,6 +114,7 @@ public class MainMvpController {
             homeFragment.setPresenter(mMainPresenter);
         }
         mHomePresenter.setPostingButton();
+        mHomePresenter.loadArticles();
     }
 
     /*

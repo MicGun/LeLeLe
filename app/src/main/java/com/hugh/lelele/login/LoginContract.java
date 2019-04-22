@@ -20,5 +20,7 @@ public interface LoginContract {
         void openHome();
 
         void loadGroupListDrawerMenu();
+
+        void resetDrawer();
     }
 }

@@ -47,4 +47,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void loadGroupListDrawerMenu() {
 
     }
+
+    @Override
+    public void resetDrawer() {
+
+    }
 }

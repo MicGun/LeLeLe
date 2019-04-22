@@ -59,6 +59,8 @@ public interface MainContract {
 
         void showInvitationActionDialog(android.view.View view, Room room);
 
+        void resetDrawerUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -90,5 +92,7 @@ public interface MainContract {
         void showToolbarAndBottomNavigation();
 
         void showLastFragment();
+
+        void resetDrawer();
     }
 }

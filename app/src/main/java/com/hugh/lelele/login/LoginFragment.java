@@ -88,6 +88,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                             Log.v(TAG, "User Name: " + (UserManager.getInstance().getUserData().getName()));
                             if (mUserType == R.string.landlord) {
                                 mPresenter.loadGroupListDrawerMenu();
+                            } else {
+                                //to clear submenu, avoid there's landlord data showing
+                                mPresenter.resetDrawer();
                             }
                         }
 

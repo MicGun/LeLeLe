@@ -302,6 +302,13 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void resetDrawerUi() {
+        if (mGroupMenu != null) {
+            mGroupMenu.clear();
+        }
+    }
+
+    @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }

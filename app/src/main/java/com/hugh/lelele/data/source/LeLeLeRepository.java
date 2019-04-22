@@ -210,8 +210,19 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     }
 
     @Override
-    public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName) {
-        mLeLeLeRemoteDataSource.sendGroupArticle(article, landlordEmail, groupName);
+    public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail,
+                                 @NonNull String groupName, @NonNull final SendGroupArticleCallback callback) {
+        mLeLeLeRemoteDataSource.sendGroupArticle(article, landlordEmail, groupName, new SendGroupArticleCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
     }
 
     @Override

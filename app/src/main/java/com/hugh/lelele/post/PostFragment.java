@@ -102,17 +102,7 @@ public class PostFragment extends Fragment implements PostContract.View {
             @Override
             public void onClick(View v) {
                 if (!mContent.equals("") && !mTitle.equals("")) {
-                    mArticle.setTitle(mTitle);
-                    mArticle.setContent(mContent);
-                    mArticle.setAuthor(UserManager.getInstance().getUserData().getName());
-                    mArticle.setAuthorEmail(UserManager.getInstance().getUserData().getEmail());
-                    mArticle.setAuthorPicture(UserManager.getInstance().getUserData().getPictureUrl());
-                    mArticle.setType(Constants.GENERAL);
-
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    mArticle.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
-
-                    mPresenter.releaseGroupArticle(mArticle);
+                    postingArticle();
                 } else {
                     Toast.makeText(getContext(), getString(R.string.content_empty), Toast.LENGTH_SHORT).show();
                 }
@@ -122,6 +112,21 @@ public class PostFragment extends Fragment implements PostContract.View {
         setAuthorInfo();
 
         return root;
+    }
+
+    private void postingArticle() {
+
+        mArticle.setTitle(mTitle);
+        mArticle.setContent(mContent);
+        mArticle.setAuthor(UserManager.getInstance().getUserData().getName());
+        mArticle.setAuthorEmail(UserManager.getInstance().getUserData().getEmail());
+        mArticle.setAuthorPicture(UserManager.getInstance().getUserData().getPictureUrl());
+        mArticle.setType(Constants.GENERAL);
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        mArticle.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
+
+        mPresenter.releaseGroupArticle(mArticle);
     }
 
     private void setAuthorInfo() {
@@ -147,5 +152,10 @@ public class PostFragment extends Fragment implements PostContract.View {
     @Override
     public void setPresenter(PostContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void toBackStack() {
+        mPresenter.showLastFragment();
     }
 }

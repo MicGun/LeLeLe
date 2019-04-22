@@ -8,6 +8,8 @@ public interface PostContract {
 
     interface View extends BaseView<Presenter> {
 
+        void toBackStack();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -17,5 +19,7 @@ public interface PostContract {
         void showBottomNavigation();
 
         void releaseGroupArticle(Article article);
+
+        void showLastFragment();
     }
 }

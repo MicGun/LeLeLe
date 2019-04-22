@@ -548,14 +548,25 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
-    public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail, @NonNull String groupName) {
+    public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail,
+                                 @NonNull String groupName, @NonNull final SendGroupArticleCallback callback) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(landlordEmail)
                 .collection(GROUPS)
                 .document(groupName)
                 .collection(ARTICLES)
                 .document()
-                .set(article);
+                .set(article)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            callback.onCompleted();
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
+                        }
+                    }
+                });
     }
 
     @Override

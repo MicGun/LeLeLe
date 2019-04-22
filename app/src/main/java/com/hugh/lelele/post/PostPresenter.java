@@ -3,6 +3,7 @@ package com.hugh.lelele.post;
 import android.support.annotation.NonNull;
 
 import com.hugh.lelele.data.Article;
+import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.util.UserManager;
 
@@ -37,6 +38,21 @@ public class PostPresenter implements PostContract.Presenter {
     @Override
     public void releaseGroupArticle(Article article) {
         mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getLandlord().getEmail(),
-                UserManager.getInstance().getUserData().getGroupNow());
+                UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
+                    @Override
+                    public void onCompleted() {
+                        mPostView.toBackStack();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void showLastFragment() {
+
     }
 }

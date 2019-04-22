@@ -485,6 +485,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 String groupNow = (String) menuItem.getTitle();
                 mGroupMenu.getItem().setChecked(true);
                 UserManager.getInstance().getUserData().setGroupNow(groupNow);
+                mPresenter.loadArticles();
                 mDrawerLayout.closeDrawers();
                 Toast.makeText(this, getString(R.string.switch_group_to_, groupNow), Toast.LENGTH_SHORT).show();
             }

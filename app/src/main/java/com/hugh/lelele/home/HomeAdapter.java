@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hugh.lelele.Constants;
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Article;
+import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.ImageManager;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class HomeAdapter extends RecyclerView.Adapter {
 
     private static final int INVITATION = 0x01;
+    private static final int GENERAL = 0x02;
 
     private HomeContract.Presenter mPresenter;
     private ArrayList<Article> mArticles;
@@ -35,8 +36,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         if (mArticles.get(position).getType().equals(Constants.INVITATION)) {
             return INVITATION;
+        } else if (mArticles.get(position).getType().equals(Constants.GENERAL)){
+            return GENERAL;
         } else {
-            return INVITATION;
+            return GENERAL;
         }
     }
 
@@ -52,6 +55,11 @@ public class HomeAdapter extends RecyclerView.Adapter {
                         .inflate(R.layout.item_home_invitation, viewGroup, false);
                 viewHolder = new HomeInvitationViewHolder(recyclerView);
                 break;
+            case GENERAL:
+                recyclerView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.item_home_general, viewGroup, false);
+                viewHolder = new HomeGeneralViewHolder(recyclerView);
+                break;
             default:
                 return null;
 
@@ -66,6 +74,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
         if (viewHolder instanceof HomeInvitationViewHolder) {
 
             bindHomeInvitationViewHolder((HomeInvitationViewHolder) viewHolder, mArticles.get(i));
+        } else if (viewHolder instanceof HomeGeneralViewHolder) {
+
+            bindHomeGeneralViewHolder((HomeGeneralViewHolder) viewHolder, mArticles.get(i));
         }
     }
 
@@ -94,6 +105,17 @@ public class HomeAdapter extends RecyclerView.Adapter {
                 mPresenter.agreeInvitation(article);
             }
         });
+    }
+
+    private void bindHomeGeneralViewHolder(HomeGeneralViewHolder viewHolder, final Article article) {
+
+        ImageManager.getInstance().setImageByUrl(viewHolder.getAuthorPicture(), article.getAuthorPicture());
+
+        viewHolder.getTitle().setText(article.getTitle());
+
+        viewHolder.getContent().setText(article.getContent());
+
+        viewHolder.getTime().setText(article.getTime());
     }
 
     public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {
@@ -136,6 +158,41 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         public ImageView getAgreeButton() {
             return mAgreeButton;
+        }
+
+        public TextView getTime() {
+            return mTime;
+        }
+    }
+
+    public class HomeGeneralViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mAuthorPicture;
+        private TextView mTitle;
+        private TextView mContent;
+        private TextView mTime;
+
+        public HomeGeneralViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
+            mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
+                    getResources().getDimensionPixelSize(R.dimen.radius_general_post_avatar)));
+            mTitle = itemView.findViewById(R.id.item_text_view_general_title_posting);
+            mContent = itemView.findViewById(R.id.item_text_view_general_content);
+            mTime = itemView.findViewById(R.id.item_text_view_time_general);
+        }
+
+        public ImageView getAuthorPicture() {
+            return mAuthorPicture;
+        }
+
+        public TextView getTitle() {
+            return mTitle;
+        }
+
+        public TextView getContent() {
+            return mContent;
         }
 
         public TextView getTime() {

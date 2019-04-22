@@ -91,6 +91,8 @@ public interface MainContract {
 
         void hideToolbarAndBottomNavigation();
 
+        void loadArticles();
+
         void showToolbarAndBottomNavigation();
 
         void showLastFragment();

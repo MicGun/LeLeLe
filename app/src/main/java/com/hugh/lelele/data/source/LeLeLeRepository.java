@@ -226,8 +226,23 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     }
 
     @Override
-    public void getUserArticles(@NonNull String email, @NonNull final GetUserArticlesCallback callback) {
-        mLeLeLeRemoteDataSource.getUserArticles(email, new GetUserArticlesCallback() {
+    public void getUserArticles(@NonNull String email, @NonNull final GetArticlesCallback callback) {
+        mLeLeLeRemoteDataSource.getUserArticles(email, new GetArticlesCallback() {
+            @Override
+            public void onCompleted(ArrayList<Article> articles) {
+                callback.onCompleted(articles);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void getGroupArticles(@NonNull String email, @NonNull String groupName, @NonNull final GetArticlesCallback callback) {
+        mLeLeLeRemoteDataSource.getGroupArticles(email, groupName, new GetArticlesCallback() {
             @Override
             public void onCompleted(ArrayList<Article> articles) {
                 callback.onCompleted(articles);

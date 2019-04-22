@@ -1,13 +1,9 @@
 package com.hugh.lelele.home;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
-import com.hugh.lelele.data.Group;
-import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -24,6 +20,12 @@ public class HomePresenter implements HomeContract.Presenter {
     private final LeLeLeRepository mLeLeLeRepository;
     private final HomeContract.View mHomeView;
 
+    private ArrayList<Article> mUserArticles;
+    private ArrayList<Article> mGroupArticles;
+
+    private boolean mUserArticlesDownloaded;
+    private boolean mGroupArticlesDownloaded;
+
     private final static String TAG = HomePresenter.class.getSimpleName();
 
     public HomePresenter(@NonNull LeLeLeRepository leLeLeRepository,
@@ -31,6 +33,9 @@ public class HomePresenter implements HomeContract.Presenter {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leleleRepository cannot be null!");
         mHomeView = checkNotNull(homeView, "homeView cannot be null!");
         mHomeView.setPresenter(this);
+
+        mUserArticles = new ArrayList<>();
+        mGroupArticles = new ArrayList<>();
     }
 
     @Override
@@ -40,18 +45,16 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadArticles() {
+        mUserArticlesDownloaded = false;
+        mGroupArticlesDownloaded = false;
 
-        mLeLeLeRepository.getUserArticles(UserManager.getInstance().getUserData().getEmail(), new LeLeLeDataSource.GetUserArticlesCallback() {
-            @Override
-            public void onCompleted(ArrayList<Article> articles) {
-                mHomeView.setArticleList(articles);
-            }
+        loadUserArticles();
 
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
+        if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+            loadGroupArticles();
+        } else {
+            mGroupArticlesDownloaded = true;
+        }
     }
 
     @Override
@@ -82,6 +85,62 @@ public class HomePresenter implements HomeContract.Presenter {
 
     }
 
+    @Override
+    public void loadUserArticles() {
+        mLeLeLeRepository.getUserArticles(UserManager.getInstance().getUserData().getEmail(), new LeLeLeDataSource.GetArticlesCallback() {
+            @Override
+            public void onCompleted(ArrayList<Article> articles) {
+                mUserArticlesDownloaded = true;
+                mUserArticles = articles;
+                combineAllArticles();
+//                mHomeView.setArticleList(articles);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadGroupArticles() {
+        String email;
+        String groupName = UserManager.getInstance().getUserData().getGroupNow();
+
+        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+            email = UserManager.getInstance().getUserData().getEmail();
+        } else {
+            email = UserManager.getInstance().getTenant().getLandlordEmail();
+        }
+
+        mLeLeLeRepository.getGroupArticles(email, groupName, new LeLeLeDataSource.GetArticlesCallback() {
+            @Override
+            public void onCompleted(ArrayList<Article> articles) {
+                mGroupArticlesDownloaded = true;
+                mGroupArticles = articles;
+                combineAllArticles();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    private void combineAllArticles() {
+
+        if (mGroupArticlesDownloaded && mUserArticlesDownloaded) {
+            ArrayList allArticles = new ArrayList();
+            allArticles.addAll(mGroupArticles);
+            allArticles.addAll(mUserArticles);
+
+            mHomeView.setArticleList(allArticles);
+        }
+
+    }
+
     private void resetRoom() {
         Room emptyRoom = new Room();
         emptyRoom.setRoomName(UserManager.getInstance().getTenant().getRoomNumber());
@@ -99,6 +158,7 @@ public class HomePresenter implements HomeContract.Presenter {
         tenant.setInviting(false);
         mLeLeLeRepository.uploadTenant(tenant);
         UserManager.getInstance().setTenant(tenant);
+        UserManager.getInstance().setupUserEnvironment();
     }
 
     private void bindingWithTenant() {
@@ -107,6 +167,7 @@ public class HomePresenter implements HomeContract.Presenter {
         tenant.setBinding(true);
         mLeLeLeRepository.uploadTenant(tenant);
         UserManager.getInstance().setTenant(tenant);
+        UserManager.getInstance().setupUserEnvironment();
         bindingWithRoom(tenant);
     }
 

@@ -570,7 +570,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
-    public void getUserArticles(@NonNull String email, @NonNull final GetUserArticlesCallback callback) {
+    public void getUserArticles(@NonNull String email, @NonNull final GetArticlesCallback callback) {
         String userType = "";
         if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
             userType = LANDLORDS;
@@ -579,6 +579,34 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         }
         mFirebaseFirestore.collection(userType)
                 .document(email)
+                .collection(ARTICLES)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot articleCollection = task.getResult();
+                            if (articleCollection != null) {
+                                ArrayList<DocumentSnapshot> articleDocuments =
+                                        (ArrayList<DocumentSnapshot>) articleCollection.getDocuments();
+
+                                ArrayList<Article> articles = LeLeLeParser.parseArticleList(articleDocuments);
+
+                                callback.onCompleted(articles);
+                            }
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getGroupArticles(@NonNull String email, @NonNull String groupName, @NonNull final GetArticlesCallback callback) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
                 .collection(ARTICLES)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

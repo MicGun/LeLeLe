@@ -512,4 +512,18 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void openPosting() {
         mMainView.openPostingUi();
     }
+
+    @Override
+    public void loadUserArticles() {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadUserArticles();
+        }
+    }
+
+    @Override
+    public void loadGroupArticles() {
+        if (mHomePresenter != null) {
+            mHomePresenter.loadGroupArticles();
+        }
+    }
 }

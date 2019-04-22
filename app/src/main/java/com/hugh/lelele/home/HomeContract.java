@@ -28,6 +28,10 @@ public interface HomeContract {
 
         void openPosting();
 
+        void loadUserArticles();
+
+        void loadGroupArticles();
+
 //        void uploadLandlord(String email);
     }
 }

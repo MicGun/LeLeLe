@@ -281,6 +281,10 @@ public class UserManager {
 
                 setTenant(tenant);
 
+                if (tenant.isBinding()) {
+                    mUserData.setGroupNow(tenant.getGroup());
+                }
+
                 callback.onSuccess();
             }
 

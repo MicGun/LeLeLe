@@ -401,6 +401,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         }
     }
 
+    @Override
+    public void checkRoomData(ArrayList<Room> rooms) {
+        if (mElectricityLandlordPresenter != null) {
+            mElectricityLandlordPresenter.checkRoomData(rooms);
+        }
+    }
+
 //    @Override
 //    public void uploadLandlord(String email) {
 //        if (mHomePresenter != null) {

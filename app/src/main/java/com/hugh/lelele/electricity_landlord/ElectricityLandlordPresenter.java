@@ -78,4 +78,42 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     public void initialElectricityMonth(String landlordEmail, String groupName, String roomName, String year, String month) {
         mLeLeLeRepository.initialElectricityMonthData(landlordEmail, groupName, roomName, year, month);
     }
+
+    @Override
+    public void checkRoomData(ArrayList<Room> rooms) {
+        new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
+                UserManager.getInstance().getUserData().getGroupNow(),
+                String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
+            @Override
+            public void onCompleted(ArrayList<Room> roomArrayList) {
+                mRooms = roomArrayList;
+                checkNoEmptyElectricityData(mRooms);
+                Log.v(TAG, "RoomsElectricityRecursive Working");
+            }
+        });
+    }
+
+    @Override
+    public void showLastFragment() {
+
+    }
+
+    private void checkNoEmptyElectricityData(ArrayList<Room> rooms) {
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+
+        int count = 0;
+        for (Room room:rooms) {
+
+            if (room.getElectricities().get(month).getScale().equals("")) {
+                mElectricityLandlordtView.showHasEmptyDataToast();
+            } else {
+                count++;
+                if (count == rooms.size()) {
+                    mElectricityLandlordtView.toBackStack();
+                }
+            }
+
+        }
+    }
 }

@@ -14,6 +14,10 @@ public interface ElectricityLandlordContract {
     interface View extends BaseView<Presenter> {
 
         void showElectricityEditorUi(ArrayList<Room> rooms);
+
+        void showHasEmptyDataToast();
+
+        void toBackStack();
     }
 
     interface Presenter extends BasePresenter {
@@ -31,5 +35,9 @@ public interface ElectricityLandlordContract {
 
         void initialElectricityMonth(String landlordEmail, String groupName,
                                      String roomName, String year, String month);
+
+        void checkRoomData(ArrayList<Room> rooms);
+
+        void showLastFragment();
     }
 }

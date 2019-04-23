@@ -379,7 +379,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void openProfileUi() {
-
+        if (mUserType == R.string.landlord) {
+            mMainMvpController.findOrCreateProfileLandlordView();
+        } else if (mUserType == R.string.tenant) {
+            mMainMvpController.findOrCreateProfileTenantView();
+        }
     }
 
     @Override

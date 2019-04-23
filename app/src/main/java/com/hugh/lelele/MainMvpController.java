@@ -148,6 +148,31 @@ public class MainMvpController {
     }
 
     /*
+     * Profile View
+     * */
+    void findOrCreateProfileTenantView() {
+        AppTenantFragment appTenantFragment = findOrCreateAppTenantFragment();
+
+        if (mAppTenantPresenter == null) {
+            mAppTenantPresenter = new AppTenantPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), appTenantFragment);
+            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
+            appTenantFragment.setPresenter(mMainPresenter);
+        }
+    }
+
+//    void findOrCreateProfileLandlordView() {
+//        AppLandlordFragment appLandlordFragment = findOrCreateAppLandlordFragment();
+//
+//        if (mAppLandlordPresenter == null) {
+//            mAppLandlordPresenter = new AppLandlordPresenter(LeLeLeRepository.getInstance(
+//                    LeLeLeRemoteDataSource.getInstance()), appLandlordFragment);
+//            mMainPresenter.setAppLandlordPresenter(mAppLandlordPresenter);
+//            appLandlordFragment.setPresenter(mMainPresenter);
+//        }
+//    }
+
+    /*
      * Electricity View
      * */
 

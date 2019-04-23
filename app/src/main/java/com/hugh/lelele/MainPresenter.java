@@ -223,7 +223,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void openProfile() {
-
+        mMainView.openProfileUi();
     }
 
     @Override

@@ -205,12 +205,22 @@ public class ProfileTenantFragment extends Fragment implements ProfileTenantCont
 
         if (mTenant.isBinding()) {
             mGroupNameEditText.setText(mTenant.getGroup());
+            mGroupNameEditText.setTextColor(getResources().getColor(R.color.black_3f3a3a));
+
             mRoomNumberEditText.setText(mTenant.getRoomNumber());
+            mRoomNumberEditText.setTextColor(getResources().getColor(R.color.black_3f3a3a));
+
             mLandlordEmailEditText.setText(mTenant.getLandlordEmail());
+            mLandlordEmailEditText.setTextColor(getResources().getColor(R.color.black_3f3a3a));
         } else {
             mGroupNameEditText.setText(getString(R.string.there_has_no_rental_info));
+            mGroupNameEditText.setTextColor(getResources().getColor(R.color.gray_aaaaaa));
+
             mRoomNumberEditText.setText(getString(R.string.there_has_no_rental_info));
+            mRoomNumberEditText.setTextColor(getResources().getColor(R.color.gray_aaaaaa));
+
             mLandlordEmailEditText.setText(getString(R.string.there_has_no_rental_info));
+            mLandlordEmailEditText.setTextColor(getResources().getColor(R.color.gray_aaaaaa));
         }
     }
 

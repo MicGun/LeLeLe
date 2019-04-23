@@ -146,4 +146,6 @@ public interface LeLeLeDataSource {
     void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
                                          @NonNull String articleType, @NonNull int userType,
                                          @NonNull QueryArticleByAuthorAndTypeCallback callback);
+
+    void uploadLandlord(@NonNull Landlord landlord);
 }

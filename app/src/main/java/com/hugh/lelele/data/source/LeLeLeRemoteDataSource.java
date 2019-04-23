@@ -530,6 +530,22 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
+    public void uploadLandlord(@NonNull Landlord landlord) {
+        Map<String, Object> user = new HashMap<>();
+        user.put("email", landlord.getEmail());
+        user.put("ID_card_number", landlord.getIdCardNumber());
+        user.put("address", landlord.getAddress());
+        user.put("assess_token", landlord.getAssessToken());
+        user.put("phone_number", landlord.getPhoneNumber());
+        user.put("id", landlord.getId());
+        user.put("name", landlord.getName());
+        user.put("picture", landlord.getPicture());
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(landlord.getEmail())
+                .set(user);
+    }
+
+    @Override
     public void sendLandlordArticle(@NonNull Article article, @NonNull String email) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)

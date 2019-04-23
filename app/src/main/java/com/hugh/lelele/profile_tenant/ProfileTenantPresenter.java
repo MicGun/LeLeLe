@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -25,6 +26,7 @@ public class ProfileTenantPresenter implements ProfileTenantContract.Presenter {
 
     @Override
     public void updateTenantProfile(Tenant tenant) {
-
+        mLeLeLeRepository.uploadTenant(tenant);
+        UserManager.getInstance().setupUserEnvironment();
     }
 }

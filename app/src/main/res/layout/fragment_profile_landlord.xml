@@ -6,13 +6,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile Landlord"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/tool_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_profile_picture_background"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/image_profile_avatar"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_nav_profile" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_view_personal_info_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/personal_info"
+                android:textColor="@color/gray_999999"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+            <TextView
+                android:id="@+id/text_view_user_name_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/user_name"
+                android:textColor="@color/brown_735845"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_view_personal_info_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_personal_info_profile" />
+
+            <EditText
+                android:id="@+id/edit_text_user_name_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_user_name_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_user_name_profile" />
+
+            <TextView
+                android:id="@+id/text_view_cellphone_number_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/cellphone_number"
+                android:textColor="@color/brown_735845"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_view_personal_info_profile"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_user_name_profile" />
+
+            <EditText
+                android:id="@+id/edit_text_cellphone_number_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_user_name_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_cellphone_number_profile" />
+
+            <TextView
+                android:id="@+id/text_view_user_email_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/email"
+                android:textColor="@color/brown_735845"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_view_personal_info_profile"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_cellphone_number_profile" />
+
+            <EditText
+                android:id="@+id/edit_text_user_email_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_user_name_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_user_email_profile" />
+
+            <TextView
+                android:id="@+id/text_view_id_card_number_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/id_card_number"
+                android:textColor="@color/brown_735845"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_view_personal_info_profile"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_user_email_profile" />
+
+            <EditText
+                android:id="@+id/edit_text_id_card_number_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_user_name_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_id_card_number_profile" />
+
+            <TextView
+                android:id="@+id/text_view_address_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/address"
+                android:textColor="@color/brown_735845"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_view_personal_info_profile"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_id_card_number_profile" />
+
+            <EditText
+                android:id="@+id/edit_text_address_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/black_3f3a3a"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_user_name_profile"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_address_profile" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_profile_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/brown_b06f63"
+        android:src="@drawable/ic_edit"
+        android:tint="@color/while_ffffff"
+        app:backgroundTint="@color/gray_999999"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

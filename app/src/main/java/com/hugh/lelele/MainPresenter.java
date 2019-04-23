@@ -18,6 +18,7 @@ import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -553,6 +554,20 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void deleteElectricityNotification(Article article) {
         if (mHomePresenter != null) {
             mHomePresenter.deleteElectricityNotification(article);
+        }
+    }
+
+    @Override
+    public void updateTenantProfile(Tenant tenant) {
+        if (mProfileTenantPresenter != null) {
+            mProfileTenantPresenter.updateTenantProfile(tenant);
+        }
+    }
+
+    @Override
+    public void updateLandlordProfile(Landlord landlord) {
+        if (mProfileLandlordPresenter != null) {
+            mProfileLandlordPresenter.updateLandlordProfile(landlord);
         }
     }
 }

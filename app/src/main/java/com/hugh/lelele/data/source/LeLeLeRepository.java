@@ -276,4 +276,9 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             }
         });
     }
+
+    @Override
+    public void uploadLandlord(@NonNull Landlord landlord) {
+        mLeLeLeRemoteDataSource.uploadLandlord(landlord);
+    }
 }

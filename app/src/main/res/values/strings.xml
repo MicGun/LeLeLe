@@ -119,4 +119,6 @@
     <string name="landlord_email_">房東信箱</string>
     <string name="group_name_">群組名稱</string>
     <string name="room_number_">房間號碼</string>
+    <string name="empty_info_not_allow">個人資訊欄位皆不得為空!!</string>
+    <string name="there_has_no_rental_info">目前尚無租屋資訊</string>
 </resources>

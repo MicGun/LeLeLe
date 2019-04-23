@@ -2,6 +2,7 @@ package com.hugh.lelele.profile_tenant;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -19,6 +20,11 @@ public class ProfileTenantPresenter implements ProfileTenantContract.Presenter {
 
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void updateTenantProfile(Tenant tenant) {
 
     }
 }

@@ -5,12 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.KeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
@@ -62,13 +65,66 @@ public class ProfileTenantFragment extends Fragment implements ProfileTenantCont
         mAddressEditText = root.findViewById(R.id.edit_text_address_profile);
         mAddressEditText.setTag(mAddressEditText.getKeyListener());
 
+        mAddressEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                String address = s.toString();
+                mTenant.setAddress(address);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         mCellphoneNumberEditText = root.findViewById(R.id.edit_text_cellphone_number_profile);
         mCellphoneNumberEditText.setTag(mCellphoneNumberEditText.getKeyListener());
+        mCellphoneNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String phoneNumber = s.toString();
+                mTenant.setPhoneNumber(phoneNumber);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         mEmailEditText = root.findViewById(R.id.edit_text_user_email_profile);
 
         mIdCardNumberEditText = root.findViewById(R.id.edit_text_id_card_number_profile);
         mIdCardNumberEditText.setTag(mIdCardNumberEditText.getKeyListener());
+        mIdCardNumberEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String idCardNumber = s.toString();
+                mTenant.setIdCardNumber(idCardNumber);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         mGroupNameEditText = root.findViewById(R.id.text_view_group_name_profile);
         mRoomNumberEditText = root.findViewById(R.id.text_view_room_number_profile);
@@ -82,9 +138,14 @@ public class ProfileTenantFragment extends Fragment implements ProfileTenantCont
                     setEditability();
                     mFloatingProfileEditButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_check));
                 } else {
-                    mIsEditable = !mIsEditable;
-                    setEditability();
-                    mFloatingProfileEditButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit));
+                    if (checkNoEmptyInfo()) {
+                        mIsEditable = !mIsEditable;
+                        setEditability();
+                        mFloatingProfileEditButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_edit));
+                        mPresenter.updateTenantProfile(mTenant);
+                    } else {
+                        Toast.makeText(getContext(), getString(R.string.empty_info_not_allow), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -94,6 +155,18 @@ public class ProfileTenantFragment extends Fragment implements ProfileTenantCont
         setupRentalInfo();
 
         return root;
+    }
+
+    private boolean checkNoEmptyInfo() {
+
+        if (mTenant.getIdCardNumber().equals("") ||
+                mTenant.getPhoneNumber().equals("") ||
+                mTenant.getAddress().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     private void setEditability() {
@@ -134,6 +207,10 @@ public class ProfileTenantFragment extends Fragment implements ProfileTenantCont
             mGroupNameEditText.setText(mTenant.getGroup());
             mRoomNumberEditText.setText(mTenant.getRoomNumber());
             mLandlordEmailEditText.setText(mTenant.getLandlordEmail());
+        } else {
+            mGroupNameEditText.setText(getString(R.string.there_has_no_rental_info));
+            mRoomNumberEditText.setText(getString(R.string.there_has_no_rental_info));
+            mLandlordEmailEditText.setText(getString(R.string.there_has_no_rental_info));
         }
     }
 

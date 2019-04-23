@@ -24,6 +24,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     private static final int INVITATION = 0x01;
     private static final int GENERAL = 0x02;
+    private static final int ELECTRICITY = 0x03;
 
     private HomeContract.Presenter mPresenter;
     private ArrayList<Article> mArticles;
@@ -39,6 +40,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
             return INVITATION;
         } else if (mArticles.get(position).getType().equals(Constants.GENERAL)){
             return GENERAL;
+        } else if (mArticles.get(position).getType().equals(Constants.ELECTRICITY)){
+            return ELECTRICITY;
         } else {
             return GENERAL;
         }
@@ -61,6 +64,11 @@ public class HomeAdapter extends RecyclerView.Adapter {
                         .inflate(R.layout.item_home_general, viewGroup, false);
                 viewHolder = new HomeGeneralViewHolder(recyclerView);
                 break;
+            case ELECTRICITY:
+                recyclerView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.item_home_electricity, viewGroup, false);
+                viewHolder = new HomeElectricityViewHolder(recyclerView);
+                break;
             default:
                 return null;
 
@@ -78,6 +86,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
         } else if (viewHolder instanceof HomeGeneralViewHolder) {
 
             bindHomeGeneralViewHolder((HomeGeneralViewHolder) viewHolder, mArticles.get(i));
+        } else if (viewHolder instanceof HomeElectricityViewHolder) {
+
+            bindHomeElectricityViewHolder((HomeElectricityViewHolder) viewHolder, mArticles.get(i));
         }
     }
 
@@ -117,6 +128,24 @@ public class HomeAdapter extends RecyclerView.Adapter {
         viewHolder.getContent().setText(article.getContent());
 
         viewHolder.getTime().setText(article.getTime());
+    }
+
+    private void bindHomeElectricityViewHolder(HomeElectricityViewHolder viewHolder, final Article article) {
+
+        ImageManager.getInstance().setImageByUrl(viewHolder.getAuthorPicture(), article.getAuthorPicture());
+
+        viewHolder.getTitle().setText(article.getTitle());
+
+        viewHolder.getContent().setText(article.getContent());
+
+        viewHolder.getTime().setText(article.getTime());
+
+        viewHolder.getUnderstandButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.deleteElectricityNotification(article);
+            }
+        });
     }
 
     public class HomeInvitationViewHolder extends RecyclerView.ViewHolder {
@@ -198,6 +227,47 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         public TextView getTime() {
             return mTime;
+        }
+    }
+
+    public class HomeElectricityViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mAuthorPicture;
+        private TextView mTitle;
+        private TextView mContent;
+        private TextView mTime;
+        private ImageView mUnderstandButton;
+
+        public HomeElectricityViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
+            mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
+                    getResources().getDimensionPixelSize(R.dimen.radius_general_post_avatar)));
+            mTitle = itemView.findViewById(R.id.item_text_view_electricity_title_posting);
+            mContent = itemView.findViewById(R.id.item_text_view_electricity_content);
+            mTime = itemView.findViewById(R.id.item_text_view_time_electricity);
+            mUnderstandButton = itemView.findViewById(R.id.item_image_view_understand_electricity_fee_article);
+        }
+
+        public ImageView getAuthorPicture() {
+            return mAuthorPicture;
+        }
+
+        public TextView getTitle() {
+            return mTitle;
+        }
+
+        public TextView getContent() {
+            return mContent;
+        }
+
+        public TextView getTime() {
+            return mTime;
+        }
+
+        public ImageView getUnderstandButton() {
+            return mUnderstandButton;
         }
     }
 

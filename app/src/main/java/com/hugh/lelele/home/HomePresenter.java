@@ -130,6 +130,14 @@ public class HomePresenter implements HomeContract.Presenter {
         });
     }
 
+    @Override
+    public void deleteElectricityNotification(Article article) {
+        mLeLeLeRepository.deleteUserArticle(article,
+                UserManager.getInstance().getUserData().getEmail(),
+                UserManager.getInstance().getUserData().getUserType());
+        loadArticles();
+    }
+
     private void combineAllArticles() {
 
         if (mGroupArticlesDownloaded && mUserArticlesDownloaded) {

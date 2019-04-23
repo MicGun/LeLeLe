@@ -32,6 +32,8 @@ public interface HomeContract {
 
         void loadGroupArticles();
 
+        void deleteElectricityNotification(Article article);
+
 //        void uploadLandlord(String email);
     }
 }

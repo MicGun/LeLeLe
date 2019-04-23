@@ -533,4 +533,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mHomePresenter.loadGroupArticles();
         }
     }
+
+    @Override
+    public void deleteElectricityNotification(Article article) {
+        if (mHomePresenter != null) {
+            mHomePresenter.deleteElectricityNotification(article);
+        }
+    }
 }

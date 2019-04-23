@@ -38,6 +38,10 @@ import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.post.PostContract;
 import com.hugh.lelele.post.PostPresenter;
+import com.hugh.lelele.profile_landlord.ProfileLandlordContract;
+import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
+import com.hugh.lelele.profile_tenant.ProfileTenantContract;
+import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 import com.hugh.lelele.room_list.RoomListContract;
 import com.hugh.lelele.room_list.RoomListPresenter;
 import com.hugh.lelele.room_list.invitation_dialog.InvitationActionContract;
@@ -53,7 +57,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         AppTenantContract.Presenter, AppLandlordContract.Presenter, ElectricityTenantContract.Presenter,
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
         GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter,
-        InvitationActionContract.Presenter, PostContract.Presenter {
+        InvitationActionContract.Presenter, PostContract.Presenter, ProfileTenantContract.Presenter,
+        ProfileLandlordContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -69,6 +74,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private InvitationSendingPresenter mInvitationSendingPresenter;
     private InvitationActionPresenter mInvitationActionPresenter;
     private PostPresenter mPostPresenter;
+    private ProfileTenantPresenter mProfileTenantPresenter;
+    private ProfileLandlordPresenter mProfileLandlordPresenter;
     private LoginPresenter mLoginPresenter;
 
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
@@ -204,6 +211,14 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void mInvitationActionPresenter(InvitationActionPresenter invitationActionPresenter) {
         mInvitationActionPresenter = checkNotNull(invitationActionPresenter);
+    }
+
+    void setProfileTenantPresenter(ProfileTenantPresenter profileTenantPresenter) {
+        mProfileTenantPresenter = checkNotNull(profileTenantPresenter);
+    }
+
+    void setProfileLandlordPresenter(ProfileLandlordPresenter profileLandlordPresenter) {
+        mProfileLandlordPresenter = checkNotNull(profileLandlordPresenter);
     }
 
     @Override

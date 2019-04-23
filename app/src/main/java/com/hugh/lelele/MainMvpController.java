@@ -33,7 +33,9 @@ import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.post.PostFragment;
 import com.hugh.lelele.post.PostPresenter;
+import com.hugh.lelele.profile_landlord.ProfileLandlordFragment;
 import com.hugh.lelele.profile_landlord.ProfileLandlordPresenter;
+import com.hugh.lelele.profile_tenant.ProfileTenantFragment;
 import com.hugh.lelele.profile_tenant.ProfileTenantPresenter;
 import com.hugh.lelele.room_list.RoomListFragment;
 import com.hugh.lelele.room_list.RoomListPresenter;
@@ -71,7 +73,7 @@ public class MainMvpController {
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
             ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST, INVITATION_SENDING,
-            POST
+            POST, PROFILE_TENANT, PROFILE_LANDLORD
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
@@ -84,6 +86,8 @@ public class MainMvpController {
     static final String APPLICATION_LANDLORD = "APPLICATION_LANDLORD";
     static final String NOTIFY    = "NOTIFY";
     static final String PROFILE = "PROFILE";
+    static final String PROFILE_TENANT = "PROFILE_TENANT";
+    static final String PROFILE_LANDLORD = "PROFILE_LANDLORD";
     static final String ELECTRICITY_TENANT = "ELECTRICITY_TENANT";
     static final String ELECTRICITY_LANDLORD = "ELECTRICITY_LANDLORD";
     static final String INVITATION_ACTION = "INVITATION_ACTION";
@@ -151,26 +155,26 @@ public class MainMvpController {
      * Profile View
      * */
     void findOrCreateProfileTenantView() {
-        AppTenantFragment appTenantFragment = findOrCreateAppTenantFragment();
+        ProfileTenantFragment profileTenantFragment = findOrCreateProfileTenantFragment();
 
-        if (mAppTenantPresenter == null) {
-            mAppTenantPresenter = new AppTenantPresenter(LeLeLeRepository.getInstance(
-                    LeLeLeRemoteDataSource.getInstance()), appTenantFragment);
-            mMainPresenter.setAppTenantPresenter(mAppTenantPresenter);
-            appTenantFragment.setPresenter(mMainPresenter);
+        if (mProfileTenantPresenter == null) {
+            mProfileTenantPresenter = new ProfileTenantPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), profileTenantFragment);
+            mMainPresenter.setProfileTenantPresenter(mProfileTenantPresenter);
+            profileTenantFragment.setPresenter(mMainPresenter);
         }
     }
 
-//    void findOrCreateProfileLandlordView() {
-//        AppLandlordFragment appLandlordFragment = findOrCreateAppLandlordFragment();
-//
-//        if (mAppLandlordPresenter == null) {
-//            mAppLandlordPresenter = new AppLandlordPresenter(LeLeLeRepository.getInstance(
-//                    LeLeLeRemoteDataSource.getInstance()), appLandlordFragment);
-//            mMainPresenter.setAppLandlordPresenter(mAppLandlordPresenter);
-//            appLandlordFragment.setPresenter(mMainPresenter);
-//        }
-//    }
+    void findOrCreateProfileLandlordView() {
+        ProfileLandlordFragment profileLandlordFragment = findOrCreateProfileLandlordFragment();
+
+        if (mProfileLandlordPresenter == null) {
+            mProfileLandlordPresenter = new ProfileLandlordPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), profileLandlordFragment);
+            mMainPresenter.setProfileLandlordPresenter(mProfileLandlordPresenter);
+            profileLandlordFragment.setPresenter(mMainPresenter);
+        }
+    }
 
     /*
      * Electricity View
@@ -513,6 +517,44 @@ public class MainMvpController {
                 getFragmentManager(), electricityTenantFragment, ELECTRICITY_TENANT);
 
         return electricityTenantFragment;
+    }
+
+    /**
+     * Profile Tenant Fragment
+     * @return ProfileTenantFragment
+     */
+    private ProfileTenantFragment findOrCreateProfileTenantFragment() {
+
+        ProfileTenantFragment profileTenantFragment =
+                (ProfileTenantFragment) getFragmentManager().findFragmentByTag(PROFILE_TENANT);
+        if (profileTenantFragment == null) {
+            // Create the fragment
+            profileTenantFragment = ProfileTenantFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), profileTenantFragment, PROFILE_TENANT);
+
+        return profileTenantFragment;
+    }
+
+    /**
+     * Profile Landlord Fragment
+     * @return ProfileLandlordFragment
+     */
+    private ProfileLandlordFragment findOrCreateProfileLandlordFragment() {
+
+        ProfileLandlordFragment profileLandlordFragment =
+                (ProfileLandlordFragment) getFragmentManager().findFragmentByTag(PROFILE_LANDLORD);
+        if (profileLandlordFragment == null) {
+            // Create the fragment
+            profileLandlordFragment = ProfileLandlordFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), profileLandlordFragment, PROFILE_LANDLORD);
+
+        return profileLandlordFragment;
     }
 
     /**

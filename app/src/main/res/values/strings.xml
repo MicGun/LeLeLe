@@ -107,4 +107,16 @@
     <string name="post_title">文章標題</string>
     <string name="author_name">作者</string>
     <string name="content_empty">文章標題與內容不得為空!!</string>
+
+    <!-- Profile View -->
+    <string name="personal_info">個人資訊</string>
+    <string name="rental_info">租屋資訊</string>
+    <string name="user_name">姓名</string>
+    <string name="address">地址</string>
+    <string name="cellphone_number">電話</string>
+    <string name="email">電子信箱</string>
+    <string name="id_card_number">身分證字號</string>
+    <string name="landlord_email_">房東信箱</string>
+    <string name="group_name_">群組名稱</string>
+    <string name="room_number_">房間號碼</string>
 </resources>

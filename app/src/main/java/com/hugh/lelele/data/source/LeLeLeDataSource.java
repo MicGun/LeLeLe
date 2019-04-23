@@ -100,6 +100,13 @@ public interface LeLeLeDataSource {
         void onError(String errorMessage);
     }
 
+    interface ArticlesCallback {
+
+        void onCompleted();
+
+        void onError(String errorMessage);
+    }
+
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
 
     void updateTenantUser(@NonNull String email, @NonNull TenantUserCallback callback);
@@ -148,4 +155,8 @@ public interface LeLeLeDataSource {
                                          @NonNull QueryArticleByAuthorAndTypeCallback callback);
 
     void uploadLandlord(@NonNull Landlord landlord);
+
+    void groupArticlesListener(@NonNull String email, @NonNull String groupName, ArticlesCallback callback);
+
+    void userArticlesListener(@NonNull String email, @NonNull int userType, ArticlesCallback callback);
 }

@@ -138,6 +138,63 @@ public class HomePresenter implements HomeContract.Presenter {
         loadArticles();
     }
 
+    @Override
+    public void setupArticleListener() {
+
+        setupUserArticlesListener();
+
+        if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+            setupGroupArticlesListener();
+        }
+    }
+
+    private void setupUserArticlesListener() {
+
+        mLeLeLeRepository.userArticlesListener(UserManager.getInstance().getUserData().getEmail(),
+                UserManager.getInstance().getUserData().getUserType(), new LeLeLeDataSource.ArticlesCallback() {
+                    @Override
+                    public void onCompleted() {
+                        loadArticles();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+    }
+
+    private void setupGroupArticlesListener() {
+
+        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+            mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.ArticlesCallback() {
+                @Override
+                public void onCompleted() {
+                    loadArticles();
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
+        } else {
+            mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getTenant().getEmail(),
+                    UserManager.getInstance().getTenant().getGroup(), new LeLeLeDataSource.ArticlesCallback() {
+                        @Override
+                        public void onCompleted() {
+                            loadArticles();
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+        }
+    }
+
     private void combineAllArticles() {
 
         if (mGroupArticlesDownloaded && mUserArticlesDownloaded) {

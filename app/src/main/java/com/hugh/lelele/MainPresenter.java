@@ -558,6 +558,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void setupArticleListener() {
+        if (mHomePresenter != null) {
+            mHomePresenter.setupArticleListener();
+        }
+    }
+
+    @Override
     public void updateTenantProfile(Tenant tenant) {
         if (mProfileTenantPresenter != null) {
             mProfileTenantPresenter.updateTenantProfile(tenant);

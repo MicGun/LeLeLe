@@ -7,7 +7,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
@@ -22,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
@@ -543,6 +548,47 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(landlord.getEmail())
                 .set(user);
+    }
+
+    @Override
+    public void groupArticlesListener(@NonNull String email, @NonNull String groupName, final ArticlesCallback callback) {
+        ListenerRegistration registration = mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(ARTICLES)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            callback.onError(e.getMessage());
+                        } else {
+                            callback.onCompleted();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void userArticlesListener(@NonNull String email, @NonNull int userType, final ArticlesCallback callback) {
+        String user = "";
+        if (userType == R.string.landlord) {
+            user = LANDLORDS;
+        } else {
+            user = TENANTS;
+        }
+
+        mFirebaseFirestore.collection(user)
+                .document(email)
+                .collection(ARTICLES)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            callback.onError(e.getMessage());
+                        } else {
+                            callback.onCompleted();
+                        }
+                    }
+                });
     }
 
     @Override

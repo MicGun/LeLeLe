@@ -281,4 +281,34 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     public void uploadLandlord(@NonNull Landlord landlord) {
         mLeLeLeRemoteDataSource.uploadLandlord(landlord);
     }
+
+    @Override
+    public void groupArticlesListener(@NonNull String email, @NonNull String groupName, final ArticlesCallback callback) {
+        mLeLeLeRemoteDataSource.groupArticlesListener(email, groupName, new ArticlesCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void userArticlesListener(@NonNull String email, @NonNull int userType, final ArticlesCallback callback) {
+        mLeLeLeRemoteDataSource.userArticlesListener(email, userType, new ArticlesCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
 }

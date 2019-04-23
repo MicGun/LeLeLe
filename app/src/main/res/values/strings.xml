@@ -97,6 +97,8 @@
 
     <!-- Electricity -->
     <string name="not_bind_yet">您尚未屬於任何群組，故還無法使用此功能。</string>
+    <string name="electricity_fee_update_notification">電費更新通知</string>
+    <string name="electricity_content">%s您好，本期電費金額為%s元，詳細請至電費應用查看。</string>
 
     <!-- Post View -->
     <string name="new_post">創建貼文</string>

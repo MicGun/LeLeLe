@@ -1,16 +1,22 @@
 package com.hugh.lelele.electricity_landlord;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.R;
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.data.source.RoomsElectricityRecursive;
 import com.hugh.lelele.data.source.RoomsElectricityRecursiveCallback;
+import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.UserManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -111,9 +117,33 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
                 count++;
                 if (count == rooms.size()) {
                     mElectricityLandlordtView.toBackStack();
+                    sendElectricityArticles(rooms);
                 }
             }
 
+        }
+    }
+
+    private void sendElectricityArticles(ArrayList<Room> rooms) {
+
+        for (Room room:rooms) {
+            if (room.getTenant().isBinding()) {
+                Article article = new Article();
+                Electricity electricity = room.getElectricities().get(Calendar.getInstance().get(Calendar.MONTH));
+                article.setTitle(LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
+                article.setContent(LeLeLe.getAppContext().getString(R.string.electricity_content,
+                        room.getTenant().getName(),
+                        electricity.getPrice()));
+                article.setType(Constants.ELECTRICITY);
+                article.setAuthor(UserManager.getInstance().getLandlord().getName());
+                article.setAuthorEmail(UserManager.getInstance().getLandlord().getEmail());
+                article.setAuthorPicture(UserManager.getInstance().getLandlord().getPicture());
+
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                article.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
+
+                mLeLeLeRepository.sendTenantArticle(article, room.getTenant().getEmail());
+            }
         }
     }
 }

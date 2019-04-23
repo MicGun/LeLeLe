@@ -58,7 +58,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         mFloatingElectricityEditDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgressBar.setVisibility(View.VISIBLE);
+                showProgressBar(true);
                 mPresenter.checkRoomData(mRooms);
             }
         });
@@ -66,6 +66,14 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         mPresenter.hideBottomNavigation();
 
         return root;
+    }
+
+    private void showProgressBar(boolean showProgress) {
+        if (showProgress) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -80,8 +88,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
 
     public static ElectricityLandlordFragment newInstance() {
 
-        ElectricityLandlordFragment fragment = new ElectricityLandlordFragment();
-        return fragment;
+        return new ElectricityLandlordFragment();
     }
 
     @Override
@@ -95,7 +102,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     @Override
     public void showElectricityEditorUi(ArrayList<Room> rooms) {
         mRooms = rooms;
-        mProgressBar.setVisibility(View.GONE);
+        showProgressBar(false);
         if (mAdapter == null) {
             mAdapter = new ElectricityLandlordAdapter(mPresenter);
             mAdapter.updateData(rooms);
@@ -106,13 +113,13 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
 
     @Override
     public void showHasEmptyDataToast() {
-        mProgressBar.setVisibility(View.GONE);
+        showProgressBar(false);
         Toast.makeText(getContext(), getString(R.string.has_empty_data), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void toBackStack() {
-        mProgressBar.setVisibility(View.GONE);
+        showProgressBar(false);
         mPresenter.showLastFragment();
     }
 }

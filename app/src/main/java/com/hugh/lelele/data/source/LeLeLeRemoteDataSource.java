@@ -550,12 +550,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     @Override
     public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail,
                                  @NonNull String groupName, @NonNull final SendGroupArticleCallback callback) {
+        long time= System.currentTimeMillis();
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(landlordEmail)
                 .collection(GROUPS)
                 .document(groupName)
                 .collection(ARTICLES)
-                .document()
+                .document(String.valueOf(time))
                 .set(article)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

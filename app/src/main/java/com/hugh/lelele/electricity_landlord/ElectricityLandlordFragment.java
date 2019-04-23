@@ -1,5 +1,8 @@
 package com.hugh.lelele.electricity_landlord;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.hugh.lelele.LeLeLe;
@@ -28,12 +32,15 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     private RecyclerView mRecyclerView;
     private ArrayList<Room> mRooms;
 
+    private ProgressBar mProgressBar;
+
     final String TAG = LeLeLe.class.getSimpleName();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new ElectricityLandlordAdapter(mPresenter);
+
     }
 
     @Nullable
@@ -45,10 +52,13 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter);
 
+        mProgressBar = root.findViewById(R.id.progress_bar_electricity_fee);
+
         mFloatingElectricityEditDoneButton = root.findViewById(R.id.button_electricity_edit_done_electricity_editor);
         mFloatingElectricityEditDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressBar.setVisibility(View.VISIBLE);
                 mPresenter.checkRoomData(mRooms);
             }
         });
@@ -85,6 +95,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     @Override
     public void showElectricityEditorUi(ArrayList<Room> rooms) {
         mRooms = rooms;
+        mProgressBar.setVisibility(View.GONE);
         if (mAdapter == null) {
             mAdapter = new ElectricityLandlordAdapter(mPresenter);
             mAdapter.updateData(rooms);
@@ -95,11 +106,13 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
 
     @Override
     public void showHasEmptyDataToast() {
+        mProgressBar.setVisibility(View.GONE);
         Toast.makeText(getContext(), getString(R.string.has_empty_data), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void toBackStack() {
+        mProgressBar.setVisibility(View.GONE);
         mPresenter.showLastFragment();
     }
 }

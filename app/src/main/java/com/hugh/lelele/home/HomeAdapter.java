@@ -16,6 +16,7 @@ import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.ImageManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -211,6 +212,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     public void updateArticles(ArrayList<Article> articles) {
         mArticles = checkNotNull(articles);
+        Collections.reverse(mArticles);
         notifyDataSetChanged();
     }
 }

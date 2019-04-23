@@ -45,6 +45,8 @@
     <string name="room_number">房號</string>
     <string name="clean_button">清除</string>
     <string name="has_empty_data">電費欄位不得為空!</string>
+    <string name="electricity_fee_uploading">電費上傳中，請稍等…</string>
+    <string name="electricity_fee_downloading">電費下載中，請稍等…</string>
 
     <!-- Login and Logout -->
     <string name="facebookLoginText">Facebook Login</string>

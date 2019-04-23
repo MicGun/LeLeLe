@@ -85,7 +85,7 @@
     <!-- Inviting Action -->
     <string name="cancel_action_content">確定要取消對%s的邀請?</string>
     <string name="remove_action_content">確定要移除%s?</string>
-    <string name="invitation_content">房東%s邀請您進入%s群組%s號房。</string>
+    <string name="invitation_content">房東%s邀請您進入 %s 群組 %s 號房。</string>
     <string name="inviting_notification">邀請通知</string>
     <string name="yes">確定</string>
     <string name="no">取消</string>
@@ -98,7 +98,7 @@
     <!-- Electricity -->
     <string name="not_bind_yet">您尚未屬於任何群組，故還無法使用此功能。</string>
     <string name="electricity_fee_update_notification">電費更新通知</string>
-    <string name="electricity_content">%s您好，本期電費金額為%s元，詳細請至電費應用查看。</string>
+    <string name="electricity_content">%s您好，本期電費金額為 %s 元，詳細內容請至電費應用查看。</string>
 
     <!-- Post View -->
     <string name="new_post">創建貼文</string>

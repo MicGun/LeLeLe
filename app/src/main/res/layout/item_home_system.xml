@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/RecyclerViewHolder">
+
+    <ImageView
+        android:id="@+id/image_notify_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_nav_profile"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_text_view_system_posting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/noto_sans_bold"
+        android:letterSpacing="0.15"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_notify_icon"
+        app:layout_constraintStart_toEndOf="@+id/image_notify_icon"
+        app:layout_constraintTop_toTopOf="@+id/image_notify_icon"
+        tools:text="@string/electricity_fee_update_notification" />
+
+    <TextView
+        android:id="@+id/item_text_view_system_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/noto_sans"
+        android:padding="@dimen/edit_text_padding"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/image_notify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/image_notify_icon"
+        tools:text="@string/electricity_fee_update_notification" />
+
+    <TextView
+        android:id="@+id/item_text_view_time_system"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/noto_sans"
+        android:textColor="@color/gray_aaaaaa"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_text_view_system_posting"
+        tools:text="@string/mock_time" />
+
+    <ImageView
+        android:id="@+id/item_image_view_understand_system_button"
+        style="@style/InvitationButton"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:tint="@color/green_3cb371"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/item_text_view_system_content"
+        app:layout_constraintTop_toBottomOf="@+id/item_text_view_system_content"
+        app:srcCompat="@drawable/ic_action_agree" />
+
+</android.support.constraint.ConstraintLayout>

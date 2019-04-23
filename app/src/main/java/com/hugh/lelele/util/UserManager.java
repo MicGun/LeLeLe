@@ -1,5 +1,6 @@
 package com.hugh.lelele.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import com.facebook.login.LoginResult;
 import com.hugh.lelele.Constants;
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Landlord;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.loco_data.UserData;
@@ -35,7 +37,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class UserManager {
 
@@ -261,6 +265,7 @@ public class UserManager {
             public void onCompleted(Landlord landlord) {
 
                 setLandlord(landlord);
+                checkProfileCompleted();
 
                 callback.onSuccess();
             }
@@ -280,6 +285,7 @@ public class UserManager {
             public void onCompleted(Tenant tenant) {
 
                 setTenant(tenant);
+                checkProfileCompleted();
 
                 if (tenant.isBinding()) {
                     mUserData.setGroupNow(tenant.getGroup());
@@ -295,6 +301,57 @@ public class UserManager {
                 callback.onFail(errorMessage);
             }
         });
+    }
+
+    private void checkProfileCompleted() {
+
+        Article article = getProfileFillingRequest();
+
+        if (!isProfileCompleted()) {
+            if (mUserType == R.string.landlord) {
+                mLeLeLeRepository.sendLandlordArticle(article, mUserData.getEmail());
+            } else {
+                mLeLeLeRepository.sendTenantArticle(article, mUserData.getEmail());
+            }
+        }
+
+    }
+
+    private Article getProfileFillingRequest() {
+        Article article = new Article();
+
+        article.setTitle(LeLeLe.getAppContext().getString(R.string.profile_filling_title));
+        article.setContent(LeLeLe.getAppContext().getString(R.string.profile_filling_request, mUserData.getName()));
+        article.setType(com.hugh.lelele.util.Constants.SYSTEM);
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        article.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
+
+        return article;
+    }
+
+    private boolean isProfileCompleted() {
+
+        if (mUserType == R.string.landlord) {
+            if (mLandlord.getAddress().equals("") ||
+                    mLandlord.getPhoneNumber().equals("") ||
+                    mLandlord.getIdCardNumber().equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+        } else if (mUserType == R.string.tenant) {
+            if (mTenant.getAddress().equals("") ||
+                    mTenant.getPhoneNumber().equals("") ||
+                    mTenant.getIdCardNumber().equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+
     }
 
     private void clearUserData() {

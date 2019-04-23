@@ -25,6 +25,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
     private static final int INVITATION = 0x01;
     private static final int GENERAL = 0x02;
     private static final int ELECTRICITY = 0x03;
+    private static final int SYSTEM = 0x04;
 
     private HomeContract.Presenter mPresenter;
     private ArrayList<Article> mArticles;
@@ -42,6 +43,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
             return GENERAL;
         } else if (mArticles.get(position).getType().equals(Constants.ELECTRICITY)){
             return ELECTRICITY;
+        } else if (mArticles.get(position).getType().equals(Constants.SYSTEM)) {
+            return SYSTEM;
         } else {
             return GENERAL;
         }
@@ -69,6 +72,11 @@ public class HomeAdapter extends RecyclerView.Adapter {
                         .inflate(R.layout.item_home_electricity, viewGroup, false);
                 viewHolder = new HomeElectricityViewHolder(recyclerView);
                 break;
+            case SYSTEM:
+                recyclerView = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.item_home_system, viewGroup, false);
+                viewHolder = new HomeSystemViewHolder(recyclerView);
+                break;
             default:
                 return null;
 
@@ -89,6 +97,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
         } else if (viewHolder instanceof HomeElectricityViewHolder) {
 
             bindHomeElectricityViewHolder((HomeElectricityViewHolder) viewHolder, mArticles.get(i));
+        } else if (viewHolder instanceof HomeSystemViewHolder) {
+            bindHomeSystemViewHolder((HomeSystemViewHolder) viewHolder, mArticles.get(i));
         }
     }
 
@@ -139,6 +149,24 @@ public class HomeAdapter extends RecyclerView.Adapter {
         viewHolder.getContent().setText(article.getContent());
 
         viewHolder.getTime().setText(article.getTime());
+
+        viewHolder.getUnderstandButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.deleteElectricityNotification(article);
+            }
+        });
+    }
+
+    private void bindHomeSystemViewHolder(HomeSystemViewHolder viewHolder, final Article article) {
+
+        viewHolder.getTitle().setText(article.getTitle());
+
+        viewHolder.getContent().setText(article.getContent());
+
+        viewHolder.getTime().setText(article.getTime());
+
+        viewHolder.getAuthorPicture().setBackground(LeLeLe.getAppContext().getDrawable(R.drawable.ic_notification));
 
         viewHolder.getUnderstandButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,6 +276,45 @@ public class HomeAdapter extends RecyclerView.Adapter {
             mContent = itemView.findViewById(R.id.item_text_view_electricity_content);
             mTime = itemView.findViewById(R.id.item_text_view_time_electricity);
             mUnderstandButton = itemView.findViewById(R.id.item_image_view_understand_electricity_fee_article);
+        }
+
+        public ImageView getAuthorPicture() {
+            return mAuthorPicture;
+        }
+
+        public TextView getTitle() {
+            return mTitle;
+        }
+
+        public TextView getContent() {
+            return mContent;
+        }
+
+        public TextView getTime() {
+            return mTime;
+        }
+
+        public ImageView getUnderstandButton() {
+            return mUnderstandButton;
+        }
+    }
+
+    public class HomeSystemViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView mAuthorPicture;
+        private TextView mTitle;
+        private TextView mContent;
+        private TextView mTime;
+        private ImageView mUnderstandButton;
+
+        public HomeSystemViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mAuthorPicture = itemView.findViewById(R.id.image_notify_icon);
+            mTitle = itemView.findViewById(R.id.item_text_view_system_posting);
+            mContent = itemView.findViewById(R.id.item_text_view_system_content);
+            mTime = itemView.findViewById(R.id.item_text_view_time_system);
+            mUnderstandButton = itemView.findViewById(R.id.item_image_view_understand_system_button);
         }
 
         public ImageView getAuthorPicture() {

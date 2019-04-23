@@ -14,6 +14,7 @@ public class Constants {
     public static final String ELECTRICITY = "ELECTRICITY";
     public static final String INVITATION = "INVITATION";
     public static final String GENERAL = "GENERAL";
+    public static final String SYSTEM = "SYSTEM";
 
     // User Manager
     public static final String USER_DATA = "user_data";

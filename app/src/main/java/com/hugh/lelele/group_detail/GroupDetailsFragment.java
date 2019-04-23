@@ -169,6 +169,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
                     mGroup = getGroupFinalStatus();
                     mPresenter.uploadGroup(mGroup);
                     mPresenter.showLastFragment();
+                    mPresenter.loadGroupListDrawerMenu();
                 } else {
                     Toast.makeText(getContext(), "資訊不得為空!", Toast.LENGTH_SHORT).show();
                 }
@@ -242,7 +243,6 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     public void onDestroy() {
         super.onDestroy();
         mPresenter.updateToolbar(getResources().getString(R.string.application_groups_list));
-        mPresenter.loadGroupListDrawerMenu();
         mPresenter.notifyGroupListChanged();
     }
 

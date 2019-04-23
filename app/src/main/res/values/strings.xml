@@ -95,6 +95,8 @@
     <string name="mock_time">yyyy-mm-dd</string>
     <string name="select_group_to_release_article">請選擇要發表文章的群組!</string>
     <string name="electricity_understand">收到</string>
+    <string name="profile_filling_request">敬愛的%s您好，請您到個人頁面，完成個人資料編輯。</string>
+    <string name="profile_filling_title">個人資料通知</string>
 
     <!-- Electricity -->
     <string name="not_bind_yet">您尚未屬於任何群組，故還無法使用此功能。</string>

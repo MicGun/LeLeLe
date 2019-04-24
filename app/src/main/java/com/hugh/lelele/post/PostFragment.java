@@ -70,7 +70,7 @@ public class PostFragment extends Fragment implements PostContract.View {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mContent = s.toString();
+                mContent = s.toString().trim();
             }
 
             @Override
@@ -88,7 +88,7 @@ public class PostFragment extends Fragment implements PostContract.View {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mTitle = s.toString();
+                mTitle = s.toString().trim();
             }
 
             @Override

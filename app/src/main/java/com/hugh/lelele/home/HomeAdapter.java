@@ -136,6 +136,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         viewHolder.getTitle().setText(article.getTitle());
 
+        viewHolder.getAuthor().setText(article.getAuthor());
+
         viewHolder.getContent().setText(article.getContent());
 
         viewHolder.getTime().setText(article.getTime());
@@ -242,6 +244,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         private ImageView mAuthorPicture;
         private TextView mTitle;
+        private TextView mAuthor;
         private TextView mContent;
         private TextView mTime;
         private ImageView mDeleteButton;
@@ -253,6 +256,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
                     getResources().getDimensionPixelSize(R.dimen.radius_general_post_avatar)));
             mTitle = itemView.findViewById(R.id.item_text_view_general_title_posting);
+            mAuthor = itemView.findViewById(R.id.item_text_view_general_author_posting);
             mContent = itemView.findViewById(R.id.item_text_view_general_content);
             mTime = itemView.findViewById(R.id.item_text_view_time_general);
             mDeleteButton = itemView.findViewById(R.id.item_image_view_general_delete_button_posting);
@@ -276,6 +280,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         public ImageView getDeleteButton() {
             return mDeleteButton;
+        }
+
+        public TextView getAuthor() {
+            return mAuthor;
         }
     }
 

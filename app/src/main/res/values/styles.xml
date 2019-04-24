@@ -60,6 +60,11 @@
         <item name="android:layout_height">36dp</item>
     </style>
 
+    <style name="dp24IconButton">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
     <style name="DrawerMenuItem">
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingExtra">7sp</item>

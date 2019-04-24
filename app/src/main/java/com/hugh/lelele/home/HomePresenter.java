@@ -1,6 +1,7 @@
 package com.hugh.lelele.home;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
@@ -143,9 +144,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
         setupUserArticlesListener();
 
-        if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
-            setupGroupArticlesListener();
-        }
+        setupGroupArticlesListener();
     }
 
     private void setupUserArticlesListener() {
@@ -166,32 +165,40 @@ public class HomePresenter implements HomeContract.Presenter {
 
     private void setupGroupArticlesListener() {
 
+        Log.d(TAG, "setupGroupArticlesListener: ");
         if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
-            mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getLandlord().getEmail(),
-                    UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.ArticlesCallback() {
-                @Override
-                public void onCompleted() {
-                    loadArticles();
-                }
 
-                @Override
-                public void onError(String errorMessage) {
+            if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getLandlord().getEmail(),
+                        UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.ArticlesCallback() {
+                            @Override
+                            public void onCompleted() {
+                                loadArticles();
+                                Log.d(TAG, "loadArticles");
+                            }
 
-                }
-            });
+                            @Override
+                            public void onError(String errorMessage) {
+
+                            }
+                        });
+            }
         } else {
-            mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getTenant().getEmail(),
-                    UserManager.getInstance().getTenant().getGroup(), new LeLeLeDataSource.ArticlesCallback() {
-                        @Override
-                        public void onCompleted() {
-                            loadArticles();
-                        }
+            if (UserManager.getInstance().getTenant().isBinding()) {
+                mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getTenant().getEmail(),
+                        UserManager.getInstance().getTenant().getGroup(), new LeLeLeDataSource.ArticlesCallback() {
+                            @Override
+                            public void onCompleted() {
+                                loadArticles();
+                                Log.d(TAG, "loadArticles");
+                            }
 
-                        @Override
-                        public void onError(String errorMessage) {
+                            @Override
+                            public void onError(String errorMessage) {
 
-                        }
-                    });
+                            }
+                        });
+            }
         }
     }
 
@@ -224,7 +231,7 @@ public class HomePresenter implements HomeContract.Presenter {
         tenant.setInviting(false);
         mLeLeLeRepository.uploadTenant(tenant);
         UserManager.getInstance().setTenant(tenant);
-        UserManager.getInstance().setupUserEnvironment();
+        UserManager.getInstance().refreshUserEnvironment();
     }
 
     private void bindingWithTenant() {
@@ -233,7 +240,7 @@ public class HomePresenter implements HomeContract.Presenter {
         tenant.setBinding(true);
         mLeLeLeRepository.uploadTenant(tenant);
         UserManager.getInstance().setTenant(tenant);
-        UserManager.getInstance().setupUserEnvironment();
+        UserManager.getInstance().refreshUserEnvironment();
         bindingWithRoom(tenant);
     }
 

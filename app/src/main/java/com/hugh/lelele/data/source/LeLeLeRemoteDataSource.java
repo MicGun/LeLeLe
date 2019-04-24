@@ -119,7 +119,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             DocumentSnapshot tenantDoc = task.getResult();
                             assert tenantDoc != null;
                             if (tenantDoc.exists()) {
-                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+//                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
+                                Tenant tenant = tenantDoc.toObject(Tenant.class);
                                 callback.onCompleted(tenant);
                                 Log.v(TAG, "Tenant is already exist!");
                             } else {
@@ -552,16 +553,23 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void groupArticlesListener(@NonNull String email, @NonNull String groupName, final ArticlesCallback callback) {
+
+        Log.d(TAG, "groupArticlesListener: ");
         ListenerRegistration registration = mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)
+                .collection(GROUPS)
+                .document(groupName)
                 .collection(ARTICLES)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                        Log.d(TAG, "onEvent: ");
                         if (e != null) {
                             callback.onError(e.getMessage());
                         } else {
                             callback.onCompleted();
+                            Log.d(TAG, "onEvent: Completed");
                         }
                     }
                 });
@@ -582,6 +590,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                        Log.d(TAG, "userArticlesListener onEvent: ");
                         if (e != null) {
                             callback.onError(e.getMessage());
                         } else {

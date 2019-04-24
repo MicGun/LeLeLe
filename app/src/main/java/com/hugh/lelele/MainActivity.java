@@ -100,9 +100,19 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         mMainMvpController = MainMvpController.create(this);
 
         if (UserManager.getInstance().isLoggedIn()) {
-            UserManager.getInstance().setupUserEnvironment();
+            UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
+                @Override
+                public void onSuccess() {
+                    mPresenter.openHome();
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+
+                }
+            });
             mUserType = UserManager.getInstance().getUserData().getUserType();
-            mPresenter.openHome();
+
         } else {
             mPresenter.openLogin();
         }

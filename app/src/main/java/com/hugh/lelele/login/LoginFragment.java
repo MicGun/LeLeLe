@@ -82,16 +82,29 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
                         @Override
                         public void onSuccess() {
-                            mPresenter.openHome();
-                            mPresenter.showToolbarAndBottomNavigation();
-                            Log.v(TAG, "UserManager is Null: " + (UserManager.getInstance().getUserData() == null));
-                            Log.v(TAG, "User Name: " + (UserManager.getInstance().getUserData().getName()));
-                            if (mUserType == R.string.landlord) {
-                                mPresenter.loadGroupListDrawerMenu();
-                            } else {
-                                //to clear submenu, avoid there's landlord data showing
-                                mPresenter.resetDrawer();
-                            }
+
+                            UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
+                                @Override
+                                public void onSuccess() {
+                                    mPresenter.openHome();
+                                    mPresenter.showToolbarAndBottomNavigation();
+                                    if (mUserType == R.string.landlord) {
+                                        mPresenter.loadGroupListDrawerMenu();
+                                    } else {
+                                        //to clear submenu, avoid there's landlord data showing
+                                        mPresenter.resetDrawer();
+                                    }
+                                }
+
+                                @Override
+                                public void onError(String errorMessage) {
+
+                                }
+                            });
+
+//                            Log.v(TAG, "UserManager is Null: " + (UserManager.getInstance().getUserData() == null));
+//                            Log.v(TAG, "User Name: " + (UserManager.getInstance().getUserData().getName()));
+
                         }
 
                         @Override

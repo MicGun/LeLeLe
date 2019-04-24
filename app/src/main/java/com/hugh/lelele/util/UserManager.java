@@ -91,8 +91,18 @@ public class UserManager {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
 
-                                loginLeLeLe(object);
-                                loadCallback.onSuccess();
+                                loginLeLeLe(object, new LoginLeLeLeCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        loadCallback.onSuccess();
+                                    }
+
+                                    @Override
+                                    public void onError(String errorMessage) {
+                                        loadCallback.onFail(errorMessage);
+                                    }
+                                });
+
 
                             }
                         });
@@ -101,29 +111,6 @@ public class UserManager {
                 parameters.putString("fields", "id,name,email,gender,birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
-//                loadCallback.onSuccess();
-
-//                AccessToken accessToken =  loginResult.getAccessToken();
-//                GraphRequest request = GraphRequest.newGraphPathRequest(
-//                        accessToken,
-//                        "/" + loginResult.getAccessToken().getUserId() + "/picture",
-//                        new GraphRequest.Callback() {
-//                            @Override
-//                            public void onCompleted(GraphResponse response) {
-//                                Log.d(Constants.TAG, "FB Picture" + response.getJSONArray());
-//                                // Insert your code here
-//                            }
-//                        });
-
-//                request.executeAsync();
-
-//                try {
-//                    Bitmap bitmap = getFacebookProfilePicture(loginResult.getAccessToken().getUserId());
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
-//                loginStylish(loginResult.getAccessToken().getToken(), loadCallback);
             }
 
             @Override
@@ -155,7 +142,7 @@ public class UserManager {
         return bitmap;
     }
 
-    private void loginLeLeLe(JSONObject object) {
+    private void loginLeLeLe(JSONObject object, final LoginLeLeLeCallback callback) {
 
 
         mUserData = LeLeLeParser.parseUserData(object, mUserData);
@@ -165,36 +152,58 @@ public class UserManager {
         }
 
         if (mUserType == R.string.landlord) {
-            loginAsALandlord(mUserData.getEmail());
+            loginAsALandlord(mUserData.getEmail(), new LoginLeLeLeCallback() {
+                @Override
+                public void onSuccess() {
+                    callback.onSuccess();
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+            });
         } else {
-            loginAsATenant(mUserData.getEmail());
+            loginAsATenant(mUserData.getEmail(), new LoginLeLeLeCallback() {
+                @Override
+                public void onSuccess() {
+                    callback.onSuccess();
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+            });
         }
     }
 
-    private void loginAsALandlord(String email) {
+    private void loginAsALandlord(String email, final LoginLeLeLeCallback callback) {
         mLeLeLeRepository.updateLandlordUser(email, new LeLeLeDataSource.LandlordUserCallback() {
             @Override
             public void onCompleted(Landlord landlord) {
                 mLandlord = landlord;
+                callback.onSuccess();
             }
 
             @Override
             public void onError(String errorMessage) {
-
+                callback.onError(errorMessage);
             }
         });
     }
 
-    private void loginAsATenant(String email) {
+    private void loginAsATenant(String email, final LoginLeLeLeCallback callback) {
         mLeLeLeRepository.updateTenantUser(email, new LeLeLeDataSource.TenantUserCallback() {
             @Override
             public void onCompleted(Tenant tenant) {
                 mTenant = tenant;
+                callback.onSuccess();
             }
 
             @Override
             public void onError(String errorMessage) {
-
+                callback.onError(errorMessage);
             }
         });
     }
@@ -214,7 +223,58 @@ public class UserManager {
         return UserManagerHolder.INSTANCE;
     }
 
-    public void setupUserEnvironment() {
+    public void setupUserEnvironment(final EnvironmentSetupCallback callback) {
+
+        mUserData = mUserDataDAO.getItems().get(0);
+
+        int userType = mUserData.getUserType();
+        Log.v(TAG, "UserType" + mUserData.getUserType());
+        if (mUserData.getUserType() == R.string.landlord) {
+            //每次都要確定有設定UserType才不會造成系統作業混亂
+            setUserType(R.string.landlord);
+            getLandlordProfile(mUserData.getEmail(), new LoadUserProfileCallback() {
+                @Override
+                public void onSuccess() {
+                    Log.v(TAG, "房東");
+                    callback.onSuccess();
+                }
+
+                @Override
+                public void onFail(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+
+                @Override
+                public void onInvalidToken(String errorMessage) {
+
+                }
+            });
+        } else {
+            //每次都要確定有設定UserType才不會造成系統作業混亂
+            setUserType(R.string.tenant);
+            getTenantProfile(mUserData.getEmail(), new LoadUserProfileCallback() {
+                @Override
+                public void onSuccess() {
+                    Log.v(TAG, "房客");
+                    callback.onSuccess();
+                }
+
+                @Override
+                public void onFail(String errorMessage) {
+                    callback.onError(errorMessage);
+                }
+
+                @Override
+                public void onInvalidToken(String errorMessage) {
+
+                }
+            });
+        }
+
+
+    }
+
+    public void refreshUserEnvironment() {
 
         mUserData = mUserDataDAO.getItems().get(0);
 
@@ -246,7 +306,6 @@ public class UserManager {
 
                 @Override
                 public void onFail(String errorMessage) {
-
                 }
 
                 @Override
@@ -424,5 +483,17 @@ public class UserManager {
     public interface LogoutCallback {
 
         void onSuccess();
+    }
+
+    public interface LoginLeLeLeCallback {
+        void onSuccess();
+
+        void onError(String errorMessage);
+    }
+
+    public interface EnvironmentSetupCallback {
+        void onSuccess();
+
+        void onError(String errorMessage);
     }
 }

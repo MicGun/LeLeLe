@@ -24,6 +24,6 @@ public class ProfileLandlordPresenter implements ProfileLandlordContract.Present
     @Override
     public void updateLandlordProfile(Landlord landlord) {
         mLeLeLeRepository.uploadLandlord(landlord);
-        UserManager.getInstance().setupUserEnvironment();
+        UserManager.getInstance().refreshUserEnvironment();
     }
 }

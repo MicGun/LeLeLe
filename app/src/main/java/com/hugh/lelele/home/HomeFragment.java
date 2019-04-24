@@ -134,6 +134,6 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         mPresenter.loadArticles();
         mSwipeRefreshLayout.setRefreshing(true);
         //需重新去firestore同步使用者資料，否則會有不同步的狀況
-        UserManager.getInstance().setupUserEnvironment();
+        UserManager.getInstance().refreshUserEnvironment();
     }
 }

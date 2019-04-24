@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         });
 
         Log.e(TAG, "isTenant: " + (UserManager.getInstance().getUserData().getUserType() == R.string.tenant));
-        setPostingButtonUi();
+//        setPostingButtonUi();
         setNoArticleTextStatus();
 
         return root;

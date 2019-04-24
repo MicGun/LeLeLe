@@ -93,6 +93,8 @@ public interface MainContract {
 
         void loadArticles();
 
+        void setupArticleListener();
+
         void showToolbarAndBottomNavigation();
 
         void showLastFragment();

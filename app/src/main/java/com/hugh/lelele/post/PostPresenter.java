@@ -2,6 +2,7 @@ package com.hugh.lelele.post;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
@@ -37,18 +38,33 @@ public class PostPresenter implements PostContract.Presenter {
 
     @Override
     public void releaseGroupArticle(Article article) {
-        mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getLandlord().getEmail(),
-                UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
-                    @Override
-                    public void onCompleted() {
-                        mPostView.toBackStack();
-                    }
+        if (UserManager.getInstance().getUserType() == R.string.landlord) {
+            mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
+                        @Override
+                        public void onCompleted() {
+                            mPostView.toBackStack();
+                        }
 
-                    @Override
-                    public void onError(String errorMessage) {
+                        @Override
+                        public void onError(String errorMessage) {
 
-                    }
-                });
+                        }
+                    });
+        } else {
+            mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getTenant().getLandlordEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
+                        @Override
+                        public void onCompleted() {
+                            mPostView.toBackStack();
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+        }
     }
 
     @Override

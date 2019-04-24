@@ -36,6 +36,8 @@ public interface HomeContract {
 
         void setupArticleListener();
 
+        void deleteGroupArticle(Article article);
+
 //        void uploadLandlord(String email);
     }
 }

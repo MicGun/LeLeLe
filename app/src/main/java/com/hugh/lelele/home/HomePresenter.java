@@ -147,6 +147,20 @@ public class HomePresenter implements HomeContract.Presenter {
         setupGroupArticlesListener();
     }
 
+    @Override
+    public void deleteGroupArticle(Article article) {
+
+        if (UserManager.getInstance().getUserType() == R.string.landlord) {
+            mLeLeLeRepository.deleteGroupArticle(article,
+                    UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow());
+        } else {
+            mLeLeLeRepository.deleteGroupArticle(article,
+                    UserManager.getInstance().getTenant().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow());
+        }
+    }
+
     private void setupUserArticlesListener() {
 
         mLeLeLeRepository.userArticlesListener(UserManager.getInstance().getUserData().getEmail(),

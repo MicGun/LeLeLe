@@ -261,6 +261,11 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     }
 
     @Override
+    public void deleteGroupArticle(@NonNull Article article, @NonNull String email, @NonNull String groupName) {
+        mLeLeLeRemoteDataSource.deleteGroupArticle(article, email, groupName);
+    }
+
+    @Override
     public void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
                                                 @NonNull String articleType,  @NonNull int userType,
                                                 @NonNull final QueryArticleByAuthorAndTypeCallback callback) {

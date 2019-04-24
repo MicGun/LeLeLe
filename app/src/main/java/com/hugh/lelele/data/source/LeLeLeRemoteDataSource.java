@@ -719,6 +719,17 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
+    public void deleteGroupArticle(@NonNull Article article, @NonNull String email, @NonNull String groupName) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ARTICLES)
+                .document(article.getArticleId())
+                .delete();
+    }
+
+    @Override
     public void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
                                                 @NonNull String articleType, @NonNull int userType,
                                                 @NonNull final QueryArticleByAuthorAndTypeCallback callback) {

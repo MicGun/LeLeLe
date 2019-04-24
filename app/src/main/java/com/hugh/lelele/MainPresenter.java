@@ -565,6 +565,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void deleteGroupArticle(Article article) {
+        if (mHomePresenter != null) {
+            mHomePresenter.deleteGroupArticle(article);
+        }
+    }
+
+    @Override
     public void updateTenantProfile(Tenant tenant) {
         if (mProfileTenantPresenter != null) {
             mProfileTenantPresenter.updateTenantProfile(tenant);

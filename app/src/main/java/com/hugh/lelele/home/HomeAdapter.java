@@ -14,6 +14,7 @@ import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.ImageManager;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -138,6 +139,20 @@ public class HomeAdapter extends RecyclerView.Adapter {
         viewHolder.getContent().setText(article.getContent());
 
         viewHolder.getTime().setText(article.getTime());
+
+        if (article.getAuthorEmail().equals(UserManager.getInstance().getUserData().getEmail()) ||
+                UserManager.getInstance().getUserType() == R.string.landlord) {
+            viewHolder.getDeleteButton().setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.getDeleteButton().setVisibility(View.GONE);
+        }
+
+        viewHolder.getDeleteButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.deleteGroupArticle(article);
+            }
+        });
     }
 
     private void bindHomeElectricityViewHolder(HomeElectricityViewHolder viewHolder, final Article article) {
@@ -229,6 +244,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
         private TextView mTitle;
         private TextView mContent;
         private TextView mTime;
+        private ImageView mDeleteButton;
 
         public HomeGeneralViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -239,6 +255,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             mTitle = itemView.findViewById(R.id.item_text_view_general_title_posting);
             mContent = itemView.findViewById(R.id.item_text_view_general_content);
             mTime = itemView.findViewById(R.id.item_text_view_time_general);
+            mDeleteButton = itemView.findViewById(R.id.item_image_view_general_delete_button_posting);
         }
 
         public ImageView getAuthorPicture() {
@@ -255,6 +272,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
         public TextView getTime() {
             return mTime;
+        }
+
+        public ImageView getDeleteButton() {
+            return mDeleteButton;
         }
     }
 

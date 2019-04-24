@@ -150,6 +150,8 @@ public interface LeLeLeDataSource {
 
     void deleteUserArticle(@NonNull Article article, @NonNull String email, @NonNull int userType);
 
+    void deleteGroupArticle(@NonNull Article article, @NonNull String email, @NonNull String groupName);
+
     void queryUserArticleByAuthorAndType(@NonNull String email, @NonNull String authorName,
                                          @NonNull String articleType, @NonNull int userType,
                                          @NonNull QueryArticleByAuthorAndTypeCallback callback);

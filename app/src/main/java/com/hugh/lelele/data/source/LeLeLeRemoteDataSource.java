@@ -6,12 +6,15 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
@@ -36,6 +39,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private final static String ROOMS = "rooms";
     private final static String ELECTRICITY_FEE = "electricity_fee";
     private final static String ARTICLES = "articles";
+    private final static String NOTIFICATIONS = "notification";
 
     /*Electricity Data*/
     private final static String PRICE = "price";
@@ -80,6 +84,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             assert landlordDoc != null;
                             if (landlordDoc.exists()) {
                                 Landlord landlord = LeLeLeParser.parseLandlordInfo(landlordDoc);
+                                landlord.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
+                                uploadLandlord(landlord);
                                 callback.onCompleted(landlord);
                             } else {
                                 //create and initialize a landlord
@@ -95,6 +101,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 mFirebaseFirestore.collection(LANDLORDS)
                                         .document(email)
                                         .set(user);
+
+                                Landlord landlord = new Landlord();
+                                landlord.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
+                                landlord.setId(UserManager.getInstance().getUserData().getId());
+                                landlord.setName(UserManager.getInstance().getUserData().getName());
+                                landlord.setPicture(UserManager.getInstance().getUserData().getPictureUrl());
+                                callback.onCompleted(landlord);
                             }
                         } else {
                             callback.onError(String.valueOf(task.getException()));
@@ -120,34 +133,45 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             assert tenantDoc != null;
                             if (tenantDoc.exists()) {
 //                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
-                                Tenant tenant = tenantDoc.toObject(Tenant.class);
-                                callback.onCompleted(tenant);
+                                final Tenant tenant = tenantDoc.toObject(Tenant.class);
+                                tenant.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
+                                FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                        if (task.isSuccessful()) {
+                                            String token = task.getResult().getToken();
+                                            tenant.setPhoneToken(token);
+                                            uploadTenant(tenant);
+                                        }
+                                        callback.onCompleted(tenant);
+                                    }
+                                });
+//                                callback.onCompleted(tenant);
                                 Log.v(TAG, "Tenant is already exist!");
                             } else {
-                                //create and initialize a tenant
-//                                Map<String, Object> user = new HashMap<>();
-//                                user.put("email", email);
-//                                user.put("ID_card_number", "");
-//                                user.put("address", "");
-//                                user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
-//                                user.put("phone_number", "");
-//                                user.put("id", UserManager.getInstance().getUserData().getId());
-//                                user.put("name", UserManager.getInstance().getUserData().getName());
-//                                user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
-//                                user.put("group", "");
-//                                user.put("landlord_email", "");
-//                                user.put("room_number", "");
-//                                user.put("inviting", false);
-//                                user.put("biding", false);
-                                Tenant tenant = new Tenant();
+
+                                final Tenant tenant = new Tenant();
                                 tenant.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
                                 tenant.setId(UserManager.getInstance().getUserData().getId());
                                 tenant.setName(UserManager.getInstance().getUserData().getName());
                                 tenant.setPicture(UserManager.getInstance().getUserData().getPictureUrl());
                                 tenant.setEmail(UserManager.getInstance().getUserData().getEmail());
-                                mFirebaseFirestore.collection(TENANTS)
-                                        .document(email)
-                                        .set(tenant);
+                                FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                        if (task.isSuccessful()) {
+                                            String token = task.getResult().getToken();
+                                            tenant.setPhoneToken(token);
+                                        }
+                                        mFirebaseFirestore.collection(TENANTS)
+                                                .document(email)
+                                                .set(tenant);
+                                        callback.onCompleted(tenant);
+                                    }
+                                });
+//                                mFirebaseFirestore.collection(TENANTS)
+//                                        .document(email)
+//                                        .set(tenant);
                                 Log.v(TAG, "Create a new tenant: " + tenant.getName());
                             }
                         } else {
@@ -596,6 +620,24 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             callback.onError(e.getMessage());
                         } else {
                             callback.onCompleted();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+        mFirebaseFirestore.collection(TENANTS)
+                .document(email)
+                .collection(NOTIFICATIONS)
+                .add(notificationMessage)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            callback.onCompleted();
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
                         }
                     }
                 });

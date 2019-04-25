@@ -15,6 +15,7 @@ public class Tenant {
     private String mAssessToken;
     private boolean mIsBinding;
     private boolean mIsInviting;
+    private String mPhoneToken;
 
     public Tenant() {
         mEmail = "";
@@ -30,6 +31,7 @@ public class Tenant {
         mAssessToken = "";
         mIsBinding = false;
         mIsInviting = false;
+        mPhoneToken = "";
     }
 
     public String getEmail() {
@@ -134,5 +136,13 @@ public class Tenant {
 
     public void setInviting(boolean inviting) {
         mIsInviting = inviting;
+    }
+
+    public String getPhoneToken() {
+        return mPhoneToken;
+    }
+
+    public void setPhoneToken(String phoneToken) {
+        mPhoneToken = phoneToken;
     }
 }

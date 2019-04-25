@@ -2,7 +2,9 @@ package com.hugh.lelele.application_landlord;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -10,6 +12,8 @@ import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -81,5 +85,24 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
     @Override
     public void openRoomList() {
 
+    }
+
+    @Override
+    public void sendNotification() {
+        Map<String, Object> notificationMessage = new HashMap<>();
+        notificationMessage.put("message", "Hi, this is notification!");
+        notificationMessage.put("authorEmail", UserManager.getInstance().getUserData().getEmail());
+
+        mLeLeLeRepository.pushNotificationToTenant(notificationMessage, "gunpowerwang@gmail.com", new LeLeLeDataSource.PushNotificationCallback() {
+            @Override
+            public void onCompleted() {
+                Toast.makeText(LeLeLe.getAppContext(), "推播成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

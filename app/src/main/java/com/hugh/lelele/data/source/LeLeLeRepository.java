@@ -11,6 +11,7 @@ import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -305,6 +306,21 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     @Override
     public void userArticlesListener(@NonNull String email, @NonNull int userType, final ArticlesCallback callback) {
         mLeLeLeRemoteDataSource.userArticlesListener(email, userType, new ArticlesCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+        mLeLeLeRemoteDataSource.pushNotificationToTenant(notificationMessage, email, new PushNotificationCallback() {
             @Override
             public void onCompleted() {
                 callback.onCompleted();

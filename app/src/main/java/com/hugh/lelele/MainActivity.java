@@ -1,15 +1,19 @@
 package com.hugh.lelele;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +56,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     private int mUserType;
 
+    private static final String CHANNEL_ID = "LeLeLe";
+
     private BottomNavigationView mBottomNavigation;
     private DrawerLayout mDrawerLayout;
     private SubMenu mGroupMenu;
@@ -63,6 +69,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
     private MainMvpController mMainMvpController;
+    private NotificationCompat.Builder mNotificationBuilder;
 
     private MainContract.Presenter mPresenter;
 
@@ -124,6 +131,23 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         if (mUserType == R.string.landlord) {
             Log.v(TAG, getResources().getString(R.string.landlord));
 
+        }
+        createNotificationChannel();
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 

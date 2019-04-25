@@ -10,6 +10,7 @@ import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface LeLeLeDataSource {
 
@@ -107,6 +108,13 @@ public interface LeLeLeDataSource {
         void onError(String errorMessage);
     }
 
+    interface PushNotificationCallback {
+
+        void onCompleted();
+
+        void onError(String errorMessage);
+    }
+
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
 
     void updateTenantUser(@NonNull String email, @NonNull TenantUserCallback callback);
@@ -158,7 +166,9 @@ public interface LeLeLeDataSource {
 
     void uploadLandlord(@NonNull Landlord landlord);
 
-    void groupArticlesListener(@NonNull String email, @NonNull String groupName, ArticlesCallback callback);
+    void groupArticlesListener(@NonNull String email, @NonNull String groupName, @NonNull  ArticlesCallback callback);
 
-    void userArticlesListener(@NonNull String email, @NonNull int userType, ArticlesCallback callback);
+    void userArticlesListener(@NonNull String email, @NonNull int userType, @NonNull  ArticlesCallback callback);
+
+    void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull  String email, @NonNull  PushNotificationCallback callback);
 }

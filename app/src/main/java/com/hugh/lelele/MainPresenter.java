@@ -397,6 +397,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void sendNotification() {
+        if (mAppLandlordPresenter != null) {
+            mAppLandlordPresenter.sendNotification();
+        }
+    }
+
+    @Override
     public void setRoomData(ArrayList<Room> rooms) {
         if (mElectricityLandlordPresenter != null) {
             mElectricityLandlordPresenter.setRoomData(rooms);

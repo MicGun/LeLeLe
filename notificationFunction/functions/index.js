@@ -16,8 +16,9 @@ exports.sendNotification = functions.firestore.document("tenants/{userId}/notifi
   return admin.firestore().collection("tenants").doc(userId).collection("notification").doc(notificationId).get().then((queryResult) => {
   //admin.firestore().collection("tenants").doc(userId).collection("notification").doc(notificationId).get()
     console.log(queryResult);
-    const from_user_id = queryResult.data().authorEmail;
-    const message = queryResult.data().message;
+    const from_user_id = queryResult.data().senderEmail;
+    const content = queryResult.data().content;
+    const title = queryResult.data().title;
 
     const from_data = admin.firestore().collection("landlords").doc(from_user_id).get();
     const to_data = admin.firestore().collection("tenants").doc(userId).get();
@@ -42,8 +43,8 @@ exports.sendNotification = functions.firestore.document("tenants/{userId}/notifi
 
       const payload = {
         notification: {
-          title : "notification From : " + from_name,
-          body : message,
+          title : title,
+          body : content,
         }
       };
 

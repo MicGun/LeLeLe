@@ -16,6 +16,11 @@ public class Constants {
     public static final String GENERAL = "GENERAL";
     public static final String SYSTEM = "SYSTEM";
 
+    //push Notification
+    public static final String NOTIFICATION_CONTENT = "content";
+    public static final String NOTIFICATION_TITLE = "title";
+    public static final String NOTIFICATION_SENDER_EMAIL = "senderEmail";
+
     // User Manager
     public static final String USER_DATA = "user_data";
     public static final String USER_TOKEN = "user_token";

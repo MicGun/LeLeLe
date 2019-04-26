@@ -158,8 +158,12 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
             String email = room.getTenant().getEmail();
             if (room.getTenant().isBinding()) {
                 Map<String, Object> notificationMessage = new HashMap<>();
-                notificationMessage.put("message", "Hi, this is notification!");
-                notificationMessage.put("authorEmail", UserManager.getInstance().getUserData().getEmail());
+                Electricity electricity = room.getElectricities().get(Calendar.getInstance().get(Calendar.MONTH));
+                notificationMessage.put(Constants.NOTIFICATION_CONTENT, LeLeLe.getAppContext().getString(R.string.electricity_content,
+                        room.getTenant().getName(),
+                        electricity.getPrice()));
+                notificationMessage.put(Constants.NOTIFICATION_SENDER_EMAIL, UserManager.getInstance().getUserData().getEmail());
+                notificationMessage.put(Constants.NOTIFICATION_TITLE, LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
 
                 mLeLeLeRepository.pushNotificationToTenant(notificationMessage, email, new LeLeLeDataSource.PushNotificationCallback() {
                     @Override

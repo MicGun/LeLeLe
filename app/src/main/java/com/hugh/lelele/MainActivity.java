@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.AccessToken;
 import com.google.android.gms.common.images.ImageManager;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
@@ -48,6 +49,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -78,6 +81,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Fabric.with(this, new Crashlytics());
 
         init();
 

@@ -47,6 +47,11 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7857010e3cf7aacdfee9755d23735cca53667572"
+            />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

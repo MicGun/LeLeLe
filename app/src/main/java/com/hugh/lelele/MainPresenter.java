@@ -396,12 +396,12 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mMainView.openRoomListUi();
     }
 
-    @Override
-    public void sendNotification() {
-        if (mAppLandlordPresenter != null) {
-            mAppLandlordPresenter.sendNotification();
-        }
-    }
+//    @Override
+//    public void sendNotification() {
+//        if (mAppLandlordPresenter != null) {
+//            mAppLandlordPresenter.sendNotification();
+//        }
+//    }
 
     @Override
     public void setRoomData(ArrayList<Room> rooms) {

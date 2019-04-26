@@ -86,23 +86,4 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
     public void openRoomList() {
 
     }
-
-    @Override
-    public void sendNotification() {
-        Map<String, Object> notificationMessage = new HashMap<>();
-        notificationMessage.put("message", "Hi, this is notification!");
-        notificationMessage.put("authorEmail", UserManager.getInstance().getUserData().getEmail());
-
-        mLeLeLeRepository.pushNotificationToTenant(notificationMessage, "gunpowerwang@gmail.com", new LeLeLeDataSource.PushNotificationCallback() {
-            @Override
-            public void onCompleted() {
-                Toast.makeText(LeLeLe.getAppContext(), "推播成功", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-
-            }
-        });
-    }
 }

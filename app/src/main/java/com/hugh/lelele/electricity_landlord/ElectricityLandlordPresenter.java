@@ -3,6 +3,7 @@ package com.hugh.lelele.electricity_landlord;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
@@ -19,6 +20,8 @@ import com.hugh.lelele.util.UserManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -113,11 +116,13 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
             if (room.getElectricities().get(month).getScale().equals("")) {
                 mElectricityLandlordtView.showHasEmptyDataToast();
+                break;
             } else {
                 count++;
                 if (count == rooms.size()) {
                     mElectricityLandlordtView.toBackStack();
                     sendElectricityArticles(rooms);
+                    pushNotifications(rooms);
                 }
             }
 
@@ -143,6 +148,30 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
                 article.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
 
                 mLeLeLeRepository.sendTenantArticle(article, room.getTenant().getEmail());
+            }
+        }
+    }
+
+    private void pushNotifications(ArrayList<Room> rooms) {
+
+        for (Room room:rooms) {
+            String email = room.getTenant().getEmail();
+            if (room.getTenant().isBinding()) {
+                Map<String, Object> notificationMessage = new HashMap<>();
+                notificationMessage.put("message", "Hi, this is notification!");
+                notificationMessage.put("authorEmail", UserManager.getInstance().getUserData().getEmail());
+
+                mLeLeLeRepository.pushNotificationToTenant(notificationMessage, email, new LeLeLeDataSource.PushNotificationCallback() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "pushNotifications onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
             }
         }
     }

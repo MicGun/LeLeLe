@@ -28,7 +28,5 @@ public interface AppLandlordContract {
 
         void openRoomList();
 
-        void sendNotification();
-
     }
 }

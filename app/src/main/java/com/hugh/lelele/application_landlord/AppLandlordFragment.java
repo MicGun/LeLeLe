@@ -71,15 +71,6 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
             }
         });
 
-        mMessageButton = root.findViewById(R.id.button_message_landlord);
-        mMessageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.sendNotification();
-            }
-        });
-
-
         return root;
     }
 

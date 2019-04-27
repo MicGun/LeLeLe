@@ -74,7 +74,19 @@ public class HomePresenter implements HomeContract.Presenter {
                 UserManager.getInstance().getUserData().getEmail(),
                 UserManager.getInstance().getUserData().getUserType());
         loadArticles();
-        bindingWithTenant();
+
+        UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
+            @Override
+            public void onSuccess() {
+
+                bindingWithTenant();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 
     @Override

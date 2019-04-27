@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -34,6 +35,8 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private RadioButton mTenantRadioButton;
     private RadioGroup mLoginUserTypeButtonGroup;
 
+    private ProgressBar mProgressBar;
+
     private final String TAG = LoginFragment.class.getSimpleName();
 
     @Nullable
@@ -43,6 +46,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
         mFacebookLoginButton = root.findViewById(R.id.button_facebook_login);
         mFacebookLoginButton.setOnClickListener(new CustomOnClickListener());
+
+        mProgressBar = root.findViewById(R.id.progress_bar_logging_in);
+        showProgressBar(false);
 
         mLoginUserTypeButtonGroup = root.findViewById(R.id.radios_group_login_user_type);
         mLoginUserTypeButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -79,14 +85,15 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         public void onClick(View v) {
             if (v.getId() == R.id.button_facebook_login) {
                 if (mUserType == R.string.landlord || mUserType == R.string.tenant) {
+                    showProgressBar(true);
                     UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
                         @Override
                         public void onSuccess() {
-
                             UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
                                 @Override
                                 public void onSuccess() {
                                     mPresenter.openHome();
+                                    showProgressBar(false);
                                     mPresenter.showToolbarAndBottomNavigation();
                                     if (mUserType == R.string.landlord) {
                                         mPresenter.loadGroupListDrawerMenu();
@@ -123,6 +130,14 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                 }
 
             }
+        }
+    }
+
+    private void showProgressBar(boolean showProgress) {
+        if (showProgress) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 

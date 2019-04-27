@@ -324,7 +324,7 @@ public class UserManager {
             public void onCompleted(Landlord landlord) {
 
                 setLandlord(landlord);
-                checkProfileCompleted();
+                //checkProfileCompleted();
 
                 callback.onSuccess();
             }
@@ -344,7 +344,7 @@ public class UserManager {
             public void onCompleted(Tenant tenant) {
 
                 setTenant(tenant);
-                checkProfileCompleted();
+                //checkProfileCompleted();
 
                 if (tenant.isBinding()) {
                     mUserData.setGroupNow(tenant.getGroup());
@@ -362,7 +362,7 @@ public class UserManager {
         });
     }
 
-    private void checkProfileCompleted() {
+    public void checkProfileCompleted() {
 
         Article article = getProfileFillingRequest();
 

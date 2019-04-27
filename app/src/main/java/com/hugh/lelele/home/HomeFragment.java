@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         super.onCreate(savedInstanceState);
         mPresenter.loadArticles();
         mPresenter.setupArticleListener();
+        UserManager.getInstance().checkProfileCompleted();
 //        mSwipeRefreshLayout.setRefreshing(true);
         mHomeAdapter = new HomeAdapter(mPresenter);
     }

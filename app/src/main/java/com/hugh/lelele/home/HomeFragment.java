@@ -75,7 +75,11 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
                 if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
                     mPresenter.openPosting();
                 } else {
-                    Toast.makeText(getContext(), getString(R.string.select_group_to_release_article), Toast.LENGTH_SHORT).show();
+                    if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+                        Toast.makeText(getContext(), getString(R.string.select_group_to_release_article), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

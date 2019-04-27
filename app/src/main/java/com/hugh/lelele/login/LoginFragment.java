@@ -35,9 +35,14 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private RadioButton mTenantRadioButton;
     private RadioGroup mLoginUserTypeButtonGroup;
 
+    private boolean mIsLoading;
+
     private ProgressBar mProgressBar;
 
     private final String TAG = LoginFragment.class.getSimpleName();
+
+    public LoginFragment() {
+    }
 
     @Nullable
     @Override
@@ -85,45 +90,47 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         public void onClick(View v) {
             if (v.getId() == R.id.button_facebook_login) {
                 if (mUserType == R.string.landlord || mUserType == R.string.tenant) {
-                    showProgressBar(true);
-                    UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
-                        @Override
-                        public void onSuccess() {
-                            UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
-                                @Override
-                                public void onSuccess() {
-                                    mPresenter.openHome();
-                                    showProgressBar(false);
-                                    mPresenter.showToolbarAndBottomNavigation();
-                                    if (mUserType == R.string.landlord) {
-                                        mPresenter.loadGroupListDrawerMenu();
-                                    } else {
-                                        //to clear submenu, avoid there's landlord data showing
-                                        mPresenter.resetDrawer();
+                    if (!mIsLoading) {
+                        showProgressBar(true);
+                        UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
+                            @Override
+                            public void onSuccess() {
+                                UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        mPresenter.openHome();
+                                        showProgressBar(false);
+                                        mPresenter.showToolbarAndBottomNavigation();
+                                        if (mUserType == R.string.landlord) {
+                                            mPresenter.loadGroupListDrawerMenu();
+                                        } else {
+                                            //to clear submenu, avoid there's landlord data showing
+                                            mPresenter.resetDrawer();
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onError(String errorMessage) {
+                                    @Override
+                                    public void onError(String errorMessage) {
 
-                                }
-                            });
+                                    }
+                                });
 
 //                            Log.v(TAG, "UserManager is Null: " + (UserManager.getInstance().getUserData() == null));
 //                            Log.v(TAG, "User Name: " + (UserManager.getInstance().getUserData().getName()));
 
-                        }
+                            }
 
-                        @Override
-                        public void onFail(String errorMessage) {
+                            @Override
+                            public void onFail(String errorMessage) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onInvalidToken(String errorMessage) {
+                            @Override
+                            public void onInvalidToken(String errorMessage) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 } else {
                     Toast.makeText(LeLeLe.getAppContext(),
                             "Please select a type before click.", Toast.LENGTH_SHORT).show();
@@ -134,6 +141,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
     private void showProgressBar(boolean showProgress) {
+        mIsLoading = showProgress;
         if (showProgress) {
             mProgressBar.setVisibility(View.VISIBLE);
         } else {

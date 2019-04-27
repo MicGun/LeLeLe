@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.facebook.AccessToken;
-import com.google.android.gms.common.images.ImageManager;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
@@ -42,6 +41,7 @@ import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.loco_data.UserData;
 import com.hugh.lelele.data.loco_data.UserDataDAO;
 import com.hugh.lelele.data.loco_data.UserDatabase;
+import com.hugh.lelele.util.ImageManager;
 import com.hugh.lelele.util.UserManager;
 
 import java.security.MessageDigest;
@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     private Menu mDrawerMenu;
     private ImageView mDrawerUserImage;
     private TextView mDrawerUserName;
+    private TextView mDrawerUserGroupNew;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private View mBadge;
     private Toolbar mToolbar;
@@ -300,9 +301,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         // nav view header
         mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);
         mDrawerUserImage.setOutlineProvider(new ProfileAvatarOutlineProvider(getResources().
-                getDimensionPixelSize(R.dimen.radius_profile_avatar)));
+                getDimensionPixelSize(R.dimen.radius_drawer_avatar)));
 
         mDrawerUserName = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_name);
+        mDrawerUserGroupNew = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_group_now);
+
+        setDrawerUserInfoUi();
     }
 
     @Override
@@ -353,6 +357,19 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     public void openPostingUi() {
         mPresenter.updateToolbar(getResources().getString(R.string.new_post));
         mMainMvpController.findOrCreatePostView();
+    }
+
+    @Override
+    public void setDrawerUserInfoUi() {
+        if (mDrawerUserImage != null && mDrawerUserName!= null) {
+            ImageManager.getInstance().setImageByUrl(mDrawerUserImage, UserManager.getInstance().getUserData().getPictureUrl());
+            mDrawerUserName.setText(UserManager.getInstance().getUserData().getName());
+            if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                mDrawerUserGroupNew.setText(UserManager.getInstance().getUserData().getGroupNow());
+            } else {
+                mDrawerUserGroupNew.setText(getString(R.string.no_group_info));
+            }
+        }
     }
 
     @Override
@@ -529,6 +546,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 String groupNow = (String) menuItem.getTitle();
                 mGroupMenu.getItem().setChecked(true);
                 UserManager.getInstance().getUserData().setGroupNow(groupNow);
+                mDrawerUserGroupNew.setText(groupNow);
                 mPresenter.loadArticles();
                 mPresenter.setupArticleListener();
                 mDrawerLayout.closeDrawers();

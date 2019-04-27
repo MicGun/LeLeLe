@@ -10,6 +10,7 @@
     <string name="ask_to_create_a_group">請新增群組</string>
     <string name="preparing">準備中</string>
     <string name="ask_to_go_to_group_list">請到我的應用 > 群組清單 進行編輯</string>
+    <string name="no_group_info">尚未指定群組</string>
 
     <!-- Facebook SDK -->
     <string name="facebook_app_id">2385558301456908</string>

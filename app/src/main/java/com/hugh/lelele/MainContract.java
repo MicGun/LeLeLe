@@ -63,6 +63,8 @@ public interface MainContract {
 
         void openPostingUi();
 
+        void setDrawerUserInfoUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -100,5 +102,7 @@ public interface MainContract {
         void showLastFragment();
 
         void resetDrawer();
+
+        void setDrawerUserInfo();
     }
 }

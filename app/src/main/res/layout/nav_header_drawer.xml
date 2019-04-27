@@ -9,42 +9,45 @@
 
     <ImageView
         android:id="@+id/image_drawer_avatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="24dp"
         android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_nav_profile" />
 
     <TextView
         android:id="@+id/image_drawer_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/noto_sans"
         android:text="@string/profile_default_name"
         android:textColor="@color/while_ffffff"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/image_drawer_group_now"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_drawer_avatar" />
+        app:layout_constraintStart_toEndOf="@+id/image_drawer_avatar"
+        app:layout_constraintTop_toTopOf="@+id/image_drawer_avatar"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/image_drawer_info"
-        android:layout_width="match_parent"
+        android:id="@+id/image_drawer_group_now"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/noto_sans"
         android:textColor="@color/gray_999999"
-        android:textSize="13sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_drawer_avatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/image_drawer_name"
         app:layout_constraintTop_toBottomOf="@+id/image_drawer_name"
         tools:text="Hugh" />
 

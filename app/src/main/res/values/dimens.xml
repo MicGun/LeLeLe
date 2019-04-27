@@ -21,6 +21,8 @@
 
     <dimen name="radius_general_post_avatar">50dp</dimen>
 
+    <dimen name="radius_drawer_avatar">100dp</dimen>
+
     <!-- Post  -->
     <dimen name="radius_author_avatar">60dp</dimen>
 

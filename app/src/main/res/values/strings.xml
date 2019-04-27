@@ -4,6 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="_coming_soon">%s COMING SOON!</string>
+    <string name="at">@</string>
 
     <!-- Drawer -->
     <string name="switch_group_to_">已將群組切換至 %s</string>

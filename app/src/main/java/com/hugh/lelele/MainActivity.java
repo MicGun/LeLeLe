@@ -1,5 +1,6 @@
 package com.hugh.lelele;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     private View mBadge;
     private Toolbar mToolbar;
     private TextView mToolbarTitle;
+    private TextView mToolbarGroupNow;
     private MainMvpController mMainMvpController;
     private NotificationCompat.Builder mNotificationBuilder;
 
@@ -176,6 +178,14 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         getSupportActionBar().setTitle("");
         // Set the padding to match the Status Bar height
         mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
+
+        mToolbarGroupNow = mToolbar.findViewById(R.id.text_toolbar_group);
+
+        if (mUserType == R.string.landlord) {
+            mToolbarGroupNow.setVisibility(View.VISIBLE);
+        } else {
+            mToolbarGroupNow.setVisibility(View.GONE);
+        }
 
         mToolbarTitle = mToolbar.findViewById(R.id.text_toolbar_title);
         mToolbarTitle.setText(MainActivity.this.getResources().getString(R.string.home));
@@ -517,6 +527,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         MainActivity.this.onBackPressed();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         String string = "";
@@ -547,6 +558,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 mGroupMenu.getItem().setChecked(true);
                 UserManager.getInstance().getUserData().setGroupNow(groupNow);
                 mDrawerUserGroupNew.setText(groupNow);
+                mToolbarGroupNow.setText(getString(R.string.at) + groupNow);
                 mPresenter.loadArticles();
                 mPresenter.setupArticleListener();
                 mDrawerLayout.closeDrawers();

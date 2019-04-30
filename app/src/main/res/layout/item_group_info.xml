@@ -75,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/noto_sans"
         android:text="7"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -86,6 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
+        android:fontFamily="@font/noto_sans"
         android:text="7"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -101,7 +103,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toStartOf="@+id/view5"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/ic_action_user" />
+        app:srcCompat="@drawable/ic_action_sleeping" />
 
     <!--<ImageView-->
         <!--android:id="@+id/item_image_view_edit_group_button"-->

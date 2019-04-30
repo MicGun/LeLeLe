@@ -6,18 +6,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background">
 
-    <TextView
-        android:id="@+id/text_profile_order_title"
-        style="@style/ApplicationTitle"
-        tools:text="@string/application_my_application"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/application_my_application"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<TextView-->
+        <!--android:id="@+id/text_profile_order_title"-->
+        <!--style="@style/ApplicationTitle"-->
+        <!--tools:text="@string/application_my_application"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginTop="24dp"-->
+        <!--android:text="@string/application_my_application"-->
+        <!--app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/button_electricity_tenant"
@@ -25,13 +25,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/button_message_tenant"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_profile_order_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"

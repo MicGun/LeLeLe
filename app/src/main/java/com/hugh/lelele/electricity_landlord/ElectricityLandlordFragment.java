@@ -10,9 +10,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,9 +36,17 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     private RecyclerView mRecyclerView;
     private ArrayList<Room> mRooms;
 
+    private EditText mUnitElectricityFeeEditText;
+    private ImageView mButtonUnitElectricityFeeCheck;
+    private double mUnitPrice;
+
     private ProgressBar mProgressBar;
 
     final String TAG = LeLeLe.class.getSimpleName();
+
+    public ElectricityLandlordFragment() {
+        mUnitPrice = 0;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +65,34 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         mRecyclerView.setAdapter(mAdapter);
 
         mProgressBar = root.findViewById(R.id.progress_bar_electricity_fee);
+
+        mUnitElectricityFeeEditText = root.findViewById(R.id.edit_text_unit_price_electricity);
+        mUnitElectricityFeeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mUnitPrice = Double.valueOf(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mButtonUnitElectricityFeeCheck = root.findViewById(R.id.image_view_button_unit_price_check_electricity);
+        mButtonUnitElectricityFeeCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mUnitPrice != 0) {
+                    mAdapter.setUnitPrice(mUnitPrice);
+                }
+            }
+        });
 
         mFloatingElectricityEditDoneButton = root.findViewById(R.id.button_electricity_edit_done_electricity_editor);
         mFloatingElectricityEditDoneButton.setOnClickListener(new View.OnClickListener() {

@@ -38,6 +38,8 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
     private String mMonthBeUpdatedNext;
     private String mYearBeUpdatedNext;
 
+    private double mUnitPrice;
+
     private final String BASE_LINE_MONTH = "00";
 
     //單位度數電費
@@ -45,6 +47,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
     public ElectricityLandlordAdapter(ElectricityLandlordContract.Presenter presenter) {
         mPresenter = presenter;
+        mUnitPrice = 0;
         mMonth = Calendar.getInstance().get(Calendar.MONTH);
 //        mMonth = 0;
         mYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -231,5 +234,9 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
             mRooms = rooms;
             notifyDataSetChanged();
         }
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        mUnitPrice = unitPrice;
     }
 }

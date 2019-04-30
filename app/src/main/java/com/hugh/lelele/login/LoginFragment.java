@@ -75,9 +75,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     Log.v(TAG, "UserType" + mUserType);
                 }
 
-                Toast.makeText(group.getContext(),
-                        "You have selected : " + userType.getTag().toString(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(group.getContext(),
+//                        "You have selected : " + userType.getTag().toString(),
+//                        Toast.LENGTH_LONG).show();
             }
         });
 

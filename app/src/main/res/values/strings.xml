@@ -79,6 +79,9 @@
     <string name="tenant_empty">目前尚無房客</string>
     <string name="tenant_inviting">房客邀請中</string>
     <string name="enter_tenant_email">請輸入房客信箱搜尋</string>
+    <string name="invite_tenant">邀請房客</string>
+    <string name="delete_tenant">刪除房客</string>
+    <string name="cancel_inviting">取消邀請</string>
 
     <!-- Inviting -->
     <string name="inviting">發送邀請</string>

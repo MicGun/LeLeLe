@@ -26,6 +26,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
 
         TextView roomName;
         TextView tenantName;
+        TextView status;
         ImageView addTenantButton;
         ImageView deleteTenantButton;
         ImageView cancleInvitingButton;
@@ -35,6 +36,7 @@ public class RoomListAdapter extends RecyclerView.Adapter {
 
             roomName = itemView.findViewById(R.id.item_text_view_room_list_room_name);
             tenantName = itemView.findViewById(R.id.item_text_view_room_list_tenant_name);
+            status = itemView.findViewById(R.id.item_text_view_room_list_status);
             addTenantButton = itemView.findViewById(R.id.item_image_view_room_list_add_tenant);
             deleteTenantButton = itemView.findViewById(R.id.item_image_view_room_list_delete_tenant);
             cancleInvitingButton = itemView.findViewById(R.id.item_image_view_room_list_inviting_tenant);
@@ -95,15 +97,21 @@ public class RoomListAdapter extends RecyclerView.Adapter {
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.INVISIBLE);
             ((RoomListViewHolder) viewHolder).deleteTenantButton.setVisibility(View.VISIBLE);
             ((RoomListViewHolder) viewHolder).cancleInvitingButton.setVisibility(View.INVISIBLE);
+            ((RoomListViewHolder) viewHolder).status.setText(LeLeLe.getAppContext().getResources().getString(R.string.delete_tenant));
+            ((RoomListViewHolder) viewHolder).status.setTextColor(LeLeLe.getAppContext().getResources().getColor(R.color.brown_be531e));
         } else if (room.getTenant().isInviting()) {
             //邀請中，剩下解除邀請的按鈕
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.INVISIBLE);
             ((RoomListViewHolder) viewHolder).deleteTenantButton.setVisibility(View.INVISIBLE);
             ((RoomListViewHolder) viewHolder).cancleInvitingButton.setVisibility(View.VISIBLE);
+            ((RoomListViewHolder) viewHolder).status.setText(LeLeLe.getAppContext().getResources().getString(R.string.cancel_inviting));
+            ((RoomListViewHolder) viewHolder).status.setTextColor(LeLeLe.getAppContext().getResources().getColor(R.color.blue_255683));
         } else {
             ((RoomListViewHolder) viewHolder).addTenantButton.setVisibility(View.VISIBLE);
             ((RoomListViewHolder) viewHolder).deleteTenantButton.setVisibility(View.INVISIBLE);
             ((RoomListViewHolder) viewHolder).cancleInvitingButton.setVisibility(View.INVISIBLE);
+            ((RoomListViewHolder) viewHolder).status.setText(LeLeLe.getAppContext().getResources().getString(R.string.invite_tenant));
+            ((RoomListViewHolder) viewHolder).status.setTextColor(LeLeLe.getAppContext().getResources().getColor(R.color.green_455728));
         }
 
     }

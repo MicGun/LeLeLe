@@ -559,7 +559,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 UserManager.getInstance().getUserData().setGroupNow(groupNow);
                 mDrawerUserGroupNew.setText(groupNow);
                 mToolbarGroupNow.setText(getString(R.string.at) + groupNow);
-                mPresenter.updateToolbar(groupNow);
                 mPresenter.loadArticles();
                 mPresenter.setupArticleListener();
                 mDrawerLayout.closeDrawers();

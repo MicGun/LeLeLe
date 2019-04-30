@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/noto_sans"
-        android:textColor="@color/gray_aaaaaa"
+        android:textColor="@color/black_3f3a3a"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_text_view_invitation_title"

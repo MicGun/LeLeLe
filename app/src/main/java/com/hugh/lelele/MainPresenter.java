@@ -37,6 +37,8 @@ import com.hugh.lelele.invitation_sending.InvitationSendingContract;
 import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.notify.NotifyContract;
+import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.post.PostContract;
 import com.hugh.lelele.post.PostPresenter;
 import com.hugh.lelele.profile_landlord.ProfileLandlordContract;
@@ -59,12 +61,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
         GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter,
         InvitationActionContract.Presenter, PostContract.Presenter, ProfileTenantContract.Presenter,
-        ProfileLandlordContract.Presenter {
+        ProfileLandlordContract.Presenter, NotifyContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
 
     private HomePresenter mHomePresenter;
+    private NotifyPresenter mNotifyPresenter;
     private AppTenantPresenter mAppTenantPresenter;
     private AppLandlordPresenter mAppLandlordPresenter;
     private ElectricityTenantPresenter mElectricityTenantPresenter;
@@ -170,6 +173,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mHomePresenter = checkNotNull(homePresenter);
     }
 
+    void setNotifyPresenter(NotifyPresenter notifyPresenter) {
+        mNotifyPresenter = checkNotNull(notifyPresenter);
+    }
+
     void setAppTenantPresenter(AppTenantPresenter appTenantPresenter) {
         mAppTenantPresenter = checkNotNull(appTenantPresenter);
     }
@@ -234,7 +241,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void openNotify() {
-
+        mMainView.openNotifyUi();
     }
 
     @Override

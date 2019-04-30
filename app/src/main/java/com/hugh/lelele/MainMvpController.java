@@ -30,6 +30,7 @@ import com.hugh.lelele.invitation_sending.InvitationSendingFragment;
 import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginFragment;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.notify.NotifyFragment;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.post.PostFragment;
 import com.hugh.lelele.post.PostPresenter;
@@ -124,6 +125,21 @@ public class MainMvpController {
         }
 //        mHomePresenter.setPostingButton();
         mHomePresenter.loadArticles();
+    }
+
+    /*
+     * Notify View
+     * */
+    void findOrCreateNotifyView() {
+
+        NotifyFragment notifyFragment = findOrCreateNotifyFragment();
+
+        if (mNotifyPresenter == null) {
+            mNotifyPresenter = new NotifyPresenter(LeLeLeRepository.getInstance(
+                    LeLeLeRemoteDataSource.getInstance()), notifyFragment);
+            mMainPresenter.setNotifyPresenter(mNotifyPresenter);
+            notifyFragment.setPresenter(mNotifyPresenter);
+        }
     }
 
     /*
@@ -320,6 +336,26 @@ public class MainMvpController {
                 getFragmentManager(), homeFragment, HOME);
 
         return homeFragment;
+    }
+
+    /**
+     * Notify Fragment
+     * @return NotifyFragment
+     */
+    @NonNull
+    private NotifyFragment findOrCreateNotifyFragment() {
+
+        NotifyFragment notifyFragment =
+                (NotifyFragment) getFragmentManager().findFragmentByTag(NOTIFY);
+        if (notifyFragment == null) {
+            // Create the fragment
+            notifyFragment = NotifyFragment.newInstance();
+        }
+
+        ActivityUtils.showOrAddFragmentByTag(
+                getFragmentManager(), notifyFragment, NOTIFY);
+
+        return notifyFragment;
     }
 
     /**

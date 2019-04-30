@@ -254,14 +254,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
                     mPresenter.updateToolbar(MainActivity.this.getResources().getString(R.string.notify));
                     mPresenter.openNotify();
-                    UserDatabase userDatabase = android.arch.persistence.room.Room
-                            .databaseBuilder(LeLeLe.getAppContext(), UserDatabase.class, "userDataBase")
-                            .allowMainThreadQueries()
-                            .build();
-                    UserDataDAO userDataDAO = userDatabase.getUserDAO();
-                    List<UserData> userDataList = userDataDAO.getItems();
-                    UserData userData = userDataList.get(0);
-                    Toast.makeText(getApplicationContext(), userData.getEmail(), Toast.LENGTH_SHORT).show();
                     return true;
 
                 case R.id.navigation_profile:
@@ -442,6 +434,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void openNotifyUi() {
 
+        mMainMvpController.findOrCreateNotifyView();
     }
 
     @Override

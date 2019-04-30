@@ -64,7 +64,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/brown_b06f63"
-        android:src="@drawable/ic_action_check"
+        android:src="@drawable/ic_action_upload_sign"
         android:tint="@color/while_ffffff"
         app:backgroundTint="@color/brown_b06f63"
         app:layout_constraintBottom_toBottomOf="parent"

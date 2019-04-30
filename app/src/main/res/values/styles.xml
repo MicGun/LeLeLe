@@ -84,4 +84,10 @@
         <item name="colorAccent">@color/green_6eafa6</item>
     </style>
 
+    <style name="EditTextTheme" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/black_3f3a3a</item>
+        <item name="colorControlActivated">@color/green_6eafa6</item>
+        <item name="colorControlHighlight">@color/green_6eafa6</item>
+    </style>
+
 </resources>

@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
 //        printHashKey(this);
     }
-/*
+
     public void printHashKey(Context pContext) {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
             Log.e("Huge", "printHashKey()", e);
         }
     }
-    */
+
 
     private void init() {
         setContentView(R.layout.activity_main);

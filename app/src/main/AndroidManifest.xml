@@ -26,6 +26,7 @@
 
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

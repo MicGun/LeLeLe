@@ -25,6 +25,8 @@
 
     <!-- Post  -->
     <dimen name="radius_author_avatar">60dp</dimen>
+    <dimen name="post_edit_text_padding">4dp</dimen>
+    <dimen name="article_edit_text_radius">8dp</dimen>
 
     <!-- Profile  -->
     <dimen name="edit_text_padding">8dp</dimen>

@@ -87,6 +87,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         Fabric.with(this, new Crashlytics());
 
+//        startActivity(new Intent(this, LogoActivity.class));
+
         init();
 
 //        printHashKey(this);

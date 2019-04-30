@@ -39,4 +39,7 @@
 
     <!-- button radius  -->
     <dimen name="button_radius">30dp</dimen>
+
+    <!-- Logo Activity -->
+    <dimen name="logo_activity_logo_height">80dp</dimen>
 </resources>

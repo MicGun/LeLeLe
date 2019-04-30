@@ -42,4 +42,11 @@
 
     <!-- Logo Activity -->
     <dimen name="logo_activity_logo_height">80dp</dimen>
+
+    <!-- Radius  -->
+    <dimen name="radius_4">4dp</dimen>
+    <dimen name="radius_8">8dp</dimen>
+    <dimen name="radius_15">15dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="radius_10">10dp</dimen>
 </resources>

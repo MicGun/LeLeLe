@@ -9,4 +9,7 @@
     <solid
         android:color="@color/while_ffffff" />
 
+    <corners
+        android:radius="@dimen/radius_8" />
+
 </shape>

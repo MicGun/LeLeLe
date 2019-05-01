@@ -7,6 +7,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 
@@ -351,5 +352,20 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     @Override
     public void updateGroupInfo(@NonNull Group group,@NonNull String email, @NonNull String groupName) {
         mLeLeLeRemoteDataSource.updateGroupInfo(group, email, groupName);
+    }
+
+    @Override
+    public void getUserNotifications(@NonNull String email, @NonNull final GetUserNotificationsCallback callback) {
+        mLeLeLeRemoteDataSource.getUserNotifications(email, new GetUserNotificationsCallback() {
+            @Override
+            public void onCompleted(ArrayList<Notification> notifications) {
+                callback.onCompleted(notifications);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
     }
 }

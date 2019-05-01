@@ -52,4 +52,9 @@ public class LoginPresenter implements LoginContract.Presenter {
     public void resetDrawer() {
 
     }
+
+    @Override
+    public void loadNotificationsForBadge() {
+
+    }
 }

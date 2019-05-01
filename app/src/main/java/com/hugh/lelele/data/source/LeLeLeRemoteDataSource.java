@@ -20,6 +20,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.util.UserManager;
@@ -39,7 +40,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private final static String ROOMS = "rooms";
     private final static String ELECTRICITY_FEE = "electricity_fee";
     private final static String ARTICLES = "articles";
-    private final static String NOTIFICATIONS = "notification";
+    private final static String NOTIFICATION = "notification";
 
     /*Electricity Data*/
     private final static String PRICE = "price";
@@ -629,7 +630,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
         mFirebaseFirestore.collection(TENANTS)
                 .document(email)
-                .collection(NOTIFICATIONS)
+                .collection(NOTIFICATION)
                 .add(notificationMessage)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -696,6 +697,38 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                         .document(group.getGroupName())
                                         .set(groupInfo);
                             }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void getUserNotifications(@NonNull String email, @NonNull final GetUserNotificationsCallback callback) {
+        String userType = "";
+        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+            userType = LANDLORDS;
+        } else {
+            userType = TENANTS;
+        }
+        mFirebaseFirestore.collection(userType)
+                .document(email)
+                .collection(NOTIFICATION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot notificationCollection = task.getResult();
+                            if (notificationCollection != null) {
+                                ArrayList<DocumentSnapshot> notificationDocuments =
+                                        (ArrayList<DocumentSnapshot>) notificationCollection.getDocuments();
+
+                                ArrayList<Notification> notifications = LeLeLeParser.parseNotificationList(notificationDocuments);
+
+                                callback.onCompleted(notifications);
+                            }
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
                         }
                     }
                 });

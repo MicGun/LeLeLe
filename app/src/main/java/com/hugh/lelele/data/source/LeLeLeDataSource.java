@@ -6,6 +6,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 
@@ -122,6 +123,13 @@ public interface LeLeLeDataSource {
         void onError(String errorMessage);
     }
 
+    interface GetUserNotificationsCallback {
+
+        void onCompleted(ArrayList<Notification> notifications);
+
+        void onError(String errorMessage);
+    }
+
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
 
     void updateTenantUser(@NonNull String email, @NonNull TenantUserCallback callback);
@@ -182,4 +190,6 @@ public interface LeLeLeDataSource {
     void getGroupInfo(@NonNull String email, @NonNull String groupName, @NonNull GetGroupInfoCallback callback);
 
     void updateGroupInfo(@NonNull Group group,@NonNull String email, @NonNull String groupName);
+
+    void getUserNotifications(@NonNull String email, @NonNull GetUserNotificationsCallback callback);
 }

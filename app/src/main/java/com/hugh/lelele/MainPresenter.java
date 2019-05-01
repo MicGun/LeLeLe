@@ -19,8 +19,11 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
+import com.hugh.lelele.data.loco_data.NotificationDAO;
+import com.hugh.lelele.data.loco_data.NotificationDatabase;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordContract;
@@ -94,9 +97,9 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
-    public void updateNotifyBadge() {
+    public void updateNotifyBadge(int amount) {
         //ToDo Change five to not hard code.
-        mMainView.updateNotifyBadgeUi(5);
+        mMainView.updateNotifyBadgeUi(amount);
     }
 
     @Override
@@ -314,6 +317,36 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mMainView.resetDrawerUi();
     }
 
+
+
+    @Override
+    public void loadNotificationsForBadge() {
+        mLeLeLeRepository.getUserNotifications(UserManager.getInstance().getUserData().getEmail(), new LeLeLeDataSource.GetUserNotificationsCallback() {
+            @Override
+            public void onCompleted(ArrayList<Notification> notifications) {
+
+                updateNotifyBadge(countUnreadNotification(notifications));
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    private int countUnreadNotification(ArrayList<Notification> notifications) {
+
+        int unreadCount = 0;
+
+        for (Notification notification:notifications) {
+            if (!notification.isRead()) {
+                unreadCount++;
+            }
+        }
+        return unreadCount;
+    }
+
     @Override
     public void setDrawerUserInfo() {
         mMainView.setDrawerUserInfoUi();
@@ -382,15 +415,6 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         mMainView.openElectricityUi(electricityYearly);
     }
 
-
-//    //AppLandlord
-//    @Override
-//    public void loadRoomList() {
-//        if (mAppLandlordPresenter != null) {
-//            mAppLandlordPresenter.loadRoomList();
-//        }
-//    }
-
     @Override
     public void openElectricityEditor(ArrayList<Room> rooms) {
         mMainView.openElectricityEditorUi(rooms);
@@ -412,13 +436,6 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void openRoomList() {
         mMainView.openRoomListUi();
     }
-
-//    @Override
-//    public void sendNotification() {
-//        if (mAppLandlordPresenter != null) {
-//            mAppLandlordPresenter.sendNotification();
-//        }
-//    }
 
     @Override
     public void setRoomData(ArrayList<Room> rooms) {
@@ -447,13 +464,6 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mElectricityLandlordPresenter.checkRoomData(rooms);
         }
     }
-
-//    @Override
-//    public void uploadLandlord(String email) {
-//        if (mHomePresenter != null) {
-//            mHomePresenter.uploadLandlord(email);
-//        }
-//    }
 
     @Override
     public void loadRoomList(String email, String groupName) {
@@ -606,6 +616,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     public void updateLandlordProfile(Landlord landlord) {
         if (mProfileLandlordPresenter != null) {
             mProfileLandlordPresenter.updateLandlordProfile(landlord);
+        }
+    }
+
+    @Override
+    public void loadNotifications() {
+        if (mNotifyPresenter != null) {
+            mNotifyPresenter.loadNotifications();
         }
     }
 }

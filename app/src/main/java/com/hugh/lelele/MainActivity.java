@@ -128,6 +128,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 @Override
                 public void onSuccess() {
                     mPresenter.openHome();
+                    mPresenter.loadNotificationsForBadge();
                 }
 
                 @Override
@@ -223,7 +224,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         mBadge = LayoutInflater.from(this)
                 .inflate(R.layout.badge_main_bottom, itemView, true);
 
-        mPresenter.updateNotifyBadge();
+        //mPresenter.updateNotifyBadge();
     }
 
     /**

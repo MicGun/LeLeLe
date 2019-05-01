@@ -71,7 +71,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
 
-        void updateNotifyBadge();
+        void updateNotifyBadge(int amount);
 
         void updateToolbar(String title);
 
@@ -108,5 +108,7 @@ public interface MainContract {
         void setDrawerUserInfo();
 
         void hideKeyBoard();
+
+        void loadNotificationsForBadge();
     }
 }

@@ -22,5 +22,7 @@ public interface LoginContract {
         void loadGroupListDrawerMenu();
 
         void resetDrawer();
+
+        void loadNotificationsForBadge();
     }
 }

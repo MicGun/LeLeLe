@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.loco_data.UserData;
@@ -143,5 +144,19 @@ public class LeLeLeParser {
         }
 
         return articles;
+    }
+
+    public static ArrayList<Notification> parseNotificationList(ArrayList<DocumentSnapshot> notificationDocuments) {
+
+        ArrayList<Notification> notifications = new ArrayList<>();
+
+        for (DocumentSnapshot notificationDocument:notificationDocuments) {
+            Notification notification = notificationDocument.toObject(Notification.class);
+            assert notification != null;
+            notification.setId(notificationDocument.getId());
+            notifications.add(notification);
+        }
+
+        return notifications;
     }
 }

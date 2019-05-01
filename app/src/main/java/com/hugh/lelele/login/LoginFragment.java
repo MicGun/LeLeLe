@@ -99,6 +99,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                                     @Override
                                     public void onSuccess() {
                                         mPresenter.openHome();
+                                        mPresenter.loadNotificationsForBadge();
                                         showProgressBar(false);
                                         mPresenter.showToolbarAndBottomNavigation();
                                         if (mUserType == R.string.landlord) {

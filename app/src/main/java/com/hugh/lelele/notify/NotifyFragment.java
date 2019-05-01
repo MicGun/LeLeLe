@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
@@ -27,6 +28,8 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
     private NotifyAdapter mNotifyAdapter;
 
     private ArrayList<Notification> mNotifications;
+
+    private TextView mNoNotifyText;
 
     private static final String TAG = "NotifyFragment";
 
@@ -52,7 +55,20 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mNotifyAdapter);
 
+        mNoNotifyText = root.findViewById(R.id.text_view_notification);
+
+        setNoNotifyTextStatus();
+
         return root;
+    }
+
+    private void setNoNotifyTextStatus() {
+
+        if (mNotifications == null || mNotifications.size() == 0) {
+            mNoNotifyText.setVisibility(View.VISIBLE);
+        } else {
+            mNoNotifyText.setVisibility(View.INVISIBLE);
+        }
     }
 
     public static NotifyFragment newInstance() {
@@ -67,7 +83,7 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
     @Override
     public void showNotifications(ArrayList<Notification> notifications) {
         mNotifications = notifications;
-
+        setNoNotifyTextStatus();
         if (mNotifyAdapter == null) {
             mNotifyAdapter = new NotifyAdapter(mPresenter);
             mNotifyAdapter.updateData(notifications);

@@ -25,6 +25,7 @@ public class NotifyAdapter extends RecyclerView.Adapter {
     private NotifyContract.Presenter mPresenter;
     private ArrayList<Notification> mNotifications;
 
+
     private static final String TAG = "NotifyAdapter";
 
     public NotifyAdapter(NotifyContract.Presenter presenter) {

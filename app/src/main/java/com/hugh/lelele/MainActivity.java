@@ -51,6 +51,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -385,7 +386,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     @Override
     public void hideKeyBoardUi() {
         mInputMethodManager.hideSoftInputFromWindow(
-                getCurrentFocus().getWindowToken(),
+                Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
 

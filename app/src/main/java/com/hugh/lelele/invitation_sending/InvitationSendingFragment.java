@@ -46,6 +46,15 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_inviting_tenant, container, false);
 
+        root.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mPresenter.hideKeyBoard();
+                }
+            }
+        });
+
         mTenantEmail = root.findViewById(R.id.edit_text_tenant_email);
         mTenantEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,6 +158,7 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
         super.onDestroy();
 
         mPresenter.updateRoomListStatus();
+        mPresenter.hideKeyBoard();
     }
 
     @Override

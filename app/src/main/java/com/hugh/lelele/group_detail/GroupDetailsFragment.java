@@ -74,6 +74,15 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_group_details, container, false);
 
+        root.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mPresenter.hideKeyBoard();
+                }
+            }
+        });
+
         RecyclerView recyclerView = root.findViewById(R.id.recycler_group_details_room_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
@@ -244,6 +253,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         super.onDestroy();
         mPresenter.updateToolbar(getResources().getString(R.string.application_groups_list));
         mPresenter.notifyGroupListChanged();
+        mPresenter.hideKeyBoard();
     }
 
     @Override

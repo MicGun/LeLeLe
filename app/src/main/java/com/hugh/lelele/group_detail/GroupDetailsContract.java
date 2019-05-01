@@ -40,5 +40,7 @@ public interface GroupDetailsContract {
         void notifyGroupListChanged();
 
         void loadGroupListDrawerMenu();
+
+        void hideKeyBoard();
     }
 }

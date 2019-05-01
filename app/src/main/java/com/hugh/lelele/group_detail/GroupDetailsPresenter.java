@@ -108,4 +108,9 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
     public void loadGroupListDrawerMenu() {
 
     }
+
+    @Override
+    public void hideKeyBoard() {
+
+    }
 }

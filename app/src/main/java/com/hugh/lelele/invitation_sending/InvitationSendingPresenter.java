@@ -87,4 +87,9 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
 
         mLeLeLeRepository.sendTenantArticle(article, room.getTenant().getEmail());
     }
+
+    @Override
+    public void hideKeyBoard() {
+
+    }
 }

@@ -33,5 +33,7 @@ public interface InvitationSendingContract {
         void updateRoomListStatus();
 
         void sendInvitationToTenant(Room room);
+
+        void hideKeyBoard();
     }
 }

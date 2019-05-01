@@ -185,7 +185,9 @@ public interface LeLeLeDataSource {
 
     void userArticlesListener(@NonNull String email, @NonNull int userType, @NonNull  ArticlesCallback callback);
 
-    void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull  String email, @NonNull  PushNotificationCallback callback);
+//    void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull  String email, @NonNull  PushNotificationCallback callback);
+
+    void pushNotificationToTenant(@NonNull Notification notification, @NonNull  String email, @NonNull  PushNotificationCallback callback);
 
     void getGroupInfo(@NonNull String email, @NonNull String groupName, @NonNull GetGroupInfoCallback callback);
 

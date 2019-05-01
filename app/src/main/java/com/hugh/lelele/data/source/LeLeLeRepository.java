@@ -319,9 +319,24 @@ public class LeLeLeRepository implements LeLeLeDataSource {
         });
     }
 
+//    @Override
+//    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+//        mLeLeLeRemoteDataSource.pushNotificationToTenant(notificationMessage, email, new PushNotificationCallback() {
+//            @Override
+//            public void onCompleted() {
+//                callback.onCompleted();
+//            }
+//
+//            @Override
+//            public void onError(String errorMessage) {
+//                callback.onError(errorMessage);
+//            }
+//        });
+//    }
+
     @Override
-    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
-        mLeLeLeRemoteDataSource.pushNotificationToTenant(notificationMessage, email, new PushNotificationCallback() {
+    public void pushNotificationToTenant(@NonNull Notification notification, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+        mLeLeLeRemoteDataSource.pushNotificationToTenant(notification, email, new PushNotificationCallback() {
             @Override
             public void onCompleted() {
                 callback.onCompleted();

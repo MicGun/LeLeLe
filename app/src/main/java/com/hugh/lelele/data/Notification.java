@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "notificationData", primaryKeys = {"mId"})
 public class Notification {
 
-    private String mAuthorEmail;
+    private String mSenderEmail;
     private String mTitle;
-    private String mMessage;
+    private String mContent;
     @NonNull
     private String mId;
     private String mNotificationType;
@@ -17,21 +17,21 @@ public class Notification {
 
     public Notification() {
 
-        mAuthorEmail = "";
+        mSenderEmail = "";
         mTitle = "";
-        mMessage = "";
+        mContent = "";
         mId = "";
         mNotificationType = "";
         mTimeMillisecond = -1;
         mIsRead = false;
     }
 
-    public String getAuthorEmail() {
-        return mAuthorEmail;
+    public String getSenderEmail() {
+        return mSenderEmail;
     }
 
-    public void setAuthorEmail(String authorEmail) {
-        mAuthorEmail = authorEmail;
+    public void setSenderEmail(String senderEmail) {
+        mSenderEmail = senderEmail;
     }
 
     public String getTitle() {
@@ -42,12 +42,12 @@ public class Notification {
         mTitle = title;
     }
 
-    public String getMessage() {
-        return mMessage;
+    public String getContent() {
+        return mContent;
     }
 
-    public void setMessage(String message) {
-        mMessage = message;
+    public void setContent(String content) {
+        mContent = content;
     }
 
     @NonNull

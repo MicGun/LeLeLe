@@ -9,6 +9,7 @@ import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
@@ -162,15 +163,26 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
         for (Room room:rooms) {
             String email = room.getTenant().getEmail();
             if (room.getTenant().isBinding()) {
-                Map<String, Object> notificationMessage = new HashMap<>();
+//                Map<String, Object> notificationMessage = new HashMap<>();
+//                notificationMessage.put(Constants.NOTIFICATION_CONTENT, LeLeLe.getAppContext().getString(R.string.electricity_content,
+//                        room.getTenant().getName(),
+//                        electricity.getPrice()));
+//                notificationMessage.put(Constants.NOTIFICATION_SENDER_EMAIL, UserManager.getInstance().getUserData().getEmail());
+//                notificationMessage.put(Constants.NOTIFICATION_TITLE, LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
+
                 Electricity electricity = room.getElectricities().get(Calendar.getInstance().get(Calendar.MONTH));
-                notificationMessage.put(Constants.NOTIFICATION_CONTENT, LeLeLe.getAppContext().getString(R.string.electricity_content,
+                long time= System.currentTimeMillis();
+
+                Notification notification = new Notification();
+                notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
+                notification.setTitle(LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
+                notification.setContent(LeLeLe.getAppContext().getString(R.string.electricity_content,
                         room.getTenant().getName(),
                         electricity.getPrice()));
-                notificationMessage.put(Constants.NOTIFICATION_SENDER_EMAIL, UserManager.getInstance().getUserData().getEmail());
-                notificationMessage.put(Constants.NOTIFICATION_TITLE, LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
+                notification.setNotificationType(Constants.ELECTRICITY);
+                notification.setTimeMillisecond(time);
 
-                mLeLeLeRepository.pushNotificationToTenant(notificationMessage, email, new LeLeLeDataSource.PushNotificationCallback() {
+                mLeLeLeRepository.pushNotificationToTenant(notification, email, new LeLeLeDataSource.PushNotificationCallback() {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "pushNotifications onCompleted: ");

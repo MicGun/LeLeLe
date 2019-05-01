@@ -626,12 +626,30 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 });
     }
 
+//    @Override
+//    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+//        mFirebaseFirestore.collection(TENANTS)
+//                .document(email)
+//                .collection(NOTIFICATION)
+//                .add(notificationMessage)
+//                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentReference> task) {
+//                        if (task.isSuccessful()) {
+//                            callback.onCompleted();
+//                        } else {
+//                            callback.onError(String.valueOf(task.getException()));
+//                        }
+//                    }
+//                });
+//    }
+
     @Override
-    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+    public void pushNotificationToTenant(@NonNull Notification notification, @NonNull String email, @NonNull final PushNotificationCallback callback) {
         mFirebaseFirestore.collection(TENANTS)
                 .document(email)
                 .collection(NOTIFICATION)
-                .add(notificationMessage)
+                .add(notification)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {

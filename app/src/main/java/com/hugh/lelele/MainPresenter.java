@@ -335,6 +335,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         });
     }
 
+    //計數未讀的通知
     private int countUnreadNotification(ArrayList<Notification> notifications) {
 
         int unreadCount = 0;

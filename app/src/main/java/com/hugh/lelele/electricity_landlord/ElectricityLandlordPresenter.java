@@ -108,6 +108,11 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
     }
 
+    @Override
+    public void hideKeyBoard() {
+
+    }
+
     private void checkNoEmptyElectricityData(ArrayList<Room> rooms) {
         int month = Calendar.getInstance().get(Calendar.MONTH);
 

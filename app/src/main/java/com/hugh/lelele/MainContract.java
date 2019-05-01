@@ -65,6 +65,8 @@ public interface MainContract {
 
         void setDrawerUserInfoUi();
 
+        void hideKeyBoardUi();
+
     }
 
     interface Presenter extends BasePresenter {
@@ -104,5 +106,7 @@ public interface MainContract {
         void resetDrawer();
 
         void setDrawerUserInfo();
+
+        void hideKeyBoard();
     }
 }

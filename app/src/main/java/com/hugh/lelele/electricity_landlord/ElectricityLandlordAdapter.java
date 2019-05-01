@@ -138,9 +138,12 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
                     if (s.length() != 0) {
                         electricityThis.setScaleLast(s.toString());
                     }
+
                 }
 
                 @Override
@@ -174,43 +177,53 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
                 String electricityLastData = String.valueOf(((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.getText());
 
-                //如果edittext為空就不執行
-                if (s.length() != 0 && !electricityLastData.equals("")) { //避免下面判別式掛掉
-                    //如果本月度數低於上月度數，需紅字highlight
-                    if (Integer.valueOf(s.toString()) < Integer.valueOf(electricityLastData)) {
 
-                        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
-                                .setTextColor(LeLeLe.getAppContext().getColor(R.color.red_ff0000));
+                if (mUnitPrice != 0) {
 
-                        //本月度數高於上月度數即可上傳firestore
-                    } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)) {
-                        ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
-                                .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));
-                        electricityThis.setScale(s.toString());
-                        int total_consumption = Integer.valueOf(s.toString()) - Integer.valueOf(electricityThis.getScaleLast());
-                        int price = total_consumption * UNIT_PRICE;
-                        electricityThis.setPrice(String.valueOf(price));
-                        electricityThis.setTotalConsumption(String.valueOf(total_consumption));
-                        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                        electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
-                        mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
-                                UserManager.getInstance().getUserData().getGroupNow(),
-                                room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
+                    //如果edittext為空就不執行
+                    if (s.length() != 0 && !electricityLastData.equals("")) { //避免下面判別式掛掉
+                        //如果本月度數低於上月度數，需紅字highlight
+                        if (Integer.valueOf(s.toString()) < Integer.valueOf(electricityLastData)) {
 
-                        if (mMonth == 0) {
+                            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
+                                    .setTextColor(LeLeLe.getAppContext().getColor(R.color.red_ff0000));
+
+                            //本月度數高於上月度數即可上傳firestore
+                        } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)) {
+                            ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
+                                    .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));
+                            electricityThis.setScale(s.toString());
+                            double total_consumption = Double.valueOf(s.toString()) - Double.valueOf(electricityThis.getScaleLast());
+                            double price = Math.round(total_consumption * mUnitPrice);
+                            electricityThis.setPrice(String.valueOf(price));
+                            electricityThis.setTotalConsumption(String.valueOf(total_consumption));
+                            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
                             mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
                                     UserManager.getInstance().getUserData().getGroupNow(),
-                                    room.getRoomName(), String.valueOf(mYear), BASE_LINE_MONTH, electricityThis);
-                        }
+                                    room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
 
-                        //自動更新下月電費的初始值
-                        Electricity electricityNext = new Electricity();
-                        electricityNext.setScaleLast(s.toString());
-                        mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
-                                UserManager.getInstance().getUserData().getGroupNow(),
-                                room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext, electricityNext);
+                            if (mMonth == 0) {
+                                mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                                        UserManager.getInstance().getUserData().getGroupNow(),
+                                        room.getRoomName(), String.valueOf(mYear), BASE_LINE_MONTH, electricityThis);
+                            }
+
+                            //自動更新下月電費的初始值
+                            Electricity electricityNext = new Electricity();
+                            electricityNext.setScaleLast(s.toString());
+                            mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                                    UserManager.getInstance().getUserData().getGroupNow(),
+                                    room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext, electricityNext);
+                        }
                     }
+
+                } else {
+                    Toast.makeText(LeLeLe.getAppContext(),
+                            LeLeLe.getAppContext().getResources().getString(R.string.empty_unit_electricity_fee),
+                            Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

@@ -39,5 +39,7 @@ public interface ElectricityLandlordContract {
         void checkRoomData(ArrayList<Room> rooms);
 
         void showLastFragment();
+
+        void hideKeyBoard();
     }
 }

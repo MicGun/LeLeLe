@@ -3,6 +3,7 @@ package com.hugh.lelele.electricity_landlord;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,9 +41,11 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
 
     private EditText mUnitElectricityFeeEditText;
     private ImageView mButtonUnitElectricityFeeCheck;
+    private String mUnitPriceString;
     private double mUnitPrice;
 
     private ProgressBar mProgressBar;
+    private InputMethodManager mInputMethodManager;
 
     final String TAG = LeLeLe.class.getSimpleName();
 
@@ -60,11 +65,23 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_electricity_landlord, container, false);
 
+        root.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mPresenter.hideKeyBoard();
+                }
+            }
+        });
+
         mRecyclerView = root.findViewById(R.id.recycler_electricity_editor_landlord);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter);
 
         mProgressBar = root.findViewById(R.id.progress_bar_electricity_fee);
+
+        mInputMethodManager = (InputMethodManager) LeLeLe.getAppContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
 
         mUnitElectricityFeeEditText = root.findViewById(R.id.edit_text_unit_price_electricity);
         mUnitElectricityFeeEditText.addTextChangedListener(new TextWatcher() {
@@ -75,7 +92,8 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mUnitPrice = Double.valueOf(s.toString());
+                mUnitPriceString = s.toString();
+                //mUnitPrice = Integer.valueOf(s.toString());
             }
 
             @Override
@@ -88,8 +106,10 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         mButtonUnitElectricityFeeCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mUnitPrice = Double.valueOf(mUnitPriceString);
                 if (mUnitPrice != 0) {
                     mAdapter.setUnitPrice(mUnitPrice);
+                    mPresenter.hideKeyBoard();
                 }
             }
         });
@@ -116,6 +136,12 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         }
     }
 
+//    private void hideKeyBoard() {
+//        mInputMethodManager.hideSoftInputFromWindow(
+//                getActivity().getCurrentFocus().getWindowToken(),
+//                InputMethodManager.HIDE_NOT_ALWAYS);
+//    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -137,6 +163,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
 
         mPresenter.showBottomNavigation();
         mPresenter.updateToolbar(getResources().getString(R.string.application));
+        mPresenter.hideKeyBoard();
     }
 
     @Override

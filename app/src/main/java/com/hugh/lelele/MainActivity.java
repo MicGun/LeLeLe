@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         NavigationView.OnNavigationItemSelectedListener {
 
     private int mUserType;
+
+    private InputMethodManager mInputMethodManager;
 
     private static final String CHANNEL_ID = "LeLeLe";
 
@@ -115,6 +118,9 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         setContentView(R.layout.activity_main);
 
         mMainMvpController = MainMvpController.create(this);
+
+        mInputMethodManager = (InputMethodManager) LeLeLe.getAppContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if (UserManager.getInstance().isLoggedIn()) {
             UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
@@ -374,6 +380,13 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 mDrawerUserGroupNew.setText(getString(R.string.no_group_info));
             }
         }
+    }
+
+    @Override
+    public void hideKeyBoardUi() {
+        mInputMethodManager.hideSoftInputFromWindow(
+                getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override

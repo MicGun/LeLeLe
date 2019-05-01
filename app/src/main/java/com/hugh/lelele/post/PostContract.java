@@ -23,5 +23,7 @@ public interface PostContract {
         void showLastFragment();
 
         void updateToolbar(String title);
+
+        void hideKeyBoard();
     }
 }

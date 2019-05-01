@@ -76,4 +76,9 @@ public class PostPresenter implements PostContract.Presenter {
     public void updateToolbar(String title) {
 
     }
+
+    @Override
+    public void hideKeyBoard() {
+
+    }
 }

@@ -385,9 +385,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void hideKeyBoardUi() {
-        mInputMethodManager.hideSoftInputFromWindow(
-                Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
+
+        if (getCurrentFocus() != null) {
+            mInputMethodManager.hideSoftInputFromWindow(
+                    Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override

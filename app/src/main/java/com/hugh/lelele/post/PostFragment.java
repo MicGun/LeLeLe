@@ -53,6 +53,16 @@ public class PostFragment extends Fragment implements PostContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_posting, container, false);
+
+        root.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mPresenter.hideKeyBoard();
+                }
+            }
+        });
+
         mPresenter.hideBottomNavigation();
 
         mAuthorPicture = root.findViewById(R.id.image_author_picture_posting);
@@ -148,6 +158,7 @@ public class PostFragment extends Fragment implements PostContract.View {
 
         mPresenter.showBottomNavigation();
         mPresenter.updateToolbar(getString(R.string.home));
+        mPresenter.hideKeyBoard();
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
+import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -87,6 +88,8 @@ public class HomePresenter implements HomeContract.Presenter {
 
             }
         });
+
+        updateNumberOfTenantInGroup();
     }
 
     @Override
@@ -280,21 +283,24 @@ public class HomePresenter implements HomeContract.Presenter {
                 UserManager.getInstance().getTenant().getGroup());
     }
 
-//
-//    @Override
-//    public void uploadLandlord(String email) {
-//        mLeLeLeRepository.updateLandlordUser(email, new LeLeLeDataSource.LandlordUserCallback() {
-//            @Override
-//            public void onCompleted(Landlord landlord) {
-//                UserManager.getInstance().setLandlord(landlord);
-//                Log.v("HomePresenter", "Landlord: " + UserManager.getInstance().getLandlord().getIdCardNumber());
-//                Log.v("HomePresenter", "Landlord: " + landlord.getIdCardNumber());
-//            }
-//
-//            @Override
-//            public void onError(String errorMessage) {
-//
-//            }
-//        });
-//    }
+    private void updateNumberOfTenantInGroup() {
+
+        mLeLeLeRepository.getGroupInfo(UserManager.getInstance().getTenant().getLandlordEmail(),
+                UserManager.getInstance().getTenant().getGroup(), new LeLeLeDataSource.GetGroupInfoCallback() {
+                    @Override
+                    public void onCompleted(Group group) {
+                        int numberBefore = Integer.valueOf(group.getGroupTenantNumber());
+                        int numberAfter = numberBefore + 1;
+                        group.setGroupTenantNumber(String.valueOf(numberAfter));
+
+                        mLeLeLeRepository.updateGroupInfo(group, UserManager.getInstance().getTenant().getLandlordEmail(),
+                                UserManager.getInstance().getTenant().getGroup());
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+    }
 }

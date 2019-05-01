@@ -332,4 +332,24 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             }
         });
     }
+
+    @Override
+    public void getGroupInfo(@NonNull String email, @NonNull String groupName, @NonNull final GetGroupInfoCallback callback) {
+        mLeLeLeRemoteDataSource.getGroupInfo(email, groupName, new GetGroupInfoCallback() {
+            @Override
+            public void onCompleted(Group group) {
+                callback.onCompleted(group);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void updateGroupInfo(@NonNull Group group,@NonNull String email, @NonNull String groupName) {
+        mLeLeLeRemoteDataSource.updateGroupInfo(group, email, groupName);
+    }
 }

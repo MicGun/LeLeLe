@@ -644,6 +644,64 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
+    public void getGroupInfo(@NonNull final String email, @NonNull final String groupName, @NonNull final GetGroupInfoCallback callback) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot groupDoc = task.getResult();
+                            assert groupDoc != null;
+                            if (groupDoc.exists()) {
+                                final Group group = LeLeLeParser.parseGroup(groupDoc);
+                                callback.onCompleted(group);
+                            }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void updateGroupInfo(@NonNull final Group group, @NonNull final String email, @NonNull String groupName) {
+        final Map<String, Object> groupInfo = new HashMap<>();
+        groupInfo.put("address", group.getGroupAddress());
+        groupInfo.put("max_room_numbers", group.getGroupRoomNumber());
+        groupInfo.put("tenant_numbers", group.getGroupTenantNumber());
+
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(group.getGroupName())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            assert documentSnapshot != null;
+                            if (documentSnapshot.exists()) {
+                                mFirebaseFirestore.collection(LANDLORDS)
+                                        .document(email)
+                                        .collection(GROUPS)
+                                        .document(group.getGroupName())
+                                        .update(groupInfo);
+                            } else {
+                                mFirebaseFirestore.collection(LANDLORDS)
+                                        .document(email)
+                                        .collection(GROUPS)
+                                        .document(group.getGroupName())
+                                        .set(groupInfo);
+                            }
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void sendLandlordArticle(@NonNull Article article, @NonNull String email) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)

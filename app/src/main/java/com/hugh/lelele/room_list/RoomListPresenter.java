@@ -89,6 +89,7 @@ public class RoomListPresenter implements RoomListContract.Presenter {
         resetRoom(room);
         resetTenant(room.getTenant());
         loadGroupData();
+        decreaseNumberOfTenantInGroup();
     }
 
     private void resetRoom(Room room) {
@@ -122,6 +123,27 @@ public class RoomListPresenter implements RoomListContract.Presenter {
                         }
 
                         Log.d(TAG, "Articles Size: " + articles.size());
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
+    }
+
+    private void decreaseNumberOfTenantInGroup() {
+
+        mLeLeLeRepository.getGroupInfo(UserManager.getInstance().getUserData().getEmail(),
+                UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.GetGroupInfoCallback() {
+                    @Override
+                    public void onCompleted(Group group) {
+                        int numberBefore = Integer.valueOf(group.getGroupTenantNumber());
+                        int numberAfter = numberBefore - 1;
+                        group.setGroupTenantNumber(String.valueOf(numberAfter));
+
+                        mLeLeLeRepository.updateGroupInfo(group, UserManager.getInstance().getUserData().getEmail(),
+                                UserManager.getInstance().getUserData().getGroupNow());
                     }
 
                     @Override

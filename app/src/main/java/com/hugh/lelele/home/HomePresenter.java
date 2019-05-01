@@ -14,7 +14,6 @@ import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -80,7 +79,9 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onSuccess() {
 
+                //確認使用者環境都設置完畢才可以進行下一步
                 bindingWithTenant();
+                increaseNumberOfTenantInGroup();
             }
 
             @Override
@@ -88,8 +89,6 @@ public class HomePresenter implements HomeContract.Presenter {
 
             }
         });
-
-        updateNumberOfTenantInGroup();
     }
 
     @Override
@@ -283,7 +282,7 @@ public class HomePresenter implements HomeContract.Presenter {
                 UserManager.getInstance().getTenant().getGroup());
     }
 
-    private void updateNumberOfTenantInGroup() {
+    private void increaseNumberOfTenantInGroup() {
 
         mLeLeLeRepository.getGroupInfo(UserManager.getInstance().getTenant().getLandlordEmail(),
                 UserManager.getInstance().getTenant().getGroup(), new LeLeLeDataSource.GetGroupInfoCallback() {

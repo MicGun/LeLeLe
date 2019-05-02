@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.hugh.lelele.BasePresenter;
 import com.hugh.lelele.BaseView;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ public interface AppTenantContract {
     interface View extends BaseView<Presenter> {
 
         void showElectricityUi(ArrayList<Electricity> electricityYearly);
+
+        void openRoomMessageView(ArrayList<Message> messages);
     }
 
     interface Presenter extends BasePresenter {
@@ -26,5 +29,9 @@ public interface AppTenantContract {
         void loadElectricityData();
 
         void openElectricity(ArrayList<Electricity> electricityYearly);
+
+        void loadRoomMessage();
+
+        void openMessage(ArrayList<Message> messages);
     }
 }

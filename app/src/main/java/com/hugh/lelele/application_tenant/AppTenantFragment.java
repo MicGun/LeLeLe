@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
@@ -46,6 +47,12 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
         });
 
         mMessageButton = root.findViewById(R.id.button_message_tenant);
+        mMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.loadRoomMessage();
+            }
+        });
 
         return root;
     }
@@ -62,6 +69,11 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
     @Override
     public void showElectricityUi(ArrayList<Electricity> electricityYearly) {
         mPresenter.openElectricity(electricityYearly);
+    }
+
+    @Override
+    public void openRoomMessageView(ArrayList<Message> messages) {
+        mPresenter.openMessage(messages);
     }
 
     @Override

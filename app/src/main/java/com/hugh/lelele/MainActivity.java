@@ -39,6 +39,7 @@ import com.facebook.AccessToken;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.loco_data.UserData;
 import com.hugh.lelele.data.loco_data.UserDataDAO;
@@ -392,6 +393,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                     Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    @Override
+    public void openMessageUi(ArrayList<Message> messages) {
+        mMainMvpController.findOrCreateMessageView();
     }
 
     @Override

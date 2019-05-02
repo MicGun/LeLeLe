@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
 
 import java.util.ArrayList;
@@ -67,6 +68,8 @@ public interface MainContract {
 
         void hideKeyBoardUi();
 
+        void openMessageUi(ArrayList<Message> messages);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -110,5 +113,7 @@ public interface MainContract {
         void hideKeyBoard();
 
         void loadNotificationsForBadge();
+
+        void openMessage(ArrayList<Message> messages);
     }
 }

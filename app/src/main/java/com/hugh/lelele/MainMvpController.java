@@ -30,6 +30,8 @@ import com.hugh.lelele.invitation_sending.InvitationSendingFragment;
 import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginFragment;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.message.MessageFragment;
+import com.hugh.lelele.message.MessagePresenter;
 import com.hugh.lelele.notify.NotifyFragment;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.post.PostFragment;
@@ -69,12 +71,13 @@ public class MainMvpController {
     private NotifyPresenter mNotifyPresenter;
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
+    private MessagePresenter mMessagePresenter;
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({
             HOME, APPLICATION_TENANT, APPLICATION_LANDLORD, NOTIFY, PROFILE, ELECTRICITY_TENANT,
             ELECTRICITY_LANDLORD, LOGIN, GROUP_LIST, GROUP_DETAILS, ROOM_LIST, INVITATION_SENDING,
-            POST, PROFILE_TENANT, PROFILE_LANDLORD
+            POST, PROFILE_TENANT, PROFILE_LANDLORD, MESSAGE
     })
     public @interface FragmentType {}
     static final String HOME    = "HOME";
@@ -93,6 +96,7 @@ public class MainMvpController {
     static final String ELECTRICITY_LANDLORD = "ELECTRICITY_LANDLORD";
     static final String INVITATION_ACTION = "INVITATION_ACTION";
     static final String POST = "POST";
+    static final String MESSAGE = "MESSAGE";
 
     private MainMvpController(@NonNull FragmentActivity activity) {
         mActivity = activity;
@@ -318,6 +322,19 @@ public class MainMvpController {
         postFragment.setPresenter(mMainPresenter);
     }
 
+    /*
+     * Message View
+     * */
+    void findOrCreateMessageView() {
+
+        MessageFragment messageFragment = findOrCreateMessageFragment();
+
+        mMessagePresenter = new MessagePresenter(LeLeLeRepository.getInstance(
+                LeLeLeRemoteDataSource.getInstance()), messageFragment);
+        mMainPresenter.setMessagePresenter(mMessagePresenter);
+        messageFragment.setPresenter(mMainPresenter);
+    }
+
     /**
      * Home Fragment
      * @return HomeFragment
@@ -534,6 +551,26 @@ public class MainMvpController {
                 getFragmentManager(), electricityLandlordFragment, ELECTRICITY_LANDLORD);
 
         return electricityLandlordFragment;
+    }
+
+    /**
+     * Message Fragment
+     * @return MessageFragment
+     */
+    private MessageFragment findOrCreateMessageFragment() {
+
+        MessageFragment messageFragment =
+                (MessageFragment) getFragmentManager().findFragmentByTag(MESSAGE);
+
+        if (messageFragment == null) {
+            // Create the fragment
+            messageFragment = MessageFragment.newInstance();
+        }
+
+        ActivityUtils.addFragmentByTag(
+                getFragmentManager(), messageFragment, MESSAGE);
+
+        return messageFragment;
     }
 
     /**

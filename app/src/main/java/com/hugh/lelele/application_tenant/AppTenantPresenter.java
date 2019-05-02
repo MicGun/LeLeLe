@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.hugh.lelele.data.Electricity;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
@@ -49,32 +50,21 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
                     }
                 });
 
-//        //給假資料
-//        int scale = 7788;
-////        HashMap<String, Electricity> electricityYearly = new LinkedHashMap<>();
-//        ArrayList<Electricity> electricityYearly = new ArrayList<>();
-//        for (int i = 0; i < 12; i++) {
-//            Electricity electricity = new Electricity();
-//            Random random = new Random();
-//            int range = random.nextInt(100);
-//            int consumption = range + 100;
-//            electricity.setScaleLast(String.valueOf(scale));
-//            scale += consumption;
-//            electricity.setScale(String.valueOf(scale));
-//            electricity.setPrice(String.valueOf(consumption*5));
-//            electricity.setTotalConsumption(String.valueOf(consumption));
-//            electricity.setTime("2019/" + i+1 + "/01");
-//            electricityYearly.add(electricity);
-//            if (electricityYearly.size() == 11) {
-//                mAppTenantView.showElectricityUi(electricityYearly);
-//            }
-//        }
-//        Log.v("electricityYearly", "" + electricityYearly);
-
     }
 
     @Override
     public void openElectricity(ArrayList<Electricity> electricityYearly) {
+
+    }
+
+    @Override
+    public void loadRoomMessage() {
+        ArrayList<Message> messages = new ArrayList<>();
+        mAppTenantView.openRoomMessageView(messages);
+    }
+
+    @Override
+    public void openMessage(ArrayList<Message> messages) {
 
     }
 }

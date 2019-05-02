@@ -21,8 +21,12 @@ public class MessageFragment extends Fragment implements MessageContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_message, container, false);
-        
+
         return root;
+    }
+
+    public static MessageFragment newInstance() {
+        return new MessageFragment();
     }
 
     @Override

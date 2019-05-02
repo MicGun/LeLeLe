@@ -19,6 +19,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
@@ -40,6 +41,8 @@ import com.hugh.lelele.invitation_sending.InvitationSendingContract;
 import com.hugh.lelele.invitation_sending.InvitationSendingPresenter;
 import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
+import com.hugh.lelele.message.MessageContract;
+import com.hugh.lelele.message.MessagePresenter;
 import com.hugh.lelele.notify.NotifyContract;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.post.PostContract;
@@ -64,7 +67,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
         GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter,
         InvitationActionContract.Presenter, PostContract.Presenter, ProfileTenantContract.Presenter,
-        ProfileLandlordContract.Presenter, NotifyContract.Presenter {
+        ProfileLandlordContract.Presenter, NotifyContract.Presenter, MessageContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -84,6 +87,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private ProfileTenantPresenter mProfileTenantPresenter;
     private ProfileLandlordPresenter mProfileLandlordPresenter;
     private LoginPresenter mLoginPresenter;
+    private MessagePresenter mMessagePresenter;
 
     private static final String TAG = "MainPresenter";
 
@@ -210,7 +214,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     void setPostPresenter(PostPresenter postPresenter) {
-        mPostPresenter = postPresenter;
+        mPostPresenter = checkNotNull(postPresenter);
+    }
+
+    void setMessagePresenter(MessagePresenter messagePresenter) {
+        mMessagePresenter = checkNotNull(messagePresenter);
     }
 
     void setRoomListPresenter(RoomListPresenter roomListPresenter) {
@@ -336,6 +344,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         });
     }
 
+    @Override
+    public void openMessage(ArrayList<Message> messages) {
+        mMainView.openMessageUi(messages);
+    }
+
     //計數未讀的通知
     private int countUnreadNotification(ArrayList<Notification> notifications) {
 
@@ -415,6 +428,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void openElectricity(ArrayList<Electricity> electricityYearly) {
         mMainView.openElectricityUi(electricityYearly);
+    }
+
+    @Override
+    public void loadRoomMessage() {
+        if (mAppTenantPresenter != null) {
+            mAppTenantPresenter.loadRoomMessage();
+        }
     }
 
     @Override

@@ -101,7 +101,6 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void updateNotifyBadge(int amount) {
         mMainView.updateNotifyBadgeUi(amount);
-        Log.d(TAG, "updateNotifyBadge: " + amount);
     }
 
     @Override

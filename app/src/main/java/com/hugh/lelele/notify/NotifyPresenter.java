@@ -64,7 +64,6 @@ public class NotifyPresenter implements NotifyContract.Presenter {
 
     @Override
     public void updateNotifyBadge(int amount) {
-        Log.d(TAG, "updateNotifyBadge: " + amount);
     }
 
     private void updateNotificationsBeRead(ArrayList<Notification> notificationsBeRead) {

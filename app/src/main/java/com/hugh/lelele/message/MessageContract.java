@@ -10,5 +10,9 @@ public interface MessageContract {
     }
 
     interface Presenter extends BasePresenter {
+
+        void showBottomNavigation();
+
+        void hideBottomNavigation();
     }
 }

@@ -22,11 +22,20 @@ public class MessageFragment extends Fragment implements MessageContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_message, container, false);
 
+        mPresenter.hideBottomNavigation();
+
         return root;
     }
 
     public static MessageFragment newInstance() {
         return new MessageFragment();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mPresenter.showBottomNavigation();
     }
 
     @Override

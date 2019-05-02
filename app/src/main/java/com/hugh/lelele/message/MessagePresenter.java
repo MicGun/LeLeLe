@@ -21,4 +21,14 @@ public class MessagePresenter implements MessageContract.Presenter {
     public void start() {
 
     }
+
+    @Override
+    public void showBottomNavigation() {
+
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+
+    }
 }

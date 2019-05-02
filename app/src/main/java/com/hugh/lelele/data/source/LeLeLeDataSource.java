@@ -189,6 +189,8 @@ public interface LeLeLeDataSource {
 
     void pushNotificationToTenant(@NonNull Notification notification, @NonNull  String email, @NonNull  PushNotificationCallback callback);
 
+    void pushNotificationToLandlord(@NonNull Notification notification, @NonNull  String email, @NonNull  PushNotificationCallback callback);
+
     void getGroupInfo(@NonNull String email, @NonNull String groupName, @NonNull GetGroupInfoCallback callback);
 
     void updateGroupInfo(@NonNull Group group,@NonNull String email, @NonNull String groupName);

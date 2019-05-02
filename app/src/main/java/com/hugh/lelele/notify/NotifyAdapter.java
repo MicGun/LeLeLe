@@ -66,8 +66,20 @@ public class NotifyAdapter extends RecyclerView.Adapter {
 
 
         if (notification.getNotificationType().equals(Constants.ELECTRICITY)) {
+
             ((NotificationViewHolder) viewHolder).notificationImage
-                    .setBackground(LeLeLe.getAppContext().getDrawable(R.drawable.ic_electricity));
+                    .setBackground(LeLeLe.getAppContext().getDrawable(R.drawable.ic_electricity_yellow));
+
+        } else if (notification.getNotificationType().equals(Constants.INVITATION_AGREE)){
+
+            ((NotificationViewHolder) viewHolder).notificationImage
+                    .setBackground(LeLeLe.getAppContext().getDrawable(R.drawable.ic_action_link_green));
+
+        } else if (notification.getNotificationType().equals(Constants.INVITATION_DISAGREE)){
+
+            ((NotificationViewHolder) viewHolder).notificationImage
+                    .setBackground(LeLeLe.getAppContext().getDrawable(R.drawable.ic_action_unlink_red));
+
         }
 
         if (notification.isRead()) {

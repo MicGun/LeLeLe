@@ -350,6 +350,21 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     }
 
     @Override
+    public void pushNotificationToLandlord(@NonNull Notification notification, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+        mLeLeLeRemoteDataSource.pushNotificationToLandlord(notification, email, new PushNotificationCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
     public void getGroupInfo(@NonNull String email, @NonNull String groupName, @NonNull final GetGroupInfoCallback callback) {
         mLeLeLeRemoteDataSource.getGroupInfo(email, groupName, new GetGroupInfoCallback() {
             @Override

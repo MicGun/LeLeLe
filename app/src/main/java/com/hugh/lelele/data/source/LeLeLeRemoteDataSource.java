@@ -667,6 +667,26 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
+    public void pushNotificationToLandlord(@NonNull Notification notification, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+        long time= System.currentTimeMillis();
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(NOTIFICATION)
+                .document(String.valueOf(time))
+                .set(notification)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            callback.onCompleted();
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
+                        }
+                    }
+                });
+    }
+
+    @Override
     public void getGroupInfo(@NonNull final String email, @NonNull final String groupName, @NonNull final GetGroupInfoCallback callback) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)

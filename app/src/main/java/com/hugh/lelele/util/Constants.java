@@ -17,6 +17,9 @@ public class Constants {
     public static final String SYSTEM = "SYSTEM";
 
     //push Notification
+    public static final String INVITATION_AGREE = "INVITATION_AGREE";
+    public static final String INVITATION_DISAGREE = "INVITATION_DISAGREE";
+    public static final String REMOVE_FROM_GROUP = "REMOVE_FROM_GROUP";
     public static final String NOTIFICATION_CONTENT = "content";
     public static final String NOTIFICATION_TITLE = "title";
     public static final String NOTIFICATION_SENDER_EMAIL = "senderEmail";

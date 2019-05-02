@@ -3,9 +3,11 @@ package com.hugh.lelele.home;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -61,6 +63,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void cancelInvitation(Article article) {
+        sendDisagreeNotificationToLandlord();
         mLeLeLeRepository.deleteUserArticle(article,
                 UserManager.getInstance().getUserData().getEmail(),
                 UserManager.getInstance().getUserData().getUserType());
@@ -82,6 +85,7 @@ public class HomePresenter implements HomeContract.Presenter {
                 //確認使用者環境都設置完畢才可以進行下一步
                 bindingWithTenant();
                 increaseNumberOfTenantInGroup();
+                sendAgreeNotificationToLandlord();
             }
 
             @Override
@@ -301,5 +305,51 @@ public class HomePresenter implements HomeContract.Presenter {
 
                     }
                 });
+    }
+
+    private void sendAgreeNotificationToLandlord() {
+        Notification notification = new Notification();
+        long time= System.currentTimeMillis();
+
+        notification.setContent(LeLeLe.getAppContext().getString(R.string.agree_invitation_content,
+                UserManager.getInstance().getTenant().getName(),
+                UserManager.getInstance().getTenant().getGroup(),
+                UserManager.getInstance().getTenant().getRoomNumber()));
+        notification.setTitle(LeLeLe.getAppContext().getString(R.string.invitation_result_title));
+        notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
+        notification.setTimeMillisecond(time);
+        notification.setNotificationType(Constants.INVITATION_AGREE);
+
+        sendNotificationToLandlord(notification);
+    }
+
+    private void sendDisagreeNotificationToLandlord() {
+        Notification notification = new Notification();
+        long time= System.currentTimeMillis();
+
+        notification.setContent(LeLeLe.getAppContext().getString(R.string.disagree_invitation_content,
+                UserManager.getInstance().getTenant().getName()));
+        notification.setTitle(LeLeLe.getAppContext().getString(R.string.invitation_result_title));
+        notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
+        notification.setTimeMillisecond(time);
+        notification.setNotificationType(Constants.INVITATION_DISAGREE);
+
+        sendNotificationToLandlord(notification);
+    }
+
+    private void sendNotificationToLandlord(Notification notification) {
+        String landlordEmail = UserManager.getInstance().getTenant().getLandlordEmail();
+
+        mLeLeLeRepository.pushNotificationToLandlord(notification, landlordEmail, new LeLeLeDataSource.PushNotificationCallback() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

@@ -223,9 +223,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(2);
         mBadge = LayoutInflater.from(this)
                 .inflate(R.layout.badge_main_bottom, itemView, true);
-        mBadge.findViewById(R.id.text_badge_main).setVisibility(View.GONE);//初始狀態沒有badge
 
-        //mPresenter.updateNotifyBadge();
+        mPresenter.updateNotifyBadge(0);//初始狀態沒有badge
     }
 
     /**

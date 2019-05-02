@@ -17,6 +17,7 @@ import com.hugh.lelele.util.Constants;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -74,7 +75,7 @@ public class NotifyAdapter extends RecyclerView.Adapter {
                     .setBackgroundColor(LeLeLe.getAppContext().getColor(R.color.while_ffffff_40_transparent));
         } else {
             ((NotificationViewHolder) viewHolder).itemView
-                    .setBackgroundColor(LeLeLe.getAppContext().getColor(R.color.green_6eafa6_40_transparent));
+                    .setBackgroundColor(LeLeLe.getAppContext().getColor(R.color.blue_a4doe5_40_transparent));
         }
 
         //bind view 完成後更改已讀狀態
@@ -96,6 +97,8 @@ public class NotifyAdapter extends RecyclerView.Adapter {
 
     public void updateData(ArrayList<Notification> notifications) {
         mNotifications = checkNotNull(notifications);
+        Collections.reverse(mNotifications);
         notifyDataSetChanged();
+        //mPresenter.updateNotifyBadge(0);
     }
 }

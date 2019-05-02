@@ -58,6 +58,11 @@ public class NotifyPresenter implements NotifyContract.Presenter {
         }
     }
 
+    @Override
+    public void updateNotifyBadge(int amount) {
+
+    }
+
     private void updateNotificationsBeRead(ArrayList<Notification> notificationsBeRead) {
 
         for (Notification notification:notificationsBeRead) {

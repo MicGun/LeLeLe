@@ -19,5 +19,7 @@ public interface NotifyContract {
         void loadNotifications();
 
         void changeReadStatus(ArrayList<Notification> notifications);
+
+        void updateNotifyBadge(int amount);
     }
 }

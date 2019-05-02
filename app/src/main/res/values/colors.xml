@@ -41,6 +41,9 @@
 
     <!-- blue Series -->
     <color name="blue_255683">#255683</color>
+    <color name="blue_a4doe5">#A4D0E5</color>
+    <color name="blue_a4doe5_40_transparent">#66A4D0E5</color>
+    <color name="blue_255683_20_transparent">#33255683</color>
 
     <!-- yellow Series -->
     <color name="yellow_f7c75f">#F7C75F</color>

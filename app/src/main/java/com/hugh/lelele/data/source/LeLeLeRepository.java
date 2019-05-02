@@ -383,4 +383,9 @@ public class LeLeLeRepository implements LeLeLeDataSource {
             }
         });
     }
+
+    @Override
+    public void updateNotificationRead(@NonNull Notification notification, @NonNull String email) {
+        mLeLeLeRemoteDataSource.updateNotificationRead(notification, email);
+    }
 }

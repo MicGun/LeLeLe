@@ -17,5 +17,7 @@ public interface NotifyContract {
     interface Presenter extends BasePresenter {
 
         void loadNotifications();
+
+        void changeReadStatus(ArrayList<Notification> notifications);
     }
 }

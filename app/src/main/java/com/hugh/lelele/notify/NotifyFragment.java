@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.hugh.lelele.LeLeLe;
@@ -55,6 +56,22 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mNotifyAdapter);
 
+//        recyclerViewReadyCallback = new RecyclerViewReadyCallback() {
+//            @Override
+//            public void onLayoutReady() {
+//                mPresenter.changeReadStatus();
+//            }
+//        };
+//
+//        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                if (recyclerViewReadyCallback != null) {
+//                    recyclerViewReadyCallback.onLayoutReady();
+//                }
+//            }
+//        });
+
         mNoNotifyText = root.findViewById(R.id.text_view_notification);
 
         setNoNotifyTextStatus();
@@ -90,5 +107,11 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
         } else {
             mNotifyAdapter.updateData(notifications);
         }
+    }
+
+    private RecyclerViewReadyCallback recyclerViewReadyCallback;
+
+    public interface RecyclerViewReadyCallback {
+        void onLayoutReady();
     }
 }

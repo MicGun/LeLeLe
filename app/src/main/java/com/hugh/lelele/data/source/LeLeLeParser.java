@@ -154,6 +154,7 @@ public class LeLeLeParser {
             Notification notification = notificationDocument.toObject(Notification.class);
             assert notification != null;
             notification.setId(notificationDocument.getId());
+            notification.setIsRead((Boolean) notificationDocument.get("read"));
             notifications.add(notification);
         }
 

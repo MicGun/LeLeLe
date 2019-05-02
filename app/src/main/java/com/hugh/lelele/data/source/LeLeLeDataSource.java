@@ -194,4 +194,6 @@ public interface LeLeLeDataSource {
     void updateGroupInfo(@NonNull Group group,@NonNull String email, @NonNull String groupName);
 
     void getUserNotifications(@NonNull String email, @NonNull GetUserNotificationsCallback callback);
+
+    void updateNotificationRead(@NonNull Notification notification, @NonNull String email);
 }

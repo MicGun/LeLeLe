@@ -41,4 +41,28 @@ public class NotifyPresenter implements NotifyContract.Presenter {
         });
 
     }
+
+    @Override
+    public void changeReadStatus(ArrayList<Notification> notifications) {
+
+        ArrayList<Notification> notificationsBeRead = new ArrayList<>();
+
+        int count = 0;
+        for (Notification notification:notifications) {
+            count++;
+            notification.setIsRead(true);
+            notificationsBeRead.add(notification);
+            if (count == notifications.size()) {
+                updateNotificationsBeRead(notificationsBeRead);
+            }
+        }
+    }
+
+    private void updateNotificationsBeRead(ArrayList<Notification> notificationsBeRead) {
+
+        for (Notification notification:notificationsBeRead) {
+            mLeLeLeRepository.updateNotificationRead(notification,
+                    UserManager.getInstance().getUserData().getEmail());
+        }
+    }
 }

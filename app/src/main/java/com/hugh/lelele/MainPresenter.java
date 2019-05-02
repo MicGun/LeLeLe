@@ -626,4 +626,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
             mNotifyPresenter.loadNotifications();
         }
     }
+
+    @Override
+    public void changeReadStatus(ArrayList<Notification> notifications) {
+        if (mNotifyPresenter != null) {
+            mNotifyPresenter.changeReadStatus(notifications);
+        }
+    }
 }

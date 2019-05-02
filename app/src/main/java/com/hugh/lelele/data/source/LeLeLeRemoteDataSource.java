@@ -645,14 +645,18 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 //    }
 
     @Override
-    public void pushNotificationToTenant(@NonNull Notification notification, @NonNull String email, @NonNull final PushNotificationCallback callback) {
+    public void pushNotificationToTenant(@NonNull Notification notification, @NonNull String email,
+                                         @NonNull final PushNotificationCallback callback) {
+
+        long time= System.currentTimeMillis();
         mFirebaseFirestore.collection(TENANTS)
                 .document(email)
                 .collection(NOTIFICATION)
-                .add(notification)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                .document(String.valueOf(time))
+                .set(notification)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                    public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             callback.onCompleted();
                         } else {
@@ -750,6 +754,23 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void updateNotificationRead(@NonNull Notification notification, @NonNull String email) {
+
+        String userType = "";
+        if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
+            userType = LANDLORDS;
+        } else {
+            userType = TENANTS;
+        }
+
+        mFirebaseFirestore.collection(userType)
+                .document(email)
+                .collection(NOTIFICATION)
+                .document(notification.getId())
+                .set(notification);
     }
 
     @Override

@@ -140,6 +140,8 @@
     <string name="no_notify">目前尚無通知!</string>
     <string name="agree_invitation_content">%s已經同意您的邀請，進入 %s 群組的 %s 號房。</string>
     <string name="invitation_result_title">邀請結果</string>
+    <string name="remove_from_room_title">移出房間</string>
     <string name="disagree_invitation_content">%s已經拒絕您的邀請。</string>
+    <string name="remove_from_room_content">您已被移出 %s 群組，%s 號房。</string>
 
 </resources>

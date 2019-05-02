@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,10 +24,12 @@ import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class NotifyFragment extends Fragment implements NotifyContract.View {
+public class NotifyFragment extends Fragment implements NotifyContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private NotifyContract.Presenter mPresenter;
     private NotifyAdapter mNotifyAdapter;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private ArrayList<Notification> mNotifications;
 
@@ -45,6 +48,7 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter.loadNotifications();
+        mPresenter.updateNotifyBadge(0);
     }
 
     @Nullable
@@ -56,21 +60,8 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mNotifyAdapter);
 
-//        recyclerViewReadyCallback = new RecyclerViewReadyCallback() {
-//            @Override
-//            public void onLayoutReady() {
-//                mPresenter.changeReadStatus();
-//            }
-//        };
-//
-//        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                if (recyclerViewReadyCallback != null) {
-//                    recyclerViewReadyCallback.onLayoutReady();
-//                }
-//            }
-//        });
+        mSwipeRefreshLayout = root.findViewById(R.id.swipe_container_notify);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mNoNotifyText = root.findViewById(R.id.text_view_notification);
 
@@ -101,6 +92,7 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
     public void showNotifications(ArrayList<Notification> notifications) {
         mNotifications = notifications;
         setNoNotifyTextStatus();
+        mSwipeRefreshLayout.setRefreshing(false);
         if (mNotifyAdapter == null) {
             mNotifyAdapter = new NotifyAdapter(mPresenter);
             mNotifyAdapter.updateData(notifications);
@@ -109,9 +101,9 @@ public class NotifyFragment extends Fragment implements NotifyContract.View {
         }
     }
 
-    private RecyclerViewReadyCallback recyclerViewReadyCallback;
-
-    public interface RecyclerViewReadyCallback {
-        void onLayoutReady();
+    @Override
+    public void onRefresh() {
+        mPresenter.loadNotifications();
+        mSwipeRefreshLayout.setRefreshing(true);
     }
 }

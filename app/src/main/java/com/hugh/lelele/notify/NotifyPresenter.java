@@ -1,5 +1,7 @@
 package com.hugh.lelele.notify;
 
+import android.util.Log;
+
 import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
@@ -13,6 +15,8 @@ public class NotifyPresenter implements NotifyContract.Presenter {
 
     private LeLeLeRepository mLeLeLeRepository;
     private NotifyContract.View mNotifyView;
+
+    private static final String TAG = "NotifyPresenter";
 
     public NotifyPresenter(LeLeLeRepository leLeLeRepository, NotifyContract.View notifyView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leleleRepository cannot be null!");
@@ -60,7 +64,7 @@ public class NotifyPresenter implements NotifyContract.Presenter {
 
     @Override
     public void updateNotifyBadge(int amount) {
-
+        Log.d(TAG, "updateNotifyBadge: " + amount);
     }
 
     private void updateNotificationsBeRead(ArrayList<Notification> notificationsBeRead) {

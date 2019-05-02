@@ -138,7 +138,7 @@ public class MainMvpController {
             mNotifyPresenter = new NotifyPresenter(LeLeLeRepository.getInstance(
                     LeLeLeRemoteDataSource.getInstance()), notifyFragment);
             mMainPresenter.setNotifyPresenter(mNotifyPresenter);
-            notifyFragment.setPresenter(mNotifyPresenter);
+            notifyFragment.setPresenter(mMainPresenter);
         }
     }
 

@@ -4,9 +4,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 
+import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
@@ -85,11 +87,17 @@ public class RoomListPresenter implements RoomListContract.Presenter {
     }
 
     @Override
-    public void removeTenantAction(Room room) {
-        resetRoom(room);
-        resetTenant(room.getTenant());
-        loadGroupData();
-        decreaseNumberOfTenantInGroup();
+    public void removeTenantAction(final Room room) {
+
+        sendRemoveFromRoomNotificationToTenant(room, new SendNotificationCallback() {
+            @Override
+            public void onCompleted() {
+                resetRoom(room);
+                resetTenant(room.getTenant());
+                loadGroupData();
+                decreaseNumberOfTenantInGroup();
+            }
+        });
     }
 
     private void resetRoom(Room room) {
@@ -151,5 +159,35 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
                     }
                 });
+    }
+
+    private void sendRemoveFromRoomNotificationToTenant(Room room, final SendNotificationCallback callback) {
+        Notification notification = new Notification();
+        long time= System.currentTimeMillis();
+
+        notification.setContent(LeLeLe.getAppContext().getString(R.string.remove_from_room_content,
+                room.getTenant().getGroup(),
+                room.getTenant().getRoomNumber()));
+        notification.setTitle(LeLeLe.getAppContext().getString(R.string.remove_from_room_title));
+        notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
+        notification.setTimeMillisecond(time);
+        notification.setNotificationType(Constants.REMOVE_FROM_GROUP);
+
+        mLeLeLeRepository.pushNotificationToTenant(notification, room.getTenant().getEmail(), new LeLeLeDataSource.PushNotificationCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+    }
+
+    interface SendNotificationCallback {
+
+        void onCompleted();
     }
 }

@@ -85,6 +85,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private ProfileLandlordPresenter mProfileLandlordPresenter;
     private LoginPresenter mLoginPresenter;
 
+    private static final String TAG = "MainPresenter";
+
     public MainPresenter(LeLeLeRepository leLeLeRepository, MainContract.View mainView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leLeLeRepository cannot be null!");;
         mMainView = checkNotNull(mainView, "mainView cannot be null!");;
@@ -98,8 +100,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void updateNotifyBadge(int amount) {
-        //ToDo Change five to not hard code.
         mMainView.updateNotifyBadgeUi(amount);
+        Log.d(TAG, "updateNotifyBadge: " + amount);
     }
 
     @Override

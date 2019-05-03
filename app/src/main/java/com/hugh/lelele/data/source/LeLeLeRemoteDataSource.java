@@ -12,6 +12,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -20,6 +21,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
@@ -41,6 +43,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private final static String ELECTRICITY_FEE = "electricity_fee";
     private final static String ARTICLES = "articles";
     private final static String NOTIFICATION = "notification";
+    private final static String MESSAGES = "messages";
 
     /*Electricity Data*/
     private final static String PRICE = "price";
@@ -791,6 +794,85 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .collection(NOTIFICATION)
                 .document(notification.getId())
                 .set(notification);
+    }
+
+    @Override
+    public void sendMessageToRoom(@NonNull Message message, @NonNull String email,
+                                  @NonNull String groupName, @NonNull String roomName) {
+
+        long time = System.currentTimeMillis();
+
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(MESSAGES)
+                .document(String.valueOf(time))
+                .set(message);
+    }
+
+    @Override
+    public void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull final GetMessagesCallback callback) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(MESSAGES)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot messageCollection = task.getResult();
+                            if (messageCollection != null) {
+                                ArrayList<DocumentSnapshot> messageDocuments =
+                                        (ArrayList<DocumentSnapshot>) messageCollection.getDocuments();
+
+                                ArrayList<Message> messages = LeLeLeParser.parseMessageList(messageDocuments);
+
+                                callback.onCompleted(messages);
+                            }
+                        } else {
+                            callback.onError(String.valueOf(task.getException()));
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void messageListener(@NonNull String email, @NonNull String groupName,
+                                @NonNull String roomName, @NonNull boolean switchOn,
+                                final MessageCallback callback) {
+
+        ListenerRegistration  registration = mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(MESSAGES)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                        Log.d(TAG, "onEvent: ");
+                        if (e != null) {
+                            callback.onError(e.getMessage());
+                        } else {
+                            callback.onCompleted();
+                            Log.d(TAG, "onEvent: Completed");
+                        }
+                    }
+                });
+
+        if (!switchOn) {
+            registration.remove();
+        }
+
     }
 
     @Override

@@ -8,6 +8,10 @@ public class Constants {
     // Log
     public static final String TAG = "Hugh-LeLeLe";
 
+    //User Type
+    public static final String LANDLORD = "LANDLORD";
+    public static final String TENANT = "TENANT";
+
     public static final String EMPTY = "";
 
     //Article Type

@@ -4,6 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.support.annotation.NonNull;
 public class Message {
 
+    private String mSenderName;
     private String mSenderEmail;
     private String mSenderPicture;
     private String mSenderType;
@@ -21,6 +22,14 @@ public class Message {
         mId = "";
         mTimeMillisecond = -1;
         mIsRead = false;
+    }
+
+    public String getSenderName() {
+        return mSenderName;
+    }
+
+    public void setSenderName(String senderName) {
+        mSenderName = senderName;
     }
 
     public String getSenderEmail() {

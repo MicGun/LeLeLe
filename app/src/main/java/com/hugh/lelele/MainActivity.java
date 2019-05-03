@@ -41,6 +41,7 @@ import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.loco_data.UserData;
 import com.hugh.lelele.data.loco_data.UserDataDAO;
 import com.hugh.lelele.data.loco_data.UserDatabase;
@@ -396,9 +397,9 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
-    public void openMessageUi(ArrayList<Message> messages) {
+    public void openMessageUi(ArrayList<Message> messages, Tenant tenant) {
         mPresenter.updateToolbar(getResources().getString(R.string.message));
-        mMainMvpController.findOrCreateMessageView();
+        mMainMvpController.findOrCreateMessageView(messages, tenant);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public interface MainContract {
 
         void hideKeyBoardUi();
 
-        void openMessageUi(ArrayList<Message> messages);
+        void openMessageUi(ArrayList<Message> messages, Tenant tenant);
 
     }
 
@@ -114,6 +115,6 @@ public interface MainContract {
 
         void loadNotificationsForBadge();
 
-        void openMessage(ArrayList<Message> messages);
+        void openMessage(ArrayList<Message> messages, Tenant tenant);
     }
 }

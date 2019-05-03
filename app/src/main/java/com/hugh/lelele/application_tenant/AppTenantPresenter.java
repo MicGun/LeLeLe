@@ -59,12 +59,27 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
 
     @Override
     public void loadRoomMessage() {
-        ArrayList<Message> messages = new ArrayList<>();
-        mAppTenantView.openRoomMessageView(messages);
+//        ArrayList<Message> messages = new ArrayList<>();
+        Tenant tenant = UserManager.getInstance().getTenant();
+        String email = tenant.getLandlordEmail();
+        String groupName = tenant.getGroup();
+        String roomName = tenant.getRoomNumber();
+        mLeLeLeRepository.getMessagesFromRoom(email, groupName, roomName, new LeLeLeDataSource.GetMessagesCallback() {
+            @Override
+            public void onCompleted(ArrayList<Message> messages) {
+                mAppTenantView.openRoomMessageView(messages);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
+
     }
 
     @Override
-    public void openMessage(ArrayList<Message> messages) {
+    public void openMessage(ArrayList<Message> messages, Tenant tenant) {
 
     }
 }

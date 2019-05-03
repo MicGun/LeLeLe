@@ -113,6 +113,41 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void sendMessage(String content) {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.sendMessage(content);
+        }
+    }
+
+    @Override
+    public void setTenant(Tenant tenant) {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.setTenant(tenant);
+        }
+    }
+
+    @Override
+    public void setMessages(ArrayList<Message> messages) {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.setMessages(messages);
+        }
+    }
+
+    @Override
+    public void setupMessageListener(boolean switchOn) {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.setupMessageListener(switchOn);
+        }
+    }
+
+    @Override
+    public void loadMessages() {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.loadMessages();
+        }
+    }
+
+    @Override
     public void loadGroupData() {
         if (mRoomListPresenter != null) {
             mRoomListPresenter.loadGroupData();
@@ -345,8 +380,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
-    public void openMessage(ArrayList<Message> messages) {
-        mMainView.openMessageUi(messages);
+    public void openMessage(ArrayList<Message> messages, Tenant tenant) {
+        mMainView.openMessageUi(messages, tenant);
     }
 
     //計數未讀的通知

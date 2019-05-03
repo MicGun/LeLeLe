@@ -73,7 +73,7 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
 
     @Override
     public void openRoomMessageView(ArrayList<Message> messages) {
-        mPresenter.openMessage(messages);
+        mPresenter.openMessage(messages, UserManager.getInstance().getTenant());
     }
 
     @Override

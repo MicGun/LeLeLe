@@ -6,6 +6,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
@@ -130,6 +131,20 @@ public interface LeLeLeDataSource {
         void onError(String errorMessage);
     }
 
+    interface GetMessagesCallback {
+
+        void onCompleted(ArrayList<Message> messages);
+
+        void onError(String errorMessage);
+    }
+
+    interface MessageCallback {
+
+        void onCompleted();
+
+        void onError(String errorMessage);
+    }
+
     void updateLandlordUser(@NonNull String email, @NonNull LandlordUserCallback callback);
 
     void updateTenantUser(@NonNull String email, @NonNull TenantUserCallback callback);
@@ -198,4 +213,11 @@ public interface LeLeLeDataSource {
     void getUserNotifications(@NonNull String email, @NonNull GetUserNotificationsCallback callback);
 
     void updateNotificationRead(@NonNull Notification notification, @NonNull String email);
+
+    void sendMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName,
+                           @NonNull String roomName);
+
+    void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull GetMessagesCallback callback);
+
+    void messageListener(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull boolean switchOn, MessageCallback callback);
 }

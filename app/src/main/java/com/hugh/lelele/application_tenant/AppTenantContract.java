@@ -11,6 +11,7 @@ import com.hugh.lelele.BasePresenter;
 import com.hugh.lelele.BaseView;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Message;
+import com.hugh.lelele.data.Tenant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +33,6 @@ public interface AppTenantContract {
 
         void loadRoomMessage();
 
-        void openMessage(ArrayList<Message> messages);
+        void openMessage(ArrayList<Message> messages, Tenant tenant);
     }
 }

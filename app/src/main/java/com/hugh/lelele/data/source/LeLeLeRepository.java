@@ -7,6 +7,7 @@ import com.hugh.lelele.data.Article;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
 import com.hugh.lelele.data.Landlord;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.Room;
 import com.hugh.lelele.data.Tenant;
@@ -402,5 +403,41 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     @Override
     public void updateNotificationRead(@NonNull Notification notification, @NonNull String email) {
         mLeLeLeRemoteDataSource.updateNotificationRead(notification, email);
+    }
+
+    @Override
+    public void sendMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName,
+                                  @NonNull String roomName) {
+        mLeLeLeRemoteDataSource.sendMessageToRoom(message, email, groupName, roomName);
+    }
+
+    @Override
+    public void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull final GetMessagesCallback callback) {
+        mLeLeLeRemoteDataSource.getMessagesFromRoom(email, groupName, roomName, new GetMessagesCallback() {
+            @Override
+            public void onCompleted(ArrayList<Message> messages) {
+                callback.onCompleted(messages);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void messageListener(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull boolean switchOn, final MessageCallback callback) {
+        mLeLeLeRemoteDataSource.messageListener(email, groupName, roomName, switchOn, new MessageCallback() {
+            @Override
+            public void onCompleted() {
+                callback.onCompleted();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                callback.onError(errorMessage);
+            }
+        });
     }
 }

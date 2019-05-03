@@ -13,7 +13,9 @@ import com.hugh.lelele.application_tenant.AppTenantFragment;
 import com.hugh.lelele.application_tenant.AppTenantPresenter;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Group;
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeRemoteDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordFragment;
@@ -325,7 +327,7 @@ public class MainMvpController {
     /*
      * Message View
      * */
-    void findOrCreateMessageView() {
+    void findOrCreateMessageView(ArrayList<Message> messages, Tenant tenant) {
 
         MessageFragment messageFragment = findOrCreateMessageFragment();
 
@@ -333,6 +335,9 @@ public class MainMvpController {
                 LeLeLeRemoteDataSource.getInstance()), messageFragment);
         mMainPresenter.setMessagePresenter(mMessagePresenter);
         messageFragment.setPresenter(mMainPresenter);
+
+        mMessagePresenter.setTenant(tenant);
+        mMessagePresenter.setMessages(messages);
     }
 
     /**

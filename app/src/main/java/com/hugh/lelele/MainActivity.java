@@ -397,6 +397,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void openMessageUi(ArrayList<Message> messages) {
+        mPresenter.updateToolbar(getResources().getString(R.string.message));
         mMainMvpController.findOrCreateMessageView();
     }
 
@@ -423,7 +424,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 title.equals(getString(R.string.group_edit)) ||
                 title.equals(getString(R.string.application_room_list)) ||
                 title.equals(getString(R.string.invitation_sending)) ||
-                title.equals(getString(R.string.new_post))) {
+                title.equals(getString(R.string.new_post)) ||
+                title.equals(getString(R.string.message))) {
             mActionBarDrawerToggle.setDrawerIndicatorEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationIcon(R.drawable.toolbar_back);

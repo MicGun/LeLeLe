@@ -14,5 +14,7 @@ public interface MessageContract {
         void showBottomNavigation();
 
         void hideBottomNavigation();
+
+        void updateToolbar(String title);
     }
 }

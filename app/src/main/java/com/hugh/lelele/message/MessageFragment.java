@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -35,7 +36,12 @@ public class MessageFragment extends Fragment implements MessageContract.View {
     public void onDestroy() {
         super.onDestroy();
 
-        mPresenter.showBottomNavigation();
+        if (UserManager.getInstance().getUserType() == R.string.tenant) {
+            mPresenter.updateToolbar(getString(R.string.application));
+            mPresenter.showBottomNavigation();
+        } else if (UserManager.getInstance().getUserType() == R.string.landlord) {
+            //ToDo: finish is once chatting list is done
+        }
     }
 
     @Override

@@ -31,4 +31,9 @@ public class MessagePresenter implements MessageContract.Presenter {
     public void hideBottomNavigation() {
 
     }
+
+    @Override
+    public void updateToolbar(String title) {
+
+    }
 }

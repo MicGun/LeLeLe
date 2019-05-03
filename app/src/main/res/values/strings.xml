@@ -144,4 +144,9 @@
     <string name="disagree_invitation_content">%s已經拒絕您的邀請。</string>
     <string name="remove_from_room_content">您已被移出 %s 群組，%s 號房。</string>
 
+    <!-- Message Fragment -->
+    <string name="message">訊息</string>
+    <string name="say_hi">安安~你好!</string>
+    <string name="his_name">他的名字</string>
+
 </resources>

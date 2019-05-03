@@ -28,5 +28,7 @@ public interface AppLandlordContract {
 
         void openRoomList();
 
+        void openMessagingList();
+
     }
 }

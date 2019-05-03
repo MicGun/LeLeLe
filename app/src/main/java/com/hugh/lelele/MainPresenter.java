@@ -43,6 +43,8 @@ import com.hugh.lelele.login.LoginContract;
 import com.hugh.lelele.login.LoginPresenter;
 import com.hugh.lelele.message.MessageContract;
 import com.hugh.lelele.message.MessagePresenter;
+import com.hugh.lelele.messaging_list.MessagingListContract;
+import com.hugh.lelele.messaging_list.MessagingListPresenter;
 import com.hugh.lelele.notify.NotifyContract;
 import com.hugh.lelele.notify.NotifyPresenter;
 import com.hugh.lelele.post.PostContract;
@@ -67,7 +69,8 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         ElectricityLandlordContract.Presenter, LoginContract.Presenter, GroupListContract.Presenter,
         GroupDetailsContract.Presenter, RoomListContract.Presenter, InvitationSendingContract.Presenter,
         InvitationActionContract.Presenter, PostContract.Presenter, ProfileTenantContract.Presenter,
-        ProfileLandlordContract.Presenter, NotifyContract.Presenter, MessageContract.Presenter {
+        ProfileLandlordContract.Presenter, NotifyContract.Presenter, MessageContract.Presenter,
+        MessagingListContract.Presenter {
 
     private final LeLeLeRepository mLeLeLeRepository;
     private MainContract.View mMainView;
@@ -81,6 +84,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     private GroupListPresenter mGroupListPresenter;
     private GroupDetailsPresenter mGroupDetailsPresenter;
     private RoomListPresenter mRoomListPresenter;
+    private MessagingListPresenter mMessagingListPresenter;
     private InvitationSendingPresenter mInvitationSendingPresenter;
     private InvitationActionPresenter mInvitationActionPresenter;
     private PostPresenter mPostPresenter;
@@ -258,6 +262,10 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     void setRoomListPresenter(RoomListPresenter roomListPresenter) {
         mRoomListPresenter = checkNotNull(roomListPresenter);
+    }
+
+    void setMessagingListPresenter(MessagingListPresenter messagingListPresenter) {
+        mMessagingListPresenter = checkNotNull(messagingListPresenter);
     }
 
     void setInvitationSendingPresenter(InvitationSendingPresenter invitationSendingPresenter) {
@@ -492,6 +500,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     @Override
     public void openRoomList() {
         mMainView.openRoomListUi();
+    }
+
+    @Override
+    public void openMessagingList() {
+        mMainView.openMessagingListUi();
     }
 
     @Override

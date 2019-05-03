@@ -71,6 +71,18 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
             }
         });
 
+        mMessageButton = root.findViewById(R.id.button_message_landlord);
+        mMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                    mPresenter.openMessagingList();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.select_group_before_chatting), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         return root;
     }
 

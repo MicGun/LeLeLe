@@ -86,4 +86,9 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
     public void openRoomList() {
 
     }
+
+    @Override
+    public void openMessagingList() {
+
+    }
 }

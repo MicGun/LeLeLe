@@ -37,6 +37,7 @@
     <string name="application_room_list">房間清單</string>
     <string name="application_groups_list">群組清單</string>
     <string name="select_group_before_edit">選擇群組後，才可進行編輯。</string>
+    <string name="select_group_before_chatting">選擇群組後，才可進行聊天。</string>
 
     <!-- Electricity Fee -->
     <string name="electricity_fee">金額</string>

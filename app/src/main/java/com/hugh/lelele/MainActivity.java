@@ -350,6 +350,11 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
     }
 
     @Override
+    public void openMessagingListUi() {
+        mMainMvpController.findOrCreateMessagingListView();
+    }
+
+    @Override
     public void openInvitationSendingUi(Room room) {
         mPresenter.updateToolbar(getResources().getString(R.string.invitation_sending));
         mMainMvpController.findOrCreateInvitationSendingView(room);

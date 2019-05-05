@@ -102,8 +102,8 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     public void updateGroupList(@NonNull Group group, @NonNull String email, @NonNull final UpdateGroupListCallback callback) {
         mLeLeLeRemoteDataSource.updateGroupList(group, email, new UpdateGroupListCallback() {
             @Override
-            public void onCompleted(Group group) {
-                callback.onCompleted(group);
+            public void onCompleted() {
+                callback.onCompleted();
             }
 
             @Override

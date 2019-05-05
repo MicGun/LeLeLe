@@ -293,12 +293,14 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                         .collection(GROUPS)
                                         .document(group.getGroupName())
                                         .update(groupInfo);
+                                callback.onCompleted();
                             } else {
                                 mFirebaseFirestore.collection(LANDLORDS)
                                         .document(email)
                                         .collection(GROUPS)
                                         .document(group.getGroupName())
                                         .set(groupInfo);
+                                callback.onCompleted();
                             }
                         }
                     }

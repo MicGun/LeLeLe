@@ -31,5 +31,9 @@ public interface GroupListContract {
         void loadGroupList(String email);
 
         void notifyGroupListChanged();
+
+        void loadGroupListDrawerMenu();
+
+        void showLastFragment();
     }
 }

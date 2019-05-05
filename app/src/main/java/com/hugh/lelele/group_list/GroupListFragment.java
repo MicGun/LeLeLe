@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class GroupListFragment extends Fragment implements GroupListContract.View {
+public class GroupListFragment extends Fragment implements GroupListContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private final String TAG = GroupListFragment.class.getSimpleName();
 
@@ -34,6 +35,7 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     private FloatingActionButton mFloatingAddGroupButton;
     private TextView mNotifyTextView;
     private ArrayList<Group> mGroups;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +61,9 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
                 getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
+
+        mSwipeRefreshLayout = root.findViewById(R.id.swipe_container_group_list);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mNotifyTextView = root.findViewById(R.id.text_view_notify_group_list);
 
@@ -114,6 +119,9 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     public void showGroupListUi(ArrayList<Group> groups) {
         mGroups = groups;
         checkNotifyTextViewStatus();
+        if (mSwipeRefreshLayout != null) {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
         if (mAdapter == null) {
             mAdapter = new GroupListAdapter(mPresenter);
             mAdapter.updateData(groups);
@@ -125,7 +133,14 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     @Override
     public void reLoadGroupList() {
         mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
+        Log.d(TAG, "reLoadGroupList: ");
     }
 
 
+    @Override
+    public void onRefresh() {
+        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
+        mPresenter.loadGroupListDrawerMenu();
+        mSwipeRefreshLayout.setRefreshing(true);
+    }
 }

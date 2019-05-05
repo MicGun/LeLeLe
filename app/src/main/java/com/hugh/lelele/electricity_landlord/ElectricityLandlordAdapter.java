@@ -193,8 +193,8 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
                                     .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));
                             electricityThis.setScale(s.toString());
-                            double total_consumption = Double.valueOf(s.toString()) - Double.valueOf(electricityThis.getScaleLast());
-                            double price = Math.round(total_consumption * mUnitPrice);
+                            int total_consumption = (int) (Double.valueOf(s.toString()) - Double.valueOf(electricityThis.getScaleLast()));
+                            int price = (int) Math.round(total_consumption * mUnitPrice);
                             electricityThis.setPrice(String.valueOf(price));
                             electricityThis.setTotalConsumption(String.valueOf(total_consumption));
                             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

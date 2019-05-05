@@ -431,6 +431,7 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
 
     @Override
     public void notifyGroupListChanged() {
+        Log.d(TAG, "notifyGroupListChanged: ");
         if (mGroupListPresenter != null) {
             mGroupListPresenter.notifyGroupListChanged();
         }

@@ -254,6 +254,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         mPresenter.updateToolbar(getResources().getString(R.string.application_groups_list));
         mPresenter.notifyGroupListChanged();
         mPresenter.hideKeyBoard();
+        Log.d(TAG, "onDestroy: ");
     }
 
     @Override

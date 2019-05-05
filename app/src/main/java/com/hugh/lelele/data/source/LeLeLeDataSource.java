@@ -49,7 +49,7 @@ public interface LeLeLeDataSource {
 
     interface UpdateGroupListCallback {
 
-        void onCompleted(Group group);
+        void onCompleted();
 
         void onError(String errorMessage);
     }

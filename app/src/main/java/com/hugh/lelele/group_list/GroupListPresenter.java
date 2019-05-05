@@ -15,6 +15,8 @@ public class GroupListPresenter implements GroupListContract.Presenter {
     private final LeLeLeRepository mLeLeLeRepository;
     private final GroupListContract.View mGroupListView;
 
+    private static final String TAG = "GroupListPresenter";
+
     public GroupListPresenter(LeLeLeRepository leLeLeRepository, GroupListContract.View groupListView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leleleRepository cannot be null!");
         mGroupListView = checkNotNull(groupListView, "groupListView cannot be null!");
@@ -56,7 +58,7 @@ public class GroupListPresenter implements GroupListContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
                 mGroupListView.showGroupListUi(groups);
-                Log.v("MainPresenter", "Group Number: " + groups.size());
+                Log.v(TAG, "Group Number: " + groups.size());
             }
 
             @Override
@@ -69,5 +71,16 @@ public class GroupListPresenter implements GroupListContract.Presenter {
     @Override
     public void notifyGroupListChanged() {
         mGroupListView.reLoadGroupList();
+        Log.d(TAG, "notifyGroupListChanged: ");
+    }
+
+    @Override
+    public void loadGroupListDrawerMenu() {
+
+    }
+
+    @Override
+    public void showLastFragment() {
+
     }
 }

@@ -73,8 +73,9 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
         mLeLeLeRepository.updateGroupList(group, UserManager.getInstance().getLandlord().getEmail(),
                 new LeLeLeDataSource.UpdateGroupListCallback() {
                     @Override
-                    public void onCompleted(Group group) {
-
+                    public void onCompleted() {
+                        showLastFragment();
+                        loadGroupListDrawerMenu();
                     }
 
                     @Override

@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hugh.lelele.R;
+import com.hugh.lelele.data.Room;
+
+import java.util.ArrayList;
 
 import static com.google.android.gms.internal.firebase_messaging.zzg.checkNotNull;
 
@@ -19,9 +22,13 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
     private MessagingListContract.Presenter mPresenter;
     private MessagingListAdapter mMessagingListAdapter;
 
+    private ArrayList<Room> mRooms;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter.hideBottomNavigation();
     }
 
     @Nullable
@@ -31,6 +38,7 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
 
         RecyclerView recyclerView = root.findViewById(R.id.recycler_messaging_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mMessagingListAdapter);
 
         return root;
     }
@@ -40,7 +48,21 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mPresenter.showBottomNavigation();
+        mPresenter.updateToolbar(getResources().getString(R.string.application));
+    }
+
+    @Override
     public void setPresenter(MessagingListContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void setRoomsMessagesData(ArrayList<Room> rooms) {
+        mRooms = checkNotNull(rooms);
+        mMessagingListAdapter.updateData(rooms);
     }
 }

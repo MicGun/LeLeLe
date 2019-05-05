@@ -117,6 +117,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void loadMessagingList() {
+        if (mMessagingListPresenter != null) {
+            mMessagingListPresenter.loadMessagingList();
+        }
+    }
+
+    @Override
     public void sendMessage(String content) {
         if (mMessagePresenter != null) {
             mMessagePresenter.sendMessage(content);

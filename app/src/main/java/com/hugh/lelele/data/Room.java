@@ -7,6 +7,7 @@ public class Room {
     private String mRoomName;
     private Tenant mTenant;
     private ArrayList<Electricity> mElectricities;
+    private ArrayList<Message> mMessages;
 
     public Room() {
 
@@ -37,5 +38,13 @@ public class Room {
 
     public void setElectricities(ArrayList<Electricity> electricities) {
         mElectricities = electricities;
+    }
+
+    public ArrayList<Message> getMessages() {
+        return mMessages;
+    }
+
+    public void setMessages(ArrayList<Message> messages) {
+        mMessages = messages;
     }
 }

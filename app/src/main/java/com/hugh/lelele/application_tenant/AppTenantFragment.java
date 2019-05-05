@@ -50,7 +50,11 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
         mMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadRoomMessage();
+                if (UserManager.getInstance().getTenant().isBinding()) {
+                    mPresenter.loadRoomMessage();
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

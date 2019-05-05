@@ -108,7 +108,7 @@ public class MessageFragment extends Fragment implements MessageContract.View {
             mPresenter.updateToolbar(getString(R.string.application));
             mPresenter.showBottomNavigation();
         } else if (UserManager.getInstance().getUserType() == R.string.landlord) {
-            //ToDo: finish it once chatting list is done
+            mPresenter.updateToolbar(getString(R.string.messaging_list));
         }
 
         mPresenter.setupMessageListener(false);

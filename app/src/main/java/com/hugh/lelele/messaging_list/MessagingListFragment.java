@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Room;
@@ -21,6 +22,8 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
 
     private MessagingListContract.Presenter mPresenter;
     private MessagingListAdapter mMessagingListAdapter;
+
+    private ProgressBar mProgressBar;
 
     private ArrayList<Room> mRooms;
 
@@ -44,7 +47,17 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mMessagingListAdapter);
 
+        mProgressBar = root.findViewById(R.id.progress_bar_messaging_list);
+
         return root;
+    }
+
+    private void showProgressBar(boolean showProgress) {
+        if (showProgress) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     public static MessagingListFragment newInstance() {
@@ -68,6 +81,7 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
     public void setRoomsMessagesData(ArrayList<Room> rooms) {
         mRooms = checkNotNull(rooms);
 
+        showProgressBar(false);
         if (mMessagingListAdapter == null) {
             mMessagingListAdapter = new MessagingListAdapter(mPresenter);
             mMessagingListAdapter.updateData(rooms);

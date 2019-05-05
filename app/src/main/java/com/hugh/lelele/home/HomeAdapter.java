@@ -205,7 +205,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public HomeInvitationViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
+            mAuthorPicture = itemView.findViewById(R.id.item_image_sender_picture_messaging);
             mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
                     getResources().getDimensionPixelSize(R.dimen.radius_profile_avatar)));
             mTitle = itemView.findViewById(R.id.item_text_view_invitation_title);
@@ -252,7 +252,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public HomeGeneralViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
+            mAuthorPicture = itemView.findViewById(R.id.item_image_sender_picture_messaging);
             mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
                     getResources().getDimensionPixelSize(R.dimen.radius_general_post_avatar)));
             mTitle = itemView.findViewById(R.id.item_text_view_general_title_posting);
@@ -298,7 +298,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public HomeElectricityViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mAuthorPicture = itemView.findViewById(R.id.image_author_picture_posting);
+            mAuthorPicture = itemView.findViewById(R.id.item_image_sender_picture_messaging);
             mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(LeLeLe.getAppContext().
                     getResources().getDimensionPixelSize(R.dimen.radius_general_post_avatar)));
             mTitle = itemView.findViewById(R.id.item_text_view_electricity_title_posting);

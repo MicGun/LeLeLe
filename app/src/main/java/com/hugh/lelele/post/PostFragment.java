@@ -65,7 +65,7 @@ public class PostFragment extends Fragment implements PostContract.View {
 
         mPresenter.hideBottomNavigation();
 
-        mAuthorPicture = root.findViewById(R.id.image_author_picture_posting);
+        mAuthorPicture = root.findViewById(R.id.item_image_sender_picture_messaging);
         mAuthorPicture.setOutlineProvider(new ProfileAvatarOutlineProvider(getResources().
                 getDimensionPixelOffset(R.dimen.radius_author_avatar)));
 

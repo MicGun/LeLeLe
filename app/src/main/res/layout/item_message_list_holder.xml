@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/RecyclerViewHolder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_image_sender_picture_messaging"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_nav_profile"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_text_view_his_name_messaging_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/his_name"
+        android:textColor="@color/black_3f3a3a"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/item_image_sender_picture_messaging"
+        app:layout_constraintTop_toTopOf="@+id/item_image_sender_picture_messaging" />
+
+    <TextView
+        android:id="@+id/item_text_view_room_name_messaging_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="@string/his_name"
+        android:textColor="@color/gray_999999"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_image_sender_picture_messaging" />
+
+    <TextView
+        android:id="@+id/item_text_view_latest_message_messaging_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/his_name"
+        android:textColor="@color/gray_999999"
+        android:textSize="14sp"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image_sender_picture_messaging"
+        app:layout_constraintEnd_toEndOf="@+id/item_text_view_room_name_messaging_list"
+        app:layout_constraintStart_toStartOf="@+id/item_text_view_his_name_messaging_list"
+        app:layout_constraintTop_toBottomOf="@+id/item_text_view_his_name_messaging_list" />
 
 </android.support.constraint.ConstraintLayout>

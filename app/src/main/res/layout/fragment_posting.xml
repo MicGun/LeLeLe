@@ -12,7 +12,7 @@
     android:focusable="true">
 
     <ImageView
-        android:id="@+id/image_author_picture_posting"
+        android:id="@+id/item_image_sender_picture_messaging"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
@@ -38,7 +38,7 @@
         android:textSize="16sp"
         android:padding="@dimen/edit_text_padding"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/image_author_picture_posting"
+        app:layout_constraintStart_toStartOf="@+id/item_image_sender_picture_messaging"
         app:layout_constraintTop_toBottomOf="@+id/text_view_title_posting" />
 
     <EditText
@@ -56,8 +56,8 @@
         android:padding="@dimen/edit_text_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/image_author_picture_posting"
-        app:layout_constraintTop_toBottomOf="@+id/image_author_picture_posting" />
+        app:layout_constraintStart_toStartOf="@+id/item_image_sender_picture_messaging"
+        app:layout_constraintTop_toBottomOf="@+id/item_image_sender_picture_messaging" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_article_edit_done_posting"
@@ -82,7 +82,7 @@
         android:textColor="@color/black_3f3a3a"
         android:textSize="18sp"
         android:fontFamily="@font/noto_sans"
-        app:layout_constraintStart_toEndOf="@+id/image_author_picture_posting"
-        app:layout_constraintTop_toTopOf="@+id/image_author_picture_posting"
+        app:layout_constraintStart_toEndOf="@+id/item_image_sender_picture_messaging"
+        app:layout_constraintTop_toTopOf="@+id/item_image_sender_picture_messaging"
         tools:text="@string/author_name"/>
 </android.support.constraint.ConstraintLayout>

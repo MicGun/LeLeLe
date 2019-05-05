@@ -28,6 +28,8 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mMessagingListAdapter = new MessagingListAdapter(mPresenter);
+
         mPresenter.hideBottomNavigation();
     }
 
@@ -35,6 +37,8 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_messaging_list, container, false);
+
+        mPresenter.loadMessagingList();
 
         RecyclerView recyclerView = root.findViewById(R.id.recycler_messaging_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -63,6 +67,12 @@ public class MessagingListFragment extends Fragment implements MessagingListCont
     @Override
     public void setRoomsMessagesData(ArrayList<Room> rooms) {
         mRooms = checkNotNull(rooms);
-        mMessagingListAdapter.updateData(rooms);
+
+        if (mMessagingListAdapter == null) {
+            mMessagingListAdapter = new MessagingListAdapter(mPresenter);
+            mMessagingListAdapter.updateData(rooms);
+        } else {
+            mMessagingListAdapter.updateData(rooms);
+        }
     }
 }

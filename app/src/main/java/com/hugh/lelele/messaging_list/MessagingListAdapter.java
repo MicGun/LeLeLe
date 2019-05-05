@@ -24,6 +24,7 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
     private MessagingListContract.Presenter mPresenter;
 
     private ArrayList<Room> mRooms;
+    private ArrayList<Room> mNotEmptyRooms;
 
     public MessagingListAdapter(MessagingListContract.Presenter presenter) {
         mPresenter = presenter;
@@ -63,7 +64,7 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-        Room room = mRooms.get(i);
+        Room room = mNotEmptyRooms.get(i);
 
         if (room.getTenant().isBinding()) {
             ArrayList<Message> messages = room.getMessages();
@@ -104,6 +105,21 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
 
     public void updateData(ArrayList<Room> rooms) {
         mRooms = checkNotNull(rooms);
+        getNotEmptyRooms();
+//        notifyDataSetChanged();
+    }
+
+    private void getNotEmptyRooms() {
+
+        ArrayList<Room> notEmptyRooms = new ArrayList<>();
+
+        for (Room room:mRooms) {
+            if (room.getTenant().isBinding()) {
+                notEmptyRooms.add(room);
+            }
+        }
+
+        mNotEmptyRooms = notEmptyRooms;
         notifyDataSetChanged();
     }
 }

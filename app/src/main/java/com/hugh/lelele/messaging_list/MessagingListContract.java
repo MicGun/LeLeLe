@@ -25,5 +25,7 @@ public interface MessagingListContract {
         void updateToolbar(String title);
 
         void loadMessagingList();
+
+        void openMessage(ArrayList<Message> messages, Tenant tenant);
     }
 }

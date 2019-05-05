@@ -1,6 +1,8 @@
 package com.hugh.lelele.messaging_list;
 
+import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.data.Tenant;
 import com.hugh.lelele.data.source.LeLeLeDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.data.source.RoomsMessagesRecursive;
@@ -64,6 +66,11 @@ public class MessagingListPresenter implements MessagingListContract.Presenter {
 
             }
         });
+
+    }
+
+    @Override
+    public void openMessage(ArrayList<Message> messages, Tenant tenant) {
 
     }
 }

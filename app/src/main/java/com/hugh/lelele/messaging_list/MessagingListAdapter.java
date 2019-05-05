@@ -47,6 +47,16 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
             senderName = itemView.findViewById(R.id.item_text_view_his_name_messaging_list);
             latestMessage = itemView.findViewById(R.id.item_text_view_latest_message_messaging_list);
             roomName = itemView.findViewById(R.id.item_text_view_room_name_messaging_list);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Room room = mNotEmptyRooms.get(getAdapterPosition());
+
+                    mPresenter.openMessage(room.getMessages(), room.getTenant());
+                }
+            });
         }
     }
 

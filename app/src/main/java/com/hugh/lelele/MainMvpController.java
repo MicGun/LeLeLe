@@ -648,7 +648,7 @@ public class MainMvpController {
             profileTenantFragment = ProfileTenantFragment.newInstance();
         }
 
-        ActivityUtils.addFragmentByTag(
+        ActivityUtils.showOrAddFragmentByTag(
                 getFragmentManager(), profileTenantFragment, PROFILE_TENANT);
 
         return profileTenantFragment;
@@ -667,7 +667,7 @@ public class MainMvpController {
             profileLandlordFragment = ProfileLandlordFragment.newInstance();
         }
 
-        ActivityUtils.addFragmentByTag(
+        ActivityUtils.showOrAddFragmentByTag(
                 getFragmentManager(), profileLandlordFragment, PROFILE_LANDLORD);
 
         return profileLandlordFragment;

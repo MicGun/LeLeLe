@@ -150,5 +150,7 @@
     <string name="messaging_list">聊天清單</string>
     <string name="say_hi">安安~你好!</string>
     <string name="his_name">他的名字</string>
+    <string name="is_read">已讀</string>
+    <string name="unread_amount">99+</string>
 
 </resources>

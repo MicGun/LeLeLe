@@ -187,7 +187,10 @@ public class HomePresenter implements HomeContract.Presenter {
                     public void onCompleted() {
                         loadArticles();
                         //需重新去firestore同步使用者資料，否則會有不同步的狀況
-                        UserManager.getInstance().refreshUserEnvironment();
+                        if (UserManager.getInstance().getUserType() == R.string.tenant) {
+                            UserManager.getInstance().refreshUserEnvironment();
+                        }
+//                        UserManager.getInstance().refreshUserEnvironment();
                     }
 
                     @Override

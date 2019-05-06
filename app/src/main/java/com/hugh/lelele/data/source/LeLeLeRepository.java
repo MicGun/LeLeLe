@@ -412,6 +412,11 @@ public class LeLeLeRepository implements LeLeLeDataSource {
     }
 
     @Override
+    public void updateMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName, @NonNull String roomName) {
+        mLeLeLeRemoteDataSource.updateMessageToRoom(message, email, groupName, roomName);
+    }
+
+    @Override
     public void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull final GetMessagesCallback callback) {
         mLeLeLeRemoteDataSource.getMessagesFromRoom(email, groupName, roomName, new GetMessagesCallback() {
             @Override

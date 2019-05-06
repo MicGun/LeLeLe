@@ -20,11 +20,21 @@ public class MessagePresenter implements MessageContract.Presenter {
     private MessageContract.View mMessageView;
 
     private Tenant mTenant;
+    private String mUserType;
+    private String mLandlordEmail;
+    private String mGroupName;
+    private String mRoomName;
 
     public MessagePresenter(@NonNull LeLeLeRepository leLeLeRepository, @NonNull MessageContract.View messageView) {
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leleleRepository cannot be null!");
         mMessageView = checkNotNull(messageView, "messageView cannot be null!");
         mMessageView.setPresenter(this);
+
+        if (UserManager.getInstance().getUserType() == R.string.landlord) {
+            mUserType = Constants.LANDLORD;
+        } else if (UserManager.getInstance().getUserType() == R.string.tenant){
+            mUserType = Constants.TENANT;
+        }
     }
 
     @Override
@@ -52,9 +62,9 @@ public class MessagePresenter implements MessageContract.Presenter {
         Message message = new Message();
 
         long time = System.currentTimeMillis();
-        String email = mTenant.getLandlordEmail();
-        String groupName = mTenant.getGroup();
-        String roomName = mTenant.getRoomNumber();
+//        String email = mTenant.getLandlordEmail();
+//        String groupName = mTenant.getGroup();
+//        String roomName = mTenant.getRoomNumber();
         String senderType = "";
 
         if (UserManager.getInstance().getUserType() == R.string.landlord) {
@@ -70,8 +80,8 @@ public class MessagePresenter implements MessageContract.Presenter {
         message.setSenderType(senderType);
         message.setTimeMillisecond(time);
 
-        if (!email.equals("") && !groupName.equals("") && !roomName.equals("")) {
-            mLeLeLeRepository.sendMessageToRoom(message, email, groupName, roomName);
+        if (!mLandlordEmail.equals("") && !mGroupName.equals("") && !mRoomName.equals("")) {
+            mLeLeLeRepository.sendMessageToRoom(message, mLandlordEmail, mGroupName, mRoomName);
         }
     }
 
@@ -79,6 +89,10 @@ public class MessagePresenter implements MessageContract.Presenter {
     public void setTenant(Tenant tenant) {
         mTenant = checkNotNull(tenant);
         mMessageView.setTenantView(tenant);
+
+        mLandlordEmail = mTenant.getLandlordEmail();
+        mGroupName = mTenant.getGroup();
+        mRoomName = mTenant.getRoomNumber();
     }
 
     @Override
@@ -123,5 +137,21 @@ public class MessagePresenter implements MessageContract.Presenter {
 
             }
         });
+    }
+
+    @Override
+    public void setMessagesAreRead(ArrayList<Message> messages) {
+
+        for (Message message:messages) {
+
+            if (!message.getSenderType().equals(mUserType)) {
+                if (!message.isRead()) {
+                    message.setRead(true);
+                    if (!mLandlordEmail.equals("") && !mGroupName.equals("") && !mRoomName.equals("")) {
+                        mLeLeLeRepository.updateMessageToRoom(message, mLandlordEmail, mGroupName, mRoomName);
+                    }
+                }
+            }
+        }
     }
 }

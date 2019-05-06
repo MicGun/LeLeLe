@@ -20,6 +20,10 @@ public class Constants {
     public static final String GENERAL = "GENERAL";
     public static final String SYSTEM = "SYSTEM";
 
+    //Message
+    public static final String IS_READ = "已讀";
+    public static final String NOT_READ = "未讀";
+
     //push Notification
     public static final String INVITATION_AGREE = "INVITATION_AGREE";
     public static final String INVITATION_DISAGREE = "INVITATION_DISAGREE";

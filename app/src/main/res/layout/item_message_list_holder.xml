@@ -49,13 +49,31 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:maxLines="1"
         android:text="@string/his_name"
         android:textColor="@color/gray_999999"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image_sender_picture_messaging"
+        app:layout_constraintEnd_toStartOf="@+id/item_text_view_unread_badge_messaging_list"
+        app:layout_constraintStart_toStartOf="@+id/item_text_view_his_name_messaging_list"
+        app:layout_constraintTop_toBottomOf="@+id/item_text_view_his_name_messaging_list" />
+
+    <TextView
+        android:id="@+id/item_text_view_unread_badge_messaging_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:maxLines="1"
+        android:text="@string/unread_amount"
+        android:textColor="@color/while_ffffff"
+        android:textSize="14sp"
+        android:background="@drawable/unread_message_amount_board_background"
+        android:paddingStart="@dimen/post_edit_text_padding"
+        android:paddingEnd="@dimen/post_edit_text_padding"
         app:layout_constraintBottom_toBottomOf="@+id/item_image_sender_picture_messaging"
         app:layout_constraintEnd_toEndOf="@+id/item_text_view_room_name_messaging_list"
-        app:layout_constraintStart_toStartOf="@+id/item_text_view_his_name_messaging_list"
         app:layout_constraintTop_toBottomOf="@+id/item_text_view_his_name_messaging_list" />
 
     <View

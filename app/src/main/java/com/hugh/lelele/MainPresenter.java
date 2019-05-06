@@ -159,6 +159,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void setMessagesAreRead(ArrayList<Message> messages) {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.setMessagesAreRead(messages);
+        }
+    }
+
+    @Override
     public void loadGroupData() {
         if (mRoomListPresenter != null) {
             mRoomListPresenter.loadGroupData();

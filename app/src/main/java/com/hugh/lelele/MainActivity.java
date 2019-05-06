@@ -586,6 +586,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 String groupNow = (String) menuItem.getTitle();
                 mGroupMenu.getItem().setChecked(true);
                 UserManager.getInstance().getUserData().setGroupNow(groupNow);
+                Log.d(TAG, "onNavigationItemSelected: " + groupNow);
                 mDrawerUserGroupNew.setText(groupNow);
                 mToolbarGroupNow.setText(getString(R.string.at) + groupNow);
                 mPresenter.loadArticles();

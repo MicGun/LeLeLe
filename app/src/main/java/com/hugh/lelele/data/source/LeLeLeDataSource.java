@@ -217,6 +217,9 @@ public interface LeLeLeDataSource {
     void sendMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName,
                            @NonNull String roomName);
 
+    void updateMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName,
+                           @NonNull String roomName);
+
     void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull GetMessagesCallback callback);
 
     void messageListener(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull boolean switchOn, MessageCallback callback);

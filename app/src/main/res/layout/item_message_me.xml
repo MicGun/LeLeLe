@@ -21,4 +21,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_text_is_read_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="@string/is_read"
+        android:textColor="@color/gray_999999"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_text_me_message"
+        app:layout_constraintEnd_toStartOf="@+id/item_text_me_message" />
 </android.support.constraint.ConstraintLayout>

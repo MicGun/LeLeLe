@@ -13,7 +13,9 @@ import com.hugh.lelele.R;
 import com.hugh.lelele.component.ProfileAvatarOutlineProvider;
 import com.hugh.lelele.data.Message;
 import com.hugh.lelele.data.Room;
+import com.hugh.lelele.util.Constants;
 import com.hugh.lelele.util.ImageManager;
+import com.hugh.lelele.util.UserManager;
 
 import java.util.ArrayList;
 
@@ -26,8 +28,16 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
     private ArrayList<Room> mRooms;
     private ArrayList<Room> mNotEmptyRooms;
 
+    private String mUserType;
+
     public MessagingListAdapter(MessagingListContract.Presenter presenter) {
         mPresenter = presenter;
+
+        if (UserManager.getInstance().getUserType() == R.string.landlord) {
+            mUserType = Constants.LANDLORD;
+        } else if (UserManager.getInstance().getUserType() == R.string.tenant){
+            mUserType = Constants.TENANT;
+        }
     }
 
     public class MessagingListViewHolder extends RecyclerView.ViewHolder {
@@ -36,6 +46,7 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
         TextView senderName;
         TextView latestMessage;
         TextView roomName;
+        TextView unreadAmount;
 
         public MessagingListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -47,6 +58,7 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
             senderName = itemView.findViewById(R.id.item_text_view_his_name_messaging_list);
             latestMessage = itemView.findViewById(R.id.item_text_view_latest_message_messaging_list);
             roomName = itemView.findViewById(R.id.item_text_view_room_name_messaging_list);
+            unreadAmount = itemView.findViewById(R.id.item_text_view_unread_badge_messaging_list);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -55,6 +67,7 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
                     Room room = mNotEmptyRooms.get(getAdapterPosition());
 
                     mPresenter.openMessage(room.getMessages(), room.getTenant());
+                    unreadAmount.setVisibility(View.GONE);
                 }
             });
         }
@@ -85,10 +98,30 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
 
             ((MessagingListViewHolder) viewHolder).latestMessage.setText(messages.get(messages.size() - 1).getContent());
 
+            int unreadAmount = getUnreadAmount(messages);
+            if (unreadAmount != 0) {
+                ((MessagingListViewHolder) viewHolder).unreadAmount.setVisibility(View.VISIBLE);
+                ((MessagingListViewHolder) viewHolder).unreadAmount.setText(String.valueOf(unreadAmount));
+            } else {
+                ((MessagingListViewHolder) viewHolder).unreadAmount.setVisibility(View.GONE);
+            }
+
+
             ImageManager.getInstance().setImageByUrl(((MessagingListViewHolder) viewHolder).senderPicture,
                     room.getTenant().getPicture());
         }
 
+    }
+
+    private int getUnreadAmount(ArrayList<Message> messages) {
+        int count = 0;
+
+        for (Message message:messages) {
+            if (!message.isRead() && !message.getSenderType().equals(mUserType)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override

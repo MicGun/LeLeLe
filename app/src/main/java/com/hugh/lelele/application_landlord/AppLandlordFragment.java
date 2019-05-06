@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
     private Button mMessageButton;
 
     private Landlord mLandlord;
+
+    private static final String TAG = "AppLandlordFragment";
 
     @Nullable
     @Override
@@ -75,6 +78,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         mMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: " + UserManager.getInstance().getUserData().getGroupNow());
                 if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
                     mPresenter.openMessagingList();
                 } else {

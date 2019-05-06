@@ -34,5 +34,7 @@ public interface MessageContract {
         void setupMessageListener(boolean switchOn);
 
         void loadMessages();
+
+        void setMessagesAreRead(ArrayList<Message> messages);
     }
 }

@@ -153,6 +153,8 @@ public class LeLeLeParser {
 
         for (DocumentSnapshot messageDocument:messageDocuments) {
             Message message = messageDocument.toObject(Message.class);
+            assert message != null;
+            message.setId(messageDocument.getId());
             messages.add(message);
         }
         return messages;

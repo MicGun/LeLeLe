@@ -816,6 +816,19 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     @Override
+    public void updateMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName, @NonNull String roomName) {
+        mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS)
+                .document(roomName)
+                .collection(MESSAGES)
+                .document(message.getId())
+                .set(message);
+    }
+
+    @Override
     public void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull final GetMessagesCallback callback) {
         mFirebaseFirestore.collection(LANDLORDS)
                 .document(email)

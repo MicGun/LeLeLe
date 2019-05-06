@@ -91,6 +91,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     private void bindMessageMyViewHolder(MessageMyViewHolder viewHolder, Message message) {
 
         viewHolder.getContent().setText(message.getContent());
+        viewHolder.getReadStatus().setText(getReadStatus(message.isRead()));
 
     }
 
@@ -106,15 +107,21 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public class MessageMyViewHolder extends RecyclerView.ViewHolder {
 
         TextView content;
+        TextView readStatus;
 
         public MessageMyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             content = itemView.findViewById(R.id.item_text_me_message);
+            readStatus = itemView.findViewById(R.id.item_text_is_read_message);
         }
 
         public TextView getContent() {
             return content;
+        }
+
+        public TextView getReadStatus() {
+            return readStatus;
         }
     }
 
@@ -147,6 +154,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
         }
     }
 
+    private String getReadStatus(boolean isRead) {
+        if (isRead) {
+            return Constants.IS_READ;
+        } else {
+            return Constants.NOT_READ;
+        }
+    }
+
     @Override
     public int getItemCount() {
 
@@ -160,6 +175,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void updateData(ArrayList<Message> messages) {
         mMessages = checkNotNull(messages);
         notifyDataSetChanged();
-        Log.d(TAG, "updateData: " + mMessages.size());
+        mPresenter.setMessagesAreRead(mMessages);
     }
 }

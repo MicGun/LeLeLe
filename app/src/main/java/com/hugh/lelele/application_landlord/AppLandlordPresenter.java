@@ -63,10 +63,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
                 mAppLandlordView.showGroupListUi(groups);
-                if (groups != null) {
-                    //ToDo: to think about if the data is already been saving to landlord, should pass the data through dependency injection?
-                    UserManager.getInstance().getLandlord().setGroups(groups);
-                }
+                setUserManagerLandlordGroups(groups);
             }
 
             @Override
@@ -74,6 +71,12 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
 
             }
         });
+    }
+
+    private void setUserManagerLandlordGroups(ArrayList<Group> groups) {
+        if (groups != null) {
+            UserManager.getInstance().getLandlord().setGroups(groups);
+        }
     }
 
     @Override

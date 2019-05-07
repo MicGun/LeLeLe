@@ -59,7 +59,6 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
 
     @Override
     public void loadRoomMessage() {
-//        ArrayList<Message> messages = new ArrayList<>();
         Tenant tenant = UserManager.getInstance().getTenant();
         String email = tenant.getLandlordEmail();
         String groupName = tenant.getGroup();

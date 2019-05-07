@@ -67,7 +67,6 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
                     //ToDo: to think about if the data is already been saving to landlord, should pass the data through dependency injection?
                     UserManager.getInstance().getLandlord().setGroups(groups);
                 }
-                Log.v(TAG, "Group Number: " + groups.size());
             }
 
             @Override

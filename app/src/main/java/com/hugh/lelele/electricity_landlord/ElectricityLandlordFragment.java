@@ -96,8 +96,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mUnitPriceString = s.toString();
-                ImageViewCompat.setImageTintList(mButtonUnitElectricityFeeCheck,
-                        ColorStateList.valueOf(Objects.requireNonNull(getContext()).getColor(R.color.green_6eafa6)));
+                setUnitElectricityFeeButtonColor(true);
             }
 
             @Override
@@ -116,8 +115,7 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
                     mPresenter.hideKeyBoard();
                     Toast.makeText(getContext(), getString(R.string.set_unit_electricity_fee_, String.valueOf(mUnitPrice)),
                             Toast.LENGTH_SHORT).show();
-                    ImageViewCompat.setImageTintList(mButtonUnitElectricityFeeCheck,
-                            ColorStateList.valueOf(Objects.requireNonNull(getContext()).getColor(R.color.gray_999999)));
+                    setUnitElectricityFeeButtonColor(false);
                 }
             }
         });
@@ -134,6 +132,17 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
         mPresenter.hideBottomNavigation();
 
         return root;
+    }
+
+    private void setUnitElectricityFeeButtonColor(boolean isEditing) {
+
+        if (isEditing) {
+            ImageViewCompat.setImageTintList(mButtonUnitElectricityFeeCheck,
+                    ColorStateList.valueOf(Objects.requireNonNull(getContext()).getColor(R.color.green_6eafa6)));
+        } else {
+            ImageViewCompat.setImageTintList(mButtonUnitElectricityFeeCheck,
+                    ColorStateList.valueOf(Objects.requireNonNull(getContext()).getColor(R.color.gray_999999)));
+        }
     }
 
     private void showProgressBar(boolean showProgress) {

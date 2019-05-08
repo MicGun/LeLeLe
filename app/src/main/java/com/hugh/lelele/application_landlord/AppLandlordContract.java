@@ -14,6 +14,8 @@ public interface AppLandlordContract {
         void showElectricityEditorUi(ArrayList<Room> rooms);
 
         void showGroupListUi(ArrayList<Group> groups);
+
+        void showProgressBar(boolean needs2Show);
     }
 
     interface Presenter extends BasePresenter {

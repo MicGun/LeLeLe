@@ -63,6 +63,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Group> groups) {
                 mAppLandlordView.showGroupListUi(groups);
+                mAppLandlordView.showProgressBar(false);
                 setUserManagerLandlordGroups(groups);
             }
 

@@ -48,7 +48,6 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
     }
 
     @Nullable

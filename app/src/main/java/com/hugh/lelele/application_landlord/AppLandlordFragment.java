@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.hugh.lelele.R;
@@ -29,6 +30,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
     private Button mGroupListButton;
     private Button mRoomListButton;
     private Button mMessageButton;
+    private ProgressBar mProgressBar;
 
     private Landlord mLandlord;
 
@@ -41,8 +43,9 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
 
         mLandlord = UserManager.getInstance().getLandlord();
 
-        mElectricityButton = root.findViewById(R.id.button_electricity_landlord);
+        mProgressBar = root.findViewById(R.id.progress_bar_app_landlord);
 
+        mElectricityButton = root.findViewById(R.id.button_electricity_landlord);
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +62,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
             @Override
             public void onClick(View v) {
                 mPresenter.loadGroupListFromApp(mLandlord.getEmail());
+                showProgressBar(true);
             }
         });
 
@@ -87,7 +91,18 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
             }
         });
 
+        showProgressBar(false);
+
         return root;
+    }
+
+    @Override
+    public void showProgressBar(boolean showProgress) {
+        if (showProgress) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     public static AppLandlordFragment newInstance() {

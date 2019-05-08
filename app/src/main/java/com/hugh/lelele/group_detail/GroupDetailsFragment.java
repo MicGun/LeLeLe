@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     private FloatingActionButton mFloatingGroupDetailEditDoneButton;
     private boolean mIsNewGroup;
 
+    private ProgressBar mProgressBar;
+
     public GroupDetailsFragment() {
         mRoomNames = new ArrayList<>();
         mRoomName = "";
@@ -60,13 +63,6 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //如果是要編輯既有群組，需要去下載群組原有房間，而且房間名稱需不能被更改
-        if (!mGroup.getGroupName().equals("")) {
-            mIsNewGroup = false;
-            mPresenter.loadRoomListFromGroupDetails(UserManager.getInstance().getLandlord().getEmail(),
-                    mGroup.getGroupName());
-        }
     }
 
     @Nullable
@@ -88,6 +84,8 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(1,
                 getContext().getResources().getDimensionPixelOffset(R.dimen.space_detail_circle), true));
+
+        mProgressBar = root.findViewById(R.id.progress_bar_group_list);
 
         mEditGroupName = root.findViewById(R.id.edit_text_group_name_group_detail);
         mEditGroupAddress = root.findViewById(R.id.edit_text_group_address_group_detail);
@@ -215,7 +213,19 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
             } else {
                 mNumberOfTenants.setText("0");
             }
+
+            loadRoomList();
+        } else {
+            showProgressBar(false);
         }
+    }
+
+    private void loadRoomList() {
+        //如果是要編輯既有群組，需要去下載群組原有房間，而且房間名稱需不能被更改
+        mIsNewGroup = false;
+        mPresenter.loadRoomListFromGroupDetails(UserManager.getInstance().getLandlord().getEmail(),
+                mGroup.getGroupName());
+        showProgressBar(true);
     }
 
     private Group getGroupFinalStatus() {
@@ -241,7 +251,16 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
 
         mNumberOfRooms.setText(String.valueOf(mRooms.size()));
         mAdapter.updateData(mRooms);
+        showProgressBar(false);
 
+    }
+
+    private void showProgressBar(boolean showProgress) {
+        if (showProgress) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 
     public static GroupDetailsFragment newInstance() {

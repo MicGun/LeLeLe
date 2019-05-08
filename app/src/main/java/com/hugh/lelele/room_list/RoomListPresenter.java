@@ -34,26 +34,6 @@ public class RoomListPresenter implements RoomListContract.Presenter {
     }
 
     @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void hideBottomNavigation() {
-
-    }
-
-    @Override
-    public void showBottomNavigation() {
-
-    }
-
-    @Override
-    public void updateToolbar(String title) {
-
-    }
-
-    @Override
     public void loadGroupData() {
         mLeLeLeRepository.getGroupData(UserManager.getInstance().getLandlord().getEmail(),
                 UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.GetGroupDataCallback() {
@@ -67,16 +47,6 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
                     }
                 });
-    }
-
-    @Override
-    public void openInvitationSending(Room room) {
-
-    }
-
-    @Override
-    public void openInvitationActionDialog(View view, Room room) {
-
     }
 
     @Override
@@ -184,6 +154,36 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
             }
         });
+    }
+
+    @Override
+    public void openInvitationSending(Room room) {
+
+    }
+
+    @Override
+    public void openInvitationActionDialog(View view, Room room) {
+
+    }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void hideBottomNavigation() {
+
+    }
+
+    @Override
+    public void showBottomNavigation() {
+
+    }
+
+    @Override
+    public void updateToolbar(String title) {
+
     }
 
     interface SendNotificationCallback {

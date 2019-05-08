@@ -324,7 +324,6 @@ public class UserManager {
             public void onCompleted(Landlord landlord) {
 
                 setLandlord(landlord);
-                //checkProfileCompleted();
 
                 callback.onSuccess();
             }
@@ -344,7 +343,6 @@ public class UserManager {
             public void onCompleted(Tenant tenant) {
 
                 setTenant(tenant);
-                //checkProfileCompleted();
 
                 if (tenant.isBinding()) {
                     mUserData.setGroupNow(tenant.getGroup());
@@ -364,9 +362,8 @@ public class UserManager {
 
     public void checkProfileCompleted() {
 
-        Article article = getProfileFillingRequest();
-
         if (!isProfileCompleted()) {
+            Article article = getProfileFillingRequest();
             if (mUserType == R.string.landlord) {
                 mLeLeLeRepository.sendLandlordArticle(article, mUserData.getEmail());
             } else {

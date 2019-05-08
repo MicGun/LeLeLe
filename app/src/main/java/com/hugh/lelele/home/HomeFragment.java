@@ -47,8 +47,8 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         super.onCreate(savedInstanceState);
         mPresenter.loadArticles();
         mPresenter.setupArticleListener();
+        //每次打開首頁，就去確認使用者資料是否完整
         UserManager.getInstance().checkProfileCompleted();
-//        mSwipeRefreshLayout.setRefreshing(true);
         mHomeAdapter = new HomeAdapter(mPresenter);
     }
 
@@ -85,7 +85,6 @@ public class HomeFragment extends Fragment implements HomeContract.View, SwipeRe
         });
 
         Log.e(TAG, "isTenant: " + (UserManager.getInstance().getUserData().getUserType() == R.string.tenant));
-//        setPostingButtonUi();
         setNoArticleTextStatus();
 
         return root;

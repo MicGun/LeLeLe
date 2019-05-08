@@ -113,7 +113,6 @@ public class HomePresenter implements HomeContract.Presenter {
                 mUserArticlesDownloaded = true;
                 mUserArticles = articles;
                 combineAllArticles();
-//                mHomeView.setArticleList(articles);
             }
 
             @Override
@@ -242,7 +241,7 @@ public class HomePresenter implements HomeContract.Presenter {
     private void combineAllArticles() {
 
         if (mGroupArticlesDownloaded && mUserArticlesDownloaded) {
-            ArrayList allArticles = new ArrayList();
+            ArrayList<Article> allArticles = new ArrayList<>();
             allArticles.addAll(mGroupArticles);
             allArticles.addAll(mUserArticles);
 

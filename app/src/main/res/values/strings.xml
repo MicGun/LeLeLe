@@ -53,6 +53,7 @@
     <string name="electricity_fee_downloading">電費下載中，請稍等…</string>
     <string name="unit_electricity_fee_">本月單位電費( 元 / 度 ) : </string>
     <string name="unit_electricity_fee_check">確定</string>
+    <string name="set_unit_electricity_fee_">您已設定單位電費為 %s 元</string>
 
     <!-- Login and Logout -->
     <string name="facebookLoginText">Facebook Login</string>

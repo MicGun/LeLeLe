@@ -4,11 +4,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -28,6 +30,7 @@ import com.hugh.lelele.R;
 import com.hugh.lelele.data.Room;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -93,7 +96,8 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mUnitPriceString = s.toString();
-                //mUnitPrice = Integer.valueOf(s.toString());
+                ImageViewCompat.setImageTintList(mButtonUnitElectricityFeeCheck,
+                        ColorStateList.valueOf(Objects.requireNonNull(getContext()).getColor(R.color.green_6eafa6)));
             }
 
             @Override
@@ -110,6 +114,10 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
                 if (mUnitPrice != 0) {
                     mAdapter.setUnitPrice(mUnitPrice);
                     mPresenter.hideKeyBoard();
+                    Toast.makeText(getContext(), getString(R.string.set_unit_electricity_fee_, String.valueOf(mUnitPrice)),
+                            Toast.LENGTH_SHORT).show();
+                    ImageViewCompat.setImageTintList(mButtonUnitElectricityFeeCheck,
+                            ColorStateList.valueOf(Objects.requireNonNull(getContext()).getColor(R.color.gray_999999)));
                 }
             }
         });
@@ -135,12 +143,6 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
             mProgressBar.setVisibility(View.GONE);
         }
     }
-
-//    private void hideKeyBoard() {
-//        mInputMethodManager.hideSoftInputFromWindow(
-//                getActivity().getCurrentFocus().getWindowToken(),
-//                InputMethodManager.HIDE_NOT_ALWAYS);
-//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

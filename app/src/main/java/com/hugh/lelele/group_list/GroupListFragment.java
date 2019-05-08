@@ -40,9 +40,6 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        mPresenter.loadGroupList(UserManager.getInstance().getLandlord().getEmail());
-//        mAdapter = new GroupListAdapter(mPresenter);
     }
 
     @Override
@@ -72,6 +69,8 @@ public class GroupListFragment extends Fragment implements GroupListContract.Vie
         mFloatingAddGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //給一個全新的Group
                 Group group = new Group();
                 mPresenter.openGroupDetails(group);
             }

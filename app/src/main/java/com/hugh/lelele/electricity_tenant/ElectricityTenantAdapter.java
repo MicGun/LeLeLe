@@ -18,6 +18,8 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
     private ElectricityTenantContract.Presenter mPresenter;
     private ArrayList<Electricity> mElectricities;
 
+    public static final int LAST_MONTH = 12;
+
     public ElectricityTenantAdapter(ElectricityTenantContract.Presenter presenter) {
         mPresenter = presenter;
     }
@@ -49,18 +51,18 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
         View rootView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_electricity_fee_tenant, viewGroup, false);
 
-        ElectricityTenantItemViewHolder viewHolder = new ElectricityTenantItemViewHolder(rootView);
-
-        return viewHolder;
+        return new ElectricityTenantItemViewHolder(rootView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+        //有一個 base month 在位置 0 ，所以第一個月從位置 1 算起，因此需要 +1
         Electricity electricity = mElectricities.get(i+1);
 
         if ( i < 9) {
-            ((ElectricityTenantItemViewHolder) viewHolder).month.setText("0" + String.valueOf(i+1));
+            String month = "0" + (i + 1);
+            ((ElectricityTenantItemViewHolder) viewHolder).month.setText(month);
         } else {
             ((ElectricityTenantItemViewHolder) viewHolder).month.setText(String.valueOf(i+1));
         }
@@ -74,11 +76,17 @@ public class ElectricityTenantAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         if (mElectricities != null) {
-//            return mElectricities.size() - 1;
-            //ToDo: Make it flexible, how about when there is no data or cross year issue?
-            return Calendar.getInstance().get(Calendar.MONTH);
+            return getMonth();
         } else {
             return 0;
+        }
+    }
+
+    private int getMonth() {
+        if (Calendar.getInstance().get(Calendar.MONTH) != 0) {
+            return Calendar.getInstance().get(Calendar.MONTH);
+        } else {
+            return LAST_MONTH;
         }
     }
 

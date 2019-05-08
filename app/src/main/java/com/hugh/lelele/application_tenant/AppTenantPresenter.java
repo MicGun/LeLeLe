@@ -36,8 +36,16 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
     @Override
     public void loadElectricityData() {
         Tenant tenant = UserManager.getInstance().getTenant();
+        String year;
+
+        //跨年度問題，如在每年一月開啟，應該去載入去年的電費
+        if (Calendar.getInstance().get(Calendar.MONTH) == 0) {
+            year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1);
+        } else {
+            year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        }
         mLeLeLeRepository.getElectricityList(tenant.getLandlordEmail(),
-                tenant.getGroup(), String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                tenant.getGroup(), year,
                 tenant.getRoomNumber(), new LeLeLeDataSource.GetElectricityCallback() {
                     @Override
                     public void onCompleted(ArrayList<Electricity> electricities) {

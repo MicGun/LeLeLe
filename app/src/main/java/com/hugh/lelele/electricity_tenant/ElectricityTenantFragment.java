@@ -49,7 +49,6 @@ public class ElectricityTenantFragment extends Fragment implements ElectricityTe
         mBarChart = root.findViewById(R.id.bar_chart_electricity);
         mBarChart.getDescription().setEnabled(false);
 
-//        setData(12);
         setData(mElectricities);
         mBarChart.setFitBars(true);
 
@@ -61,28 +60,28 @@ public class ElectricityTenantFragment extends Fragment implements ElectricityTe
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void setData(int count) {
-
-        ArrayList<BarEntry> yVals = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            float value = (float) (Math.random()*100);
-            yVals.add(new BarEntry(i+1, value));
-        }
-
-        BarDataSet set = new BarDataSet(yVals, getResources().getString(R.string.electricity_fee));
-        set.setColor(getResources().getColor(R.color.black_3f3a3a)); //bar的顏色
-        set.setDrawValues(true); //bar上面有數字
-
-        BarData data = new BarData(set);
-
-        mBarChart.setData(data);
-        mBarChart.invalidate();
-        mBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//Z軸顯示於下方
-        mBarChart.getAxisRight().setEnabled(false);//右邊不要有Y軸
-        mBarChart.getAxisLeft().setAxisMinValue(0.0f); //下方不要有空隙(介於0到X軸間)
-        mBarChart.animateY(500);
-    }
+//    private void setData(int count) {
+//
+//        ArrayList<BarEntry> yVals = new ArrayList<>();
+//
+//        for (int i = 0; i < count; i++) {
+//            float value = (float) (Math.random()*100);
+//            yVals.add(new BarEntry(i+1, value));
+//        }
+//
+//        BarDataSet set = new BarDataSet(yVals, getResources().getString(R.string.electricity_fee));
+//        set.setColor(getResources().getColor(R.color.black_3f3a3a)); //bar的顏色
+//        set.setDrawValues(true); //bar上面有數字
+//
+//        BarData data = new BarData(set);
+//
+//        mBarChart.setData(data);
+//        mBarChart.invalidate();
+//        mBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);//Z軸顯示於下方
+//        mBarChart.getAxisRight().setEnabled(false);//右邊不要有Y軸
+//        mBarChart.getAxisLeft().setAxisMinValue(0.0f); //下方不要有空隙(介於0到X軸間)
+//        mBarChart.animateY(500);
+//    }
 
     private void setData(ArrayList<Electricity> electricities) {
 

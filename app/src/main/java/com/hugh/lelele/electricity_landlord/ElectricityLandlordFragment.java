@@ -50,8 +50,6 @@ public class ElectricityLandlordFragment extends Fragment implements Electricity
     private ProgressBar mProgressBar;
     private InputMethodManager mInputMethodManager;
 
-    final String TAG = LeLeLe.class.getSimpleName();
-
     public ElectricityLandlordFragment() {
         mUnitPrice = 0;
     }

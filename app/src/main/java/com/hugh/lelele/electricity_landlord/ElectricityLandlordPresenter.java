@@ -62,8 +62,6 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
     @Override
     public void setRoomData(ArrayList<Room> rooms) {
-
-        //ToDo: replace the landlord info by user manager.
         //call RoomsElectricityRecursive to get electric fee for each room.
         new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
                 UserManager.getInstance().getUserData().getGroupNow(),
@@ -163,37 +161,35 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
         for (Room room:rooms) {
             String email = room.getTenant().getEmail();
             if (room.getTenant().isBinding()) {
-//                Map<String, Object> notificationMessage = new HashMap<>();
-//                notificationMessage.put(Constants.NOTIFICATION_CONTENT, LeLeLe.getAppContext().getString(R.string.electricity_content,
-//                        room.getTenant().getName(),
-//                        electricity.getPrice()));
-//                notificationMessage.put(Constants.NOTIFICATION_SENDER_EMAIL, UserManager.getInstance().getUserData().getEmail());
-//                notificationMessage.put(Constants.NOTIFICATION_TITLE, LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
 
-                Electricity electricity = room.getElectricities().get(Calendar.getInstance().get(Calendar.MONTH));
-                long time= System.currentTimeMillis();
-
-                Notification notification = new Notification();
-                notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
-                notification.setTitle(LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
-                notification.setContent(LeLeLe.getAppContext().getString(R.string.electricity_content,
-                        room.getTenant().getName(),
-                        electricity.getPrice()));
-                notification.setNotificationType(Constants.ELECTRICITY);
-                notification.setTimeMillisecond(time);
-
-                mLeLeLeRepository.pushNotificationToTenant(notification, email, new LeLeLeDataSource.PushNotificationCallback() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "pushNotifications onCompleted: ");
-                    }
-
-                    @Override
-                    public void onError(String errorMessage) {
-
-                    }
-                });
+                pushNotification(room, email);
             }
         }
+    }
+
+    private void pushNotification(Room room, String email) {
+        Electricity electricity = room.getElectricities().get(Calendar.getInstance().get(Calendar.MONTH));
+        long time= System.currentTimeMillis();
+
+        Notification notification = new Notification();
+        notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
+        notification.setTitle(LeLeLe.getAppContext().getString(R.string.electricity_fee_update_notification));
+        notification.setContent(LeLeLe.getAppContext().getString(R.string.electricity_content,
+                room.getTenant().getName(),
+                electricity.getPrice()));
+        notification.setNotificationType(Constants.ELECTRICITY);
+        notification.setTimeMillisecond(time);
+
+        mLeLeLeRepository.pushNotificationToTenant(notification, email, new LeLeLeDataSource.PushNotificationCallback() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "pushNotifications onCompleted: ");
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+
+            }
+        });
     }
 }

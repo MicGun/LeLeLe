@@ -75,6 +75,7 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
                     @Override
                     public void onCompleted() {
                         showLastFragment();
+                        //update group list for drawer menu
                         loadGroupListDrawerMenu();
                     }
 

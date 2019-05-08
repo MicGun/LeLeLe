@@ -75,7 +75,6 @@ public class GroupDetailsAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 mPresenter.deleteRoom(room);
                 mRooms.remove(i);
-//                notifyDataSetChanged();
                 mPresenter.updateRoomData(mRooms);
                 Log.v(TAG, "remove room: " + mRooms.size());
 

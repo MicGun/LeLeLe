@@ -160,10 +160,10 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
                         mEditGroupAddRoomName.setText("");
                         notifyRoomDataSetChanged();
                     } else {
-                        Toast.makeText(getContext(), "房間名稱請勿重複!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.should_not_repeat_room_name), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getContext(), "房間名稱不得為空!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.room_name_cannot_be_empty), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -172,13 +172,13 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
             @Override
             public void onClick(View v) {
                 if (isCompleted()) {
-                    Toast.makeText(getContext(), "編輯完成!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.group_details_edit_done), Toast.LENGTH_SHORT).show();
                     mGroup = getGroupFinalStatus();
                     mPresenter.uploadGroup(mGroup);
                     mPresenter.showLastFragment();
                     mPresenter.loadGroupListDrawerMenu();
                 } else {
-                    Toast.makeText(getContext(), "資訊不得為空!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.info_cannot_be_empty), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -273,7 +273,6 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
         mPresenter.updateToolbar(getResources().getString(R.string.application_groups_list));
         mPresenter.notifyGroupListChanged();
         mPresenter.hideKeyBoard();
-        Log.d(TAG, "onDestroy: ");
     }
 
     @Override

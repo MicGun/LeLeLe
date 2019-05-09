@@ -331,13 +331,12 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
             mGroupMenu = mDrawerMenu.addSubMenu(getResources().getString(R.string.application_groups_list));
         }
 
+        mGroupMenu.clear();
         if (groups.size() != 0) {
-            mGroupMenu.clear();
             for (Group group:groups) {
                 mGroupMenu.add(group.getGroupName());
             }
         } else {
-            mGroupMenu.clear();
             mGroupMenu.add(R.string.ask_to_create_a_group);
         }
 

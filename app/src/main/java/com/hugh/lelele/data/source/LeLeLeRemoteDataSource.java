@@ -470,7 +470,6 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             DocumentSnapshot tenantDoc = task.getResult();
                             assert tenantDoc != null;
                             if (tenantDoc.exists()) {
-//                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
                                 Tenant tenant = tenantDoc.toObject(Tenant.class);
                                 callback.onCompleted(tenant);
                             } else {

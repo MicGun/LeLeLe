@@ -43,6 +43,11 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
         mLeLeLeRepository.getTenantProfile(email, new LeLeLeDataSource.GetTenantProfileCallback() {
             @Override
             public void onCompleted(Tenant tenant) {
+                if (tenant.getName().equals("")) {
+                    mInvitationSendingView.showNoTenantNotifyTextView(true);
+                } else {
+                    mInvitationSendingView.showNoTenantNotifyTextView(false);
+                }
                 mInvitationSendingView.setTenant(tenant);
             }
 

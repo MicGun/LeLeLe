@@ -97,6 +97,7 @@
     <!-- Inviting -->
     <string name="inviting">發送邀請</string>
     <string name="invitation_sending">邀請房客</string>
+    <string name="no_tenant_exist">查無此房客!</string>
 
     <!-- Inviting Action -->
     <string name="cancel_action_content">確定要取消對%s的邀請?</string>

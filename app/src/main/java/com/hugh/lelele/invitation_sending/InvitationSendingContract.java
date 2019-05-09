@@ -18,6 +18,8 @@ public interface InvitationSendingContract {
         void showTenantUi();
 
         void setTenant(Tenant tenant);
+
+        void showNoTenantNotifyTextView(boolean showText);
     }
 
     interface Presenter extends BasePresenter {

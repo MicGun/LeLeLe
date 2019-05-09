@@ -94,49 +94,58 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
             }
         }
-    }
 
+    }
     private void startLoggingIn() {
 
         //mIsLoading is used to avoid click login button twice
         if (!mIsLoading) {
             showProgressBar(true);
-            UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
-                @Override
-                public void onSuccess() {
-                    UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
-                        @Override
-                        public void onSuccess() {
-                            mPresenter.openHome();
-                            mPresenter.loadNotificationsForBadge();
-                            showProgressBar(false);
-                            mPresenter.showToolbarAndBottomNavigation();
-                            if (mUserType == R.string.landlord) {
-                                mPresenter.loadGroupListDrawerMenu();
-                            } else {
-                                //to clear submenu, avoid there's landlord data showing
-                                mPresenter.resetDrawer();
-                            }
-                        }
+            loginProcess();
+        }
+    }
 
-                        @Override
-                        public void onError(String errorMessage) {
+    private void loginProcess() {
+        UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
+            @Override
+            public void onSuccess() {
+                UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
+                    @Override
+                    public void onSuccess() {
+                        setupLoginSuccessEnvironment();
+                    }
 
-                        }
-                    });
+                    @Override
+                    public void onError(String errorMessage) {
 
-                }
+                    }
+                });
 
-                @Override
-                public void onFail(String errorMessage) {
+            }
 
-                }
+            @Override
+            public void onFail(String errorMessage) {
 
-                @Override
-                public void onInvalidToken(String errorMessage) {
+            }
 
-                }
-            });
+            @Override
+            public void onInvalidToken(String errorMessage) {
+
+            }
+        });
+    }
+    
+    @Override
+    public void setupLoginSuccessEnvironment() {
+        mPresenter.openHome();
+        mPresenter.loadNotificationsForBadge();
+        showProgressBar(false);
+        mPresenter.showToolbarAndBottomNavigation();
+        if (mUserType == R.string.landlord) {
+            mPresenter.loadGroupListDrawerMenu();
+        } else {
+            //to clear submenu, avoid there's landlord data showing
+            mPresenter.resetDrawer();
         }
     }
 

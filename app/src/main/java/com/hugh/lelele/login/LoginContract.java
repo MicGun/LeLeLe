@@ -7,6 +7,8 @@ public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
 
+        void setupLoginSuccessEnvironment();
+
     }
 
     interface Presenter extends BasePresenter {

@@ -308,7 +308,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         //if user type is landlord, to download group list and show on navigation menu
         if (mUserType == R.string.landlord) {
-//            mGroupMenu = drawerMenu.addSubMenu("Groups");
             mPresenter.loadGroupListDrawerMenu();
         }
 

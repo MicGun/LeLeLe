@@ -2,7 +2,10 @@ package com.hugh.lelele.login;
 
 import android.support.annotation.NonNull;
 
+import com.hugh.lelele.LeLeLe;
+import com.hugh.lelele.R;
 import com.hugh.lelele.data.source.LeLeLeRepository;
+import com.hugh.lelele.util.UserManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

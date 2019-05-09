@@ -56,6 +56,7 @@ public class HomePresenter implements HomeContract.Presenter {
         //to load user articles
         loadUserArticles();
 
+        Log.d(TAG, "loadArticles: " + UserManager.getInstance().getUserData().getGroupNow());
         //to load group articles if exist
         if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
             loadGroupArticles();
@@ -79,16 +80,18 @@ public class HomePresenter implements HomeContract.Presenter {
         mLeLeLeRepository.deleteUserArticle(article,
                 UserManager.getInstance().getUserData().getEmail(),
                 UserManager.getInstance().getUserData().getUserType());
-        loadArticles();
 
+
+        //需要在設定使用者環境前，把server的使用者資訊更新
+        bindingWithTenant();
         UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
             @Override
             public void onSuccess() {
 
                 //確認使用者環境都設置完畢才可以進行下面步驟
-                bindingWithTenant();
                 increaseNumberOfTenantInGroup();
                 sendAgreeNotificationToLandlord();
+                loadArticles();
             }
 
             @Override
@@ -128,12 +131,14 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void loadGroupArticles() {
         String email;
-        String groupName = UserManager.getInstance().getUserData().getGroupNow();
+        String groupName;
 
         if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
             email = UserManager.getInstance().getUserData().getEmail();
+            groupName = UserManager.getInstance().getUserData().getGroupNow();
         } else {
             email = UserManager.getInstance().getTenant().getLandlordEmail();
+            groupName = UserManager.getInstance().getTenant().getGroup();
         }
 
         mLeLeLeRepository.getGroupArticles(email, groupName, new LeLeLeDataSource.GetArticlesCallback() {
@@ -206,7 +211,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
         Log.d(TAG, "setupGroupArticlesListener: ");
         if (UserManager.getInstance().getUserData().getUserType() == R.string.landlord) {
-
+            Log.d(TAG, "setupGroupArticlesListener: " + "房東");
             if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
                 mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getLandlord().getEmail(),
                         UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.ArticlesCallback() {
@@ -223,13 +228,14 @@ public class HomePresenter implements HomeContract.Presenter {
                         });
             }
         } else {
+            Log.d(TAG, "setupGroupArticlesListener: " + "房客");
             if (UserManager.getInstance().getTenant().isBinding()) {
-                mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getTenant().getEmail(),
+                mLeLeLeRepository.groupArticlesListener(UserManager.getInstance().getTenant().getLandlordEmail(),
                         UserManager.getInstance().getTenant().getGroup(), new LeLeLeDataSource.ArticlesCallback() {
                             @Override
                             public void onCompleted() {
                                 loadArticles();
-                                Log.d(TAG, "loadArticles");
+                                Log.d(TAG, "loadArticles tenant");
                             }
 
                             @Override
@@ -314,7 +320,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     private void sendAgreeNotificationToLandlord() {
         Notification notification = new Notification();
-        long time= System.currentTimeMillis();
+        long time = System.currentTimeMillis();
 
         notification.setContent(LeLeLe.getAppContext().getString(R.string.agree_invitation_content,
                 UserManager.getInstance().getTenant().getName(),
@@ -330,7 +336,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
     private void sendDisagreeNotificationToLandlord() {
         Notification notification = new Notification();
-        long time= System.currentTimeMillis();
+        long time = System.currentTimeMillis();
 
         notification.setContent(LeLeLe.getAppContext().getString(R.string.disagree_invitation_content,
                 UserManager.getInstance().getTenant().getName()));

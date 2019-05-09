@@ -32,7 +32,8 @@ public class NotifyPresenter implements NotifyContract.Presenter {
     @Override
     public void loadNotifications() {
 
-        mLeLeLeRepository.getUserNotifications(UserManager.getInstance().getUserData().getEmail(), new LeLeLeDataSource.GetUserNotificationsCallback() {
+        mLeLeLeRepository.getUserNotifications(UserManager.getInstance().getUserData().getEmail(),
+                new LeLeLeDataSource.GetUserNotificationsCallback() {
             @Override
             public void onCompleted(ArrayList<Notification> notifications) {
                 mNotifyView.showNotifications(notifications);

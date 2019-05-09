@@ -598,6 +598,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         Log.d(TAG, "onEvent: ");
                         if (e != null) {
                             callback.onError(e.getMessage());
+                            Log.d(TAG, "onEvent: Error");
                         } else {
                             callback.onCompleted();
                             Log.d(TAG, "onEvent: Completed");

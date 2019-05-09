@@ -38,33 +38,25 @@ public class PostPresenter implements PostContract.Presenter {
 
     @Override
     public void releaseGroupArticle(Article article) {
+        String email;
         if (UserManager.getInstance().getUserType() == R.string.landlord) {
-            mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getLandlord().getEmail(),
-                    UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
-                        @Override
-                        public void onCompleted() {
-                            mPostView.toBackStack();
-                        }
+            email = UserManager.getInstance().getLandlord().getEmail();
 
-                        @Override
-                        public void onError(String errorMessage) {
-
-                        }
-                    });
         } else {
-            mLeLeLeRepository.sendGroupArticle(article, UserManager.getInstance().getTenant().getLandlordEmail(),
-                    UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
-                        @Override
-                        public void onCompleted() {
-                            mPostView.toBackStack();
-                        }
-
-                        @Override
-                        public void onError(String errorMessage) {
-
-                        }
-                    });
+            email = UserManager.getInstance().getTenant().getLandlordEmail();
         }
+        mLeLeLeRepository.sendGroupArticle(article, email,
+                UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.SendGroupArticleCallback() {
+                    @Override
+                    public void onCompleted() {
+                        mPostView.toBackStack();
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+
+                    }
+                });
     }
 
     @Override

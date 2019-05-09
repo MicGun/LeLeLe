@@ -112,6 +112,5 @@ public class NotifyAdapter extends RecyclerView.Adapter {
         mNotifications = checkNotNull(notifications);
         Collections.reverse(mNotifications);
         notifyDataSetChanged();
-        //mPresenter.updateNotifyBadge(0);
     }
 }

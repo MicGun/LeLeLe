@@ -76,7 +76,8 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
                     public void onCompleted() {
                         showLastFragment();
                         //update group list for drawer menu
-                        loadGroupListDrawerMenu();
+                        mGroupDetailsView.resetDrawerUi();
+//                        loadGroupListDrawerMenu();
                     }
 
                     @Override
@@ -108,6 +109,11 @@ public class GroupDetailsPresenter implements GroupDetailsContract.Presenter {
 
     @Override
     public void loadGroupListDrawerMenu() {
+
+    }
+
+    @Override
+    public void resetDrawer() {
 
     }
 

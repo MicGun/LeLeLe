@@ -176,7 +176,7 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
                     mGroup = getGroupFinalStatus();
                     mPresenter.uploadGroup(mGroup);
                     mPresenter.showLastFragment();
-                    mPresenter.loadGroupListDrawerMenu();
+
                 } else {
                     Toast.makeText(getContext(), getString(R.string.info_cannot_be_empty), Toast.LENGTH_SHORT).show();
                 }
@@ -305,5 +305,11 @@ public class GroupDetailsFragment extends Fragment implements GroupDetailsContra
             mPresenter.deleteRemoteRoom(room, mGroup.getGroupName(),
                     UserManager.getInstance().getLandlord().getEmail());
         }
+    }
+
+    @Override
+    public void resetDrawerUi() {
+        mPresenter.resetDrawer();
+        mPresenter.loadGroupListDrawerMenu();
     }
 }

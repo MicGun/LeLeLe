@@ -17,6 +17,8 @@ public interface GroupDetailsContract {
         void updateRoomDataUi(ArrayList<Room> rooms);
 
         void deleteRoomData(Room room);
+
+        void resetDrawerUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -40,6 +42,8 @@ public interface GroupDetailsContract {
         void notifyGroupListChanged();
 
         void loadGroupListDrawerMenu();
+
+        void resetDrawer();
 
         void hideKeyBoard();
     }

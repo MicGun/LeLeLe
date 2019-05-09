@@ -337,8 +337,8 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 mGroupMenu.add(group.getGroupName());
             }
         } else {
-//            mDrawerMenu.add(getResources().getString(R.string.ask_to_create_a_group));
-            mDrawerMenu.add(R.string.ask_to_create_a_group);
+            mGroupMenu.clear();
+            mGroupMenu.add(R.string.ask_to_create_a_group);
         }
 
     }

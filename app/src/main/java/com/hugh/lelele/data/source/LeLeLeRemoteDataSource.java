@@ -52,6 +52,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private final static String TIME = "time";
     private final static String TOTAL_CONSUMPTION = "total_consumption";
 
+    private ListenerRegistration  mMessageListener;
+
     private final static String TAG = LeLeLeRemoteDataSource.class.getSimpleName();
 
     private static LeLeLeRemoteDataSource INSTANCE;
@@ -861,30 +863,29 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     public void messageListener(@NonNull String email, @NonNull String groupName,
                                 @NonNull String roomName, @NonNull boolean switchOn,
                                 final MessageCallback callback) {
+        if (switchOn) {
+            mMessageListener = mFirebaseFirestore.collection(LANDLORDS)
+                    .document(email)
+                    .collection(GROUPS)
+                    .document(groupName)
+                    .collection(ROOMS)
+                    .document(roomName)
+                    .collection(MESSAGES)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
-        ListenerRegistration  registration = mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(MESSAGES)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                        Log.d(TAG, "onEvent: ");
-                        if (e != null) {
-                            callback.onError(e.getMessage());
-                        } else {
-                            callback.onCompleted();
-                            Log.d(TAG, "onEvent: Completed");
+                            Log.d(TAG, "onEvent: ");
+                            if (e != null) {
+                                callback.onError(e.getMessage());
+                            } else {
+                                callback.onCompleted();
+                                Log.d(TAG, "onEvent: Completed");
+                            }
                         }
-                    }
-                });
-
-        if (!switchOn) {
-            registration.remove();
+                    });
+        } else {
+            mMessageListener.remove();
         }
 
     }

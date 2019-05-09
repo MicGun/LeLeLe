@@ -118,7 +118,6 @@ public class InvitationSendingFragment extends Fragment implements InvitationSen
             mTenantPicture.setVisibility(View.GONE);
             mTenantName.setVisibility(View.GONE);
             mSendInvitationButton.setVisibility(View.GONE);
-//            showNoTenantNotifyTextView(false);
         } else if (mTenant.isBinding() || mTenant.isInviting()) {
             //有對象，但對方已經被綁定，或是正被邀請，無法邀請
             mTenantPicture.setVisibility(View.VISIBLE);

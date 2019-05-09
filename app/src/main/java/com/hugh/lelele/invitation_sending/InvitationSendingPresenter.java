@@ -76,6 +76,15 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
     @SuppressLint("StringFormatMatches")
     @Override
     public void sendInvitationToTenant(Room room) {
+        Article article = getInvitationArticle(room);
+
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        article.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
+
+        mLeLeLeRepository.sendTenantArticle(article, room.getTenant().getEmail());
+    }
+
+    private Article getInvitationArticle(Room room) {
         Article article = new Article();
         article.setTitle(LeLeLe.getAppContext().getString(R.string.inviting_notification));
         article.setContent(LeLeLe.getAppContext().getString(R.string.invitation_content,
@@ -86,11 +95,7 @@ public class InvitationSendingPresenter implements InvitationSendingContract.Pre
         article.setAuthor(UserManager.getInstance().getLandlord().getName());
         article.setAuthorEmail(UserManager.getInstance().getLandlord().getEmail());
         article.setAuthorPicture(UserManager.getInstance().getLandlord().getPicture());
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        article.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
-
-        mLeLeLeRepository.sendTenantArticle(article, room.getTenant().getEmail());
+        return article;
     }
 
     @Override

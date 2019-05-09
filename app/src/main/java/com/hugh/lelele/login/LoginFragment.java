@@ -74,10 +74,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     UserManager.getInstance().setUserType(R.string.tenant);
                     Log.v(TAG, "UserType" + mUserType);
                 }
-
-//                Toast.makeText(group.getContext(),
-//                        "You have selected : " + userType.getTag().toString(),
-//                        Toast.LENGTH_LONG).show();
             }
         });
 
@@ -90,54 +86,57 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         public void onClick(View v) {
             if (v.getId() == R.id.button_facebook_login) {
                 if (mUserType == R.string.landlord || mUserType == R.string.tenant) {
-                    if (!mIsLoading) {
-                        showProgressBar(true);
-                        UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
-                            @Override
-                            public void onSuccess() {
-                                UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        mPresenter.openHome();
-                                        mPresenter.loadNotificationsForBadge();
-                                        showProgressBar(false);
-                                        mPresenter.showToolbarAndBottomNavigation();
-                                        if (mUserType == R.string.landlord) {
-                                            mPresenter.loadGroupListDrawerMenu();
-                                        } else {
-                                            //to clear submenu, avoid there's landlord data showing
-                                            mPresenter.resetDrawer();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onError(String errorMessage) {
-
-                                    }
-                                });
-
-//                            Log.v(TAG, "UserManager is Null: " + (UserManager.getInstance().getUserData() == null));
-//                            Log.v(TAG, "User Name: " + (UserManager.getInstance().getUserData().getName()));
-
-                            }
-
-                            @Override
-                            public void onFail(String errorMessage) {
-
-                            }
-
-                            @Override
-                            public void onInvalidToken(String errorMessage) {
-
-                            }
-                        });
-                    }
+                    startLoggingIn();
                 } else {
                     Toast.makeText(LeLeLe.getAppContext(),
                             "Please select a type before click.", Toast.LENGTH_SHORT).show();
                 }
 
             }
+        }
+    }
+
+    private void startLoggingIn() {
+
+        //mIsLoading is used to avoid click login button twice
+        if (!mIsLoading) {
+            showProgressBar(true);
+            UserManager.getInstance().loginByFacebook(getActivity(), new UserManager.LoadUserProfileCallback() {
+                @Override
+                public void onSuccess() {
+                    UserManager.getInstance().setupUserEnvironment(new UserManager.EnvironmentSetupCallback() {
+                        @Override
+                        public void onSuccess() {
+                            mPresenter.openHome();
+                            mPresenter.loadNotificationsForBadge();
+                            showProgressBar(false);
+                            mPresenter.showToolbarAndBottomNavigation();
+                            if (mUserType == R.string.landlord) {
+                                mPresenter.loadGroupListDrawerMenu();
+                            } else {
+                                //to clear submenu, avoid there's landlord data showing
+                                mPresenter.resetDrawer();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String errorMessage) {
+
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onFail(String errorMessage) {
+
+                }
+
+                @Override
+                public void onInvalidToken(String errorMessage) {
+
+                }
+            });
         }
     }
 
@@ -149,44 +148,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             mProgressBar.setVisibility(View.GONE);
         }
     }
-
-//    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
-//
-//        String firstItem = String.valueOf(mUserTypeSelector.getSelectedItem());
-//
-//        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//
-//            if (firstItem.equals(String.valueOf(mUserTypeSelector.getSelectedItem()))) {
-//                mUserType = -1;
-//                Log.v(TAG, "UserType" + mUserType);
-//                Toast.makeText(parent.getContext(),
-//                        "You have to select a user type!",
-//                        Toast.LENGTH_LONG).show();
-//            } else {
-//                String selectedUserType = parent.getItemAtPosition(pos).toString();
-//                if (selectedUserType.equals(LANDLORD)) {
-//                    mUserType = R.string.landlord;
-//                    mPresenter.setUserType(R.string.landlord);
-//                    UserManager.getInstance().setUserType(R.string.landlord);
-//                    Log.v(TAG, "UserType" + mUserType);
-//                } else {
-//                    mUserType = R.string.tenant;
-//                    mPresenter.setUserType(R.string.tenant);
-//                    UserManager.getInstance().setUserType(R.string.tenant);
-//                    Log.v(TAG, "UserType" + mUserType);
-//                }
-//
-//                Toast.makeText(parent.getContext(),
-//                        "You have selected : " + parent.getItemAtPosition(pos).toString(),
-//                        Toast.LENGTH_LONG).show();
-//            }
-//        }
-//
-//        @Override
-//        public void onNothingSelected(AdapterView<?> arg) {
-//
-//        }
-//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

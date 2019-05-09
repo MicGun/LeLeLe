@@ -1,7 +1,6 @@
 package com.hugh.lelele.electricity_landlord;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,7 +18,6 @@ import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Electricity;
 import com.hugh.lelele.data.Room;
-import com.hugh.lelele.login.LoginManager;
 import com.hugh.lelele.util.UserManager;
 
 import java.text.SimpleDateFormat;

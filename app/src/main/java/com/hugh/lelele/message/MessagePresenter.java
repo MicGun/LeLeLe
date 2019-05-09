@@ -146,13 +146,9 @@ public class MessagePresenter implements MessageContract.Presenter {
 
         for (Message message:messages) {
 
-            if (!message.getSenderType().equals(mUserType)) {
-                if (!message.isRead()) {
-                    message.setRead(true);
-                    if (!mLandlordEmail.equals("") && !mGroupName.equals("") && !mRoomName.equals("")) {
-                        mLeLeLeRepository.updateMessageToRoom(message, mLandlordEmail, mGroupName, mRoomName);
-                    }
-                }
+            if (!message.getSenderType().equals(mUserType) && !message.isRead()) {
+                message.setRead(true);
+                mLeLeLeRepository.updateMessageToRoom(message, mLandlordEmail, mGroupName, mRoomName);
             }
         }
     }

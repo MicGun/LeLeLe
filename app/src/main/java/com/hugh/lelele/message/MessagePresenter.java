@@ -59,12 +59,17 @@ public class MessagePresenter implements MessageContract.Presenter {
 
     @Override
     public void sendMessage(String content) {
+        Message message = getMessageWithContent(content);
+
+        if (!mLandlordEmail.equals("") && !mGroupName.equals("") && !mRoomName.equals("")) {
+            mLeLeLeRepository.sendMessageToRoom(message, mLandlordEmail, mGroupName, mRoomName);
+        }
+    }
+
+    private Message getMessageWithContent(String content) {
         Message message = new Message();
 
         long time = System.currentTimeMillis();
-//        String email = mTenant.getLandlordEmail();
-//        String groupName = mTenant.getGroup();
-//        String roomName = mTenant.getRoomNumber();
         String senderType = "";
 
         if (UserManager.getInstance().getUserType() == R.string.landlord) {
@@ -79,10 +84,7 @@ public class MessagePresenter implements MessageContract.Presenter {
         message.setSenderPicture(UserManager.getInstance().getUserData().getPictureUrl());
         message.setSenderType(senderType);
         message.setTimeMillisecond(time);
-
-        if (!mLandlordEmail.equals("") && !mGroupName.equals("") && !mRoomName.equals("")) {
-            mLeLeLeRepository.sendMessageToRoom(message, mLandlordEmail, mGroupName, mRoomName);
-        }
+        return message;
     }
 
     @Override
@@ -153,5 +155,10 @@ public class MessagePresenter implements MessageContract.Presenter {
                 }
             }
         }
+    }
+
+    @Override
+    public void moveMessageItemToPosition(int position) {
+        mMessageView.moveMessageItemToPositionView(position);
     }
 }

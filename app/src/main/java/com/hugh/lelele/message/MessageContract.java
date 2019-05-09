@@ -15,6 +15,8 @@ public interface MessageContract {
 
         void setMessagesView(ArrayList<Message> messages);
 
+        void moveMessageItemToPositionView(int position);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -36,5 +38,7 @@ public interface MessageContract {
         void loadMessages();
 
         void setMessagesAreRead(ArrayList<Message> messages);
+
+        void moveMessageItemToPosition(int position);
     }
 }

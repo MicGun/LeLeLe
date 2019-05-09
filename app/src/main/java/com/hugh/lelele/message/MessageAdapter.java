@@ -176,5 +176,9 @@ public class MessageAdapter extends RecyclerView.Adapter {
         mMessages = checkNotNull(messages);
         notifyDataSetChanged();
         mPresenter.setMessagesAreRead(mMessages);
+
+        if (messages.size() != 0) {
+            mPresenter.moveMessageItemToPosition(messages.size() - 1);
+        }
     }
 }

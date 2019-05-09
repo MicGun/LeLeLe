@@ -166,6 +166,13 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public void moveMessageItemToPosition(int position) {
+        if (mMessagePresenter != null) {
+            mMessagePresenter.moveMessageItemToPosition(position);
+        }
+    }
+
+    @Override
     public void loadGroupData() {
         if (mRoomListPresenter != null) {
             mRoomListPresenter.loadGroupData();

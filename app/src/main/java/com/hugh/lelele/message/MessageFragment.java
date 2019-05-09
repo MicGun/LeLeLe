@@ -32,6 +32,7 @@ public class MessageFragment extends Fragment implements MessageContract.View {
 
     private EditText mContentEditText;
     private ImageView mSendButton;
+    private RecyclerView mRecyclerView;
 
     private String mContent;
 
@@ -60,9 +61,9 @@ public class MessageFragment extends Fragment implements MessageContract.View {
 
         mPresenter.hideBottomNavigation();
 
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_message);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mMessageAdapter);
+        mRecyclerView = root.findViewById(R.id.recycler_message);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(mMessageAdapter);
 
         mContentEditText = root.findViewById(R.id.edit_text_content_message);
         mContentEditText.addTextChangedListener(new TextWatcher() {
@@ -131,6 +132,14 @@ public class MessageFragment extends Fragment implements MessageContract.View {
             mMessageAdapter.updateData(messages);
         } else {
             mMessageAdapter.updateData(messages);
+        }
+
+    }
+
+    @Override
+    public void moveMessageItemToPositionView(int position) {
+        if (mRecyclerView != null) {
+            mRecyclerView.scrollToPosition(position);
         }
     }
 }

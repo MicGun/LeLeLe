@@ -89,27 +89,25 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
 
         Room room = mNotEmptyRooms.get(i);
 
-        if (room.getTenant().isBinding()) {
-            ArrayList<Message> messages = room.getMessages();
+        ArrayList<Message> messages = room.getMessages();
 
-            ((MessagingListViewHolder) viewHolder).senderName.setText(room.getTenant().getName());
+        ((MessagingListViewHolder) viewHolder).senderName.setText(room.getTenant().getName());
 
-            ((MessagingListViewHolder) viewHolder).roomName.setText(room.getTenant().getRoomNumber());
+        ((MessagingListViewHolder) viewHolder).roomName.setText(room.getTenant().getRoomNumber());
 
-            ((MessagingListViewHolder) viewHolder).latestMessage.setText(messages.get(messages.size() - 1).getContent());
+        ((MessagingListViewHolder) viewHolder).latestMessage.setText(messages.get(messages.size() - 1).getContent());
 
-            int unreadAmount = getUnreadAmount(messages);
-            if (unreadAmount != 0) {
-                ((MessagingListViewHolder) viewHolder).unreadAmount.setVisibility(View.VISIBLE);
-                ((MessagingListViewHolder) viewHolder).unreadAmount.setText(String.valueOf(unreadAmount));
-            } else {
-                ((MessagingListViewHolder) viewHolder).unreadAmount.setVisibility(View.GONE);
-            }
-
-
-            ImageManager.getInstance().setImageByUrl(((MessagingListViewHolder) viewHolder).senderPicture,
-                    room.getTenant().getPicture());
+        int unreadAmount = getUnreadAmount(messages);
+        if (unreadAmount != 0) {
+            ((MessagingListViewHolder) viewHolder).unreadAmount.setVisibility(View.VISIBLE);
+            ((MessagingListViewHolder) viewHolder).unreadAmount.setText(String.valueOf(unreadAmount));
+        } else {
+            ((MessagingListViewHolder) viewHolder).unreadAmount.setVisibility(View.GONE);
         }
+
+
+        ImageManager.getInstance().setImageByUrl(((MessagingListViewHolder) viewHolder).senderPicture,
+                room.getTenant().getPicture());
 
     }
 
@@ -149,7 +147,6 @@ public class MessagingListAdapter extends RecyclerView.Adapter {
     public void updateData(ArrayList<Room> rooms) {
         mRooms = checkNotNull(rooms);
         getNotEmptyRooms();
-//        notifyDataSetChanged();
     }
 
     private void getNotEmptyRooms() {

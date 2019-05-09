@@ -49,11 +49,14 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadArticles() {
+        //setting the initial status of downloading
         mUserArticlesDownloaded = false;
         mGroupArticlesDownloaded = false;
 
+        //to load user articles
         loadUserArticles();
 
+        //to load group articles if exist
         if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
             loadGroupArticles();
         } else {
@@ -82,7 +85,7 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onSuccess() {
 
-                //確認使用者環境都設置完畢才可以進行下一步
+                //確認使用者環境都設置完畢才可以進行下面步驟
                 bindingWithTenant();
                 increaseNumberOfTenantInGroup();
                 sendAgreeNotificationToLandlord();
@@ -187,9 +190,9 @@ public class HomePresenter implements HomeContract.Presenter {
                         loadArticles();
                         //需重新去firestore同步使用者資料，否則會有不同步的狀況
                         if (UserManager.getInstance().getUserType() == R.string.tenant) {
+                            //ToDo: if the tenant is already binding, maybe no need to refresh
                             UserManager.getInstance().refreshUserEnvironment();
                         }
-//                        UserManager.getInstance().refreshUserEnvironment();
                     }
 
                     @Override

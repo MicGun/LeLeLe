@@ -132,16 +132,7 @@ public class RoomListPresenter implements RoomListContract.Presenter {
     }
 
     private void sendRemoveFromRoomNotificationToTenant(Room room, final SendNotificationCallback callback) {
-        Notification notification = new Notification();
-        long time= System.currentTimeMillis();
-
-        notification.setContent(LeLeLe.getAppContext().getString(R.string.remove_from_room_content,
-                room.getTenant().getGroup(),
-                room.getTenant().getRoomNumber()));
-        notification.setTitle(LeLeLe.getAppContext().getString(R.string.remove_from_room_title));
-        notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
-        notification.setTimeMillisecond(time);
-        notification.setNotificationType(Constants.REMOVE_FROM_GROUP);
+        Notification notification = getRemoveFromRoomNotification(room);
 
         mLeLeLeRepository.pushNotificationToTenant(notification, room.getTenant().getEmail(), new LeLeLeDataSource.PushNotificationCallback() {
             @Override
@@ -154,6 +145,20 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
             }
         });
+    }
+
+    private Notification getRemoveFromRoomNotification(Room room) {
+        Notification notification = new Notification();
+        long time= System.currentTimeMillis();
+
+        notification.setContent(LeLeLe.getAppContext().getString(R.string.remove_from_room_content,
+                room.getTenant().getGroup(),
+                room.getTenant().getRoomNumber()));
+        notification.setTitle(LeLeLe.getAppContext().getString(R.string.remove_from_room_title));
+        notification.setSenderEmail(UserManager.getInstance().getUserData().getEmail());
+        notification.setTimeMillisecond(time);
+        notification.setNotificationType(Constants.REMOVE_FROM_GROUP);
+        return notification;
     }
 
     @Override

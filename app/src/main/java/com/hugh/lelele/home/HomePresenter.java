@@ -92,6 +92,7 @@ public class HomePresenter implements HomeContract.Presenter {
                 increaseNumberOfTenantInGroup();
                 sendAgreeNotificationToLandlord();
                 loadArticles();
+                setupGroupArticlesListener();
             }
 
             @Override

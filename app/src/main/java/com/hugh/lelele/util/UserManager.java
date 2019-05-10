@@ -17,7 +17,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.hugh.lelele.Constants;
 import com.hugh.lelele.LeLeLe;
 import com.hugh.lelele.R;
 import com.hugh.lelele.data.Article;
@@ -31,7 +30,6 @@ import com.hugh.lelele.data.source.LeLeLeParser;
 import com.hugh.lelele.data.source.LeLeLeRemoteDataSource;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;

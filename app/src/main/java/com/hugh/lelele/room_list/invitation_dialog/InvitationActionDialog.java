@@ -30,43 +30,54 @@ public class InvitationActionDialog extends DialogFragment implements Invitation
         mPresenter.getViewType();
 
         if (mView.getId() == R.id.item_image_view_room_list_inviting_tenant) {
-            mMessage = getString(R.string.cancel_action_content, mRoom.getTenant().getName());
 
-            builder.setMessage(mMessage)
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPresenter.cancelInvitingAction(mRoom);
-                        }
-                    })
-                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
+            setupCancelInvitationDialog(builder);
 
         } else if (mView.getId() == R.id.item_image_view_room_list_delete_tenant) {
-            mMessage = getString(R.string.remove_action_content, mRoom.getTenant().getName());
 
-            builder.setMessage(mMessage)
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPresenter.removeTenantAction(mRoom);
-                        }
-                    })
-                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            setupRemoveTenantDialog(builder);
 
-                        }
-                    });
         }
 
 
 
         return builder.create();
+    }
+
+    private void setupCancelInvitationDialog(AlertDialog.Builder builder) {
+        mMessage = getString(R.string.cancel_action_content, mRoom.getTenant().getName());
+
+        builder.setMessage(mMessage)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.cancelInvitingAction(mRoom);
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+    }
+
+    private void setupRemoveTenantDialog(AlertDialog.Builder builder) {
+        mMessage = getString(R.string.remove_action_content, mRoom.getTenant().getName());
+
+        builder.setMessage(mMessage)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.removeTenantAction(mRoom);
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
     }
 
     @Override

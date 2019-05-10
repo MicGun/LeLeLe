@@ -94,6 +94,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .collection(GROUPS);
     }
 
+    private DocumentReference groupDocument(@NonNull String email, String landlords, String groups, String groupName) {
+        return mFirebaseFirestore.collection(landlords)
+                .document(email)
+                .collection(groups)
+                .document(groupName);
+    }
+
     /*
      * 去拿房東資訊，若不存在則新創一個
      * */
@@ -299,10 +306,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         groupInfo.put("max_room_numbers", group.getGroupRoomNumber());
         groupInfo.put("tenant_numbers", group.getGroupTenantNumber());
 
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(group.getGroupName())
+        groupDocument(email, LANDLORDS, GROUPS, group.getGroupName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -310,17 +314,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                mFirebaseFirestore.collection(LANDLORDS)
-                                        .document(email)
-                                        .collection(GROUPS)
-                                        .document(group.getGroupName())
+                                groupDocument(email, LANDLORDS, GROUPS, group.getGroupName())
                                         .update(groupInfo);
                                 callback.onCompleted();
                             } else {
-                                mFirebaseFirestore.collection(LANDLORDS)
-                                        .document(email)
-                                        .collection(GROUPS)
-                                        .document(group.getGroupName())
+                                groupDocument(email, LANDLORDS, GROUPS, group.getGroupName())
                                         .set(groupInfo);
                                 callback.onCompleted();
                             }

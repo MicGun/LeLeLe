@@ -84,11 +84,14 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     }
 
     private CollectionReference roomCollectionReference(@NonNull String email, @NonNull String groupName) {
-        return mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
+        return groupCollectionReference(email)
                 .document(groupName)
                 .collection(ROOMS);
+    }
+
+    private CollectionReference groupCollectionReference(@NonNull String email) {
+        return landlordCollection(email)
+                .collection(GROUPS);
     }
 
     /*
@@ -217,8 +220,6 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * */
     @Override
     public void getRoomList(@NonNull final String email, @NonNull final String groupName, @NonNull final GetRoomListCallback callback) {
-//        CollectionReference roomCollection = roomCollectionReference(email, groupName);
-
         roomCollectionReference(email, groupName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -230,14 +231,12 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         ArrayList<Room> rooms = LeLeLeParser.parseRoomList(roomDocuments);
                         String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
-                        //ToDo: check is this necessary?
+                        //to get electricity data of rooms
                         for (final Room room : rooms) {
                             getElectricityList(email, groupName, year, room.getRoomName(), new GetElectricityCallback() {
                                 @Override
                                 public void onCompleted(ArrayList<Electricity> electricities) {
                                     room.setElectricities(electricities);
-                                    Log.v(TAG, "getRoomList electricities size" + electricities.size());
-                                    Log.v(TAG, "getRoomList electricities size" + room.getElectricities().size());
                                 }
 
                                 @Override
@@ -263,9 +262,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupList(@NonNull String email, @NonNull final GetGroupListCallback callback) {
-        CollectionReference groupCollection = mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS);
+        CollectionReference groupCollection = groupCollectionReference(email);
 
         groupCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -285,6 +282,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
             }
         });
     }
+
+
 
     /*
      * 用來新增group到group清單

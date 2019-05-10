@@ -73,6 +73,24 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     public LeLeLeRemoteDataSource() {
     }
 
+    private static DocumentReference landlordCollection(String landlordEmail) {
+        return mFirebaseFirestore.collection(LANDLORDS)
+                .document(landlordEmail);
+    }
+
+    private static DocumentReference tenantCollection(String tenantEmail) {
+        return mFirebaseFirestore.collection(TENANTS)
+                .document(tenantEmail);
+    }
+
+    private CollectionReference roomCollectionReference(@NonNull String email, @NonNull String groupName) {
+        return mFirebaseFirestore.collection(LANDLORDS)
+                .document(email)
+                .collection(GROUPS)
+                .document(groupName)
+                .collection(ROOMS);
+    }
+
     /*
      * 去拿房東資訊，若不存在則新創一個
      * */
@@ -94,16 +112,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 uploadLandlord(landlord);
                                 callback.onCompleted(landlord);
                             } else {
-                                //create and initialize a landlord
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("email", email);
-                                user.put("ID_card_number", "");
-                                user.put("address", "");
-                                user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
-                                user.put("phone_number", "");
-                                user.put("id", UserManager.getInstance().getUserData().getId());
-                                user.put("name", UserManager.getInstance().getUserData().getName());
-                                user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
+                                Map<String, Object> user = getInitializeLandlordMap(email);
                                 mFirebaseFirestore.collection(LANDLORDS)
                                         .document(email)
                                         .set(user);
@@ -120,6 +129,20 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         }
                     }
                 });
+    }
+
+    private Map<String, Object> getInitializeLandlordMap(@NonNull String email) {
+        //create and initialize a landlord
+        Map<String, Object> user = new HashMap<>();
+        user.put("email", email);
+        user.put("ID_card_number", "");
+        user.put("address", "");
+        user.put("assess_token", UserManager.getInstance().getUserData().getAssessToken());
+        user.put("phone_number", "");
+        user.put("id", UserManager.getInstance().getUserData().getId());
+        user.put("name", UserManager.getInstance().getUserData().getName());
+        user.put("picture", UserManager.getInstance().getUserData().getPictureUrl());
+        return user;
     }
 
     /*
@@ -194,13 +217,9 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * */
     @Override
     public void getRoomList(@NonNull final String email, @NonNull final String groupName, @NonNull final GetRoomListCallback callback) {
-        CollectionReference roomCollection = mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS);
+//        CollectionReference roomCollection = roomCollectionReference(email, groupName);
 
-        roomCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        roomCollectionReference(email, groupName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -239,6 +258,8 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
             }
         });
     }
+
+
 
     @Override
     public void getGroupList(@NonNull String email, @NonNull final GetGroupListCallback callback) {

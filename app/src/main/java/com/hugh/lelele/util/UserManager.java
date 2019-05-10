@@ -144,10 +144,7 @@ public class UserManager {
 
 
         mUserData = LeLeLeParser.parseUserData(object, mUserData);
-//        mUserData = userData;
-        if (mUserDataDAO.getUserById(mUserData.getId()) == null) {
-            mUserDataDAO.insert(mUserData);
-        }
+
 
         if (mUserType == R.string.landlord) {
             loginAsALandlord(mUserData.getEmail(), new LoginLeLeLeCallback() {
@@ -176,11 +173,18 @@ public class UserManager {
         }
     }
 
+    private void insertUserDatabase() {
+        if (mUserDataDAO.getUserById(mUserData.getId()) == null) {
+            mUserDataDAO.insert(mUserData);
+        }
+    }
+
     private void loginAsALandlord(String email, final LoginLeLeLeCallback callback) {
         mLeLeLeRepository.updateLandlordUser(email, new LeLeLeDataSource.LandlordUserCallback() {
             @Override
             public void onCompleted(Landlord landlord) {
                 mLandlord = landlord;
+                insertUserDatabase();
                 callback.onSuccess();
             }
 
@@ -196,6 +200,8 @@ public class UserManager {
             @Override
             public void onCompleted(Tenant tenant) {
                 mTenant = tenant;
+                mUserData.setGroupNow(tenant.getGroup());
+                insertUserDatabase();
                 callback.onSuccess();
             }
 

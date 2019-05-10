@@ -14,9 +14,7 @@ import java.net.URL;
 import java.nio.charset.MalformedInputException;
 import java.util.concurrent.Executors;
 
-/**
- * Created by Wayne Chen on Feb. 2019.
- */
+
 public class ImageManager {
 
     private LruCache mLruCache;

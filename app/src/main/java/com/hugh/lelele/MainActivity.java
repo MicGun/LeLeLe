@@ -93,8 +93,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         Fabric.with(this, new Crashlytics());
 
-//        startActivity(new Intent(this, LogoActivity.class));
-
         init();
 
 //        printHashKey(this);
@@ -494,11 +492,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
     @Override
     public void showDrawerUserUi() {
-//        ImageManager.getInstance().setImageByUrl(mDrawerUserImage,
-//                UserManager.getInstance().getUser().getPicture());
-//
-//        mDrawerUserName.setText(UserManager.getInstance().getUser().getName());
-//        mDrawerUserInfo.setText(UserManager.getInstance().getUserInfo());
     }
 
     @Override
@@ -562,7 +555,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         switch (menuItem.getItemId()) {
 
             case R.id.nav_loging_out:
-//                string = getString(R.string.logout);
                 UserManager.getInstance().logout(new UserManager.LogoutCallback() {
                     @Override
                     public void onSuccess() {
@@ -571,7 +563,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                         mDrawerLayout.closeDrawers();
                     }
                 });
-//                Toast.makeText(this, getString(R.string._coming_soon, string), Toast.LENGTH_SHORT).show();
                 break;
             default:
         }

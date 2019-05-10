@@ -330,15 +330,11 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
         if (!UserManager.getInstance().isLoggedIn()) {
 
             mMainView.closeDrawerUi();
-//            showLoginDialog(LoginDialog.FROM_DRAWER);
 
         } else {
 
             mMainView.showDrawerUserUi();
         }
-
-//        mMainView.closeDrawerUi();
-//        mMainView.showDrawerUserUi();
     }
 
     @Override

@@ -846,12 +846,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     public void sendGroupArticle(@NonNull Article article, @NonNull String landlordEmail,
                                  @NonNull String groupName, @NonNull final SendGroupArticleCallback callback) {
         long time= System.currentTimeMillis();
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(landlordEmail)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ARTICLES)
-                .document(String.valueOf(time))
+        groupArticleDocument(landlordEmail, groupName, String.valueOf(time))
                 .set(article)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -873,9 +868,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         } else {
             userType = TENANTS;
         }
-        mFirebaseFirestore.collection(userType)
-                .document(email)
-                .collection(ARTICLES)
+        userArticleCollection(email, userType)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -899,11 +892,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupArticles(@NonNull String email, @NonNull String groupName, @NonNull final GetArticlesCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ARTICLES)
+        groupArticleCollection(email, groupName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -934,21 +923,14 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         } else {
             user = TENANTS;
         }
-        mFirebaseFirestore.collection(user)
-                .document(email)
-                .collection(ARTICLES)
+        userArticleCollection(email, user)
                 .document(article.getArticleId())
                 .delete();
     }
 
     @Override
     public void deleteGroupArticle(@NonNull Article article, @NonNull String email, @NonNull String groupName) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ARTICLES)
-                .document(article.getArticleId())
+        groupArticleDocument(email, groupName, article.getArticleId())
                 .delete();
     }
 
@@ -957,16 +939,14 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                                 @NonNull String articleType, @NonNull int userType,
                                                 @NonNull final QueryArticleByAuthorAndTypeCallback callback) {
 
-        CollectionReference articleCollection;
+        String user = "";
         if (userType == R.string.landlord) {
-            articleCollection = mFirebaseFirestore.collection(LANDLORDS)
-                    .document(email)
-                    .collection(ARTICLES);
+            user = LANDLORDS;
         } else {
-            articleCollection = mFirebaseFirestore.collection(TENANTS)
-                    .document(email)
-                    .collection(ARTICLES);
+            user = TENANTS;
         }
+
+        CollectionReference articleCollection = userArticleCollection(email, user);
 
         articleCollection.whereEqualTo("author", authorName)
                 .whereEqualTo("type", articleType).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

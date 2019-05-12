@@ -88,6 +88,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .collection(ARTICLES);
     }
 
+    private DocumentReference userArticleDocument(@NonNull String email, @NonNull String userType) {
+        return userArticleCollection(email, userType)
+                .document();
+    }
+
     private CollectionReference userNotificationCollection(@NonNull String email, @NonNull String userType) {
         return mFirebaseFirestore.collection(userType)
                 .document(email)
@@ -143,6 +148,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     private CollectionReference groupArticleCollection(@NonNull String email, @NonNull String groupName) {
         return groupDocument(email, groupName)
                 .collection(ARTICLES);
+    }
+
+    private DocumentReference groupArticleDocument(@NonNull String email, @NonNull String groupName, @NonNull String articleId) {
+        return groupArticleCollection(email, groupName)
+                .document(articleId);
     }
 
     /*
@@ -822,19 +832,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void sendLandlordArticle(@NonNull Article article, @NonNull String email) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(ARTICLES)
-                .document()
+        userArticleDocument(email, LANDLORDS)
                 .set(article);
     }
 
     @Override
     public void sendTenantArticle(@NonNull Article article, @NonNull String email) {
-        mFirebaseFirestore.collection(TENANTS)
-                .document(email)
-                .collection(ARTICLES)
-                .document()
+        userArticleDocument(email, TENANTS)
                 .set(article);
     }
 

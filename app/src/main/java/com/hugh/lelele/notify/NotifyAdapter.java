@@ -91,11 +91,6 @@ public class NotifyAdapter extends RecyclerView.Adapter {
                     .setBackgroundColor(LeLeLe.getAppContext().getColor(R.color.blue_a4doe5_40_transparent));
         }
 
-        //bind view 完成後更改已讀狀態
-        if (i == mNotifications.size() - 1) {
-            mPresenter.changeReadStatus(mNotifications);
-        }
-
     }
 
     @Override
@@ -112,5 +107,6 @@ public class NotifyAdapter extends RecyclerView.Adapter {
         mNotifications = checkNotNull(notifications);
         Collections.reverse(mNotifications);
         notifyDataSetChanged();
+        mPresenter.changeReadStatus(mNotifications);
     }
 }

@@ -55,8 +55,14 @@ public class NotifyPresenter implements NotifyContract.Presenter {
         int count = 0;
         for (Notification notification:notifications) {
             count++;
-            notification.setIsRead(true);
-            notificationsBeRead.add(notification);
+
+            if (!notification.isRead()) {
+                //to create a new notification obj to avoid changing the read status of notification which is showing.
+                Notification notificationNotRead = getNotificationNotRead(notification);
+                notificationNotRead.setIsRead(true);
+                notificationsBeRead.add(notificationNotRead);
+            }
+
             if (count == notifications.size()) {
                 updateNotificationsBeRead(notificationsBeRead);
             }
@@ -73,5 +79,19 @@ public class NotifyPresenter implements NotifyContract.Presenter {
             mLeLeLeRepository.updateNotificationRead(notification,
                     UserManager.getInstance().getUserData().getEmail());
         }
+    }
+
+    private Notification getNotificationNotRead(Notification notification) {
+        Notification notificationNotRead = new Notification();
+
+        notificationNotRead.setNotificationType(notification.getNotificationType());
+        notificationNotRead.setTimeMillisecond(notification.getTimeMillisecond());
+        notificationNotRead.setSenderEmail(notification.getSenderEmail());
+        notificationNotRead.setTitle(notification.getTitle());
+        notificationNotRead.setContent(notification.getContent());
+        notificationNotRead.setIsRead(notification.isRead());
+        notificationNotRead.setId(notification.getId());
+
+        return notificationNotRead;
     }
 }

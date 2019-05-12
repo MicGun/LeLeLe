@@ -94,6 +94,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                 .collection(NOTIFICATION);
     }
 
+    private DocumentReference userNotificationDocument(@NonNull String email, @NonNull String userType, @NonNull String notificationId) {
+        return userNotificationCollection(email, userType)
+                .document(notificationId);
+    }
+
     private CollectionReference groupCollection(@NonNull String email) {
         return landlordDocument(email)
                 .collection(GROUPS);
@@ -423,15 +428,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         initialElectricityMonthData(landlordEmail, groupName, roomName, year, month);
 
         Map<String, Object> electricityYearly = new HashMap<>();
-//        Map<String, Object> electricityData = new HashMap<>();
         Map<String, Object> electricityData = getElectricityDataMap(electricity);
-
-//        electricityData.put(PRICE, electricity.getPrice());
-//        electricityData.put(SCALE_LAST, electricity.getScaleLast());
-//        electricityData.put(SCALE_THIS, electricity.getScale());
-//        electricityData.put(TIME, electricity.getTime());
-//        electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
-
         electricityYearly.put(month, electricityData);
 
         electricityDocument(landlordEmail, groupName, roomName, year)
@@ -472,12 +469,13 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getLandlordProfile(@NonNull String email, @NonNull final GetLandlordProfileCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS).document(email).get()
+        landlordDocument(email).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot landlordDoc = task.getResult();
+                    assert landlordDoc != null;
                     if (landlordDoc.exists()) {
                         Landlord landlord = LeLeLeParser.parseLandlordInfo(landlordDoc);
                         callback.onCompleted(landlord);
@@ -492,7 +490,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getTenantProfile(@NonNull String email, @NonNull final GetTenantProfileCallback callback) {
-        mFirebaseFirestore.collection(TENANTS).document(email).get()
+        tenantDocument(email).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -541,8 +539,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupData(@NonNull final String email, @NonNull final String groupName, @NonNull final GetGroupDataCallback callback) {
-        groupDocument(email, groupName)
-                .get()
+        groupDocument(email, groupName).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -571,8 +568,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void uploadTenant(@NonNull Tenant tenant) {
-        tenantDocument(tenant.getEmail())
-                .set(tenant);
+        tenantDocument(tenant.getEmail()).set(tenant);
     }
 
     @Override
@@ -586,19 +582,14 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         landlordMap.put("id", landlord.getId());
         landlordMap.put("name", landlord.getName());
         landlordMap.put("picture", landlord.getPicture());
-        landlordDocument(landlord.getEmail())
-                .set(landlordMap);
+        landlordDocument(landlord.getEmail()).set(landlordMap);
     }
 
     @Override
     public void groupArticlesListener(@NonNull String email, @NonNull String groupName, final ArticlesCallback callback) {
 
         Log.d(TAG, "groupArticlesListener: ");
-        ListenerRegistration registration = mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ARTICLES)
+        ListenerRegistration registration = groupArticleCollection(email, groupName)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -624,9 +615,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
             user = TENANTS;
         }
 
-        mFirebaseFirestore.collection(user)
-                .document(email)
-                .collection(ARTICLES)
+        userArticleCollection(email, user)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -646,10 +635,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                          @NonNull final PushNotificationCallback callback) {
 
         long time= System.currentTimeMillis();
-        mFirebaseFirestore.collection(TENANTS)
-                .document(email)
-                .collection(NOTIFICATION)
-                .document(String.valueOf(time))
+        userNotificationDocument(email, TENANTS, String.valueOf(time))
                 .set(notification)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -666,10 +652,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     @Override
     public void pushNotificationToLandlord(@NonNull Notification notification, @NonNull String email, @NonNull final PushNotificationCallback callback) {
         long time= System.currentTimeMillis();
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(NOTIFICATION)
-                .document(String.valueOf(time))
+        userNotificationDocument(email, LANDLORDS, String.valueOf(time))
                 .set(notification)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

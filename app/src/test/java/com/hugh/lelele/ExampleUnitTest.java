@@ -12,6 +12,21 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        assertEquals(2, fibonacci(3));
+    }
+
+    private int plusXandY(int x, int y) {
+        return x + y;
+    }
+
+    private int fibonacci(int n) {
+
+        if (n == 0) {
+            return 0;
+        } else if (n == 1) {
+            return 1;
+        } else {
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
     }
 }

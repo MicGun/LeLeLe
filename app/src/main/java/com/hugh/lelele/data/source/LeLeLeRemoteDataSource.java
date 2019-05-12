@@ -145,8 +145,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * */
     @Override
     public void updateLandlordUser(@NonNull final String email, @NonNull final LandlordUserCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
+        landlordDocument(email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
@@ -157,15 +156,16 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             assert landlordDoc != null;
                             if (landlordDoc.exists()) {
                                 Landlord landlord = LeLeLeParser.parseLandlordInfo(landlordDoc);
+                                //每次重新登入就更新一次token
                                 landlord.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
                                 uploadLandlord(landlord);
                                 callback.onCompleted(landlord);
                             } else {
                                 Map<String, Object> user = getInitializeLandlordMap(email);
-                                mFirebaseFirestore.collection(LANDLORDS)
-                                        .document(email)
+                                landlordDocument(email)
                                         .set(user);
 
+                                //setup landlord in app
                                 Landlord landlord = new Landlord();
                                 landlord.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
                                 landlord.setId(UserManager.getInstance().getUserData().getId());
@@ -199,8 +199,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * */
     @Override
     public void updateTenantUser(@NonNull final String email, @NonNull final TenantUserCallback callback) {
-        mFirebaseFirestore.collection(TENANTS)
-                .document(email)
+        tenantDocument(email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
@@ -210,7 +209,6 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             DocumentSnapshot tenantDoc = task.getResult();
                             assert tenantDoc != null;
                             if (tenantDoc.exists()) {
-//                                Tenant tenant = LeLeLeParser.parseTenantInfo(tenantDoc);
                                 final Tenant tenant = tenantDoc.toObject(Tenant.class);
                                 tenant.setAssessToken(UserManager.getInstance().getUserData().getAssessToken());
                                 FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -224,7 +222,6 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                         callback.onCompleted(tenant);
                                     }
                                 });
-//                                callback.onCompleted(tenant);
                                 Log.v(TAG, "Tenant is already exist!");
                             } else {
 
@@ -241,15 +238,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                             String token = task.getResult().getToken();
                                             tenant.setPhoneToken(token);
                                         }
-                                        mFirebaseFirestore.collection(TENANTS)
-                                                .document(email)
+                                        tenantDocument(email)
                                                 .set(tenant);
                                         callback.onCompleted(tenant);
                                     }
                                 });
-//                                mFirebaseFirestore.collection(TENANTS)
-//                                        .document(email)
-//                                        .set(tenant);
                                 Log.v(TAG, "Create a new tenant: " + tenant.getName());
                             }
                         } else {
@@ -308,9 +301,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupList(@NonNull String email, @NonNull final GetGroupListCallback callback) {
-        CollectionReference groupCollection = groupCollection(email);
-
-        groupCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        groupCollection(email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -352,6 +343,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
+                            assert documentSnapshot != null;
                             if (documentSnapshot.exists()) {
                                 groupDocument(email, group.getGroupName())
                                         .update(groupInfo);
@@ -377,14 +369,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     public void getElectricityList(@NonNull final String email, @NonNull final String groupName,
                                    @NonNull final String year, @NonNull final String roomName,
                                    @NonNull final GetElectricityCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(ELECTRICITY_FEE)
-                .document(year)
+        electricityDocument(email, groupName, roomName, year)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -438,36 +423,24 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         initialElectricityMonthData(landlordEmail, groupName, roomName, year, month);
 
         Map<String, Object> electricityYearly = new HashMap<>();
-        Map<String, Object> electricityData = new HashMap<>();
-        electricityData.put(PRICE, electricity.getPrice());
-        electricityData.put(SCALE_LAST, electricity.getScaleLast());
-        electricityData.put(SCALE_THIS, electricity.getScale());
-        electricityData.put(TIME, electricity.getTime());
-        electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
+//        Map<String, Object> electricityData = new HashMap<>();
+        Map<String, Object> electricityData = getElectricityDataMap(electricity);
+
+//        electricityData.put(PRICE, electricity.getPrice());
+//        electricityData.put(SCALE_LAST, electricity.getScaleLast());
+//        electricityData.put(SCALE_THIS, electricity.getScale());
+//        electricityData.put(TIME, electricity.getTime());
+//        electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
 
         electricityYearly.put(month, electricityData);
 
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(landlordEmail)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(ELECTRICITY_FEE)
-                .document(String.valueOf(year))
+        electricityDocument(landlordEmail, groupName, roomName, year)
                 .update(electricityYearly);
     }
 
     @Override
     public void initialElectricityMonthData(final String landlordEmail, final String groupName, final String roomName, final String year, final String month) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(landlordEmail)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(ELECTRICITY_FEE)
-                .document(String.valueOf(year))
+        electricityDocument(landlordEmail, groupName, roomName, year)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -476,27 +449,25 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             Log.v(TAG, "initialElectricityMonthData: " + task.getResult().exists());
                             if (!task.getResult().exists()) {
                                 Map<String, Object> electricityYearly = new HashMap<>();
-                                Map<String, Object> electricityData = new HashMap<>();
                                 Electricity electricity = new Electricity();
-                                electricityData.put(PRICE, electricity.getPrice());
-                                electricityData.put(SCALE_LAST, electricity.getScaleLast());
-                                electricityData.put(SCALE_THIS, electricity.getScale());
-                                electricityData.put(TIME, electricity.getTime());
-                                electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
+                                Map<String, Object> electricityData = getElectricityDataMap(electricity);
                                 electricityYearly.put(month, electricityData);
-                                mFirebaseFirestore.collection(LANDLORDS)
-                                        .document(landlordEmail)
-                                        .collection(GROUPS)
-                                        .document(groupName)
-                                        .collection(ROOMS)
-                                        .document(roomName)
-                                        .collection(ELECTRICITY_FEE)
-                                        .document(String.valueOf(year))
+                                electricityDocument(landlordEmail, groupName, roomName, year)
                                         .set(electricityYearly);
                             }
                         }
                     }
                 });
+    }
+
+    private Map<String, Object> getElectricityDataMap(Electricity electricity) {
+        Map<String, Object> electricityData = new HashMap<>();
+        electricityData.put(PRICE, electricity.getPrice());
+        electricityData.put(SCALE_LAST, electricity.getScaleLast());
+        electricityData.put(SCALE_THIS, electricity.getScale());
+        electricityData.put(TIME, electricity.getTime());
+        electricityData.put(TOTAL_CONSUMPTION, electricity.getTotalConsumption());
+        return electricityData;
     }
 
     @Override
@@ -544,24 +515,14 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void updateRoom(@NonNull Room room, @NonNull String email, @NonNull String groupName) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(room.getRoomName())
+        roomDocument(email, groupName, room.getRoomName())
                 .set(room.getTenant());
 
     }
 
     @Override
     public void deleteRoom(@NonNull final Room room, @NonNull final String email, @NonNull final String groupName) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(room.getRoomName())
+        roomDocument(email, groupName, room.getRoomName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -571,12 +532,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             DocumentSnapshot roomDoc = task.getResult();
                             Log.v(TAG, "roomDoc" + roomDoc.exists());
                             Log.v(TAG, "roomDoc" + roomDoc.getId());
-                            mFirebaseFirestore.collection(LANDLORDS)
-                                    .document(email)
-                                    .collection(GROUPS)
-                                    .document(groupName)
-                                    .collection(ROOMS)
-                                    .document(room.getRoomName())
+                            roomDocument(email, groupName, room.getRoomName())
                                     .delete();
                         }
                     }
@@ -585,10 +541,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupData(@NonNull final String email, @NonNull final String groupName, @NonNull final GetGroupDataCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
+        groupDocument(email, groupName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -618,25 +571,23 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void uploadTenant(@NonNull Tenant tenant) {
-        mFirebaseFirestore.collection(TENANTS)
-                .document(tenant.getEmail())
+        tenantDocument(tenant.getEmail())
                 .set(tenant);
     }
 
     @Override
     public void uploadLandlord(@NonNull Landlord landlord) {
-        Map<String, Object> user = new HashMap<>();
-        user.put("email", landlord.getEmail());
-        user.put("ID_card_number", landlord.getIdCardNumber());
-        user.put("address", landlord.getAddress());
-        user.put("assess_token", landlord.getAssessToken());
-        user.put("phone_number", landlord.getPhoneNumber());
-        user.put("id", landlord.getId());
-        user.put("name", landlord.getName());
-        user.put("picture", landlord.getPicture());
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(landlord.getEmail())
-                .set(user);
+        Map<String, Object> landlordMap = new HashMap<>();
+        landlordMap.put("email", landlord.getEmail());
+        landlordMap.put("ID_card_number", landlord.getIdCardNumber());
+        landlordMap.put("address", landlord.getAddress());
+        landlordMap.put("assess_token", landlord.getAssessToken());
+        landlordMap.put("phone_number", landlord.getPhoneNumber());
+        landlordMap.put("id", landlord.getId());
+        landlordMap.put("name", landlord.getName());
+        landlordMap.put("picture", landlord.getPicture());
+        landlordDocument(landlord.getEmail())
+                .set(landlordMap);
     }
 
     @Override

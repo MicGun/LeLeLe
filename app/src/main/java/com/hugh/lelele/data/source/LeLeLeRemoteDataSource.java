@@ -12,7 +12,6 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -73,32 +72,72 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
     public LeLeLeRemoteDataSource() {
     }
 
-    private static DocumentReference landlordCollection(String landlordEmail) {
+    private static DocumentReference landlordDocument(String landlordEmail) {
         return mFirebaseFirestore.collection(LANDLORDS)
                 .document(landlordEmail);
     }
 
-    private static DocumentReference tenantCollection(String tenantEmail) {
+    private static DocumentReference tenantDocument(String tenantEmail) {
         return mFirebaseFirestore.collection(TENANTS)
                 .document(tenantEmail);
     }
 
-    private CollectionReference roomCollectionReference(@NonNull String email, @NonNull String groupName) {
-        return groupCollectionReference(email)
-                .document(groupName)
-                .collection(ROOMS);
+    private CollectionReference userArticleCollection(@NonNull String email, @NonNull String userType) {
+        return mFirebaseFirestore.collection(userType)
+                .document(email)
+                .collection(ARTICLES);
     }
 
-    private CollectionReference groupCollectionReference(@NonNull String email) {
-        return landlordCollection(email)
+    private CollectionReference userNotificationCollection(@NonNull String email, @NonNull String userType) {
+        return mFirebaseFirestore.collection(userType)
+                .document(email)
+                .collection(NOTIFICATION);
+    }
+
+    private CollectionReference groupCollection(@NonNull String email) {
+        return landlordDocument(email)
                 .collection(GROUPS);
     }
 
-    private DocumentReference groupDocument(@NonNull String email, String landlords, String groups, String groupName) {
-        return mFirebaseFirestore.collection(landlords)
-                .document(email)
-                .collection(groups)
+    private DocumentReference groupDocument(@NonNull String email, String groupName) {
+        return groupCollection(email)
                 .document(groupName);
+    }
+
+    private CollectionReference roomCollection(@NonNull String email, @NonNull String groupName) {
+        return groupDocument(email, groupName)
+                .collection(ROOMS);
+    }
+
+    private DocumentReference roomDocument(@NonNull String email, @NonNull String groupName, @NonNull String roomName) {
+        return roomCollection(email, groupName)
+                .document(roomName);
+    }
+
+    private CollectionReference electricityCollection(@NonNull String email, @NonNull String groupName, @NonNull String roomName) {
+        return roomDocument(email, groupName, roomName)
+                .collection(ELECTRICITY_FEE);
+    }
+
+    private DocumentReference electricityDocument(@NonNull String email, @NonNull String groupName,
+                                                      @NonNull String roomName, @NonNull String year) {
+        return electricityCollection(email, groupName, roomName)
+                .document(year);
+    }
+
+    private CollectionReference messageCollection(@NonNull String email, @NonNull String groupName, @NonNull String roomName) {
+        return roomDocument(email, groupName, roomName)
+                .collection(MESSAGES);
+    }
+
+    private DocumentReference messageDocument(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull String id) {
+        return messageCollection(email, groupName, roomName)
+                .document(id);
+    }
+
+    private CollectionReference groupArticleCollection(@NonNull String email, @NonNull String groupName) {
+        return groupDocument(email, groupName)
+                .collection(ARTICLES);
     }
 
     /*
@@ -227,7 +266,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
      * */
     @Override
     public void getRoomList(@NonNull final String email, @NonNull final String groupName, @NonNull final GetRoomListCallback callback) {
-        roomCollectionReference(email, groupName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        roomCollection(email, groupName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -269,7 +308,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupList(@NonNull String email, @NonNull final GetGroupListCallback callback) {
-        CollectionReference groupCollection = groupCollectionReference(email);
+        CollectionReference groupCollection = groupCollection(email);
 
         groupCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -306,7 +345,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         groupInfo.put("max_room_numbers", group.getGroupRoomNumber());
         groupInfo.put("tenant_numbers", group.getGroupTenantNumber());
 
-        groupDocument(email, LANDLORDS, GROUPS, group.getGroupName())
+        groupDocument(email, group.getGroupName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -314,11 +353,11 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                groupDocument(email, LANDLORDS, GROUPS, group.getGroupName())
+                                groupDocument(email, group.getGroupName())
                                         .update(groupInfo);
                                 callback.onCompleted();
                             } else {
-                                groupDocument(email, LANDLORDS, GROUPS, group.getGroupName())
+                                groupDocument(email, group.getGroupName())
                                         .set(groupInfo);
                                 callback.onCompleted();
                             }
@@ -650,24 +689,6 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                     }
                 });
     }
-
-//    @Override
-//    public void pushNotificationToTenant(@NonNull Map<String, Object> notificationMessage, @NonNull String email, @NonNull final PushNotificationCallback callback) {
-//        mFirebaseFirestore.collection(TENANTS)
-//                .document(email)
-//                .collection(NOTIFICATION)
-//                .add(notificationMessage)
-//                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentReference> task) {
-//                        if (task.isSuccessful()) {
-//                            callback.onCompleted();
-//                        } else {
-//                            callback.onError(String.valueOf(task.getException()));
-//                        }
-//                    }
-//                });
-//    }
 
     @Override
     public void pushNotificationToTenant(@NonNull Notification notification, @NonNull String email,

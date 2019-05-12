@@ -761,40 +761,19 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                   @NonNull String groupName, @NonNull String roomName) {
 
         long time = System.currentTimeMillis();
-
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(MESSAGES)
-                .document(String.valueOf(time))
+        messageDocument(email, groupName, roomName, String.valueOf(time))
                 .set(message);
     }
 
     @Override
     public void updateMessageToRoom(@NonNull Message message, @NonNull String email, @NonNull String groupName, @NonNull String roomName) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(MESSAGES)
-                .document(message.getId())
+        messageDocument(email, groupName, roomName, message.getId())
                 .set(message);
     }
 
     @Override
     public void getMessagesFromRoom(@NonNull String email, @NonNull String groupName, @NonNull String roomName, @NonNull final GetMessagesCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
-                .collection(ROOMS)
-                .document(roomName)
-                .collection(MESSAGES)
+        messageCollection(email, groupName, roomName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -821,13 +800,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                                 @NonNull String roomName, @NonNull boolean switchOn,
                                 final MessageCallback callback) {
         if (switchOn) {
-            mMessageListener = mFirebaseFirestore.collection(LANDLORDS)
-                    .document(email)
-                    .collection(GROUPS)
-                    .document(groupName)
-                    .collection(ROOMS)
-                    .document(roomName)
-                    .collection(MESSAGES)
+            mMessageListener = messageCollection(email, groupName, roomName)
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

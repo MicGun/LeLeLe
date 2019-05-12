@@ -668,10 +668,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
 
     @Override
     public void getGroupInfo(@NonNull final String email, @NonNull final String groupName, @NonNull final GetGroupInfoCallback callback) {
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(groupName)
+        groupDocument(email, groupName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -695,10 +692,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         groupInfo.put("max_room_numbers", group.getGroupRoomNumber());
         groupInfo.put("tenant_numbers", group.getGroupTenantNumber());
 
-        mFirebaseFirestore.collection(LANDLORDS)
-                .document(email)
-                .collection(GROUPS)
-                .document(group.getGroupName())
+        groupDocument(email, group.getGroupName())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -707,16 +701,10 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             assert documentSnapshot != null;
                             if (documentSnapshot.exists()) {
-                                mFirebaseFirestore.collection(LANDLORDS)
-                                        .document(email)
-                                        .collection(GROUPS)
-                                        .document(group.getGroupName())
+                                groupDocument(email, group.getGroupName())
                                         .update(groupInfo);
                             } else {
-                                mFirebaseFirestore.collection(LANDLORDS)
-                                        .document(email)
-                                        .collection(GROUPS)
-                                        .document(group.getGroupName())
+                                groupDocument(email, group.getGroupName())
                                         .set(groupInfo);
                             }
                         }

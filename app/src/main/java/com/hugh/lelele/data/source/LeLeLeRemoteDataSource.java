@@ -720,9 +720,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
         } else {
             userType = TENANTS;
         }
-        mFirebaseFirestore.collection(userType)
-                .document(email)
-                .collection(NOTIFICATION)
+        userNotificationCollection(email, userType)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -754,10 +752,7 @@ public class LeLeLeRemoteDataSource implements LeLeLeDataSource {
             userType = TENANTS;
         }
 
-        mFirebaseFirestore.collection(userType)
-                .document(email)
-                .collection(NOTIFICATION)
-                .document(notification.getId())
+        userNotificationDocument(email, userType, notification.getId())
                 .set(notification);
     }
 

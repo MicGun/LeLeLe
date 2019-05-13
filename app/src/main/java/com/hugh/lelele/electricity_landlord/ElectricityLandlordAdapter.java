@@ -39,36 +39,52 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
     private final String BASE_LINE_MONTH = "00";
 
-    //單位度數電費
-    private final int UNIT_PRICE = 5;
-
     public ElectricityLandlordAdapter(ElectricityLandlordContract.Presenter presenter) {
         mPresenter = presenter;
         mUnitPrice = 0;
         mMonth = Calendar.getInstance().get(Calendar.MONTH);
-//        mMonth = 0;
         mYear = Calendar.getInstance().get(Calendar.YEAR);
-//        mYear = 2020;
 
         //to handle if wants to update Dec's electricity fee of last year
-        if (mMonth == 0) {
-            mYearBeUpdated = String.valueOf(mYear - 1);
-            mMonthBeUpdated = "12";
+
+        mMonthBeUpdated = getMonthBeUpdated(mMonth);
+        mYearBeUpdated = getYearBeUpdated(mMonth, mYear);
+        mMonthBeUpdatedNext = getMonthBeUpdatedNext(mMonth);
+
+    }
+
+    private String getMonthBeUpdated(int month) {
+        String monthBeUpdated;
+        if (month == 0) {
+            monthBeUpdated = "12";
         } else {
-            mYearBeUpdated = String.valueOf(mYear);
-            if (mMonth < 10) {
-                mMonthBeUpdated = "0" + String.valueOf(mMonth);
+            if (month < 10) {
+                monthBeUpdated = "0" + String.valueOf(month);
             } else {
-                mMonthBeUpdated = String.valueOf(mMonth);
+                monthBeUpdated = String.valueOf(month);
             }
         }
+        return monthBeUpdated;
+    }
 
-        if (mMonth < 9) {
-            mMonthBeUpdatedNext = "0" + String.valueOf(mMonth + 1);
+    private String getMonthBeUpdatedNext(int month) {
+        String monthBeUpdatedNext;
+        if (month < 9) {
+            monthBeUpdatedNext = "0" + String.valueOf(month + 1);
         } else {
-            mMonthBeUpdatedNext = String.valueOf(mMonth + 1);
+            monthBeUpdatedNext = String.valueOf(month + 1);
         }
+        return monthBeUpdatedNext;
+    }
 
+    private String getYearBeUpdated(int month, int year) {
+        String yearBeUpdated;
+        if (month == 0) {
+            yearBeUpdated = String.valueOf(year - 1);
+        } else {
+            yearBeUpdated = String.valueOf(year);
+        }
+        return yearBeUpdated;
     }
 
     public class ElectricityEditorLandlordItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -113,7 +129,6 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         final Room room = mRooms.get(i);
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
         final Electricity electricityThis = room.getElectricities().get(mMonth); //指標從0開始，有多一個base line month，因此長度會變為13
-//        final Electricity electricityThis = room.getElectricities().get(11); //指標從0開始
 
         //要初始化每年的一月，建立新的Electricity Collection
         if (mMonth == 0) {

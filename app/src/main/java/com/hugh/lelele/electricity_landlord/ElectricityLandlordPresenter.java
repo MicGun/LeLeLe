@@ -32,6 +32,9 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
     private final ElectricityLandlordContract.View mElectricityLandlordtView;
     ArrayList<Room> mRooms;
 
+    private int mMonth;
+    private int mYear;
+
     private final String TAG = ElectricityLandlordPresenter.class.getSimpleName();
 
     public ElectricityLandlordPresenter(@NonNull LeLeLeRepository leLeLeRepository,
@@ -39,7 +42,45 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
         mLeLeLeRepository = checkNotNull(leLeLeRepository, "leleleRepository cannot be null!");
         mElectricityLandlordtView = checkNotNull(electricityLandlordView, "electricityTenantView cannot be null!");
         mElectricityLandlordtView.setPresenter(this);
+
+        mMonth = Calendar.getInstance().get(Calendar.MONTH);
+        mYear = Calendar.getInstance().get(Calendar.YEAR);
     }
+
+    private String getMonthBeUpdated(int month) {
+        String monthBeUpdated;
+        if (month == 0) {
+            monthBeUpdated = "12";
+        } else {
+            if (month < 10) {
+                monthBeUpdated = "0" + String.valueOf(month);
+            } else {
+                monthBeUpdated = String.valueOf(month);
+            }
+        }
+        return monthBeUpdated;
+    }
+
+    private String getMonthBeUpdatedNext(int month) {
+        String monthBeUpdatedNext;
+        if (month < 9) {
+            monthBeUpdatedNext = "0" + String.valueOf(month + 1);
+        } else {
+            monthBeUpdatedNext = String.valueOf(month + 1);
+        }
+        return monthBeUpdatedNext;
+    }
+
+    private String getYearBeUpdated(int month, int year) {
+        String yearBeUpdated;
+        if (month == 0) {
+            yearBeUpdated = String.valueOf(year - 1);
+        } else {
+            yearBeUpdated = String.valueOf(year);
+        }
+        return yearBeUpdated;
+    }
+
     @Override
     public void start() {
 
@@ -89,17 +130,19 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
 
     @Override
     public void checkRoomData(ArrayList<Room> rooms) {
-        new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
-                UserManager.getInstance().getUserData().getGroupNow(),
-                String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
-                mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
-            @Override
-            public void onCompleted(ArrayList<Room> roomArrayList) {
-                mRooms = roomArrayList;
-                checkNoEmptyElectricityData(mRooms);
-                Log.v(TAG, "RoomsElectricityRecursive Working");
-            }
-        });
+
+        checkNoEmptyElectricityData(rooms);
+//        new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
+//                UserManager.getInstance().getUserData().getGroupNow(),
+//                String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+//                mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
+//            @Override
+//            public void onCompleted(ArrayList<Room> roomArrayList) {
+//                mRooms = roomArrayList;
+//                checkNoEmptyElectricityData(mRooms);
+//                Log.v(TAG, "RoomsElectricityRecursive Working");
+//            }
+//        });
     }
 
     @Override
@@ -126,10 +169,30 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
                 if (count == rooms.size()) {
                     mElectricityLandlordtView.toBackStack();
                     sendElectricityArticles(rooms);
+                    uploadElectricity2Rooms(rooms);
                     pushNotifications(rooms);
                 }
             }
 
+        }
+    }
+
+    private void uploadElectricity2Rooms(ArrayList<Room> rooms) {
+        for (Room room:rooms) {
+
+            //this month
+            uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(),
+                    room.getRoomName(), getYearBeUpdated(mMonth, mYear),
+                    getMonthBeUpdated(mMonth),
+                    room.getElectricities().get(mMonth));
+
+            //next month
+            uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(),
+                    room.getRoomName(), String.valueOf(mYear),
+                    getMonthBeUpdatedNext(mMonth),
+                    room.getElectricities().get(mMonth + 1));
         }
     }
 

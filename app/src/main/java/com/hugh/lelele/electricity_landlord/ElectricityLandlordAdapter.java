@@ -130,12 +130,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
         final Electricity electricityThis = room.getElectricities().get(mMonth); //指標從0開始，有多一個base line month，因此長度會變為13
 
-        //要初始化每年的一月，建立新的Electricity Collection
-        if (mMonth == 0) {
-            mPresenter.initialElectricityMonth(UserManager.getInstance().getLandlord().getEmail(),
-                    UserManager.getInstance().getUserData().getGroupNow(),
-                    room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext);
-        }
+        initElectricityDocument4NewYear(room);
 
         ((ElectricityEditorLandlordItemViewHolder) viewHolder).roomNumber.setText(room.getRoomName());
         if (!electricityThis.getScaleLast().equals("")) {
@@ -204,16 +199,8 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                         } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)) {
                             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
                                     .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));
-                            electricityThis.setScale(s.toString());
-                            int total_consumption = (int) (Double.valueOf(s.toString()) - Double.valueOf(electricityThis.getScaleLast()));
-                            int price = (int) Math.round(total_consumption * mUnitPrice);
-                            electricityThis.setPrice(String.valueOf(price));
-                            electricityThis.setTotalConsumption(String.valueOf(total_consumption));
-                            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
-                            mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
-                                    UserManager.getInstance().getUserData().getGroupNow(),
-                                    room.getRoomName(), mYearBeUpdated, mMonthBeUpdated, electricityThis);
+
+                            setElectricityThis(s, electricityThis);
 
                             if (mMonth == 0) {
                                 mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
@@ -222,11 +209,8 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                             }
 
                             //自動更新下月電費的初始值
-                            Electricity electricityNext = new Electricity();
+                            Electricity electricityNext = room.getElectricities().get(mMonth + 1);
                             electricityNext.setScaleLast(s.toString());
-                            mPresenter.uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
-                                    UserManager.getInstance().getUserData().getGroupNow(),
-                                    room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext, electricityNext);
                         }
                     }
 
@@ -243,6 +227,25 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
             }
         });
 
+    }
+
+    private void setElectricityThis(CharSequence s, Electricity electricityThis) {
+        electricityThis.setScale(s.toString());
+        int total_consumption = (int) (Double.valueOf(s.toString()) - Double.valueOf(electricityThis.getScaleLast()));
+        int price = (int) Math.round(total_consumption * mUnitPrice);
+        electricityThis.setPrice(String.valueOf(price));
+        electricityThis.setTotalConsumption(String.valueOf(total_consumption));
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        electricityThis.setTime(String.valueOf(formatter.format(Calendar.getInstance().getTime())));
+    }
+
+    private void initElectricityDocument4NewYear(Room room) {
+        //要初始化每年的一月，建立新的Electricity Collection
+        if (mMonth == 0) {
+            mPresenter.initialElectricityMonth(UserManager.getInstance().getLandlord().getEmail(),
+                    UserManager.getInstance().getUserData().getGroupNow(),
+                    room.getRoomName(), String.valueOf(mYear), mMonthBeUpdatedNext);
+        }
     }
 
     @Override

@@ -106,7 +106,7 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
         //call RoomsElectricityRecursive to get electric fee for each room.
         new RoomsElectricityRecursive(rooms, UserManager.getInstance().getLandlord().getEmail(),
                 UserManager.getInstance().getUserData().getGroupNow(),
-                String.valueOf(Calendar.getInstance().get(Calendar.YEAR)),
+                getYearBeUpdated(mMonth, mYear),
                 mLeLeLeRepository, new RoomsElectricityRecursiveCallback() {
             @Override
             public void onCompleted(ArrayList<Room> roomArrayList) {
@@ -188,11 +188,13 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
                     room.getElectricities().get(mMonth));
 
             //next month
+            Electricity electricityNext = new Electricity();
+            electricityNext.setScaleLast(room.getElectricities().get(mMonth).getScale());
             uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
                     UserManager.getInstance().getUserData().getGroupNow(),
                     room.getRoomName(), String.valueOf(mYear),
                     getMonthBeUpdatedNext(mMonth),
-                    room.getElectricities().get(mMonth + 1));
+                    electricityNext);
         }
     }
 

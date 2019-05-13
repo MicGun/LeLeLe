@@ -30,6 +30,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
     private ArrayList<Room> mRooms;
     private int mMonth;
     private int mYear;
+    private int mMonthIndex;
     private String mMonthBeUpdated;
     private String mYearBeUpdated;
     private String mMonthBeUpdatedNext;
@@ -51,6 +52,16 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         mYearBeUpdated = getYearBeUpdated(mMonth, mYear);
         mMonthBeUpdatedNext = getMonthBeUpdatedNext(mMonth);
 
+    }
+
+    private int getMonthIndex(int month) {
+        int monthIndex;
+        if (month == 0) {
+            monthIndex = 12;
+        } else {
+            monthIndex = month;
+        }
+        return monthIndex;
     }
 
     private String getMonthBeUpdated(int month) {
@@ -128,7 +139,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
         final Room room = mRooms.get(i);
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
-        final Electricity electricityThis = room.getElectricities().get(mMonth); //指標從0開始，有多一個base line month，因此長度會變為13
+        final Electricity electricityThis = room.getElectricities().get(getMonthIndex(mMonth)); //指標從0開始，有多一個base line month，因此長度會變為13
 
         initElectricityDocument4NewYear(room);
 
@@ -184,7 +195,6 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
                 String electricityLastData = String.valueOf(((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleLast.getText());
 
-
                 if (mUnitPrice != 0) {
 
                     //如果edittext為空就不執行
@@ -209,8 +219,8 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                             }
 
                             //自動更新下月電費的初始值
-                            Electricity electricityNext = room.getElectricities().get(mMonth + 1);
-                            electricityNext.setScaleLast(s.toString());
+//                            Electricity electricityNext = room.getElectricities().get(mMonth + 1);
+//                            electricityNext.setScaleLast(s.toString());
                         }
                     }
 

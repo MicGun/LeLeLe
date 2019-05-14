@@ -98,7 +98,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         return yearBeUpdated;
     }
 
-    public class ElectricityEditorLandlordItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ElectricityEditorLandlordItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView roomNumber;
         EditText scaleLast;
@@ -112,12 +112,6 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
             scaleLast = itemView.findViewById(R.id.text_landlord_item_view_scale_last);
             scaleThis = itemView.findViewById(R.id.edir_text_landlord_item_view_scale_this);
             cleanButton = itemView.findViewById(R.id.button_landlord_item_view_clean);
-            cleanButton.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-
         }
     }
 

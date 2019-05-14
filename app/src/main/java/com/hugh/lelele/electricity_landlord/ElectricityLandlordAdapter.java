@@ -156,7 +156,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
                                     .setTextColor(LeLeLe.getAppContext().getColor(R.color.red_ff0000));
 
-                            //本月度數高於上月度數即可上傳firestore
+                            //本月度數高於上月度數即設定scale
                         } else if (Integer.valueOf(s.toString()) >= Integer.valueOf(electricityLastData)) {
                             ((ElectricityEditorLandlordItemViewHolder) viewHolder).scaleThis
                                     .setTextColor(LeLeLe.getAppContext().getColor(R.color.black_3f3a3a));

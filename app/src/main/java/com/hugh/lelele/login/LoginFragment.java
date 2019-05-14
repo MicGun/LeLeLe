@@ -27,12 +27,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     private LoginContract.Presenter mPresenter;
 
-    private Spinner mUserTypeSelector;
     private Button mFacebookLoginButton;
     private int mUserType;
     private final String LANDLORD = "房東";
-    private RadioButton mLandlordRadioButton;
-    private RadioButton mTenantRadioButton;
     private RadioGroup mLoginUserTypeButtonGroup;
 
     private boolean mIsLoading;

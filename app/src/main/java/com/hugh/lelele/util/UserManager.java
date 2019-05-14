@@ -231,7 +231,6 @@ public class UserManager {
 
         mUserData = mUserDataDAO.getItems().get(0);
 
-        int userType = mUserData.getUserType();
         Log.v(TAG, "UserType" + mUserData.getUserType());
         if (mUserData.getUserType() == R.string.landlord) {
             //每次都要確定有設定UserType才不會造成系統作業混亂
@@ -282,7 +281,6 @@ public class UserManager {
 
         mUserData = mUserDataDAO.getItems().get(0);
 
-        int userType = mUserData.getUserType();
         Log.v(TAG, "UserType" + mUserData.getUserType());
         if (mUserData.getUserType() == R.string.landlord) {
             getLandlordProfile(mUserData.getEmail(), new LoadUserProfileCallback() {

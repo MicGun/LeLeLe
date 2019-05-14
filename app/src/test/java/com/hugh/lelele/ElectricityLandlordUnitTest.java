@@ -1,5 +1,6 @@
 package com.hugh.lelele;
 
+import com.hugh.lelele.data.Notification;
 import com.hugh.lelele.data.source.LeLeLeRepository;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordFragment;
 import com.hugh.lelele.electricity_landlord.ElectricityLandlordPresenter;
@@ -9,9 +10,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
-public class LeLeLeUnitTest {
+public class ElectricityLandlordUnitTest {
 
     @Mock
     ElectricityLandlordFragment mElectricityLandlordFragment;

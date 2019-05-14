@@ -25,6 +25,9 @@ public class LeLeLeRepository implements LeLeLeDataSource {
 
     private final String TAG = LeLeLeRepository.class.getSimpleName();
 
+    public LeLeLeRepository() {
+    }
+
     public LeLeLeRepository(@NonNull LeLeLeDataSource leLeLeRemoteDataSource) {
         mLeLeLeRemoteDataSource = checkNotNull(leLeLeRemoteDataSource);
     }

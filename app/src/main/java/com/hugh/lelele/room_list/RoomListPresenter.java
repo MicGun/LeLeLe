@@ -116,7 +116,12 @@ public class RoomListPresenter implements RoomListContract.Presenter {
                 UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.GetGroupInfoCallback() {
                     @Override
                     public void onCompleted(Group group) {
-                        int numberBefore = Integer.valueOf(group.getGroupTenantNumber());
+                        int numberBefore;
+                        if (group.getGroupTenantNumber().equals("")) {
+                            numberBefore = 0;
+                        } else {
+                            numberBefore = Integer.valueOf(group.getGroupTenantNumber());
+                        }
                         int numberAfter = numberBefore - 1;
                         group.setGroupTenantNumber(String.valueOf(numberAfter));
 

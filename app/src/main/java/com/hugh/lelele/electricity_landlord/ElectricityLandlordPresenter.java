@@ -47,6 +47,16 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
         mYear = Calendar.getInstance().get(Calendar.YEAR);
     }
 
+    private int getMonthIndex(int month) {
+        int monthIndex;
+        if (month == 0) {
+            monthIndex = 12;
+        } else {
+            monthIndex = month;
+        }
+        return monthIndex;
+    }
+
     private String getMonthBeUpdated(int month) {
         String monthBeUpdated;
         if (month == 0) {
@@ -185,11 +195,11 @@ public class ElectricityLandlordPresenter implements ElectricityLandlordContract
                     UserManager.getInstance().getUserData().getGroupNow(),
                     room.getRoomName(), getYearBeUpdated(mMonth, mYear),
                     getMonthBeUpdated(mMonth),
-                    room.getElectricities().get(mMonth));
+                    room.getElectricities().get(getMonthIndex(mMonth)));
 
             //next month
             Electricity electricityNext = new Electricity();
-            electricityNext.setScaleLast(room.getElectricities().get(mMonth).getScale());
+            electricityNext.setScaleLast(room.getElectricities().get(getMonthIndex(mMonth)).getScale());
             uploadElectricity(UserManager.getInstance().getLandlord().getEmail(),
                     UserManager.getInstance().getUserData().getGroupNow(),
                     room.getRoomName(), String.valueOf(mYear),

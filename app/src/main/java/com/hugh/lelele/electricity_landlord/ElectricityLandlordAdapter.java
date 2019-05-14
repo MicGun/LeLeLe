@@ -47,7 +47,6 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         mYear = Calendar.getInstance().get(Calendar.YEAR);
 
         //to handle if wants to update Dec's electricity fee of last year
-
         mMonthBeUpdated = getMonthBeUpdated(mMonth);
         mYearBeUpdated = getYearBeUpdated(mMonth, mYear);
         mMonthBeUpdatedNext = getMonthBeUpdatedNext(mMonth);
@@ -133,7 +132,9 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 
         final Room room = mRooms.get(i);
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
-        final Electricity electricityThis = room.getElectricities().get(getMonthIndex(mMonth)); //指標從0開始，有多一個base line month，因此長度會變為13
+
+        //指標從0開始，有多一個base line month，因此長度會變為13
+        final Electricity electricityThis = room.getElectricities().get(getMonthIndex(mMonth));
 
         initElectricityDocument4NewYear(room);
 
@@ -216,6 +217,10 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
 //                            Electricity electricityNext = room.getElectricities().get(mMonth + 1);
 //                            electricityNext.setScaleLast(s.toString());
                         }
+                    } else {
+                        Toast.makeText(LeLeLe.getAppContext(),
+                                LeLeLe.getAppContext().getResources().getString(R.string.last_scale_can_not_be_empty),
+                                Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

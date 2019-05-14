@@ -168,10 +168,6 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
                                         UserManager.getInstance().getUserData().getGroupNow(),
                                         room.getRoomName(), String.valueOf(mYear), BASE_LINE_MONTH, electricityThis);
                             }
-
-                            //自動更新下月電費的初始值
-//                            Electricity electricityNext = room.getElectricities().get(mMonth + 1);
-//                            electricityNext.setScaleLast(s.toString());
                         }
                     } else {
                         Toast.makeText(LeLeLe.getAppContext(),

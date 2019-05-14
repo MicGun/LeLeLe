@@ -305,13 +305,7 @@ public class HomePresenter implements HomeContract.Presenter {
                     @Override
                     public void onCompleted(Group group) {
 
-                        int numberBefore;
-                        if (group.getGroupTenantNumber().equals("")) {
-                            numberBefore = 0;
-                        } else {
-                            numberBefore = Integer.valueOf(group.getGroupTenantNumber());
-                        }
-                        int numberAfter = numberBefore + 1;
+                        int numberAfter = getIncreaseNumber(group);
                         group.setGroupTenantNumber(String.valueOf(numberAfter));
 
                         mLeLeLeRepository.updateGroupInfo(group, UserManager.getInstance().getTenant().getLandlordEmail(),
@@ -323,6 +317,16 @@ public class HomePresenter implements HomeContract.Presenter {
 
                     }
                 });
+    }
+
+    private int getIncreaseNumber(Group group) {
+        int numberBefore;
+        if (group.getGroupTenantNumber().equals("")) {
+            numberBefore = 0;
+        } else {
+            numberBefore = Integer.valueOf(group.getGroupTenantNumber());
+        }
+        return numberBefore + 1;
     }
 
     private void sendAgreeNotificationToLandlord() {

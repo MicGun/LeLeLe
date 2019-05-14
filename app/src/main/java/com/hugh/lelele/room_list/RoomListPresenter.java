@@ -116,13 +116,7 @@ public class RoomListPresenter implements RoomListContract.Presenter {
                 UserManager.getInstance().getUserData().getGroupNow(), new LeLeLeDataSource.GetGroupInfoCallback() {
                     @Override
                     public void onCompleted(Group group) {
-                        int numberBefore;
-                        if (group.getGroupTenantNumber().equals("")) {
-                            numberBefore = 0;
-                        } else {
-                            numberBefore = Integer.valueOf(group.getGroupTenantNumber());
-                        }
-                        int numberAfter = numberBefore - 1;
+                        int numberAfter = getDecreaseNumber(group);
                         group.setGroupTenantNumber(String.valueOf(numberAfter));
 
                         mLeLeLeRepository.updateGroupInfo(group, UserManager.getInstance().getUserData().getEmail(),
@@ -134,6 +128,16 @@ public class RoomListPresenter implements RoomListContract.Presenter {
 
                     }
                 });
+    }
+
+    private int getDecreaseNumber(Group group) {
+        int numberBefore;
+        if (group.getGroupTenantNumber().equals("")) {
+            numberBefore = 0;
+        } else {
+            numberBefore = Integer.valueOf(group.getGroupTenantNumber());
+        }
+        return numberBefore - 1;
     }
 
     private void sendRemoveFromRoomNotificationToTenant(Room room, final SendNotificationCallback callback) {

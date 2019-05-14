@@ -433,6 +433,42 @@ public class MainPresenter implements MainContract.Presenter, HomeContract.Prese
     }
 
     @Override
+    public int getMonthIndex(int month) {
+        if (mElectricityLandlordPresenter != null) {
+            return mElectricityLandlordPresenter.getMonthIndex(month);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public String getMonthBeUpdated(int month) {
+        if (mElectricityLandlordPresenter != null) {
+            return mElectricityLandlordPresenter.getMonthBeUpdated(month);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public String getMonthBeUpdatedNext(int month) {
+        if (mElectricityLandlordPresenter != null) {
+            return mElectricityLandlordPresenter.getMonthBeUpdatedNext(month);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public String getYearBeUpdated(int month, int year) {
+        if (mElectricityLandlordPresenter != null) {
+            return mElectricityLandlordPresenter.getYearBeUpdated(month, year);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void deleteRoom(Room room) {
         if (mGroupDetailsPresenter != null) {
             mGroupDetailsPresenter.deleteRoom(room);

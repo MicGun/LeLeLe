@@ -47,54 +47,10 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         mYear = Calendar.getInstance().get(Calendar.YEAR);
 
         //to handle if wants to update Dec's electricity fee of last year
-        mMonthBeUpdated = getMonthBeUpdated(mMonth);
-        mYearBeUpdated = getYearBeUpdated(mMonth, mYear);
-        mMonthBeUpdatedNext = getMonthBeUpdatedNext(mMonth);
+        mMonthBeUpdated = mPresenter.getMonthBeUpdated(mMonth);
+        mYearBeUpdated = mPresenter.getYearBeUpdated(mMonth, mYear);
+        mMonthBeUpdatedNext = mPresenter.getMonthBeUpdatedNext(mMonth);
 
-    }
-
-    private int getMonthIndex(int month) {
-        int monthIndex;
-        if (month == 0) {
-            monthIndex = 12;
-        } else {
-            monthIndex = month;
-        }
-        return monthIndex;
-    }
-
-    private String getMonthBeUpdated(int month) {
-        String monthBeUpdated;
-        if (month == 0) {
-            monthBeUpdated = "12";
-        } else {
-            if (month < 10) {
-                monthBeUpdated = "0" + String.valueOf(month);
-            } else {
-                monthBeUpdated = String.valueOf(month);
-            }
-        }
-        return monthBeUpdated;
-    }
-
-    private String getMonthBeUpdatedNext(int month) {
-        String monthBeUpdatedNext;
-        if (month < 9) {
-            monthBeUpdatedNext = "0" + String.valueOf(month + 1);
-        } else {
-            monthBeUpdatedNext = String.valueOf(month + 1);
-        }
-        return monthBeUpdatedNext;
-    }
-
-    private String getYearBeUpdated(int month, int year) {
-        String yearBeUpdated;
-        if (month == 0) {
-            yearBeUpdated = String.valueOf(year - 1);
-        } else {
-            yearBeUpdated = String.valueOf(year);
-        }
-        return yearBeUpdated;
     }
 
     public class ElectricityEditorLandlordItemViewHolder extends RecyclerView.ViewHolder {
@@ -134,7 +90,7 @@ public class ElectricityLandlordAdapter extends RecyclerView.Adapter {
         Log.v("adapter", "electricity size: " + room.getElectricities().size());
 
         //指標從0開始，有多一個base line month，因此長度會變為13
-        final Electricity electricityThis = room.getElectricities().get(getMonthIndex(mMonth));
+        final Electricity electricityThis = room.getElectricities().get(mPresenter.getMonthIndex(mMonth));
 
         initElectricityDocument4NewYear(room);
 

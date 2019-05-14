@@ -41,5 +41,13 @@ public interface ElectricityLandlordContract {
         void showLastFragment();
 
         void hideKeyBoard();
+
+        int getMonthIndex(int month);
+
+        String getMonthBeUpdated(int month);
+
+        String getMonthBeUpdatedNext(int month);
+
+        String getYearBeUpdated(int month, int year);
     }
 }

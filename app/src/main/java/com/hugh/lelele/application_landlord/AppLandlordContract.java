@@ -16,6 +16,8 @@ public interface AppLandlordContract {
         void showGroupListUi(ArrayList<Group> groups);
 
         void showProgressBar(boolean needs2Show);
+
+        void setLoading(boolean loading);
     }
 
     interface Presenter extends BasePresenter {

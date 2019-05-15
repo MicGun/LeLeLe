@@ -27,6 +27,8 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
     private Button mElectricityButton;
     private Button mMessageButton;
 
+    private boolean mIsLoading;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,10 +39,13 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
             @Override
             public void onClick(View v) {
 
-                if (UserManager.getInstance().getTenant().isBinding()) {
-                    mPresenter.loadElectricityData();
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                if (!isLoading()) {
+                    if (UserManager.getInstance().getTenant().isBinding()) {
+                        mPresenter.loadElectricityData();
+                        setLoading(true);
+                    } else {
+                        Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
@@ -50,13 +55,18 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
         mMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (UserManager.getInstance().getTenant().isBinding()) {
-                    mPresenter.loadRoomMessage();
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                if (!isLoading()) {
+                    if (UserManager.getInstance().getTenant().isBinding()) {
+                        mPresenter.loadRoomMessage();
+                        setLoading(true);
+                    } else {
+                        Toast.makeText(getContext(), getString(R.string.not_bind_yet), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+
+        setLoading(false);
 
         return root;
     }
@@ -83,5 +93,14 @@ public class AppTenantFragment extends Fragment implements AppTenantContract.Vie
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public boolean isLoading() {
+        return mIsLoading;
+    }
+
+    @Override
+    public void setLoading(boolean loading) {
+        mIsLoading = loading;
     }
 }

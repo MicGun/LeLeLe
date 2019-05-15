@@ -23,6 +23,8 @@ public interface AppTenantContract {
         void showElectricityUi(ArrayList<Electricity> electricityYearly);
 
         void openRoomMessageView(ArrayList<Message> messages);
+
+        void setLoading(boolean loading);
     }
 
     interface Presenter extends BasePresenter {

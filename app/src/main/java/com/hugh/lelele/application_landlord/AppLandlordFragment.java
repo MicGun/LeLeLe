@@ -34,6 +34,8 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
 
     private Landlord mLandlord;
 
+    private boolean mIsLoading;
+
     private static final String TAG = "AppLandlordFragment";
 
     @Nullable
@@ -49,10 +51,13 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         mElectricityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
-                    mPresenter.loadRoomList(mLandlord.getEmail(), UserManager.getInstance().getUserData().getGroupNow());
-                } else {
-                    Toast.makeText(getContext(), getString(R.string.select_group_before_edit), Toast.LENGTH_SHORT).show();
+                if (!isLoading()) {
+                    if (!UserManager.getInstance().getUserData().getGroupNow().equals("")) {
+                        mPresenter.loadRoomList(mLandlord.getEmail(), UserManager.getInstance().getUserData().getGroupNow());
+                        setLoading(true);
+                    } else {
+                        Toast.makeText(getContext(), getString(R.string.select_group_before_edit), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -61,8 +66,11 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         mGroupListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.loadGroupListFromApp(mLandlord.getEmail());
-                showProgressBar(true);
+                if (!isLoading()) {
+                    mPresenter.loadGroupListFromApp(mLandlord.getEmail());
+                    showProgressBar(true);
+                    setLoading(true);
+                }
             }
         });
 
@@ -92,6 +100,7 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
         });
 
         showProgressBar(false);
+        setLoading(false);
 
         return root;
     }
@@ -122,5 +131,14 @@ public class AppLandlordFragment extends Fragment implements AppLandlordContract
     @Override
     public void showGroupListUi(ArrayList<Group> groups) {
         mPresenter.openGroupList(groups);
+    }
+
+    public boolean isLoading() {
+        return mIsLoading;
+    }
+
+    @Override
+    public void setLoading(boolean loading) {
+        mIsLoading = loading;
     }
 }

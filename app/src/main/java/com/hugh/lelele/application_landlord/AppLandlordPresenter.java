@@ -43,6 +43,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Room> rooms) {
                 mAppLandlordView.showElectricityEditorUi(rooms);
+                mAppLandlordView.setLoading(false);
             }
 
             @Override
@@ -64,6 +65,7 @@ public class AppLandlordPresenter implements AppLandlordContract.Presenter {
             public void onCompleted(ArrayList<Group> groups) {
                 mAppLandlordView.showGroupListUi(groups);
                 mAppLandlordView.showProgressBar(false);
+                mAppLandlordView.setLoading(false);
                 setUserManagerLandlordGroups(groups);
             }
 

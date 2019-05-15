@@ -50,6 +50,7 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
                     @Override
                     public void onCompleted(ArrayList<Electricity> electricities) {
                         mAppTenantView.showElectricityUi(electricities);
+                        mAppTenantView.setLoading(false);
                     }
 
                     @Override
@@ -75,6 +76,7 @@ public class AppTenantPresenter implements AppTenantContract.Presenter {
             @Override
             public void onCompleted(ArrayList<Message> messages) {
                 mAppTenantView.openRoomMessageView(messages);
+                mAppTenantView.setLoading(false);
             }
 
             @Override

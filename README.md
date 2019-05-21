@@ -83,5 +83,6 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 * 1.0.3 - 2019/05/13 Lastest Version
 
 ## Contact
+Hugh Wang <br />
 n1553330708@gmail.com <br />
 n1553330708@yahoo.com.tw

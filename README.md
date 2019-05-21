@@ -32,7 +32,7 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 
 ## Screenshot
 
-<img src="https://i.imgur.com/DP3FLcF.png" width="210"> <img src="https://i.imgur.com/WupEw0U.png" width="210"> <img src="https://i.imgur.com/noFCc0I.png" width="210"> <img src="https://i.imgur.com/5HQEfj3.png" width="210">
+<img src="https://i.imgur.com/DP3FLcF.png" width="210"> <img src="https://i.imgur.com/WupEw0U.png" width="210"> <img src="https://i.imgur.com/ibQoe7v.png" width="210"> <img src="https://i.imgur.com/YwFie8z.png" width="210">
 
 ## Major Features
 -	Following MVP design pattern for making it easier to maintain and extend new features.

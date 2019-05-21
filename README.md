@@ -2,32 +2,32 @@
 LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to improve the communication between the landlord and the tenants. Landlords are able to create groups, invite tenants, and edit electricity fee of each room. Tenants are able to check own electricity fee, be invited to a room.
 <br /><br />[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="200">](https://play.google.com/store/apps/details?id=com.hugh.lelele)
 
-- Real-Time Chatting
+- #### Real-Time Chatting
   - Landlord and Tenant could send messages to each other any time.
-- Post Articles
+- #### Post Articles
   - Home page is designed as a bulletin board.
   - Landlords and Tenants are allowed to post articles.
   - Landlord can delete all articles, no matter who the auther is.
   - Tenant can only delete the articles which are written by him.
-- Electricity Fee
+- #### Electricity Fee
   - Landlords are able to edit the electricity fee of each and send a notifications to tenants after editting is done.
   - Tenants are able to check his electricity fee onlin.
   - Graphing the electricity fee for tenants.
-- Groups
+- #### Groups
   - Landlord could create new groups.
   - Landlord could edit his group details including add/ delete the rooms.
-- Rooms
+- #### Rooms
   - Landlord could check the room list of the group.
   - Lnadlord could invite tenant to a room.
   - Lnadlord could delete tenant from a room.
   - Lnadlord could cancle the invitation.
-- Inviting
+- #### Inviting
   - Landlord could send a invitation to a tenant by searching tenant's email.
   - Tenant could reject the invitation comming from landlord.
-- Profile
+- #### Profile
   - User will be asked to fill all his user detail information.
   - There's notifying articles on the home page, when the profil is not completed.
-- Notification
+- #### Notification
   - User could check his notifications in notification page.
 
 ## Screenshot
@@ -46,6 +46,34 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 -	Using Facebook API to implement the login function.
 -	Using Room to keep user data as a local database.
 -	Posting articles and showing the articles immediately through the Firestore real-time updates.
+
+##	Language
+- Java
+
+##	Design Pattern
+- MVP
+- OOP
+
+## Core
+- Activity
+- Fragment
+- Adapter
+- ViewHolder
+- Room
+- Singleton
+- Interface
+
+## User Interface
+- Radius Button
+- RecyclerView
+- Navigation Drawer Menu
+- Bottom Navigation
+- Dialog
+- MPAndroidChart
+
+## Quality Tracking
+- Google Analytics
+- Fabric Crashlytics
 
 ## Requirement
 - Android Studio 3.0+

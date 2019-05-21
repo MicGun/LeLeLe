@@ -77,7 +77,7 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 
 ## Requirement
 - Android Studio 3.0+
-- Android SDK 24+
+- Android 7.0+
 
 ## Version
 * 1.0.3 - 2019/05/13 Lastest Version

@@ -12,7 +12,7 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 - Electricity Fee
   - Landlords are able to edit the electricity fee of each and send a notifications to tenants after editting is done.
   - Tenants are able to check his electricity fee onlin.
-  - Graphing electricity fee for tenants.
+  - Graphing the electricity fee for tenants.
 - Groups
   - Landlord could create new groups.
   - Landlord could edit his group details including add/ delete the rooms.
@@ -32,7 +32,7 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 
 ## Screenshot
 
-<img src="https://i.imgur.com/6laMMlG.png" width="210"> <img src="https://i.imgur.com/VU1Mz3Z.png" width="210"> <img src="https://i.imgur.com/Ze9gh3F.png" width="210"> <img src="https://i.imgur.com/S08SczK.png" width="210">
+<img src="https://i.imgur.com/DP3FLcF.png" width="210"> <img src="https://i.imgur.com/WupEw0U.png" width="210"> <img src="https://i.imgur.com/noFCc0I.png" width="210"> <img src="https://i.imgur.com/5HQEfj3.png" width="210">
 
 ## Major Features
 -	Following MVP design pattern for making it easier to maintain and extend new features.

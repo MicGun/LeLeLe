@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 public void onSuccess() {
                     mPresenter.openHome();
                     mPresenter.loadNotificationsForBadge();
+                    mPresenter.loadGroupListDrawerMenu();
                 }
 
                 @Override
@@ -306,7 +307,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
 
         //if user type is landlord, to download group list and show on navigation menu
         if (mUserType == R.string.landlord) {
-            mPresenter.loadGroupListDrawerMenu();
+//            mPresenter.loadGroupListDrawerMenu();
         }
 
         // nav view header

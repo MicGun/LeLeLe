@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                 public void onSuccess() {
                     mPresenter.openHome();
                     mPresenter.loadNotificationsForBadge();
+                    //if user type is landlord, to download group list and show on navigation menu
                     mPresenter.loadGroupListDrawerMenu();
                 }
 
@@ -304,11 +305,6 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
         NavigationView navigationView = findViewById(R.id.navigation_drawer);
         navigationView.setNavigationItemSelectedListener(this);
         mDrawerMenu = navigationView.getMenu();
-
-        //if user type is landlord, to download group list and show on navigation menu
-        if (mUserType == R.string.landlord) {
-//            mPresenter.loadGroupListDrawerMenu();
-        }
 
         // nav view header
         mDrawerUserImage = navigationView.getHeaderView(0).findViewById(R.id.image_drawer_avatar);

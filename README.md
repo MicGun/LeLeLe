@@ -80,7 +80,7 @@ LeLeLe is naming from three words, Lessor, Lessee and Lease, using to help to im
 - Android 7.0+
 
 ## Version
-* 1.0.3 - 2019/05/13 Lastest Version
+- 1.0.4 - 2019/05/23 Lastest Version
 
 ## Contact
 Hugh Wang <br />

@@ -130,7 +130,9 @@ public class MainActivity extends BaseActivivty implements MainContract.View,
                     mPresenter.openHome();
                     mPresenter.loadNotificationsForBadge();
                     //if user type is landlord, to download group list and show on navigation menu
-                    mPresenter.loadGroupListDrawerMenu();
+                    if (UserManager.getInstance().getUserType() == R.string.landlord) {
+                        mPresenter.loadGroupListDrawerMenu();
+                    }
                 }
 
                 @Override
